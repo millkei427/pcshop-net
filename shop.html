@@ -3,7 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PC Shop 線上商店 | 澳門電子產品</title>
+<title>PC Shop 專業電腦店 | 澳門電腦、顯示器、電競裝備專門店</title>
+<meta name="description" content="澳門專業電腦店，提供Samsung、LG、ASUS、Gigabyte顯示器，電競裝備，DIY零件，桌上型電腦及電子白板。澳門最齊全電腦產品，3年保養，專業售後服務。">
+<meta name="keywords" content="澳門電腦店,澳門顯示器,澳門電競,澳門DIY電腦,Samsung顯示器澳門,LG顯示器澳門,ASUS澳門,Gigabyte澳門,電子白板澳門,PC Shop澳門,澳門電腦,澳門電子產品,Macau computer shop,Macau monitor">
+<meta name="author" content="PC Shop 專業電腦店">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://pcshop-net.com/shop.html">
+<!-- Open Graph for Facebook / Social sharing -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="PC Shop 專業電腦店 | 澳門電腦、顯示器、電競裝備">
+<meta property="og:description" content="澳門專業電腦店，Samsung、LG、ASUS、Gigabyte顯示器，電競裝備，DIY零件。3年保養，專業售後服務。">
+<meta property="og:url" content="https://pcshop-net.com/shop.html">
+<meta property="og:image" content="https://pcshop-net.com/smartboard-logo.png">
+<meta property="og:locale" content="zh_HK">
+<meta property="og:site_name" content="PC Shop 專業電腦店">
+<!-- Structured Data: Local Business -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ComputerStore",
+  "name": "PC Shop 專業電腦店",
+  "url": "https://pcshop-net.com",
+  "description": "澳門專業電腦及電子白板專門店，提供顯示器、電競裝備、DIY零件及桌上型電腦",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "澳門",
+    "addressCountry": "MO"
+  },
+  "areaServed": "澳門",
+  "priceRange": "$$",
+  "email": "info@pcshop-net.com",
+  "sameAs": [
+    "https://www.facebook.com/專業電腦店"
+  ]
+}
+</script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
@@ -2797,99 +2831,4 @@ function saveProd() {
     showToast('✅ 產品已更新！');
   } else {
     prod.id = Date.now();
-    products.push(prod);
-    showToast('✅ 產品已新增！');
-  }
-  saveProducts();
-  closeProdModal();
-  renderAdminStats();
-  renderAdminTable();
-}
-
-// ============================
-// DELETE PRODUCT
-// ============================
-let pendingDeleteId = null;
-function confirmDelete(id) {
-  const p = products.find(x=>x.id===id);
-  pendingDeleteId = id;
-  document.getElementById('confirmMsg').textContent = `確定要刪除「${p.name}」嗎？此動作不可復原。`;
-  document.getElementById('confirmOverlay').classList.add('open');
-}
-function closeConfirm() {
-  pendingDeleteId = null;
-  document.getElementById('confirmOverlay').classList.remove('open');
-}
-function doDelete() {
-  if (!pendingDeleteId) return;
-  products = products.filter(x=>x.id!==pendingDeleteId);
-  saveProducts();
-  closeConfirm();
-  showToast('🗑️ 產品已刪除');
-  renderAdminStats();
-  renderAdminTable();
-  pendingDeleteId = null;
-}
-
-// ============================
-// CORPORATE NAV HELPERS
-// ============================
-function smoothTo(id) {
-  const el = document.getElementById(id);
-  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-  return false;
-}
-function toggleSearch() {
-  const bar = document.getElementById('corpSearchBar');
-  bar.classList.toggle('open');
-  if (bar.classList.contains('open')) {
-    setTimeout(()=>document.getElementById('searchInput').focus(), 150);
-  }
-}
-function toggleMobileMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-function closeMobileMenu() {
-  document.getElementById('mobileMenu').classList.remove('open');
-}
-// Show/hide shop category nav when near shop section
-(function() {
-  const catNav = document.getElementById('shopCatNav');
-  if (!catNav) return;
-  catNav.style.display = 'none';
-  function checkScroll() {
-    const shop = document.getElementById('shop');
-    if (!shop) return;
-    const rect = shop.getBoundingClientRect();
-    const inShop = rect.top < 100 && rect.bottom > 100;
-    catNav.style.display = inShop ? 'flex' : 'none';
-  }
-  window.addEventListener('scroll', checkScroll, { passive: true });
-  checkScroll();
-})();
-
-function toggleShopSearch() {
-  const bar = document.getElementById('corpSearchBar');
-  bar.classList.toggle('open');
-  if (bar.classList.contains('open')) {
-    setTimeout(()=>document.getElementById('searchInput').focus(),150);
-  }
-}
-function toggleShopMobile() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-// Handle ?q= param on load
-(function(){
-  const params = new URLSearchParams(window.location.search);
-  const q = params.get('q');
-  if (q) {
-    document.addEventListener('DOMContentLoaded', function() {
-      const si = document.getElementById('searchInput');
-      if (si) { si.value = q; doSearch(); }
-    });
-  }
-})();
-
-</script>
-</body>
-</html>
+    products.push(prod)
