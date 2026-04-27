@@ -1,0 +1,3308 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PC Shop 專業電腦店 | 澳門專業電腦及電子白板</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --primary: #4AADA8;
+    --primary-dark: #358F8A;
+    --secondary: #F4845F;
+    --dark: #2D5F5D;
+    --text: #3D4A49;
+    --light: #F5FAFA;
+    --border: #D6ECEA;
+    --success: #5BAD8A;
+    --danger: #E07070;
+    --shadow: 0 2px 12px rgba(74,173,168,0.12);
+    --radius: 12px;
+  }
+  body { font-family: 'Segoe UI', 'PingFang HK', Arial, sans-serif; background: var(--light); color: var(--text); }
+
+  /* ===== HEADER ===== */
+  header {
+    background: linear-gradient(135deg, var(--dark) 0%, #1E4745 100%);
+    color: white;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 24px;
+  }
+  .logo {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: white;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .logo span { color: var(--primary); }
+  .search-bar {
+    flex: 1;
+    display: flex;
+    max-width: 560px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .search-bar input {
+    flex: 1;
+    border: none;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    outline: none;
+    color: var(--text);
+  }
+  .search-bar button {
+    background: var(--primary);
+    border: none;
+    padding: 10px 18px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background 0.2s;
+  }
+  .search-bar button:hover { background: var(--primary-dark); }
+  .header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-left: auto;
+  }
+  .cart-btn {
+    background: var(--secondary);
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .cart-btn:hover { background: #e05f00; transform: translateY(-1px); }
+  .cart-count {
+    background: white;
+    color: var(--secondary);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+
+  /* ===== NAV CATEGORIES ===== */
+  .category-nav {
+    background: rgba(255,255,255,0.07);
+    padding: 0 24px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+  }
+  .category-nav::-webkit-scrollbar { display: none; }
+  .cat-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.75);
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .cat-btn:hover { color: white; }
+  .cat-btn.active { color: white; border-bottom-color: var(--secondary); font-weight: 600; }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, #4AADA8 0%, #7ECECA 100%);
+    padding: 48px 32px;
+    text-align: center;
+    color: white;
+  }
+  .hero h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 12px; }
+  .hero p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 24px; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 50px;
+    padding: 8px 24px;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  /* ===== FILTERS ===== */
+  .filters-bar {
+    background: white;
+    padding: 14px 24px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    box-shadow: var(--shadow);
+    flex-wrap: wrap;
+  }
+  .filter-label { font-weight: 600; color: #666; font-size: 0.9rem; }
+  .sort-select {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    outline: none;
+    color: var(--text);
+  }
+  .price-filter {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .price-filter input {
+    width: 90px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-size: 0.9rem;
+    outline: none;
+  }
+  .filter-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+  .filter-btn:hover { background: var(--primary-dark); }
+  .result-count { margin-left: auto; color: #888; font-size: 0.9rem; }
+
+  /* ===== MAIN CONTENT ===== */
+  .main { max-width: 1280px; margin: 0 auto; padding: 28px 24px; }
+
+  /* ===== PRODUCT GRID ===== */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .product-card {
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+  }
+  .product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.15); }
+  .product-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--danger);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    z-index: 1;
+  }
+  .product-badge.new { background: var(--success); }
+  .product-badge.hot { background: var(--secondary); }
+  .product-img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background: linear-gradient(135deg, #EDF7F6 0%, #E0F0EF 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    padding: 12px;
+  }
+  .product-info { padding: 16px; }
+  .product-category { font-size: 0.78rem; color: var(--primary); font-weight: 600; text-transform: uppercase; margin-bottom: 6px; }
+  .product-name { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; line-height: 1.4; }
+  .product-desc { font-size: 0.82rem; color: #888; margin-bottom: 12px; line-height: 1.5; }
+  .product-rating { display: flex; align-items: center; gap: 4px; font-size: 0.82rem; color: #888; margin-bottom: 10px; }
+  .stars { color: #FFC107; }
+  .product-price-row { display: flex; align-items: center; gap: 10px; }
+  .product-price { font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+  .product-old-price { font-size: 0.85rem; color: #bbb;  }
+  .add-cart-btn {
+    width: 100%;
+    margin-top: 12px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .add-cart-btn:hover { background: var(--primary-dark); }
+  .add-cart-btn.added { background: var(--success); }
+
+  /* ===== EMPTY STATE ===== */
+  .empty-state {
+    text-align: center;
+    padding: 64px 24px;
+    color: #bbb;
+    grid-column: 1 / -1;
+  }
+  .empty-state .icon { font-size: 4rem; margin-bottom: 16px; }
+  .empty-state p { font-size: 1.1rem; }
+
+  /* ===== CART SIDEBAR ===== */
+  .cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+  .cart-sidebar {
+    position: fixed;
+    right: -440px;
+    top: 0;
+    width: 420px;
+    max-width: 100vw;
+    height: 100vh;
+    background: white;
+    z-index: 2001;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+  }
+  .cart-sidebar.open { right: 0; }
+  .cart-header {
+    background: var(--dark);
+    color: white;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cart-header h2 { font-size: 1.1rem; font-weight: 700; }
+  .close-cart {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .close-cart:hover { background: rgba(255,255,255,0.15); }
+  .cart-body { flex: 1; overflow-y: auto; padding: 20px; }
+  .cart-empty { text-align: center; padding: 60px 20px; color: #bbb; }
+  .cart-empty .icon { font-size: 3.5rem; margin-bottom: 12px; }
+  .cart-item {
+    display: flex;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .cart-item-img {
+    width: 60px;
+    height: 60px;
+    background: var(--light);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+  }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-size: 0.9rem; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+  .cart-item-price { font-size: 0.95rem; color: var(--primary); font-weight: 700; }
+  .cart-item-controls { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .qty-btn {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border);
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .qty-btn:hover { background: var(--light); border-color: var(--primary); }
+  .qty-num { font-weight: 600; min-width: 24px; text-align: center; }
+  .remove-item { background: none; border: none; color: #ccc; cursor: pointer; font-size: 1.1rem; margin-left: auto; transition: color 0.2s; }
+  .remove-item:hover { color: var(--danger); }
+  .cart-footer {
+    padding: 20px 24px;
+    border-top: 2px solid var(--border);
+    background: white;
+  }
+  .cart-summary { margin-bottom: 16px; }
+  .cart-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 0.9rem; color: #666; }
+  .cart-total { font-size: 1.15rem; font-weight: 800; color: var(--dark); padding-top: 8px; border-top: 1px solid var(--border); margin-top: 8px; }
+  .checkout-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--secondary) 0%, #F9A880 100%);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .checkout-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255,107,0,0.4); }
+
+  /* ===== CHECKOUT MODAL ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: white;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 540px;
+    max-height: 92vh;
+    overflow-y: auto;
+    transform: translateY(20px);
+    transition: transform 0.3s;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-header {
+    background: linear-gradient(135deg, var(--dark), #1E4745);
+    color: white;
+    padding: 22px 28px;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .modal-header h2 { font-size: 1.15rem; }
+  .close-modal { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+  .modal-body { padding: 28px; }
+  .form-section { margin-bottom: 24px; }
+  .form-section h3 { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--light); display: flex; align-items: center; gap: 8px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 6px; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: inherit;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
+  .payment-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .payment-option { border: 2px solid var(--border); border-radius: 10px; padding: 12px 8px; text-align: center; cursor: pointer; transition: all 0.2s; }
+  .payment-option:hover, .payment-option.selected { border-color: var(--primary); background: #f0f6ff; }
+  .payment-option .icon { font-size: 1.6rem; margin-bottom: 4px; }
+  .payment-option .name { font-size: 0.78rem; font-weight: 600; color: var(--text); }
+  .order-summary-box { background: var(--light); border-radius: 10px; padding: 16px; margin-top: 8px; }
+  .order-summary-box .row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 0.9rem; }
+  .order-summary-box .total-row { border-top: 2px solid var(--border); margin-top: 8px; padding-top: 10px; font-size: 1.05rem; font-weight: 800; color: var(--dark); }
+  .place-order-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary) 0%, #2D8F8A 100%);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-top: 8px;
+    transition: all 0.2s;
+  }
+  .place-order-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,102,255,0.4); }
+
+  /* ===== SUCCESS MODAL ===== */
+  .success-modal {
+    text-align: center;
+    padding: 48px 28px;
+  }
+  .success-icon { font-size: 5rem; margin-bottom: 16px; animation: pop 0.5s ease; }
+  @keyframes pop { 0%{transform:scale(0)} 70%{transform:scale(1.1)} 100%{transform:scale(1)} }
+  .success-modal h2 { font-size: 1.6rem; font-weight: 800; color: var(--success); margin-bottom: 10px; }
+  .success-modal p { color: #666; margin-bottom: 6px; }
+  .order-num { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
+  .continue-btn {
+    margin-top: 24px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .continue-btn:hover { background: var(--primary-dark); }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--dark);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    z-index: 9999;
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 24px;
+    margin-top: 40px;
+    font-size: 0.9rem;
+  }
+  footer strong { color: white; }
+
+  /* ===== ADMIN PANEL ===== */
+  .admin-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+    z-index: 5000; display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .admin-overlay.open { opacity: 1; pointer-events: all; }
+  .admin-login-box {
+    background: white; border-radius: 16px; padding: 40px 36px; width: 340px;
+    text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    transform: translateY(20px); transition: transform 0.3s;
+  }
+  .admin-overlay.open .admin-login-box { transform: translateY(0); }
+  .admin-login-box h2 { font-size: 1.3rem; color: var(--dark); margin-bottom: 6px; }
+  .admin-login-box p { font-size: 0.85rem; color: #888; margin-bottom: 24px; }
+  .admin-login-box input {
+    width: 100%; border: 1.5px solid var(--border); border-radius: 8px;
+    padding: 11px 14px; font-size: 0.95rem; outline: none; margin-bottom: 14px;
+    transition: border-color 0.2s;
+  }
+  .admin-login-box input:focus { border-color: var(--primary); }
+  .admin-login-btn {
+    width: 100%; background: var(--primary); color: white; border: none;
+    padding: 12px; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: 600;
+    transition: background 0.2s; margin-bottom: 10px;
+  }
+  .admin-login-btn:hover { background: var(--primary-dark); }
+  .admin-cancel-btn {
+    width: 100%; background: none; color: #999; border: none; cursor: pointer;
+    font-size: 0.88rem; padding: 6px;
+  }
+  /* Admin Panel Full Screen */
+  .admin-panel {
+    position: fixed; inset: 0; background: #F0F4F8; z-index: 4000;
+    display: none; flex-direction: column; overflow: hidden;
+  }
+  .admin-panel.open { display: flex; }
+  .admin-topbar {
+    background: linear-gradient(135deg, var(--dark) 0%, #1E4745 100%);
+    color: white; padding: 16px 28px; display: flex; align-items: center; gap: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  }
+  .admin-topbar h1 { font-size: 1.1rem; font-weight: 700; }
+  .admin-topbar span { font-size: 0.85rem; opacity: 0.7; }
+  .admin-close-btn {
+    margin-left: auto; background: rgba(255,255,255,0.15); border: none; color: white;
+    padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+  .admin-close-btn:hover { background: rgba(255,255,255,0.25); }
+  .admin-body { flex: 1; overflow-y: auto; padding: 28px; }
+  .admin-stats {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px; margin-bottom: 28px;
+  }
+  .stat-card {
+    background: white; border-radius: 12px; padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06); text-align: center;
+  }
+  .stat-card .stat-num { font-size: 2rem; font-weight: 800; color: var(--primary); }
+  .stat-card .stat-label { font-size: 0.85rem; color: #888; margin-top: 4px; }
+  .admin-toolbar {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap;
+  }
+  .admin-toolbar h2 { font-size: 1.05rem; font-weight: 700; color: var(--dark); }
+  .admin-add-btn {
+    background: var(--primary); color: white; border: none; padding: 10px 20px;
+    border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600;
+    display: flex; align-items: center; gap: 6px; transition: background 0.2s;
+  }
+  .admin-add-btn:hover { background: var(--primary-dark); }
+  .admin-search {
+    border: 1.5px solid var(--border); border-radius: 8px; padding: 9px 14px;
+    font-size: 0.9rem; outline: none; width: 220px;
+  }
+  .admin-table-wrap { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); overflow: hidden; }
+  .admin-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  .admin-table thead { background: var(--light); }
+  .admin-table th { padding: 13px 14px; text-align: left; font-weight: 700; color: #555; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  .admin-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .admin-table tr:last-child td { border-bottom: none; }
+  .admin-table tr:hover td { background: #fafefe; }
+  .admin-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+  .admin-badge.hot { background: #FEE8D8; color: #E05A00; }
+  .admin-badge.new { background: #D4F0E3; color: #1F7A4A; }
+  .admin-badge.sale { background: #FDDEDE; color: #C0392B; }
+  .admin-badge.none { background: #eee; color: #888; }
+  .tbl-edit-btn {
+    background: #EBF5FB; color: #2980B9; border: none; padding: 6px 13px;
+    border-radius: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600;
+    transition: background 0.2s; margin-right: 6px;
+  }
+  .tbl-edit-btn:hover { background: #D6EAF8; }
+  .tbl-del-btn {
+    background: #FDEDED; color: var(--danger); border: none; padding: 6px 13px;
+    border-radius: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600;
+    transition: background 0.2s;
+  }
+  .tbl-del-btn:hover { background: #FAD7D7; }
+  /* Product Form Modal */
+  .prod-modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    z-index: 6000; display: flex; align-items: center; justify-content: center;
+    padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s;
+  }
+  .prod-modal-overlay.open { opacity: 1; pointer-events: all; }
+  .prod-modal {
+    background: white; border-radius: 14px; width: 100%; max-width: 520px;
+    max-height: 90vh; overflow-y: auto;
+    transform: translateY(16px); transition: transform 0.25s;
+    box-shadow: 0 16px 50px rgba(0,0,0,0.25);
+  }
+  .prod-modal-overlay.open .prod-modal { transform: translateY(0); }
+  .prod-modal-header {
+    background: linear-gradient(135deg, var(--dark), #1E4745);
+    color: white; padding: 18px 24px; border-radius: 14px 14px 0 0;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .prod-modal-header h3 { font-size: 1rem; }
+  .prod-modal-close { background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; }
+  .prod-modal-body { padding: 24px; }
+  .prod-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .prod-form-group { margin-bottom: 16px; }
+  .prod-form-group label { display: block; font-size: 0.83rem; font-weight: 600; color: #555; margin-bottom: 6px; }
+  .prod-form-group input, .prod-form-group select, .prod-form-group textarea {
+    width: 100%; border: 1.5px solid var(--border); border-radius: 8px;
+    padding: 9px 12px; font-size: 0.9rem; outline: none; transition: border-color 0.2s; font-family: inherit;
+  }
+  .prod-form-group input:focus, .prod-form-group select:focus { border-color: var(--primary); }
+  .prod-save-btn {
+    width: 100%; background: var(--primary); color: white; border: none;
+    padding: 13px; border-radius: 9px; cursor: pointer; font-size: 1rem; font-weight: 700;
+    transition: background 0.2s; margin-top: 4px;
+  }
+  .prod-save-btn:hover { background: var(--primary-dark); }
+  /* Confirm Delete Modal */
+  .confirm-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+    z-index: 7000; display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  .confirm-overlay.open { opacity: 1; pointer-events: all; }
+  .confirm-box {
+    background: white; border-radius: 14px; padding: 32px 28px; width: 320px;
+    text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  }
+  .confirm-box .icon { font-size: 2.8rem; margin-bottom: 12px; }
+  .confirm-box h3 { font-size: 1.05rem; color: var(--dark); margin-bottom: 8px; }
+  .confirm-box p { font-size: 0.88rem; color: #888; margin-bottom: 22px; }
+  .confirm-btns { display: flex; gap: 10px; }
+  .confirm-yes { flex: 1; background: var(--danger); color: white; border: none; padding: 11px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.9rem; }
+  .confirm-no { flex: 1; background: var(--light); color: var(--text); border: 1.5px solid var(--border); padding: 11px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .header-top { flex-wrap: wrap; padding: 12px 16px; }
+    .logo { width: 100%; }
+    .search-bar { max-width: 100%; }
+    .hero h1 { font-size: 1.6rem; }
+    .cart-sidebar { width: 100vw; }
+    .form-row { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  }
+
+
+  /* ===== PC SHOP LOGO ===== */
+  .pcshop-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  /* SVG-based logo matching the flyer design */
+  .logo-svg-wrap {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+  }
+  .logo-text-wrap { display: flex; flex-direction: column; line-height: 1.15; }
+  .logo-text-main {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: white;
+    letter-spacing: 0.5px;
+  }
+  .logo-text-main .logo-pc { color: #4AADA8; }
+  .logo-text-main .logo-shop { color: white; }
+  .logo-text-sub {
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.5px;
+    font-weight: 400;
+    display: block;
+  }
+
+  /* ===== CORPORATE NAV ===== */
+  .corp-nav {
+    background: linear-gradient(135deg, var(--dark) 0%, #1E4745 100%);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .corp-nav-top {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 32px;
+    height: 64px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .corp-logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .corp-logo-icon { font-size: 1.8rem; line-height: 1; }
+  .corp-logo-text { display: flex; flex-direction: column; line-height: 1.2; }
+  .corp-logo-main {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: white;
+  }
+  .corp-logo-main .corp-logo-shop { color: var(--primary); }
+  .corp-logo-sub {
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.6px;
+    font-weight: 400;
+    margin-top: -1px;
+  }
+  .corp-nav-links {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+    justify-content: center;
+  }
+  .corp-nav-links a {
+    color: rgba(255,255,255,0.78);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .corp-nav-links a:hover { color: white; background: rgba(255,255,255,0.1); }
+  .corp-nav-links a.shop-link {
+    background: var(--secondary);
+    color: white;
+    border-radius: 20px;
+    padding: 7px 16px;
+  }
+  .corp-nav-links a.shop-link:hover { background: #e05f00; }
+  .corp-nav-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .corp-search-toggle {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+  .corp-search-toggle:hover { background: rgba(255,255,255,0.2); }
+  .corp-cart-btn {
+    background: var(--secondary);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  .corp-cart-btn:hover { background: #e05f00; transform: translateY(-1px); }
+  .corp-cart-count {
+    background: white;
+    color: var(--secondary);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+  /* Search bar dropdown */
+  .corp-search-bar {
+    background: rgba(0,0,0,0.25);
+    padding: 0 32px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+  .corp-search-bar.open {
+    max-height: 64px;
+    padding: 10px 32px;
+  }
+  .corp-search-inner {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .corp-search-inner input {
+    flex: 1;
+    border: none;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    outline: none;
+    color: var(--text);
+  }
+  .corp-search-inner button {
+    background: var(--primary);
+    border: none;
+    padding: 10px 18px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.1rem;
+  }
+  /* Shop category nav */
+  .shop-cat-nav {
+    background: rgba(255,255,255,0.07);
+    padding: 0 32px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  .shop-cat-nav::-webkit-scrollbar { display: none; }
+
+  /* Hamburger (mobile) */
+  .nav-hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-left: auto;
+  }
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: var(--dark);
+    padding: 12px 24px 20px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 1rem;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+
+  /* ===== CORP HERO ===== */
+  .corp-hero {
+    background: linear-gradient(135deg, #1E4745 0%, #2D5F5D 50%, #4AADA8 100%);
+    color: white;
+    padding: 100px 32px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .corp-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(ellipse, rgba(74,173,168,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .corp-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    right: -10%;
+    width: 50%;
+    height: 150%;
+    background: radial-gradient(ellipse, rgba(244,132,95,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .corp-hero-badge {
+    display: inline-block;
+    background: rgba(74,173,168,0.3);
+    border: 1px solid rgba(74,173,168,0.5);
+    color: #A8E6E3;
+    border-radius: 20px;
+    padding: 6px 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .corp-hero h1 {
+    font-size: 3.2rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .corp-hero h1 span { color: #7ECECA; }
+  .corp-hero p {
+    font-size: 1.2rem;
+    opacity: 0.85;
+    max-width: 560px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+    position: relative;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+  .hero-cta-group {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .hero-cta-primary {
+    background: var(--secondary);
+    color: white;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .hero-cta-primary:hover { background: #e05f00; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(244,132,95,0.4); }
+  .hero-cta-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.5);
+    padding: 14px 36px;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .hero-cta-secondary:hover { border-color: white; background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num { font-size: 2rem; font-weight: 800; color: #7ECECA; }
+  .hero-stat-label { font-size: 0.85rem; opacity: 0.7; margin-top: 4px; }
+
+  /* ===== ABOUT SECTION ===== */
+  .section-about {
+    background: white;
+    padding: 80px 32px;
+  }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    text-align: center;
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: #6c7a7a;
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin: 0 auto 56px;
+    line-height: 1.7;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .about-text h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 16px;
+  }
+  .about-text p {
+    color: #5a6868;
+    line-height: 1.8;
+    margin-bottom: 16px;
+    font-size: 1rem;
+  }
+  .about-highlights {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .about-highlight {
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    text-align: center;
+  }
+  .about-highlight-num {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--primary);
+  }
+  .about-highlight-label {
+    font-size: 0.82rem;
+    color: #6c7a7a;
+    margin-top: 4px;
+  }
+  .about-visual {
+    background: linear-gradient(135deg, var(--dark) 0%, #4AADA8 100%);
+    border-radius: 24px;
+    padding: 48px 40px;
+    color: white;
+    text-align: center;
+  }
+  .about-visual-icon { font-size: 4rem; margin-bottom: 20px; }
+  .about-visual h4 { font-size: 1.4rem; font-weight: 700; margin-bottom: 10px; }
+  .about-visual p { opacity: 0.85; line-height: 1.7; }
+
+  /* ===== SERVICES SECTION ===== */
+  .section-services {
+    background: var(--light);
+    padding: 80px 32px;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .service-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(74,173,168,0.15); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon { font-size: 2.4rem; margin-bottom: 16px; }
+  .service-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+  .service-card p { color: #6c7a7a; font-size: 0.93rem; line-height: 1.65; }
+
+  /* ===== WHY US SECTION ===== */
+  .section-why {
+    background: linear-gradient(135deg, var(--dark) 0%, #1E4745 100%);
+    padding: 80px 32px;
+    color: white;
+  }
+  .section-why .section-title { color: white; }
+  .section-why .section-subtitle { color: rgba(255,255,255,0.7); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+  }
+  .why-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    text-align: center;
+    transition: all 0.25s;
+  }
+  .why-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-4px); }
+  .why-icon { font-size: 2.4rem; margin-bottom: 14px; }
+  .why-card h3 { font-size: 1rem; font-weight: 700; color: #A8E6E3; margin-bottom: 8px; }
+  .why-card p { color: rgba(255,255,255,0.7); font-size: 0.88rem; line-height: 1.6; }
+
+  /* ===== HISTORY SECTION ===== */
+  .section-history {
+    background: white;
+    padding: 80px 32px;
+  }
+  .timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+    transform: translateX(-50%);
+  }
+  .timeline-item {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: calc(50% + 28px);
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .timeline-item:nth-child(even) {
+    justify-content: flex-start;
+    padding-right: 0;
+    padding-left: calc(50% + 28px);
+  }
+  .timeline-dot {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    width: 16px;
+    height: 16px;
+    background: var(--primary);
+    border: 3px solid white;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 0 3px var(--border);
+  }
+  .timeline-card {
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    width: 100%;
+  }
+  .timeline-year {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .timeline-card h4 { color: var(--dark); font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+  .timeline-card p { color: #6c7a7a; font-size: 0.88rem; line-height: 1.6; }
+
+  /* Projects grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .project-card {
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .project-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .project-card-img {
+    background: linear-gradient(135deg, #2D5F5D, #4AADA8);
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+  }
+  .project-card-body { padding: 20px; }
+  .project-tag {
+    display: inline-block;
+    background: rgba(74,173,168,0.12);
+    color: var(--primary-dark);
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .project-card h4 { color: var(--dark); font-size: 0.97rem; font-weight: 700; margin-bottom: 6px; }
+  .project-card p { color: #6c7a7a; font-size: 0.85rem; line-height: 1.55; }
+
+  /* ===== SHOP SECTION ===== */
+  .section-shop {
+    background: var(--light);
+    padding-top: 0;
+  }
+  .shop-section-header {
+    background: linear-gradient(135deg, #4AADA8 0%, #7ECECA 100%);
+    padding: 56px 32px 40px;
+    text-align: center;
+    color: white;
+  }
+  .shop-section-header h2 { font-size: 2rem; font-weight: 800; margin-bottom: 10px; }
+  .shop-section-header p { font-size: 1rem; opacity: 0.9; }
+
+  /* ===== CONTACT SECTION ===== */
+  .section-contact {
+    background: var(--light);
+    padding: 80px 32px;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .contact-info h3 { font-size: 1.3rem; font-weight: 700; color: var(--dark); margin-bottom: 24px; }
+  .contact-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .contact-icon {
+    background: linear-gradient(135deg, var(--primary), var(--dark));
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .contact-item-text h4 { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+  .contact-item-text p { color: #6c7a7a; font-size: 0.9rem; line-height: 1.6; }
+  .contact-item-text a { color: var(--primary); text-decoration: none; }
+  .contact-item-text a:hover { text-decoration: underline; }
+  .contact-form {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+  }
+  .contact-form h3 { font-size: 1.2rem; font-weight: 700; color: var(--dark); margin-bottom: 20px; }
+  .cf-group { margin-bottom: 16px; }
+  .cf-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .cf-group input, .cf-group textarea, .cf-group select {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.93rem;
+    outline: none;
+    color: var(--text);
+    transition: border 0.2s;
+    font-family: inherit;
+  }
+  .cf-group input:focus, .cf-group textarea:focus, .cf-group select:focus { border-color: var(--primary); }
+  .cf-group textarea { resize: vertical; min-height: 100px; }
+  .cf-submit {
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .cf-submit:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+
+  /* ===== SMARTBOARD SECTION ===== */
+  .section-smartboard {
+    background: linear-gradient(180deg, #F5FAFA 0%, white 100%);
+    padding: 80px 32px;
+    border-top: 4px solid var(--primary);
+  }
+  .sb-hero {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 48px;
+    align-items: center;
+    margin-bottom: 64px;
+  }
+  .sb-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #4AADA8, #2D5F5D);
+    color: white;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .sb-hero-left h3 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--dark);
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+  .sb-hero-left p {
+    color: #5a6868;
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 28px;
+  }
+  .sb-specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .sb-spec {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+  }
+  .sb-spec span { font-size: 1.3rem; }
+  .sb-spec strong { display: block; font-size: 0.85rem; color: var(--dark); }
+  .sb-spec small { color: #6c7a7a; font-size: 0.78rem; }
+  /* Spec table */
+  .sb-spec-table {
+    border: 1px solid #D6ECEA;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+  }
+  .sb-spec-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    border-bottom: 1px solid #E8F4F3;
+  }
+  .sb-spec-row:last-child { border-bottom: none; }
+  .sb-spec-label {
+    background: #EBF7F6;
+    color: #2D5F5D;
+    font-weight: 700;
+    padding: 7px 10px;
+    font-size: 0.78rem;
+  }
+  .sb-spec-val {
+    background: white;
+    color: #444;
+    padding: 7px 12px;
+    line-height: 1.5;
+  }
+  .sb-cta-group { display: flex; gap: 12px; flex-wrap: wrap; }
+  .sb-cta-primary {
+    background: var(--secondary);
+    color: white;
+    padding: 13px 28px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .sb-cta-primary:hover { background: #e05f00; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(244,132,95,0.35); }
+  .sb-cta-secondary {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    padding: 11px 24px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .sb-cta-secondary:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+  .sb-display {
+    background: linear-gradient(135deg, #1E4745, #4AADA8);
+    border-radius: 20px;
+    padding: 32px;
+    aspect-ratio: 16/10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 60px rgba(74,173,168,0.25);
+  }
+  .sb-screen {
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    color: white;
+    width: 100%;
+  }
+  .sb-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+  .sb-feature {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 20px;
+    transition: all 0.2s;
+  }
+  .sb-feature:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--primary); }
+  .sb-feature-icon { font-size: 2rem; margin-bottom: 10px; }
+  .sb-feature h4 { font-size: 0.97rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+  .sb-feature p { color: #6c7a7a; font-size: 0.85rem; line-height: 1.6; }
+  .sb-services {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    background: linear-gradient(135deg, var(--dark), #1E4745);
+    border-radius: 16px;
+    padding: 32px;
+  }
+  .sb-service-card { text-align: center; color: white; }
+  .sb-service-icon { font-size: 2.2rem; margin-bottom: 12px; }
+  .sb-service-card h4 { font-size: 0.97rem; font-weight: 700; color: #A8E6E3; margin-bottom: 8px; }
+  .sb-service-card p { color: rgba(255,255,255,0.75); font-size: 0.83rem; line-height: 1.6; }
+  /* Purple icon trio */
+  .sb-trio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+    text-align: center;
+  }
+  .sb-trio-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .sb-trio-item h4 { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin: 0; }
+  .sb-trio-item p { font-size: 0.82rem; color: #6c7a7a; line-height: 1.5; margin: 0; }
+  /* Scene showcase */
+  .sb-scenes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+  .sb-scene-card {
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    border: 1px solid #E8F0EF;
+  }
+  .sb-scene-img { overflow: hidden; line-height: 0; }
+  .sb-scene-caption { padding: 16px; }
+  .sb-scene-tag {
+    display: inline-block;
+    background: #EBF7F6;
+    color: #2D5F5D;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+  .sb-scene-caption h4 { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+  .sb-scene-caption p { font-size: 0.8rem; color: #6c7a7a; line-height: 1.55; margin: 0; }
+  /* ===== PHOTO GALLERY ===== */
+  .sb-gallery { margin-top: 56px; text-align: center; }
+  .sb-gallery-title {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #1a1a5e;
+    margin-bottom: 10px;
+  }
+  .sb-gallery-underline {
+    width: 48px;
+    height: 4px;
+    background: #F5A800;
+    border-radius: 2px;
+    margin: 0 auto 36px;
+  }
+  .sb-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow: hidden;
+  }
+  .sb-carousel-track {
+    display: flex;
+    gap: 16px;
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    width: 100%;
+  }
+  .sb-slide {
+    flex: 0 0 calc(33.333% - 11px);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  .sb-slide.active {
+    transform: scale(1.05);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+    z-index: 2;
+  }
+  .sb-slide-more {
+    background: linear-gradient(135deg, #F0F2FF 0%, #EAE8FF 100%);
+    border: 2px dashed #8B7FE0;
+    height: 220px;
+  }
+  .sb-slide img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+  .sb-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255,255,255,0.92);
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+    color: #2D5F5D;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    transition: background 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .sb-arrow:hover { background: #4AADA8; color: white; transform: translateY(-50%) scale(1.1); }
+  .sb-arrow-left { left: 4px; }
+  .sb-arrow-right { right: 4px; }
+  .sb-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .sb-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #D0E8E6;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .sb-dot.active { background: #4AADA8; transform: scale(1.3); }
+  @media(max-width:900px) {
+    .sb-hero { grid-template-columns: 1fr; }
+    .sb-hero-right { display: none; }
+    .sb-services { grid-template-columns: 1fr; }
+    .sb-specs { grid-template-columns: 1fr; }
+    .sb-trio { grid-template-columns: 1fr; }
+    .sb-scenes { grid-template-columns: 1fr; }
+    .sb-slide { flex: 0 0 100%; }
+  }
+
+  /* ===== SB FEATURE GRID (16 features) ===== */
+  .sb-feat-section { margin: 52px 0 36px; }
+  .sb-feat-title { text-align:center; font-size:1.3rem; font-weight:700; color:var(--dark); margin-bottom:8px; }
+  .sb-feat-underline { width:50px; height:3px; background:var(--secondary); margin:0 auto 36px; border-radius:2px; }
+  .sb-feat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:28px 20px; }
+  .sb-feat-item { display:flex; flex-direction:column; align-items:center; text-align:center; gap:12px; }
+  .sb-feat-circle { width:88px; height:88px; border-radius:50%; background:linear-gradient(135deg,#4A5FCF 0%,#7C6FF0 100%); display:flex; align-items:center; justify-content:center; box-shadow:0 4px 18px rgba(91,79,207,0.28); flex-shrink:0; transition:transform .2s,box-shadow .2s; }
+  .sb-feat-circle:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(91,79,207,0.38); }
+  .sb-feat-circle svg { width:44px; height:44px; }
+  .sb-feat-name { font-size:0.88rem; font-weight:700; color:#F4845F; line-height:1.35; }
+  .sb-feat-desc { font-size:0.8rem; color:#6c7a7a; line-height:1.55; }
+  @media(max-width:900px) { .sb-feat-grid { grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:480px) { .sb-feat-grid { grid-template-columns:repeat(2,1fr); gap:18px 12px; } .sb-feat-circle { width:70px; height:70px; } .sb-feat-circle svg { width:34px; height:34px; } }
+
+  /* ===== CLIENTS SECTION ===== */
+  .section-clients {
+    background: var(--light);
+    padding: 80px 32px;
+  }
+  .cpttm-badge {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: linear-gradient(135deg, #FFF8E8, #FFF3D0);
+    border: 2px solid #F0C040;
+    border-radius: 14px;
+    padding: 20px 28px;
+    max-width: 520px;
+    margin: 0 auto 48px;
+  }
+  .cpttm-icon { font-size: 2.2rem; }
+  .cpttm-title { font-weight: 800; color: #7A5500; font-size: 1rem; }
+  .cpttm-sub { color: #9A7020; font-size: 0.85rem; margin-top: 3px; }
+  .clients-table {
+    max-width: 820px;
+    margin: 0 auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: white;
+  }
+  .clients-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .clients-row:last-child { border-bottom: none; }
+  .clients-row:hover { background: #F0FAF9; }
+  .clients-industry {
+    background: rgba(74,173,168,0.07);
+    padding: 16px 20px;
+    font-weight: 700;
+    color: var(--dark);
+    font-size: 0.9rem;
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+  }
+  .clients-names {
+    padding: 16px 20px;
+    color: #4a5858;
+    font-size: 0.93rem;
+    line-height: 1.6;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Also add clients to nav */
+
+  /* ===== RESPONSIVE OVERRIDES ===== */
+  @media(max-width:900px) {
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .timeline::before { left: 16px; }
+    .timeline-item { padding-right: 0; padding-left: 44px; justify-content: flex-start; }
+    .timeline-item:nth-child(even) { padding-left: 44px; padding-right: 0; }
+    .timeline-dot { left: 16px; }
+    .corp-nav-links { display: none; }
+    .nav-hamburger { display: block; }
+    .corp-hero h1 { font-size: 2rem; }
+  }
+  @media(max-width:768px) {
+    .corp-hero { padding: 60px 24px 48px; }
+    .hero-stats { gap: 28px; }
+    .section-about, .section-services, .section-why, .section-history, .section-contact, .section-shop { padding: 56px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CORPORATE NAV -->
+<nav class="corp-nav" id="corpNav">
+  <div class="corp-nav-top">
+    <a href="javascript:void(0)" class="corp-logo" onclick="smoothTo('home')">
+      <span class="corp-logo-icon">🖥️</span>
+      <span class="corp-logo-text">
+        <span class="corp-logo-main">PC<span class="corp-logo-shop">Shop</span></span>
+        <span class="corp-logo-sub">Professional Computer Shop</span>
+      </span>
+    </a>
+    <div class="corp-nav-links">
+      <a href="javascript:void(0)" onclick="smoothTo('about')">關於我們</a>
+      <a href="javascript:void(0)" onclick="smoothTo('services')">服務項目</a>
+      <a href="javascript:void(0)" onclick="smoothTo('why')">企業優勢</a>
+      <a href="javascript:void(0)" onclick="smoothTo('history')">發展歷程</a>
+      <a href="javascript:void(0)" onclick="smoothTo('smartboard')" style="color:#F4845F;font-weight:700;">📺 電子白板</a>
+      <a href="javascript:void(0)" onclick="smoothTo('clients')">客戶夥伴</a>
+      <a href="shop.html" class="shop-link">🛒 線上商店</a>
+      <a href="javascript:void(0)" onclick="smoothTo('contact')">聯絡我們</a>
+    </div>
+    <div class="corp-nav-actions">
+      <button class="corp-search-toggle" onclick="toggleSearch()" title="搜尋">🔍</button>
+      <button class="corp-cart-btn" onclick="openCart()">
+        🛒 購物車
+        <span class="corp-cart-count cart-count" id="cartCount">0</span>
+      </button>
+      <button class="nav-hamburger" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </div>
+  <!-- Search dropdown -->
+  <div class="corp-search-bar" id="corpSearchBar">
+    <div class="corp-search-inner">
+      <input type="text" id="searchInput" placeholder="搜尋電子產品..." onkeydown="if(event.key==='Enter'){smoothTo('shop');doSearch();}">
+      <button onclick="smoothTo('shop');doSearch()">🔍</button>
+    </div>
+  </div>
+</nav>
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="javascript:void(0)" onclick="smoothTo('about');closeMobileMenu()">關於我們</a>
+    <a href="javascript:void(0)" onclick="smoothTo('services');closeMobileMenu()">服務項目</a>
+    <a href="javascript:void(0)" onclick="smoothTo('why');closeMobileMenu()">企業優勢</a>
+    <a href="javascript:void(0)" onclick="smoothTo('history');closeMobileMenu()">發展歷程</a>
+    <a href="javascript:void(0)" onclick="smoothTo('clients');closeMobileMenu()">客戶夥伴</a>
+    <a href="javascript:void(0)" href="shop.html">🛒 線上商店</a>
+    <a href="javascript:void(0)" onclick="smoothTo('contact');closeMobileMenu()">聯絡我們</a>
+  </div>
+</nav>
+
+
+
+<!-- HOME -->
+<section id="home" class="corp-hero">
+  <div class="corp-hero-badge">🇲🇴 澳門 · 成立於 2007 年</div>
+  <h1>PC Shop —<span>澳門專業電腦店</span></h1>
+  <p>成立於 2007 年，主要從事 IT 軟硬件供應服務、資訊系統設備供應及軟體開發工作。公司設有門市部、軟體開發部及系統方案部，為澳門少數能夠一站式提供軟硬件整合的資訊科技公司。</p>
+  <div class="hero-cta-group">
+    <a href="shop.html" class="hero-cta-primary">立即選購 →</a>
+    <a href="javascript:void(0)" class="hero-cta-secondary" onclick="smoothTo('about')">了解更多</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">18+</div>
+      <div class="hero-stat-label">年行業經驗</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">1000+</div>
+      <div class="hero-stat-label">正品商品</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">270,000+</div>
+      <div class="hero-stat-label">服務客戶</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">全澳<span style="color:var(--secondary);font-size:1.1rem;"> / 橫琴</span></div>
+      <div class="hero-stat-label">送貨覆蓋</div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ABOUT -->
+<section id="about" class="section-about">
+  <div class="section-inner">
+    <div class="section-label">關於我們</div>
+    <h2 class="section-title">深耕澳門，服務每一位客戶</h2>
+    <p class="section-subtitle">成立於 2007 年，設有門市部、軟體開發部及系統方案部，是澳門少數能夠一站式提供 IT 軟硬件整合的專業資訊科技公司。</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <h3>PC Shop 專業電腦店</h3>
+        <p>PC Shop 專業電腦店（Professional Computer Shop）成立於 2007 年，主要從事 IT 軟硬件供應服務、資訊系統設備供應及軟體開發工作。公司設有門市部、軟體開發部及系統方案部，為澳門少數能夠一站式提供軟硬件整合的資訊科技公司。</p>
+        <p>現服務澳門大學、澳門街坊總會、多間中小學校等超過 20 間知名澳門機構，業務範圍涵蓋教育、電訊、醫療、酒店及金融等多個行業，是澳門企業及機構信賴的 IT 合作夥伴。</p>
+        <div class="about-highlights">
+          <div class="about-highlight">
+            <div class="about-highlight-num">正品</div>
+            <div class="about-highlight-label">100% 原廠保証</div>
+          </div>
+          <div class="about-highlight">
+            <div class="about-highlight-num">品質</div>
+            <div class="about-highlight-label">品質保證</div>
+          </div>
+          <div class="about-highlight">
+            <div class="about-highlight-num">全澳</div>
+            <div class="about-highlight-label">送貨服務</div>
+          </div>
+          <div class="about-highlight">
+            <div class="about-highlight-num">專業</div>
+            <div class="about-highlight-label">技術支援團隊</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="about-visual-icon">💡</div>
+        <h4>我們的使命</h4>
+        <p>以專業技術、誠信服務，為澳門企業及個人客戶提供最完善的 IT 一站式解決方案，是我們自 2007 年創立以來始終如一的承諾。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- SERVICES -->
+<section id="services" class="section-services">
+  <div class="section-inner">
+    <div class="section-label">服務項目</div>
+    <h2 class="section-title">全方位電子科技服務</h2>
+    <p class="section-subtitle">從個人消費電子到企業IT基礎建設，我們提供一站式解決方案。</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🖥️</div>
+        <h3>電子產品銷售</h3>
+        <p>提供最新款電腦、手機、平板、電競設備及各類配件，全部正品行貨，享原廠保固。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔧</div>
+        <h3>維修服務</h3>
+        <p>專業維修各品牌電腦及手機，服務包括硬件更換、系統重裝、病毒清除及資料恢復，快速診斷，大部分維修可即日取機。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏢</div>
+        <h3>企業 IT 採購</h3>
+        <p>為企業及學校客戶提供批量採購、設備部署及資產管理服務，設專屬客戶經理跟進，享優先報價及優惠價格。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌐</div>
+        <h3>網絡工程</h3>
+        <p>辦公室網絡佈線、Wi-Fi 6 覆蓋優化、伺服器架設及日常維護，曾為澳門多所學校及機構完成全面網絡升級工程。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">☁️</div>
+        <h3>雲端解決方案</h3>
+        <p>協助企業部署雲端辦公環境，包括 Microsoft 365、Google Workspace 授權採購及設定，以及完善的資料備份與災難恢復方案。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📦</div>
+        <h3>全澳 · 橫琴送貨</h3>
+        <p>覆蓋澳門半島、氹仔、路環、路氹城及橫琴粵澳深度合作區，快速送貨上門，讓您足不出戶即可收到心儀產品。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💻</div>
+        <h3>軟件開發</h3>
+        <p>根據客戶業務需求度身訂製各類軟件系統，涵蓋網站開發、手機 App、企業內部管理系統及資料庫設計。團隊具備豐富的本地項目經驗，由需求分析、設計、開發至上線維護，全程跟進，確保系統穩定可靠、易於操作。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🖥️</div>
+        <h3>POS 及商業系統架設</h3>
+        <p>為零售、餐飲、服務業等各行業提供專業的 POS 收銀系統及商業管理軟件部署，包括庫存管理、銷售報表、會員積分及多門市同步功能。系統穩定易用，支援本地化設定，並提供完善的售後培訓及技術支援服務。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <h3>AI 應用及融入</h3>
+        <p>協助企業及學校將人工智能技術融入日常運作，涵蓋 AI 智能客服、自動化流程、數據分析及教育 AI 工具應用。我們提供由評估、方案設計到落地實施的一站式服務，讓您的團隊以最低學習成本享受 AI 帶來的效率提升。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- WHY US -->
+<section id="why" class="section-why">
+  <div class="section-inner">
+    <div class="section-label" style="color:#A8E6E3;">為何選擇我們</div>
+    <h2 class="section-title">您信賴我們的理由</h2>
+    <p class="section-subtitle">多年來我們以誠信和專業贏得客戶的口碑，以下是我們的核心承諾。</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">✅</div>
+        <h3>100% 正品保證</h3>
+        <p>直接向品牌代理商進貨，每件商品均附有原廠保固，假一賠十。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚡</div>
+        <h3>快速響應</h3>
+        <p>維修查詢 4 小時內回覆，急件維修當日完成，專業評估準確診斷，大部分問題即日處理，減少您的等待時間。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💰</div>
+        <h3>價格透明</h3>
+        <p>公開定價，無隱藏收費，維修前先報價，客戶確認後才施工。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">👨‍💻</div>
+        <h3>專業團隊</h3>
+        <p>專業技術人員持有多項國際認証，並為 CPTTM 2025 認可數字化服務供應商，定期進修掌握最新科技動態。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔄</div>
+        <h3>售後服務保障</h3>
+        <p>購買後如有品質問題，經評估確認後可獲安排維修或更換，並提供完善的保固跟進服務，讓您購物安心無憂。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🤝</div>
+        <h3>長期夥伴關係</h3>
+        <p>與 CTM、澳門大學、街坊總會、各中學及醫療機構等建立長期合作關係，提供持續技術支援及設備升級顧問服務。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🏫</div>
+        <h3>教育機構專家</h3>
+        <p>深耕澳門教育市場逾十年，熟悉各級學校的 IT 需求，提供包括電子白板、網絡基建、電腦教室設備及師生培訓的一站式教育科技解決方案。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🛡️</div>
+        <h3>資訊安全保障</h3>
+        <p>協助企業及機構建立完善的資訊安全防護機制，包括防火牆設定、資料備份、網絡監控及員工安全意識培訓，全方位保護您的數字資產。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- HISTORY -->
+<section id="history" class="section-history">
+  <div class="section-inner">
+    <div class="section-label">發展歷程</div>
+    <h2 class="section-title">我們的故事</h2>
+    <p class="section-subtitle">自 2007 年創立至今，從 IT 軟硬件供應出發，逐步發展為擁有門市部、軟體開發部及系統方案部的一站式資訊科技公司，服務澳門各行各業逾 18 年。</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="timeline-year">2007</span>
+          <h4>PC Shop 創立</h4>
+          <p>於澳門創立，主要從事 IT 軟硬件供應服務，設立門市部為本地個人及企業客戶提供電腦產品及維修服務，迅速建立口碑。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="timeline-year">2010</span>
+          <h4>弱電工程業務起步</h4>
+          <p>開始更多地參與各項弱電工程項目，涵蓋網絡佈線、監控系統及視聽設備安裝工程，憑藉專業技術逐步取得企業客戶的信任和讚譽。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="timeline-year">2015</span>
+          <h4>拓展服務範圍</h4>
+          <p>成立軟體開發部及系統方案部，開始為企業客戶提供資訊系統設備供應及軟體開發服務，成為澳門少數一站式 IT 整合服務商。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="timeline-year">2022</span>
+          <h4>線上商店啟動</h4>
+          <p>推出線上商城，提供 ASUS、Lenovo 等品牌 149+ 款正品電子產品，並引入 SMARTBoard 互動電子白板，全澳送貨服務。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="timeline-year">現在</span>
+          <h4>持續成長中</h4>
+          <p>積極推動 AI 人工智能應用落地，協助企業及學校將 AI 技術融入日常運作，提升工作效率與競爭力。服務客戶遍及多個行業，包括澳門大學、CTM（澳門電訊）、街坊總會、各中小學及醫療機構，持續為澳門數字化轉型及智能化升級貢獻力量。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Past Projects -->
+    <div style="margin-top:64px;">
+      <h3 style="text-align:center;font-size:1.4rem;color:var(--dark);margin-bottom:12px;">精選案例</h3>
+      <p style="text-align:center;color:#6c7a7a;margin-bottom:0;font-size:0.95rem;">以下為部分服務案例，展示我們跨行業的豐富經驗。</p>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-card-img">🏢</div>
+          <div class="project-card-body">
+            <span class="project-tag">企業採購</span>
+            <h4>學校 IT 設備採購部署</h4>
+            <p>為澳門多所中學提供電腦室設備採購、Windows 部署及教職員培訓服務，確保開學前完成交付。</p>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-card-img">🌐</div>
+          <div class="project-card-body">
+            <span class="project-tag">網絡工程</span>
+            <h4>機構網絡升級工程</h4>
+            <p>為本澳社團機構完成全辦公室 Wi-Fi 6 覆蓋優化及結構化佈線工程，大幅提升網絡穩定性。</p>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-card-img">🖥️</div>
+          <div class="project-card-body">
+            <span class="project-tag">維修服務</span>
+            <h4>企業設備定期保養</h4>
+            <p>為本澳電訊機構提供年度設備定期保養及維修服務，保障業務系統穩定運行。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- SMARTBOARD SECTION -->
+<section id="smartboard" class="section-smartboard">
+  <div class="section-inner">
+    <div class="section-label" style="color:#4AADA8;">重點推介</div>
+
+    <!-- SMARTBoard Brand Logo (real image) -->
+    <div style="display:flex;justify-content:center;margin-bottom:20px;">
+      <div style="background:white;border-radius:12px;padding:10px 28px;display:inline-flex;align-items:center;box-shadow:0 3px 16px rgba(0,0,0,0.08);border:1px solid #eee;">
+        <img src="smartboard-logo.png" alt="SMARTBoard interactive whiteboard" style="height:48px;width:auto;display:block;">
+      </div>
+    </div>
+
+    <h2 class="section-title">教育電子白板</h2>
+    <p class="section-subtitle">掌握課堂流暢節奏 · 提升會議互動效率 · 澳門市場稀缺配置</p>
+
+    <div class="sb-hero">
+      <div class="sb-hero-left">
+        <div class="sb-badge">🏫 教育 &amp; 🏢 企業 雙向適用</div>
+        <h3>集電腦、投影機、畫板<br>功能於一身</h3>
+        <p>SMARTBoard 電子白板支援 20 點多點觸控，畫面解析度 4K（3840×2160），55" 至 85" 多款尺寸可選，適合課室、會議室及演講廳。澳門市場上大多數企業及學校尚未配置，是現時最具競爭力的升級方案。</p>
+
+        <!-- Detailed Specs Table -->
+        <div class="sb-spec-table">
+          <div class="sb-spec-row"><span class="sb-spec-label">解析度</span><span class="sb-spec-val">3840(H) × 2160(V) 4K 高清</span></div>
+          <div class="sb-spec-row"><span class="sb-spec-label">尺寸</span><span class="sb-spec-val">55吋 / 65吋 / 75吋 / 85吋 高清原裝顯示幕</span></div>
+          <div class="sb-spec-row"><span class="sb-spec-label">觸控</span><span class="sb-spec-val">防爆紅外觸控式螢幕，支援 20 點多點操作，支援圖像放大、縮小、旋轉，壽命超 5000 萬次</span></div>
+          <div class="sb-spec-row"><span class="sb-spec-label">配置</span><span class="sb-spec-val">i3 / i5 / i7 處理器，8G RAM，128 或 256GB SSD，安卓 3+32</span></div>
+          <div class="sb-spec-row"><span class="sb-spec-label">作業系統</span><span class="sb-spec-val">預裝 Windows 版本作業系統 + 安卓系統雙系統</span></div>
+          <div class="sb-spec-row"><span class="sb-spec-label">機身</span><span class="sb-spec-val">鋁合金面框角塊設計，前置按鍵、前置埠、前置喇叭</span></div>
+          <div class="sb-spec-row"><span class="sb-spec-label">外觀</span><span class="sb-spec-val">流線型設計，正面鋼化玻璃，側面鋁合金外框，背面冷柴鋼板，黑色</span></div>
+          <div class="sb-spec-row"><span class="sb-spec-label">輸入</span><span class="sb-spec-val">HDMI | VGA | USB 2.0 | USB 3.0 | Touch USB | YPbPr | S-Video | PC Audio In | RJ45 | RS232 | 內置 WiFi</span></div>
+          <div class="sb-spec-row"><span class="sb-spec-label">輸出</span><span class="sb-spec-val">AV Output | Earphone Output</span></div>
+        </div>
+
+        <div class="sb-cta-group" style="margin-top:20px;">
+          <a href="javascript:void(0)" onclick="smoothTo('contact')" class="sb-cta-primary">📞 預約免費示範</a>
+          <a href="javascript:void(0)" onclick="smoothTo('contact')" class="sb-cta-secondary">查詢報價 →</a>
+        </div>
+      </div>
+      <div class="sb-hero-right">
+        <!-- Realistic SMARTBoard product illustration -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+          <svg width="360" height="230" viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- Purple-blue gradient matching real product photo -->
+              <linearGradient id="sbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#6B2FA0;stop-opacity:1"/>
+                <stop offset="40%" style="stop-color:#4A1F8A;stop-opacity:1"/>
+                <stop offset="100%" style="stop-color:#1A2A6C;stop-opacity:1"/>
+              </linearGradient>
+              <!-- Wave shape gradient -->
+              <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#8B5FD4;stop-opacity:0.6"/>
+                <stop offset="100%" style="stop-color:#3A6BD4;stop-opacity:0.4"/>
+              </linearGradient>
+              <!-- Right side panel -->
+              <linearGradient id="panelGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#2A9B8A;stop-opacity:1"/>
+                <stop offset="100%" style="stop-color:#1E7A6A;stop-opacity:1"/>
+              </linearGradient>
+              <clipPath id="screenClip">
+                <rect x="8" y="8" width="332" height="198" rx="3"/>
+              </clipPath>
+            </defs>
+
+            <!-- Outer frame / bezel (very thin) -->
+            <rect x="0" y="0" width="360" height="222" rx="8" fill="#1a1a1a"/>
+            <rect x="4" y="4" width="352" height="210" rx="6" fill="#111"/>
+
+            <!-- Screen area -->
+            <rect x="8" y="8" width="332" height="198" rx="3" fill="url(#sbGrad)"/>
+
+            <!-- Decorative wave / swirl (matching product photo) -->
+            <g clip-path="url(#screenClip)">
+              <path d="M120 0 Q200 60 280 30 Q340 10 360 50 L360 180 Q300 140 220 160 Q150 175 100 130 Q50 90 0 120 L0 0 Z" fill="url(#waveGrad)" opacity="0.5"/>
+              <path d="M0 80 Q80 50 160 90 Q240 130 320 80 Q345 65 360 75 L360 200 Q320 185 240 200 Q160 215 80 185 Q30 170 0 180 Z" fill="#3A2080" opacity="0.35"/>
+
+              <!-- SMART logo text top-left -->
+              <text x="22" y="34" font-family="Arial" font-weight="900" font-size="18" fill="white" letter-spacing="1" opacity="0.95">SMART</text>
+
+              <!-- Status icons top-right (volume, wifi, etc.) -->
+              <text x="282" y="24" font-family="Arial" font-size="10" fill="rgba(255,255,255,0.7)">🔇  ⚙️  📶</text>
+
+              <!-- App icons row 1 (4 icons) -->
+              <!-- Icon 1 - blue rounded square -->
+              <rect x="55" y="60" width="36" height="36" rx="8" fill="#4A90D9" opacity="0.9"/>
+              <text x="73" y="83" text-anchor="middle" font-size="16">💬</text>
+              <text x="73" y="105" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.8)" font-family="Arial">Whiteboard</text>
+
+              <!-- Icon 2 - teal -->
+              <rect x="100" y="60" width="36" height="36" rx="8" fill="#2ABFAA" opacity="0.9"/>
+              <text x="118" y="83" text-anchor="middle" font-size="16">🌐</text>
+              <text x="118" y="105" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.8)" font-family="Arial">Browser</text>
+
+              <!-- Icon 3 - purple -->
+              <rect x="145" y="60" width="36" height="36" rx="8" fill="#8B5CF6" opacity="0.9"/>
+              <text x="163" y="83" text-anchor="middle" font-size="16">🖥️</text>
+              <text x="163" y="105" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.8)" font-family="Arial">Screen Share</text>
+
+              <!-- Icon 4 - orange -->
+              <rect x="190" y="60" width="36" height="36" rx="8" fill="#F59E0B" opacity="0.9"/>
+              <text x="208" y="83" text-anchor="middle" font-size="16">⚙️</text>
+              <text x="208" y="105" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.8)" font-family="Arial">Settings</text>
+
+              <!-- App icons row 2 (4 icons) -->
+              <!-- Icon 5 - blue cloud -->
+              <rect x="55" y="112" width="36" height="36" rx="8" fill="#3B82F6" opacity="0.9"/>
+              <text x="73" y="135" text-anchor="middle" font-size="16">☁️</text>
+              <text x="73" y="157" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.8)" font-family="Arial">OneDrive</text>
+
+              <!-- Icon 6 - WPS red -->
+              <rect x="100" y="112" width="36" height="36" rx="8" fill="#DC2626" opacity="0.9"/>
+              <text x="118" y="135" text-anchor="middle" font-size="16">📝</text>
+              <text x="118" y="157" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.8)" font-family="Arial">WPS Office</text>
+
+              <!-- Icon 7 - green -->
+              <rect x="145" y="112" width="36" height="36" rx="8" fill="#10B981" opacity="0.9"/>
+              <text x="163" y="135" text-anchor="middle" font-size="16">📱</text>
+              <text x="163" y="157" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.8)" font-family="Arial">Apps</text>
+
+              <!-- Icon 8 - yellow -->
+              <rect x="190" y="112" width="36" height="36" rx="8" fill="#EAB308" opacity="0.9"/>
+              <text x="208" y="135" text-anchor="middle" font-size="16">📁</text>
+              <text x="208" y="157" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.8)" font-family="Arial">Files</text>
+
+              <!-- Time display right side -->
+              <text x="272" y="100" text-anchor="middle" font-family="Arial" font-weight="300" font-size="32" fill="white" opacity="0.95">08:30</text>
+              <text x="272" y="118" text-anchor="middle" font-family="Arial" font-size="8" fill="rgba(255,255,255,0.7)">Thursday, October 13</text>
+
+              <!-- Right side teal panel (touch controls) -->
+              <rect x="332" y="30" width="10" height="120" rx="4" fill="url(#panelGrad)"/>
+              <circle cx="337" cy="50" r="3" fill="rgba(255,255,255,0.6)"/>
+              <circle cx="337" cy="65" r="3" fill="rgba(255,255,255,0.6)"/>
+              <circle cx="337" cy="80" r="3" fill="rgba(255,255,255,0.6)"/>
+              <circle cx="337" cy="95" r="3" fill="rgba(255,255,255,0.6)"/>
+              <circle cx="337" cy="110" r="3" fill="rgba(255,255,255,0.6)"/>
+              <circle cx="337" cy="125" r="3" fill="rgba(255,255,255,0.6)"/>
+            </g>
+
+            <!-- Bottom bezel with speaker grille -->
+            <rect x="4" y="210" width="352" height="10" rx="2" fill="#1a1a1a"/>
+            <!-- Speaker dots -->
+            <circle cx="130" cy="215" r="1.2" fill="#333"/>
+            <circle cx="137" cy="215" r="1.2" fill="#333"/>
+            <circle cx="144" cy="215" r="1.2" fill="#333"/>
+            <circle cx="151" cy="215" r="1.2" fill="#333"/>
+            <circle cx="158" cy="215" r="1.2" fill="#333"/>
+            <circle cx="165" cy="215" r="1.2" fill="#333"/>
+            <circle cx="172" cy="215" r="1.2" fill="#333"/>
+            <circle cx="179" cy="215" r="1.2" fill="#333"/>
+            <circle cx="186" cy="215" r="1.2" fill="#333"/>
+            <circle cx="193" cy="215" r="1.2" fill="#333"/>
+            <circle cx="200" cy="215" r="1.2" fill="#333"/>
+            <circle cx="207" cy="215" r="1.2" fill="#333"/>
+            <circle cx="214" cy="215" r="1.2" fill="#333"/>
+            <circle cx="221" cy="215" r="1.2" fill="#333"/>
+            <circle cx="228" cy="215" r="1.2" fill="#333"/>
+            <!-- LED indicator -->
+            <circle cx="340" cy="215" r="2.5" fill="#4AADA8" opacity="0.8"/>
+          </svg>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+            <span style="background:#EBF7F6;color:#2D5F5D;border-radius:20px;padding:4px 14px;font-size:0.72rem;font-weight:600;">55" / 65" / 75" / 85"</span>
+            <span style="background:#FFF0EA;color:#C0552F;border-radius:20px;padding:4px 14px;font-size:0.72rem;font-weight:600;">🏷️ 澳門代理</span>
+            <span style="background:#EBF7F6;color:#2D5F5D;border-radius:20px;padding:4px 14px;font-size:0.72rem;font-weight:600;">20 點觸控</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== THREE HIGHLIGHTS (text only) ===== -->
+    <div class="sb-trio">
+      <div class="sb-trio-item">
+        <h4>互動教學演示</h4>
+        <p>教師與學生同步操作，課堂互動更自然</p>
+      </div>
+      <div class="sb-trio-item">
+        <h4>手寫批註功能</h4>
+        <p>任何畫面即時書寫，支援手勢擦除與縮放</p>
+      </div>
+      <div class="sb-trio-item">
+        <h4>智能觸控操控</h4>
+        <p>20 點多點觸控，壽命超 5000 萬次，穩定可靠</p>
+      </div>
+    </div>
+
+    <!-- ===== SCENE SHOWCASE ===== -->
+    <div class="sb-scenes">
+
+      <!-- Scene 1: Classroom -->
+      <div class="sb-scene-card sb-scene-class">
+        <div class="sb-scene-img">
+          <svg width="100%" height="180" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="classGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#E8F4F8"/>
+                <stop offset="100%" style="stop-color:#D0E8F0"/>
+              </linearGradient>
+            </defs>
+            <rect width="320" height="180" fill="url(#classGrad)"/>
+            <!-- Background shelves -->
+            <rect x="0" y="30" width="80" height="4" fill="#C8DCE4" rx="2"/>
+            <rect x="0" y="70" width="80" height="4" fill="#C8DCE4" rx="2"/>
+            <!-- Colourful books -->
+            <rect x="5" y="10" width="8" height="20" rx="1" fill="#E67E22"/>
+            <rect x="14" y="14" width="8" height="16" rx="1" fill="#27AE60"/>
+            <rect x="23" y="12" width="8" height="18" rx="1" fill="#E74C3C"/>
+            <rect x="32" y="8" width="8" height="22" rx="1" fill="#3498DB"/>
+            <!-- Large screen on right -->
+            <rect x="220" y="10" width="90" height="140" rx="6" fill="#1a1a2a"/>
+            <rect x="224" y="14" width="82" height="130" rx="4" fill="#2a4a8a"/>
+            <!-- Screen gradient -->
+            <rect x="224" y="14" width="82" height="130" rx="4" fill="url(#classGrad)" opacity="0.3"/>
+            <!-- Screen content lines -->
+            <rect x="232" y="30" width="50" height="4" rx="2" fill="white" opacity="0.6"/>
+            <rect x="232" y="38" width="38" height="4" rx="2" fill="white" opacity="0.4"/>
+            <rect x="232" y="80" width="60" height="8" rx="2" fill="#4AADA8" opacity="0.8"/>
+            <!-- Kid 1 (front, green shirt) -->
+            <ellipse cx="150" cy="60" rx="20" ry="22" fill="#F0C8A0"/><!-- head -->
+            <rect x="128" y="80" width="44" height="60" rx="8" fill="#1B6B4A"/><!-- body -->
+            <!-- Arm extended to board -->
+            <path d="M172 100 Q200 90 220 85" stroke="#1B6B4A" stroke-width="12" fill="none" stroke-linecap="round"/>
+            <ellipse cx="222" cy="84" rx="8" ry="8" fill="#F0C8A0"/><!-- hand -->
+            <!-- Red pen -->
+            <rect x="220" y="78" width="3" height="14" rx="1.5" fill="#E63946" transform="rotate(-20,221,85)"/>
+            <!-- Kid 2 (back, blue shirt) -->
+            <ellipse cx="195" cy="50" rx="17" ry="18" fill="#E8B896"/><!-- head -->
+            <path d="M175 68 Q198 65 218 68" stroke="#3498DB" stroke-width="14" fill="none" stroke-linecap="round"/><!-- body -->
+            <!-- Arm reaching up -->
+            <path d="M212 68 Q218 55 222 35" stroke="#3498DB" stroke-width="10" fill="none" stroke-linecap="round"/>
+            <ellipse cx="222" cy="33" rx="7" ry="7" fill="#E8B896"/>
+            <!-- Hair details -->
+            <ellipse cx="150" cy="48" rx="20" ry="10" fill="#8B6040"/>
+            <ellipse cx="195" cy="40" rx="17" ry="12" fill="#2C1810"/>
+          </svg>
+        </div>
+        <div class="sb-scene-caption">
+          <div class="sb-scene-tag">🏫 教育場景</div>
+          <h4>學生主動參與，課堂活力倍增</h4>
+          <p>學生可直接手持觸控筆或用手指操作白板，多人同時互動，徹底改變傳統被動式聆聽教學模式。</p>
+        </div>
+      </div>
+
+      <!-- Scene 2: SMART Ink annotation -->
+      <div class="sb-scene-card">
+        <div class="sb-scene-img">
+          <svg width="100%" height="180" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+            <rect width="320" height="180" fill="#1E2A3A"/>
+            <!-- Windows taskbar -->
+            <rect x="0" y="158" width="320" height="22" fill="#1A1A2E"/>
+            <rect x="4" y="162" width="14" height="14" rx="2" fill="#3B82F6"/><!-- start -->
+            <rect x="24" y="162" width="14" height="14" rx="2" fill="#1D4ED8" opacity="0.7"/>
+            <rect x="42" y="162" width="14" height="14" rx="2" fill="#7C3AED" opacity="0.7"/>
+            <!-- Time -->
+            <text x="292" y="171" font-size="7" fill="rgba(255,255,255,0.7)" font-family="Arial">11:45</text>
+            <!-- SMART Ink popup (top-left) -->
+            <rect x="8" y="8" width="120" height="60" rx="5" fill="#F8F9FA" stroke="#DDD" stroke-width="1"/>
+            <text x="14" y="22" font-size="7" fill="#666" font-family="Arial">Tap ✓ to accept text conversion.</text>
+            <text x="14" y="38" font-size="11" font-weight="bold" font-family="Arial" fill="#1a1a1a">SMART </text>
+            <text x="60" y="38" font-size="11" font-style="italic" font-family="Arial" fill="#E63946">Ink</text>
+            <rect x="14" y="44" width="30" height="3" rx="1" fill="#DDD"/>
+            <rect x="48" y="44" width="22" height="3" rx="1" fill="#DDD"/>
+            <rect x="74" y="44" width="30" height="3" rx="1" fill="#DDD"/>
+            <!-- Ink controls -->
+            <circle cx="14" cy="58" r="5" fill="#FF6B6B"/>
+            <circle cx="26" cy="58" r="5" fill="#4AADA8"/>
+            <circle cx="38" cy="58" r="5" fill="#F4845F"/>
+            <rect x="92" y="52" width="30" height="12" rx="3" fill="#4AADA8"/>
+            <text x="107" y="60" text-anchor="middle" font-size="7" fill="white" font-family="Arial">✓ OK</text>
+            <!-- Browser window with drawing -->
+            <rect x="90" y="8" width="160" height="148" rx="5" fill="#FFFFFF" stroke="#DDD" stroke-width="1"/>
+            <!-- Browser chrome -->
+            <rect x="90" y="8" width="160" height="20" rx="5" fill="#F0F0F0"/>
+            <rect x="90" y="22" width="160" height="6" fill="#F0F0F0"/>
+            <circle cx="100" cy="18" r="3" fill="#E74C3C"/>
+            <circle cx="110" cy="18" r="3" fill="#F39C12"/>
+            <circle cx="120" cy="18" r="3" fill="#2ECC71"/>
+            <rect x="132" y="13" width="80" height="10" rx="5" fill="white" stroke="#DDD" stroke-width="1"/>
+            <text x="138" y="21" font-size="7" fill="#888" font-family="Arial">🔍 Google</text>
+            <!-- Drawing: wind turbines, annotations -->
+            <rect x="94" y="30" width="152" height="124" rx="2" fill="#E8F4F8"/>
+            <!-- Sky gradient -->
+            <rect x="94" y="30" width="152" height="70" fill="#87CEEB" opacity="0.5"/>
+            <!-- Hills -->
+            <ellipse cx="150" cy="100" rx="80" ry="30" fill="#7EC850" opacity="0.6"/>
+            <!-- Wind turbines SVG style -->
+            <line x1="150" y1="65" x2="150" y2="105" stroke="#666" stroke-width="2"/>
+            <line x1="150" y1="70" x2="140" y2="58" stroke="#666" stroke-width="2"/>
+            <line x1="150" y1="70" x2="163" y2="62" stroke="#666" stroke-width="2"/>
+            <line x1="150" y1="70" x2="148" y2="84" stroke="#666" stroke-width="2"/>
+            <!-- Blue ink annotation arrow -->
+            <path d="M108 85 Q120 60 140 45" stroke="#2255CC" stroke-width="2.5" fill="none" stroke-linecap="round" marker-end="url(#arrow)"/>
+            <!-- Annotation text (handwritten style) -->
+            <text x="155" y="115" font-size="9" fill="#2255CC" font-family="Arial" transform="rotate(-5,155,115)">Reduce✓</text>
+            <text x="155" y="126" font-size="9" fill="#2255CC" font-family="Arial" transform="rotate(-5,155,126)">Reuse✓</text>
+            <!-- 4PM note -->
+            <rect x="218" y="118" width="28" height="18" rx="2" fill="#FFFDE7"/>
+            <text x="225" y="131" font-size="9" fill="#555" font-family="Arial" font-style="italic">4PM</text>
+          </svg>
+        </div>
+        <div class="sb-scene-caption">
+          <div class="sb-scene-tag">✍️ SMART Ink 批註</div>
+          <h4>任何畫面即時書寫批註</h4>
+          <p>SMART Ink 技術讓老師在任何應用程式（PPT、瀏覽器、PDF）上即時書寫，批註自動辨識轉換文字，課後直接儲存分享。</p>
+        </div>
+      </div>
+
+      <!-- Scene 3: Multi-touch whiteboard interface -->
+      <div class="sb-scene-card">
+        <div class="sb-scene-img">
+          <svg width="100%" height="180" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+            <rect width="320" height="180" fill="#F8F8F8"/>
+            <!-- Left: whiteboard with grid -->
+            <rect x="0" y="0" width="160" height="180" fill="white"/>
+            <!-- Grid lines -->
+            <g stroke="#E8E8E8" stroke-width="0.8">
+              <line x1="20" y1="0" x2="20" y2="180"/>
+              <line x1="40" y1="0" x2="40" y2="180"/>
+              <line x1="60" y1="0" x2="60" y2="180"/>
+              <line x1="80" y1="0" x2="80" y2="180"/>
+              <line x1="100" y1="0" x2="100" y2="180"/>
+              <line x1="120" y1="0" x2="120" y2="180"/>
+              <line x1="140" y1="0" x2="140" y2="180"/>
+              <line x1="0" y1="20" x2="160" y2="20"/>
+              <line x1="0" y1="40" x2="160" y2="40"/>
+              <line x1="0" y1="60" x2="160" y2="60"/>
+              <line x1="0" y1="80" x2="160" y2="80"/>
+              <line x1="0" y1="100" x2="160" y2="100"/>
+              <line x1="0" y1="120" x2="160" y2="120"/>
+              <line x1="0" y1="140" x2="160" y2="140"/>
+              <line x1="0" y1="160" x2="160" y2="160"/>
+            </g>
+            <!-- TOGETHER text (handwritten) -->
+            <text x="55" y="30" text-anchor="middle" font-size="14" font-weight="900" fill="#1a1a4a" font-family="Arial" font-style="italic">TOGETHER!</text>
+            <!-- ERASE with hand gesture -->
+            <ellipse cx="55" cy="70" rx="20" ry="20" stroke="#E63946" stroke-width="2" fill="none" stroke-dasharray="3,3"/>
+            <line x1="42" y1="57" x2="68" y2="83" stroke="#E63946" stroke-width="1.5" stroke-dasharray="3,3"/>
+            <text x="90" y="75" font-size="9" font-weight="700" fill="#1a4a8a" font-family="Arial" font-style="italic">ERASE</text>
+            <!-- Hand icon for erase -->
+            <text x="45" y="75" text-anchor="middle" font-size="18">🤚</text>
+            <!-- MOVE & GESTURE -->
+            <text x="55" y="125" text-anchor="middle" font-size="8" font-weight="700" fill="#1a4a8a" font-family="Arial" font-style="italic">MOVE &amp; GESTURE</text>
+            <circle cx="55" cy="108" r="5" fill="#E63946"/>
+            <line x1="45" y1="108" x2="65" y2="108" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+            <line x1="55" y1="98" x2="55" y2="118" stroke="#333" stroke-width="1.5"/>
+            <!-- WRITE -->
+            <text x="80" y="160" font-size="9" font-weight="700" fill="#1a4a8a" font-family="Arial" font-style="italic">WRITE</text>
+            <!-- Pen writing squiggle -->
+            <path d="M30 145 Q40 135 50 145 Q60 155 70 145" stroke="#E63946" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <rect x="72" y="138" width="3" height="14" rx="1.5" fill="#333" transform="rotate(15,73,145)"/>
+            <!-- Divider -->
+            <line x1="160" y1="0" x2="160" y2="180" stroke="#DDD" stroke-width="1.5"/>
+            <!-- Right: App launcher panel -->
+            <rect x="160" y="0" width="160" height="180" fill="#2A1A4A"/>
+            <text x="175" y="20" font-size="9" font-weight="700" fill="white" font-family="Arial">Favorites</text>
+            <!-- App grid 3×3 -->
+            <!-- Row 1 -->
+            <rect x="175" y="28" width="30" height="25" rx="4" fill="#4285F4" opacity="0.9"/>
+            <text x="190" y="44" text-anchor="middle" font-size="11">📋</text>
+            <rect x="210" y="28" width="30" height="25" rx="4" fill="#34A853" opacity="0.9"/>
+            <text x="225" y="44" text-anchor="middle" font-size="11">🌐</text>
+            <rect x="245" y="28" width="30" height="25" rx="4" fill="#EA4335" opacity="0.9"/>
+            <text x="260" y="44" text-anchor="middle" font-size="11">🛒</text>
+            <rect x="280" y="28" width="30" height="25" rx="4" fill="#34A853" opacity="0.9"/>
+            <text x="295" y="44" text-anchor="middle" font-size="11">🎓</text>
+            <!-- Row 1 labels -->
+            <text x="190" y="59" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.7)" font-family="Arial">Whiteboard</text>
+            <text x="225" y="59" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.7)" font-family="Arial">Browser</text>
+            <text x="260" y="59" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.7)" font-family="Arial">App Store</text>
+            <text x="295" y="59" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.7)" font-family="Arial">Classroom</text>
+            <!-- Row 2 -->
+            <rect x="175" y="66" width="30" height="25" rx="4" fill="#6B21A8" opacity="0.9"/>
+            <text x="190" y="82" text-anchor="middle" font-size="11">📓</text>
+            <rect x="210" y="66" width="30" height="25" rx="4" fill="#DC2626" opacity="0.9"/>
+            <text x="225" y="82" text-anchor="middle" font-size="11">🦊</text>
+            <rect x="245" y="66" width="30" height="25" rx="4" fill="#F97316" opacity="0.9"/>
+            <text x="260" y="82" text-anchor="middle" font-size="11">🎬</text>
+            <rect x="280" y="66" width="30" height="25" rx="4" fill="#4285F4" opacity="0.9"/>
+            <text x="295" y="82" text-anchor="middle" font-size="11">🗺️</text>
+            <!-- Row 2 labels -->
+            <text x="190" y="97" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.7)" font-family="Arial">Whiteboard+</text>
+            <text x="225" y="97" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.7)" font-family="Arial">Firefox</text>
+            <text x="260" y="97" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.7)" font-family="Arial">VLC</text>
+            <text x="295" y="97" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.7)" font-family="Arial">Google Maps</text>
+            <!-- Row 3 -->
+            <rect x="175" y="104" width="30" height="25" rx="4" fill="#0EA5E9" opacity="0.9"/>
+            <text x="190" y="120" text-anchor="middle" font-size="11">📔</text>
+            <rect x="210" y="104" width="30" height="25" rx="4" fill="#C2410C" opacity="0.9"/>
+            <text x="225" y="120" text-anchor="middle" font-size="11">📊</text>
+            <rect x="245" y="104" width="30" height="25" rx="4" fill="#2563EB" opacity="0.9"/>
+            <text x="260" y="120" text-anchor="middle" font-size="11">📄</text>
+            <rect x="280" y="104" width="30" height="25" rx="4" fill="#6366F1" opacity="0.9"/>
+            <text x="295" y="120" text-anchor="middle" font-size="11">👥</text>
+            <!-- Row 3 labels -->
+            <text x="190" y="135" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.7)" font-family="Arial">OneNote</text>
+            <text x="225" y="135" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.7)" font-family="Arial">PowerPoint</text>
+            <text x="260" y="135" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.7)" font-family="Arial">Google Docs</text>
+            <text x="295" y="135" text-anchor="middle" font-size="5" fill="rgba(255,255,255,0.7)" font-family="Arial">Teams</text>
+            <!-- Bottom toolbar -->
+            <rect x="160" y="155" width="160" height="25" fill="#1A0A2A"/>
+            <text x="185" y="170" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.8)" font-family="Arial">⊞ Apps</text>
+            <text x="222" y="170" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.8)" font-family="Arial">⎘ Input</text>
+            <text x="260" y="170" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.8)" font-family="Arial">⊕ Share</text>
+            <text x="298" y="170" text-anchor="middle" font-size="7" fill="rgba(255,255,255,0.8)" font-family="Arial">↩ Sign Out</text>
+          </svg>
+        </div>
+        <div class="sb-scene-caption">
+          <div class="sb-scene-tag">🖐️ 多點觸控操作</div>
+          <h4>Write · Erase · Move &amp; Gesture</h4>
+          <p>支援手寫、擦除、縮放、拖移等自然手勢操作，內建豐富應用程式庫，開箱即用，無需額外設定。</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sb-features">
+      <div class="sb-feature">
+        <div class="sb-feature-icon">🔄</div>
+        <h4>雙向操作</h4>
+        <p>白板影像投射至顯示屏，同時電腦畫面亦可投射至白板，雙向互動無縫切換</p>
+      </div>
+      <div class="sb-feature">
+        <div class="sb-feature-icon">✍️</div>
+        <h4>批註模式</h4>
+        <p>可於任何畫面上即時書寫批註，方便附加備註及筆記重點，提高教學互動</p>
+      </div>
+      <div class="sb-feature">
+        <div class="sb-feature-icon">📱</div>
+        <h4>QR Code 即時分享</h4>
+        <p>擷取屏幕任何畫面轉換 QR Code，學生即時手機下載，告別「抄唔切」</p>
+      </div>
+      <div class="sb-feature">
+        <div class="sb-feature-icon">💡</div>
+        <h4>不用關燈</h4>
+        <p>比傳統投影機更清晰，不用調焦距不用關燈，學生在正常光線下專注學習</p>
+      </div>
+      <div class="sb-feature">
+        <div class="sb-feature-icon">🔌</div>
+        <h4>豐富接駁</h4>
+        <p>HDMI / VGA / USB 3.0 / RJ45 / 內置 Wi-Fi，支援各類信號源，輕鬆接入</p>
+      </div>
+      <div class="sb-feature">
+        <div class="sb-feature-icon">🛠️</div>
+        <h4>一站式服務</h4>
+        <p>包辦工程、運輸、安裝、教學及維修保養，承諾「跟到足」，安心無憂</p>
+      </div>
+    </div>
+
+    <div class="sb-services">
+      <div class="sb-service-card">
+        <div class="sb-service-icon">🎯</div>
+        <h4>預約免費示範</h4>
+        <p>由專人親身解說，根據實際課室或辦公室環境，度身訂造最合適方案</p>
+      </div>
+      <div class="sb-service-card">
+        <div class="sb-service-icon">📦</div>
+        <h4>一站式服務承諾</h4>
+        <p>銷售、工程、安裝、教學、維修保養全包，承諾跟進到底</p>
+      </div>
+      <div class="sb-service-card">
+        <div class="sb-service-icon">🆘</div>
+        <h4>技術支援及教學</h4>
+        <p>提供完整操作指引及技術支援專線，緊急問題迅速處理</p>
+      </div>
+    </div>
+
+    <!-- ===== 16 功能特色 ===== -->
+    <div class="sb-feat-section">
+      <h3 class="sb-feat-title">產品功能特色</h3>
+      <div class="sb-feat-underline"></div>
+      <div class="sb-feat-grid">
+
+        <!-- 1 集電腦/投影機/畫板 -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="6" width="26" height="18" rx="2" stroke="white" stroke-width="2.2"/>
+              <line x1="17" y1="24" x2="17" y2="30" stroke="white" stroke-width="2.2"/>
+              <line x1="10" y1="30" x2="24" y2="30" stroke="white" stroke-width="2.2"/>
+              <circle cx="36" cy="10" r="4" fill="none" stroke="white" stroke-width="2"/>
+              <line x1="32" y1="13" x2="26" y2="18" stroke="white" stroke-width="1.8" stroke-dasharray="2.5,2"/>
+              <line x1="30" y1="10" x2="4" y2="10" stroke="white" stroke-width="1.5" stroke-dasharray="3,2"/>
+            </svg>
+          </div>
+          <div class="sb-feat-name">集電腦、投影機<br>畫板功能於一身</div>
+          <div class="sb-feat-desc">一按即時切換模式，演講或會議更流暢自如。</div>
+        </div>
+
+        <!-- 2 多款配件選擇 -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="6" width="20" height="14" rx="2" stroke="white" stroke-width="2.2"/>
+              <line x1="18" y1="20" x2="18" y2="30" stroke="white" stroke-width="2.2"/>
+              <line x1="6" y1="30" x2="30" y2="30" stroke="white" stroke-width="2.2"/>
+              <line x1="6" y1="30" x2="6" y2="36" stroke="white" stroke-width="2.2"/>
+              <line x1="30" y1="30" x2="30" y2="36" stroke="white" stroke-width="2.2"/>
+              <circle cx="6" cy="38" r="2.5" stroke="white" stroke-width="1.8"/>
+              <circle cx="30" cy="38" r="2.5" stroke="white" stroke-width="1.8"/>
+              <line x1="34" y1="6" x2="38" y2="6" stroke="white" stroke-width="2"/>
+              <line x1="36" y1="4" x2="36" y2="8" stroke="white" stroke-width="2"/>
+              <line x1="34" y1="14" x2="38" y2="14" stroke="white" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="sb-feat-name">多款配件選擇</div>
+          <div class="sb-feat-desc">可掛牆、座地移動架、升降架，配合不同場合應用。</div>
+        </div>
+
+        <!-- 3 吋數由你選擇 -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="6" y="10" width="32" height="22" rx="2" stroke="white" stroke-width="2.2"/>
+              <line x1="6" y1="10" x2="14" y2="18" stroke="white" stroke-width="1.5"/>
+              <line x1="38" y1="10" x2="30" y2="18" stroke="white" stroke-width="1.5"/>
+              <line x1="6" y1="32" x2="14" y2="24" stroke="white" stroke-width="1.5"/>
+              <line x1="38" y1="32" x2="30" y2="24" stroke="white" stroke-width="1.5"/>
+              <text x="22" y="24" text-anchor="middle" fill="white" font-size="8" font-weight="bold">55"~98"</text>
+            </svg>
+          </div>
+          <div class="sb-feat-name">吋數由你選擇</div>
+          <div class="sb-feat-desc">提供 55"、65"、75"、86" 及最大 98" 屏幕，適合各類場所。</div>
+        </div>
+
+        <!-- 4 批註模式 -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="6" width="28" height="22" rx="2" stroke="white" stroke-width="2.2"/>
+              <line x1="9" y1="13" x2="20" y2="13" stroke="white" stroke-width="1.8"/>
+              <line x1="9" y1="18" x2="16" y2="18" stroke="white" stroke-width="1.8"/>
+              <path d="M26 28 L36 18 L38 20 L28 30 Z" fill="white"/>
+              <path d="M26 28 L24 34 L30 32 Z" fill="white" opacity="0.7"/>
+              <line x1="34" y1="16" x2="36" y2="18" stroke="white" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="sb-feat-name">批註模式</div>
+          <div class="sb-feat-desc">可於任何畫面上書寫，方便附加備註及筆記重點。</div>
+        </div>
+
+        <!-- 5 反向操作 -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="8" width="24" height="18" rx="2" stroke="white" stroke-width="2.2"/>
+              <rect x="16" y="28" width="12" height="8" rx="2" stroke="white" stroke-width="2"/>
+              <path d="M30 12 L36 8 L36 18 Z" fill="white" opacity="0.8"/>
+              <path d="M30 24 L36 20 L36 28 Z" fill="white" opacity="0.8"/>
+              <circle cx="12" cy="17" r="3" fill="white" opacity="0.9"/>
+              <line x1="12" y1="14" x2="12" y2="11" stroke="white" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="sb-feat-name">反向操作</div>
+          <div class="sb-feat-desc">電腦影像投射上白板，利用屏幕觸控反向操作電腦，更流暢自然。</div>
+        </div>
+
+        <!-- 6 不用關燈 -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 6 C16 6 11 11 11 17 C11 21 13 24.5 16 26.5 L16 30 L28 30 L28 26.5 C31 24.5 33 21 33 17 C33 11 28 6 22 6 Z" stroke="white" stroke-width="2.2"/>
+              <line x1="17" y1="32" x2="27" y2="32" stroke="white" stroke-width="2"/>
+              <line x1="18" y1="35" x2="26" y2="35" stroke="white" stroke-width="2"/>
+              <line x1="22" y1="2" x2="22" y2="4" stroke="white" stroke-width="2"/>
+              <line x1="6" y1="17" x2="8" y2="17" stroke="white" stroke-width="2"/>
+              <line x1="36" y1="17" x2="38" y2="17" stroke="white" stroke-width="2"/>
+              <line x1="10" y1="8" x2="11.5" y2="9.5" stroke="white" stroke-width="2"/>
+              <line x1="34" y1="8" x2="32.5" y2="9.5" stroke="white" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="sb-feat-name">不用關燈<br>畫面依然清晰</div>
+          <div class="sb-feat-desc">比傳統投影機限制更少，不用調焦距，畫面清晰，會議更專注。</div>
+        </div>
+
+        <!-- 7 屏幕鏡射 -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="12" width="18" height="14" rx="2" stroke="white" stroke-width="2"/>
+              <rect x="24" y="12" width="18" height="14" rx="2" stroke="white" stroke-width="2"/>
+              <line x1="20" y1="19" x2="24" y2="19" stroke="white" stroke-width="2"/>
+              <path d="M18 16 L20 19 L18 22" stroke="white" stroke-width="1.8" fill="none"/>
+              <path d="M26 16 L24 19 L26 22" stroke="white" stroke-width="1.8" fill="none"/>
+              <line x1="7" y1="30" x2="11" y2="34" stroke="white" stroke-width="1.8"/>
+              <line x1="37" y1="30" x2="33" y2="34" stroke="white" stroke-width="1.8"/>
+              <line x1="9" y1="34" x2="35" y2="34" stroke="white" stroke-width="1.8"/>
+              <text x="11" y="22" fill="white" font-size="7" opacity="0.8">×9</text>
+            </svg>
+          </div>
+          <div class="sb-feat-name">屏幕鏡射功能<br>直接投射影像</div>
+          <div class="sb-feat-desc">最多同時連接 9 個裝置投射影像，自動分割畫面同時顯示。</div>
+        </div>
+
+        <!-- 8 QR Code 分享 -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="14" height="14" rx="1.5" stroke="white" stroke-width="2"/>
+              <rect x="7" y="7" width="8" height="8" rx="1" fill="white"/>
+              <rect x="26" y="4" width="14" height="14" rx="1.5" stroke="white" stroke-width="2"/>
+              <rect x="29" y="7" width="8" height="8" rx="1" fill="white"/>
+              <rect x="4" y="26" width="14" height="14" rx="1.5" stroke="white" stroke-width="2"/>
+              <rect x="7" y="29" width="8" height="8" rx="1" fill="white"/>
+              <line x1="26" y1="26" x2="30" y2="26" stroke="white" stroke-width="2"/>
+              <line x1="26" y1="30" x2="26" y2="34" stroke="white" stroke-width="2"/>
+              <line x1="30" y1="30" x2="34" y2="30" stroke="white" stroke-width="2"/>
+              <line x1="34" y1="26" x2="34" y2="34" stroke="white" stroke-width="2"/>
+              <line x1="30" y1="34" x2="34" y2="34" stroke="white" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="sb-feat-name">擷取屏幕畫面<br>QR Code 即時分享</div>
+          <div class="sb-feat-desc">擷取任何畫面轉換成 QR Code，即時以手機下載，提高會議效率。</div>
+        </div>
+
+        <!-- 9 20點多點觸控 -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 8 C18 6 19.5 5 21 5 C22.5 5 24 6 24 8 L24 22 L28 20 C30 19 32 20.5 32 22.5 C32 23.5 31.5 24.5 30.5 25 L24 29 L24 36 L14 36 L14 24 L10 20 C9 19 9 17 10.5 16.5 C12 16 13.5 16.5 14 18 L18 22 Z" stroke="white" stroke-width="2" fill="none"/>
+              <circle cx="8" cy="10" r="1.8" fill="white" opacity="0.7"/>
+              <circle cx="14" cy="6" r="1.8" fill="white" opacity="0.7"/>
+              <circle cx="28" cy="6" r="1.8" fill="white" opacity="0.7"/>
+              <circle cx="34" cy="10" r="1.8" fill="white" opacity="0.7"/>
+              <text x="22" y="16" text-anchor="middle" fill="white" font-size="6.5" font-weight="bold">20P</text>
+            </svg>
+          </div>
+          <div class="sb-feat-name">20 點多點觸控<br>表現最佳互動效果</div>
+          <div class="sb-feat-desc">具備 20 點同時觸控，可容納最多 4 人同時在白板上書寫。</div>
+        </div>
+
+        <!-- 10 內置背景模板 -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="5" y="5" width="34" height="34" rx="2" stroke="white" stroke-width="2"/>
+              <line x1="5" y1="17" x2="39" y2="17" stroke="white" stroke-width="1.5" opacity="0.8"/>
+              <line x1="5" y1="29" x2="39" y2="29" stroke="white" stroke-width="1.5" opacity="0.8"/>
+              <line x1="17" y1="5" x2="17" y2="39" stroke="white" stroke-width="1.5" opacity="0.8"/>
+              <line x1="29" y1="5" x2="29" y2="39" stroke="white" stroke-width="1.5" opacity="0.8"/>
+              <rect x="8" y="8" width="7" height="7" rx="1" fill="white" opacity="0.5"/>
+              <rect x="20" y="20" width="7" height="7" rx="1" fill="white" opacity="0.5"/>
+              <rect x="32" y="32" width="5" height="5" rx="1" fill="white" opacity="0.5"/>
+            </svg>
+          </div>
+          <div class="sb-feat-name">內置多款背景模板</div>
+          <div class="sb-feat-desc">背景可轉換成圖表、格仔線、五線譜、計分牌及計時器等。</div>
+        </div>
+
+        <!-- 11 Android + Windows 雙系統 -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Android robot head -->
+              <rect x="6" y="16" width="14" height="14" rx="3" stroke="white" stroke-width="2"/>
+              <circle cx="9.5" cy="20" r="1.5" fill="white"/>
+              <circle cx="16.5" cy="20" r="1.5" fill="white"/>
+              <line x1="9" y1="14" x2="7" y2="11" stroke="white" stroke-width="1.8"/>
+              <line x1="17" y1="14" x2="19" y2="11" stroke="white" stroke-width="1.8"/>
+              <!-- Windows logo -->
+              <rect x="24" y="12" width="7" height="7" rx="1" fill="white" opacity="0.9"/>
+              <rect x="33" y="12" width="7" height="7" rx="1" fill="white" opacity="0.9"/>
+              <rect x="24" y="21" width="7" height="7" rx="1" fill="white" opacity="0.9"/>
+              <rect x="33" y="21" width="7" height="7" rx="1" fill="white" opacity="0.9"/>
+            </svg>
+          </div>
+          <div class="sb-feat-name">支援 Android 及<br>Windows 雙系統</div>
+          <div class="sb-feat-desc">介面熟識必定更輕鬆上手，雙系統自由切換。</div>
+        </div>
+
+        <!-- 12 視像會議 -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="10" width="28" height="22" rx="2" stroke="white" stroke-width="2.2"/>
+              <path d="M32 17 L40 13 L40 31 L32 27 Z" stroke="white" stroke-width="2" fill="none"/>
+              <circle cx="12" cy="22" r="4" stroke="white" stroke-width="1.8"/>
+              <circle cx="22" cy="22" r="4" stroke="white" stroke-width="1.8"/>
+              <text x="18" y="36" text-anchor="middle" fill="white" font-size="6" opacity="0.8">Zoom Teams</text>
+            </svg>
+          </div>
+          <div class="sb-feat-name">支援視像會議</div>
+          <div class="sb-feat-desc">支援 Zoom、Microsoft Teams 及 Webex Meeting，配合遠端會議趨勢。</div>
+        </div>
+
+        <!-- 13 無線投屏 Dongle -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- USB dongle -->
+              <rect x="16" y="22" width="12" height="18" rx="3" stroke="white" stroke-width="2.2"/>
+              <rect x="19" y="26" width="6" height="3" rx="1" fill="white" opacity="0.7"/>
+              <line x1="22" y1="22" x2="22" y2="18" stroke="white" stroke-width="2"/>
+              <!-- Wireless waves -->
+              <path d="M14 14 C14 10 30 10 30 14" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M10 10 C10 4 34 4 34 10" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
+              <circle cx="22" cy="16" r="2" fill="white"/>
+            </svg>
+          </div>
+          <div class="sb-feat-name">無線投屏器(Dongle)<br>毋須 Wi-Fi 密碼</div>
+          <div class="sb-feat-desc">透過 Dongle 連線，毋須輸入 Wi-Fi 密碼即可連接屏幕，提升網絡保安。</div>
+        </div>
+
+        <!-- 14 技術支援及教學 -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="22" cy="14" r="7" stroke="white" stroke-width="2.2"/>
+              <path d="M8 38 C8 30 36 30 36 38" stroke="white" stroke-width="2.2" fill="none"/>
+              <!-- Headset -->
+              <path d="M14 14 C14 8 30 8 30 14" stroke="white" stroke-width="1.8" fill="none" opacity="0.8"/>
+              <rect x="11" y="14" width="4" height="6" rx="2" fill="white" opacity="0.8"/>
+              <rect x="29" y="14" width="4" height="6" rx="2" fill="white" opacity="0.8"/>
+            </svg>
+          </div>
+          <div class="sb-feat-name">提供技術支援及教學</div>
+          <div class="sb-feat-desc">提供完整操作指引及技術支援專線，由專人迅速處理緊急問題。</div>
+        </div>
+
+        <!-- 15 可租可買 -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Handshake -->
+              <path d="M4 24 L14 18 L20 20 L24 18 L30 20 L40 24" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <path d="M14 18 L14 30 C14 31 15 32 16 32 L28 32 C29 32 30 31 30 30 L30 20" stroke="white" stroke-width="2" fill="none"/>
+              <line x1="4" y1="24" x2="4" y2="32" stroke="white" stroke-width="2.2"/>
+              <line x1="40" y1="24" x2="40" y2="32" stroke="white" stroke-width="2.2"/>
+              <text x="22" y="28" text-anchor="middle" fill="white" font-size="7" font-weight="bold">租/買</text>
+            </svg>
+          </div>
+          <div class="sb-feat-name">可租可買<br>靈活配合需要</div>
+          <div class="sb-feat-desc">提供銷售及租賃服務，私人活動、商務會議均可，租期短至一日。</div>
+        </div>
+
+        <!-- 16 3年全機保養 -->
+        <div class="sb-feat-item">
+          <div class="sb-feat-circle">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 4 L36 10 L36 24 C36 32 22 40 22 40 C22 40 8 32 8 24 L8 10 Z" stroke="white" stroke-width="2.2" fill="none"/>
+              <polyline points="15,22 20,27 30,17" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <text x="22" y="36" text-anchor="middle" fill="white" font-size="6.5" opacity="0.0">3yr</text>
+            </svg>
+          </div>
+          <div class="sb-feat-name">3 年全機保養</div>
+          <div class="sb-feat-desc">由工廠直營，保養維修服務全面專業，如需要更提供代用機服務。</div>
+        </div>
+
+      </div><!-- end sb-feat-grid -->
+    </div><!-- end sb-feat-section -->
+
+    <!-- ===== 產品相集 ===== -->
+    <div class="sb-gallery">
+      <h3 class="sb-gallery-title">產品相集</h3>
+      <div class="sb-gallery-underline"></div>
+
+      <div class="sb-carousel">
+        <button class="sb-arrow sb-arrow-left" onclick="sbSlide(-1)">&#10094;</button>
+        <div class="sb-carousel-track" id="sbTrack">
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-1.jpg"  alt="SMARTBoard 安裝場景 1"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-2.jpg"  alt="SMARTBoard 安裝場景 2"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-3.JPG"  alt="SMARTBoard 安裝場景 3"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-4.JPG"  alt="SMARTBoard 安裝場景 4"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-5.JPG"  alt="SMARTBoard 安裝場景 5"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-6.JPG"  alt="SMARTBoard 安裝場景 6"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-7.JPG"  alt="SMARTBoard 安裝場景 7"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-8.jpg"  alt="SMARTBoard 安裝場景 8"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-9.jpg"  alt="SMARTBoard 安裝場景 9"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-10.jpg" alt="SMARTBoard 安裝場景 10"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-11.jpg" alt="SMARTBoard 安裝場景 11"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-12.jpg" alt="SMARTBoard 安裝場景 12"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-13.jpg" alt="SMARTBoard 安裝場景 13"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-14.jpg" alt="SMARTBoard 安裝場景 14"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-15.jpg" alt="SMARTBoard 安裝場景 15"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-16.jpg" alt="SMARTBoard 安裝場景 16"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-17.jpg" alt="SMARTBoard 安裝場景 17"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-18.jpg" alt="SMARTBoard 安裝場景 18"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-19.jpg" alt="SMARTBoard 安裝場景 19"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-20.jpg" alt="SMARTBoard 安裝場景 20"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-21.jpg" alt="SMARTBoard 安裝場景 21"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-22.jpg" alt="SMARTBoard 安裝場景 22"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-23.jpg" alt="SMARTBoard 安裝場景 23"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-24.jpg" alt="SMARTBoard 安裝場景 24"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-25.jpg" alt="SMARTBoard 安裝場景 25"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-26.jpg" alt="SMARTBoard 安裝場景 26"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-27.jpg" alt="SMARTBoard 安裝場景 27"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-28.jpg" alt="SMARTBoard 安裝場景 28"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-29.jpg" alt="SMARTBoard 安裝場景 29"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-30.jpg" alt="SMARTBoard 安裝場景 30"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-31.jpg" alt="SMARTBoard 安裝場景 31"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-32.jpg" alt="SMARTBoard 安裝場景 32"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-33.jpg" alt="SMARTBoard 安裝場景 33"></div>
+          <div class="sb-slide sb-slide-more">
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:16px;padding:24px;text-align:center;">
+              <div style="font-size:2.8rem;">📸</div>
+              <div style="font-size:1.15rem;font-weight:800;color:#4A5FCF;line-height:1.4;">項目太多，不能盡錄</div>
+              <div style="font-size:0.88rem;color:#6c7a7a;line-height:1.6;">以上只是部分安裝案例。<br>我們在澳門各學校、企業及機構<br>完成了更多電子白板工程項目，<br>歡迎聯絡我們了解更多。</div>
+              <a href="javascript:void(0)" onclick="smoothTo('contact')" style="margin-top:8px;background:linear-gradient(135deg,#4A5FCF,#7C6FF0);color:white;padding:10px 24px;border-radius:24px;font-size:0.85rem;font-weight:700;text-decoration:none;box-shadow:0 4px 14px rgba(74,95,207,0.3);">📩 聯絡我們查詢</a>
+            </div>
+          </div>
+        </div>
+        <button class="sb-arrow sb-arrow-right" onclick="sbSlide(1)">&#10095;</button>
+      </div>
+
+      <div class="sb-dots" id="sbDots"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CLIENTS SECTION -->
+<section id="clients" class="section-clients">
+  <div class="section-inner">
+    <div class="section-label">客戶夥伴</div>
+    <h2 class="section-title">受信賴的服務夥伴</h2>
+    <p class="section-subtitle">我們服務橫跨 11 個行業，包括教育、電訊、醫療、酒店及政府機構，共 19+ 家認可客戶。</p>
+
+
+    <div class="clients-table">
+      <div class="clients-row">
+        <div class="clients-industry">社團組織</div>
+        <div class="clients-names">澳門街坊會聯合總會、澳門明愛</div>
+      </div>
+      <div class="clients-row">
+        <div class="clients-industry">高等院校</div>
+        <div class="clients-names">澳門大學、中西創新學院</div>
+      </div>
+      <div class="clients-row">
+        <div class="clients-industry">中學（6 所）</div>
+        <div class="clients-names">化地瑪聖母女子學校、勞校中學、傳承學校、創新中學、澳門培華中學、廣大中學</div>
+      </div>
+      <div class="clients-row">
+        <div class="clients-industry">小學</div>
+        <div class="clients-names">濠江小學</div>
+      </div>
+      <div class="clients-row">
+        <div class="clients-industry">國際學校</div>
+        <div class="clients-names">中葡國際學校</div>
+      </div>
+      <div class="clients-row">
+        <div class="clients-industry">幼兒教育</div>
+        <div class="clients-names">仁慈堂托兒所、小海鷗托兒所、工聯童真托兒所、教業托兒所</div>
+      </div>
+      <div class="clients-row">
+        <div class="clients-industry">電訊業</div>
+        <div class="clients-names">CTM（澳門電訊）、MTEL</div>
+      </div>
+      <div class="clients-row">
+        <div class="clients-industry">醫療機構</div>
+        <div class="clients-names">盈安眼科</div>
+      </div>
+      <div class="clients-row">
+        <div class="clients-industry">餐飲業</div>
+        <div class="clients-names">澳門壇香山</div>
+      </div>
+      <div class="clients-row">
+        <div class="clients-industry">酒店旅業</div>
+        <div class="clients-names">英倫酒店</div>
+      </div>
+      <div class="clients-row">
+        <div class="clients-industry">金融保險</div>
+        <div class="clients-names">萬通保險</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" class="section-contact">
+  <div class="section-inner">
+    <div class="section-label">聯絡我們</div>
+    <h2 class="section-title">隨時為您服務</h2>
+    <p class="section-subtitle">有任何查詢或需要報價，歡迎透過以下方式聯絡我們的團隊。</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>聯絡資料</h3>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-item-text">
+            <h4>電話</h4>
+            <p><a href="tel:28403503">2840 3503</a> &nbsp;/&nbsp; <a href="tel:63928613">6392 8613</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon" style="background:#25D366;color:white;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+          </div>
+          <div class="contact-item-text">
+            <h4>WhatsApp</h4>
+            <p><a href="https://wa.me/85263928613" target="_blank" style="color:#25D366;font-weight:700;">直接 WhatsApp 查詢 →</a><br><span style="font-size:0.82rem;color:#6c7a7a;">6392 8613（點擊即開 WhatsApp）</span></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-item-text">
+            <h4>電郵</h4>
+            <p><a href="mailto:info@pcshop-net.com">info@pcshop-net.com</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-item-text">
+            <h4>地址</h4>
+            <p><strong>門市：</strong>澳門雅廉訪大馬路幸運閣商場 BG 舖<br><strong>辦公室：</strong>澳門北京街金融中心 14 樓 M</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div class="contact-item-text">
+            <h4>營業時間</h4>
+            <p>星期一至六：10:00 – 19:00<br>星期日及公眾假期：休息</p>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3>📩 發送查詢</h3>
+        <div class="cf-group">
+          <label>姓名</label>
+          <input type="text" id="cf-name" placeholder="您的姓名">
+        </div>
+        <div class="cf-group">
+          <label>電話 / 電郵</label>
+          <input type="text" id="cf-contact" placeholder="聯絡方式">
+        </div>
+        <div class="cf-group">
+          <label>查詢類別</label>
+          <select id="cf-type">
+            <option>產品查詢</option>
+            <option>維修服務</option>
+            <option>企業採購</option>
+            <option>網絡工程</option>
+            <option>SMARTBoard 電子白板</option>
+            <option>其他</option>
+          </select>
+        </div>
+        <div class="cf-group">
+          <label>訊息內容</label>
+          <textarea id="cf-msg" placeholder="請簡述您的需求..."></textarea>
+        </div>
+        <button class="cf-submit" onclick="sendContactEmail()">📨 提交查詢</button>
+        <p style="font-size:0.75rem;color:#999;margin-top:10px;text-align:center;">提交後將開啟您的電郵程式，確認發送即可。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<footer>
+  <strong>🖥️ PC Shop 專業電腦店</strong> &copy; 2025 · Professional Computer Shop · 澳門雅廉訪大馬路幸運閣商場 BG 舖
+  <div style="margin-top:10px; font-size:0.88rem; display:flex; justify-content:center; gap:28px; flex-wrap:wrap; opacity:0.85;">
+    <span>📞 <a href="tel:28403503" style="color:inherit;text-decoration:none;">2840 3503</a> &nbsp;/&nbsp; <a href="tel:63928613" style="color:inherit;text-decoration:none;">6392 8613</a></span>
+    <span>🌐 <a href="https://www.pcshop-net.com" style="color:inherit;text-decoration:none;">www.pcshop-net.com</a></span>
+    <span>✉️ <a href="mailto:info@pcshop-net.com" style="color:inherit;text-decoration:none;">info@pcshop-net.com</a></span>
+  </div>
+  <div style="margin-top:14px; display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
+    <a href="javascript:void(0)" onclick="smoothTo('home')" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">首頁</a>
+    <a href="javascript:void(0)" onclick="smoothTo('about')" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">關於我們</a>
+    <a href="javascript:void(0)" onclick="smoothTo('services')" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">服務項目</a>
+    <a href="javascript:void(0)" href="shop.html" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">線上商店</a>
+    <a href="javascript:void(0)" onclick="smoothTo('contact')" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">聯絡我們</a>
+    
+  </div>
+</footer>
+
+<!-- ADMIN LOGIN MODAL -->
+<div class="admin-overlay" id="adminLoginOverlay">
+  <div class="admin-login-box">
+    <div style="font-size:2.5rem;margin-bottom:12px;">🔐</div>
+    <h2>管理員登入</h2>
+    <p>請輸入後台管理密碼</p>
+    <input type="password" id="adminPwInput" placeholder="輸入密碼" onkeydown="if(event.key==='Enter')doAdminLogin()">
+    <div id="adminLoginErr" style="color:var(--danger);font-size:0.83rem;margin-bottom:10px;display:none;">❌ 密碼錯誤，請重試</div>
+    <button class="admin-login-btn" onclick="doAdminLogin()">登入後台</button>
+    <button class="admin-cancel-btn" onclick="closeAdminLogin()">取消</button>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-topbar">
+    <span style="font-size:1.4rem;">⚙️</span>
+    <div>
+      <h1>WonderShop 後台管理</h1>
+      <span>產品管理系統</span>
+    </div>
+    <button class="admin-close-btn" onclick="closeAdminPanel()">← 返回商店</button>
+  </div>
+  <div class="admin-body">
+    <!-- Stats -->
+    <div class="admin-stats" id="adminStats"></div>
+    <!-- Toolbar -->
+    <div class="admin-toolbar">
+      <h2>📦 產品列表</h2>
+      <button class="admin-add-btn" onclick="openAddProduct()">＋ 新增產品</button>
+      <input class="admin-search" type="text" id="adminSearchInput" placeholder="搜尋產品..." oninput="renderAdminTable()">
+    </div>
+    <!-- Table -->
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>圖示</th>
+            <th>產品名稱</th>
+            <th>類別</th>
+            <th>售價</th>
+            <th>原價</th>
+            <th>評分</th>
+            <th>標籤</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT ADD/EDIT MODAL -->
+<div class="prod-modal-overlay" id="prodModalOverlay">
+  <div class="prod-modal">
+    <div class="prod-modal-header">
+      <h3 id="prodModalTitle">新增產品</h3>
+      <button class="prod-modal-close" onclick="closeProdModal()">✕</button>
+    </div>
+    <div class="prod-modal-body">
+      <input type="hidden" id="editProdId">
+      <div class="prod-form-row">
+        <div class="prod-form-group">
+          <label>產品名稱 *</label>
+          <input type="text" id="fName" placeholder="例：iPhone 15 Pro">
+        </div>
+        <div class="prod-form-group">
+          <label>圖示 Emoji *</label>
+          <input type="text" id="fEmoji" placeholder="例：📱">
+        </div>
+      </div>
+      <div class="prod-form-group">
+        <label>產品描述 *</label>
+        <input type="text" id="fDesc" placeholder="簡短描述產品特點">
+      </div>
+      <div class="prod-form-row">
+        <div class="prod-form-group">
+          <label>類別 *</label>
+          <select id="fCat">
+            <option value="phone">📱 手機/平板</option>
+            <option value="computer">💻 電腦/配件</option>
+            <option value="audio">🎧 耳機/音響</option>
+            <option value="smarthome">🏠 智能家居</option>
+            <option value="service">🔧 維修及工程</option>
+          </select>
+        </div>
+        <div class="prod-form-group">
+          <label>標籤</label>
+          <select id="fBadge">
+            <option value="">無標籤</option>
+            <option value="hot">熱賣</option>
+            <option value="new">新品</option>
+            <option value="sale">折扣</option>
+          </select>
+        </div>
+      </div>
+      <div class="prod-form-row">
+        <div class="prod-form-group">
+          <label>售價 (MOP$) *</label>
+          <input type="number" id="fPrice" placeholder="0" min="0">
+        </div>
+        <div class="prod-form-group">
+          <label>原價 (劃線，選填)</label>
+          <input type="number" id="fOldPrice" placeholder="留空表示不顯示" min="0">
+        </div>
+      </div>
+      <div class="prod-form-row">
+        <div class="prod-form-group">
+          <label>評分 (1–5)</label>
+          <input type="number" id="fRating" placeholder="4.8" min="1" max="5" step="0.1">
+        </div>
+        <div class="prod-form-group">
+          <label>評論數量</label>
+          <input type="number" id="fReviews" placeholder="0" min="0">
+        </div>
+      </div>
+      <button class="prod-save-btn" onclick="saveProd()">💾 儲存產品</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="icon">🗑️</div>
+    <h3>確認刪除</h3>
+    <p id="confirmMsg">確定要刪除這個產品嗎？此動作不可復原。</p>
+    <div class="confirm-btns">
+      <button class="confirm-no" onclick="closeConfirm()">取消</button>
+      <button class="confirm-yes" onclick="doDelete()">確認刪除</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function smoothTo(id) {
+  const el = document.getElementById(id);
+  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  return false;
+}
+function toggleSearch() {
+  const bar = document.getElementById('corpSearchBar');
+  bar.classList.toggle('open');
+  if (bar.classList.contains('open')) {
+    setTimeout(()=>document.getElementById('searchInput').focus(), 150);
+  }
+}
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+// Search: redirect to shop.html with query
+document.addEventListener('DOMContentLoaded', function() {
+  const si = document.getElementById('searchInput');
+  if (si) {
+    si.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && si.value.trim()) {
+        window.location.href = 'shop.html?q=' + encodeURIComponent(si.value.trim());
+      }
+    });
+  }
+  const searchBtn = document.querySelector('.corp-search-inner button');
+  if (searchBtn) {
+    searchBtn.onclick = function() {
+      const v = document.getElementById('searchInput').value.trim();
+      if (v) window.location.href = 'shop.html?q=' + encodeURIComponent(v);
+    };
+  }
+});
+
+// ===== SMARTBoard Photo Gallery =====
+(function() {
+  const total = 34;
+  let current = 0; // centre slide index
+  const visibleCount = 3;
+
+  function init() {
+    const dots = document.getElementById('sbDots');
+    if (!dots) return;
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('div');
+      d.className = 'sb-dot' + (i === 0 ? ' active' : '');
+      d.onclick = () => goTo(i);
+      dots.appendChild(d);
+    }
+    render();
+  }
+
+  function render() {
+    const track = document.getElementById('sbTrack');
+    if (!track) return;
+    const slides = track.querySelectorAll('.sb-slide');
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === current);
+    });
+    // Shift so current slide is in centre
+    const slideW = track.parentElement.offsetWidth / visibleCount;
+    const offset = current * (slideW + 16) - slideW;
+    track.style.transform = `translateX(-${Math.max(0, offset)}px)`;
+    // Dots
+    document.querySelectorAll('.sb-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  function goTo(i) {
+    current = (i + total) % total;
+    render();
+  }
+
+  window.sbSlide = function(dir) { goTo(current + dir); };
+  document.addEventListener('DOMContentLoaded', init);
+})();
+
+function sendContactEmail() {
+  const name    = document.getElementById('cf-name').value.trim();
+  const contact = document.getElementById('cf-contact').value.trim();
+  const type    = document.getElementById('cf-type').value;
+  const msg     = document.getElementById('cf-msg').value.trim();
+
+  if (!name || !contact || !msg) {
+    alert('請填寫姓名、聯絡方式及訊息內容。');
+    return;
+  }
+
+  const to      = 'info@pcshop-net.com';
+  const subject = encodeURIComponent('【PC Shop 網站查詢】' + type + ' - ' + name);
+  const body    = encodeURIComponent(
+    '查詢類別：' + type + '\n' +
+    '姓名：' + name + '\n' +
+    '聯絡方式：' + contact + '\n\n' +
+    '訊息內容：\n' + msg + '\n\n' +
+    '---\n此訊息來自 PC Shop 官網查詢表單'
+  );
+
+  window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
+}
+</script>
+
+<!-- ===== WHATSAPP FLOATING BUTTON ===== -->
+<a href="https://wa.me/85263928613" target="_blank" id="wa-float" title="WhatsApp 查詢" aria-label="WhatsApp 查詢">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+  <span id="wa-label">WhatsApp 查詢</span>
+</a>
+<style>
+#wa-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  background: #25D366;
+  color: white;
+  border-radius: 50px;
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+  transition: width .3s ease, border-radius .3s ease, gap .3s ease, box-shadow .3s;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#wa-float:hover {
+  width: 160px;
+  border-radius: 30px;
+  gap: 10px;
+  box-shadow: 0 6px 28px rgba(37,211,102,0.6);
+  padding: 0 18px;
+}
+#wa-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  max-width: 0;
+  opacity: 0;
+  transition: max-width .3s ease, opacity .3s ease;
+  overflow: hidden;
+}
+#wa-float:hover #wa-label {
+  max-width: 120px;
+  opacity: 1;
+}
+@media(max-width:600px) {
+  #wa-float { bottom: 18px; right: 18px; width: 52px; height: 52px; }
+}
+</style>
+
+</body>
+</html>

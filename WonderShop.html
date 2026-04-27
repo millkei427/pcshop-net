@@ -1,0 +1,2622 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WonderShop 科技商城</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --primary: #4AADA8;
+    --primary-dark: #358F8A;
+    --secondary: #F4845F;
+    --dark: #2D5F5D;
+    --text: #3D4A49;
+    --light: #F5FAFA;
+    --border: #D6ECEA;
+    --success: #5BAD8A;
+    --danger: #E07070;
+    --shadow: 0 2px 12px rgba(74,173,168,0.12);
+    --radius: 12px;
+  }
+  body { font-family: 'Segoe UI', 'PingFang HK', Arial, sans-serif; background: var(--light); color: var(--text); }
+
+  /* ===== HEADER ===== */
+  header {
+    background: linear-gradient(135deg, var(--dark) 0%, #1E4745 100%);
+    color: white;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 24px;
+  }
+  .logo {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: white;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .logo span { color: var(--primary); }
+  .search-bar {
+    flex: 1;
+    display: flex;
+    max-width: 560px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .search-bar input {
+    flex: 1;
+    border: none;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    outline: none;
+    color: var(--text);
+  }
+  .search-bar button {
+    background: var(--primary);
+    border: none;
+    padding: 10px 18px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background 0.2s;
+  }
+  .search-bar button:hover { background: var(--primary-dark); }
+  .header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-left: auto;
+  }
+  .cart-btn {
+    background: var(--secondary);
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .cart-btn:hover { background: #e05f00; transform: translateY(-1px); }
+  .cart-count {
+    background: white;
+    color: var(--secondary);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+
+  /* ===== NAV CATEGORIES ===== */
+  .category-nav {
+    background: rgba(255,255,255,0.07);
+    padding: 0 24px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+  }
+  .category-nav::-webkit-scrollbar { display: none; }
+  .cat-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.75);
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .cat-btn:hover { color: white; }
+  .cat-btn.active { color: white; border-bottom-color: var(--secondary); font-weight: 600; }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, #4AADA8 0%, #7ECECA 100%);
+    padding: 48px 32px;
+    text-align: center;
+    color: white;
+  }
+  .hero h1 { font-size: 2.4rem; font-weight: 800; margin-bottom: 12px; }
+  .hero p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 24px; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 50px;
+    padding: 8px 24px;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  /* ===== FILTERS ===== */
+  .filters-bar {
+    background: white;
+    padding: 14px 24px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    box-shadow: var(--shadow);
+    flex-wrap: wrap;
+  }
+  .filter-label { font-weight: 600; color: #666; font-size: 0.9rem; }
+  .sort-select {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    outline: none;
+    color: var(--text);
+  }
+  .price-filter {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .price-filter input {
+    width: 90px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-size: 0.9rem;
+    outline: none;
+  }
+  .filter-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+  .filter-btn:hover { background: var(--primary-dark); }
+  .result-count { margin-left: auto; color: #888; font-size: 0.9rem; }
+
+  /* ===== MAIN CONTENT ===== */
+  .main { max-width: 1280px; margin: 0 auto; padding: 28px 24px; }
+
+  /* ===== PRODUCT GRID ===== */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .product-card {
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+  }
+  .product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.15); }
+  .product-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--danger);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    z-index: 1;
+  }
+  .product-badge.new { background: var(--success); }
+  .product-badge.hot { background: var(--secondary); }
+  .product-img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background: linear-gradient(135deg, #EDF7F6 0%, #E0F0EF 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    padding: 12px;
+  }
+  .product-info { padding: 16px; }
+  .product-category { font-size: 0.78rem; color: var(--primary); font-weight: 600; text-transform: uppercase; margin-bottom: 6px; }
+  .product-name { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; line-height: 1.4; }
+  .product-desc { font-size: 0.82rem; color: #888; margin-bottom: 12px; line-height: 1.5; }
+  .product-rating { display: flex; align-items: center; gap: 4px; font-size: 0.82rem; color: #888; margin-bottom: 10px; }
+  .stars { color: #FFC107; }
+  .product-price-row { display: flex; align-items: center; gap: 10px; }
+  .product-price { font-size: 1.2rem; font-weight: 800; color: var(--primary); }
+  .product-old-price { font-size: 0.85rem; color: #bbb; text-decoration: line-through; }
+  .add-cart-btn {
+    width: 100%;
+    margin-top: 12px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .add-cart-btn:hover { background: var(--primary-dark); }
+  .add-cart-btn.added { background: var(--success); }
+
+  /* ===== EMPTY STATE ===== */
+  .empty-state {
+    text-align: center;
+    padding: 64px 24px;
+    color: #bbb;
+    grid-column: 1 / -1;
+  }
+  .empty-state .icon { font-size: 4rem; margin-bottom: 16px; }
+  .empty-state p { font-size: 1.1rem; }
+
+  /* ===== CART SIDEBAR ===== */
+  .cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+  .cart-sidebar {
+    position: fixed;
+    right: -440px;
+    top: 0;
+    width: 420px;
+    max-width: 100vw;
+    height: 100vh;
+    background: white;
+    z-index: 2001;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+  }
+  .cart-sidebar.open { right: 0; }
+  .cart-header {
+    background: var(--dark);
+    color: white;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cart-header h2 { font-size: 1.1rem; font-weight: 700; }
+  .close-cart {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .close-cart:hover { background: rgba(255,255,255,0.15); }
+  .cart-body { flex: 1; overflow-y: auto; padding: 20px; }
+  .cart-empty { text-align: center; padding: 60px 20px; color: #bbb; }
+  .cart-empty .icon { font-size: 3.5rem; margin-bottom: 12px; }
+  .cart-item {
+    display: flex;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .cart-item-img {
+    width: 60px;
+    height: 60px;
+    background: var(--light);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+  }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-size: 0.9rem; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+  .cart-item-price { font-size: 0.95rem; color: var(--primary); font-weight: 700; }
+  .cart-item-controls { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .qty-btn {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border);
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .qty-btn:hover { background: var(--light); border-color: var(--primary); }
+  .qty-num { font-weight: 600; min-width: 24px; text-align: center; }
+  .remove-item { background: none; border: none; color: #ccc; cursor: pointer; font-size: 1.1rem; margin-left: auto; transition: color 0.2s; }
+  .remove-item:hover { color: var(--danger); }
+  .cart-footer {
+    padding: 20px 24px;
+    border-top: 2px solid var(--border);
+    background: white;
+  }
+  .cart-summary { margin-bottom: 16px; }
+  .cart-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 0.9rem; color: #666; }
+  .cart-total { font-size: 1.15rem; font-weight: 800; color: var(--dark); padding-top: 8px; border-top: 1px solid var(--border); margin-top: 8px; }
+  .checkout-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--secondary) 0%, #F9A880 100%);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .checkout-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255,107,0,0.4); }
+
+  /* ===== CHECKOUT MODAL ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: white;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 540px;
+    max-height: 92vh;
+    overflow-y: auto;
+    transform: translateY(20px);
+    transition: transform 0.3s;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-header {
+    background: linear-gradient(135deg, var(--dark), #1E4745);
+    color: white;
+    padding: 22px 28px;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .modal-header h2 { font-size: 1.15rem; }
+  .close-modal { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+  .modal-body { padding: 28px; }
+  .form-section { margin-bottom: 24px; }
+  .form-section h3 { font-size: 0.95rem; font-weight: 700; color: var(--dark); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--light); display: flex; align-items: center; gap: 8px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 6px; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: inherit;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
+  .payment-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .payment-option { border: 2px solid var(--border); border-radius: 10px; padding: 12px 8px; text-align: center; cursor: pointer; transition: all 0.2s; }
+  .payment-option:hover, .payment-option.selected { border-color: var(--primary); background: #f0f6ff; }
+  .payment-option .icon { font-size: 1.6rem; margin-bottom: 4px; }
+  .payment-option .name { font-size: 0.78rem; font-weight: 600; color: var(--text); }
+  .order-summary-box { background: var(--light); border-radius: 10px; padding: 16px; margin-top: 8px; }
+  .order-summary-box .row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 0.9rem; }
+  .order-summary-box .total-row { border-top: 2px solid var(--border); margin-top: 8px; padding-top: 10px; font-size: 1.05rem; font-weight: 800; color: var(--dark); }
+  .place-order-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary) 0%, #2D8F8A 100%);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-top: 8px;
+    transition: all 0.2s;
+  }
+  .place-order-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,102,255,0.4); }
+
+  /* ===== SUCCESS MODAL ===== */
+  .success-modal {
+    text-align: center;
+    padding: 48px 28px;
+  }
+  .success-icon { font-size: 5rem; margin-bottom: 16px; animation: pop 0.5s ease; }
+  @keyframes pop { 0%{transform:scale(0)} 70%{transform:scale(1.1)} 100%{transform:scale(1)} }
+  .success-modal h2 { font-size: 1.6rem; font-weight: 800; color: var(--success); margin-bottom: 10px; }
+  .success-modal p { color: #666; margin-bottom: 6px; }
+  .order-num { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
+  .continue-btn {
+    margin-top: 24px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .continue-btn:hover { background: var(--primary-dark); }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--dark);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    z-index: 9999;
+    transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 24px;
+    margin-top: 40px;
+    font-size: 0.9rem;
+  }
+  footer strong { color: white; }
+
+  /* ===== ADMIN PANEL ===== */
+  .admin-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+    z-index: 5000; display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .admin-overlay.open { opacity: 1; pointer-events: all; }
+  .admin-login-box {
+    background: white; border-radius: 16px; padding: 40px 36px; width: 340px;
+    text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    transform: translateY(20px); transition: transform 0.3s;
+  }
+  .admin-overlay.open .admin-login-box { transform: translateY(0); }
+  .admin-login-box h2 { font-size: 1.3rem; color: var(--dark); margin-bottom: 6px; }
+  .admin-login-box p { font-size: 0.85rem; color: #888; margin-bottom: 24px; }
+  .admin-login-box input {
+    width: 100%; border: 1.5px solid var(--border); border-radius: 8px;
+    padding: 11px 14px; font-size: 0.95rem; outline: none; margin-bottom: 14px;
+    transition: border-color 0.2s;
+  }
+  .admin-login-box input:focus { border-color: var(--primary); }
+  .admin-login-btn {
+    width: 100%; background: var(--primary); color: white; border: none;
+    padding: 12px; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: 600;
+    transition: background 0.2s; margin-bottom: 10px;
+  }
+  .admin-login-btn:hover { background: var(--primary-dark); }
+  .admin-cancel-btn {
+    width: 100%; background: none; color: #999; border: none; cursor: pointer;
+    font-size: 0.88rem; padding: 6px;
+  }
+  /* Admin Panel Full Screen */
+  .admin-panel {
+    position: fixed; inset: 0; background: #F0F4F8; z-index: 4000;
+    display: none; flex-direction: column; overflow: hidden;
+  }
+  .admin-panel.open { display: flex; }
+  .admin-topbar {
+    background: linear-gradient(135deg, var(--dark) 0%, #1E4745 100%);
+    color: white; padding: 16px 28px; display: flex; align-items: center; gap: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  }
+  .admin-topbar h1 { font-size: 1.1rem; font-weight: 700; }
+  .admin-topbar span { font-size: 0.85rem; opacity: 0.7; }
+  .admin-close-btn {
+    margin-left: auto; background: rgba(255,255,255,0.15); border: none; color: white;
+    padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.9rem;
+    transition: background 0.2s;
+  }
+  .admin-close-btn:hover { background: rgba(255,255,255,0.25); }
+  .admin-body { flex: 1; overflow-y: auto; padding: 28px; }
+  .admin-stats {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px; margin-bottom: 28px;
+  }
+  .stat-card {
+    background: white; border-radius: 12px; padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06); text-align: center;
+  }
+  .stat-card .stat-num { font-size: 2rem; font-weight: 800; color: var(--primary); }
+  .stat-card .stat-label { font-size: 0.85rem; color: #888; margin-top: 4px; }
+  .admin-toolbar {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap;
+  }
+  .admin-toolbar h2 { font-size: 1.05rem; font-weight: 700; color: var(--dark); }
+  .admin-add-btn {
+    background: var(--primary); color: white; border: none; padding: 10px 20px;
+    border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600;
+    display: flex; align-items: center; gap: 6px; transition: background 0.2s;
+  }
+  .admin-add-btn:hover { background: var(--primary-dark); }
+  .admin-search {
+    border: 1.5px solid var(--border); border-radius: 8px; padding: 9px 14px;
+    font-size: 0.9rem; outline: none; width: 220px;
+  }
+  .admin-table-wrap { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); overflow: hidden; }
+  .admin-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  .admin-table thead { background: var(--light); }
+  .admin-table th { padding: 13px 14px; text-align: left; font-weight: 700; color: #555; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  .admin-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .admin-table tr:last-child td { border-bottom: none; }
+  .admin-table tr:hover td { background: #fafefe; }
+  .admin-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+  .admin-badge.hot { background: #FEE8D8; color: #E05A00; }
+  .admin-badge.new { background: #D4F0E3; color: #1F7A4A; }
+  .admin-badge.sale { background: #FDDEDE; color: #C0392B; }
+  .admin-badge.none { background: #eee; color: #888; }
+  .tbl-edit-btn {
+    background: #EBF5FB; color: #2980B9; border: none; padding: 6px 13px;
+    border-radius: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600;
+    transition: background 0.2s; margin-right: 6px;
+  }
+  .tbl-edit-btn:hover { background: #D6EAF8; }
+  .tbl-del-btn {
+    background: #FDEDED; color: var(--danger); border: none; padding: 6px 13px;
+    border-radius: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600;
+    transition: background 0.2s;
+  }
+  .tbl-del-btn:hover { background: #FAD7D7; }
+  /* Product Form Modal */
+  .prod-modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    z-index: 6000; display: flex; align-items: center; justify-content: center;
+    padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s;
+  }
+  .prod-modal-overlay.open { opacity: 1; pointer-events: all; }
+  .prod-modal {
+    background: white; border-radius: 14px; width: 100%; max-width: 520px;
+    max-height: 90vh; overflow-y: auto;
+    transform: translateY(16px); transition: transform 0.25s;
+    box-shadow: 0 16px 50px rgba(0,0,0,0.25);
+  }
+  .prod-modal-overlay.open .prod-modal { transform: translateY(0); }
+  .prod-modal-header {
+    background: linear-gradient(135deg, var(--dark), #1E4745);
+    color: white; padding: 18px 24px; border-radius: 14px 14px 0 0;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .prod-modal-header h3 { font-size: 1rem; }
+  .prod-modal-close { background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; }
+  .prod-modal-body { padding: 24px; }
+  .prod-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .prod-form-group { margin-bottom: 16px; }
+  .prod-form-group label { display: block; font-size: 0.83rem; font-weight: 600; color: #555; margin-bottom: 6px; }
+  .prod-form-group input, .prod-form-group select, .prod-form-group textarea {
+    width: 100%; border: 1.5px solid var(--border); border-radius: 8px;
+    padding: 9px 12px; font-size: 0.9rem; outline: none; transition: border-color 0.2s; font-family: inherit;
+  }
+  .prod-form-group input:focus, .prod-form-group select:focus { border-color: var(--primary); }
+  .prod-save-btn {
+    width: 100%; background: var(--primary); color: white; border: none;
+    padding: 13px; border-radius: 9px; cursor: pointer; font-size: 1rem; font-weight: 700;
+    transition: background 0.2s; margin-top: 4px;
+  }
+  .prod-save-btn:hover { background: var(--primary-dark); }
+  /* Confirm Delete Modal */
+  .confirm-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+    z-index: 7000; display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  .confirm-overlay.open { opacity: 1; pointer-events: all; }
+  .confirm-box {
+    background: white; border-radius: 14px; padding: 32px 28px; width: 320px;
+    text-align: center; box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+  }
+  .confirm-box .icon { font-size: 2.8rem; margin-bottom: 12px; }
+  .confirm-box h3 { font-size: 1.05rem; color: var(--dark); margin-bottom: 8px; }
+  .confirm-box p { font-size: 0.88rem; color: #888; margin-bottom: 22px; }
+  .confirm-btns { display: flex; gap: 10px; }
+  .confirm-yes { flex: 1; background: var(--danger); color: white; border: none; padding: 11px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 0.9rem; }
+  .confirm-no { flex: 1; background: var(--light); color: var(--text); border: 1.5px solid var(--border); padding: 11px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .header-top { flex-wrap: wrap; padding: 12px 16px; }
+    .logo { width: 100%; }
+    .search-bar { max-width: 100%; }
+    .hero h1 { font-size: 1.6rem; }
+    .cart-sidebar { width: 100vw; }
+    .form-row { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  }
+
+  /* ===== CORPORATE NAV ===== */
+  .corp-nav {
+    background: linear-gradient(135deg, var(--dark) 0%, #1E4745 100%);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .corp-nav-top {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 32px;
+    height: 64px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .corp-logo {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: white;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .corp-logo span { color: var(--primary); }
+  .corp-nav-links {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+    justify-content: center;
+  }
+  .corp-nav-links a {
+    color: rgba(255,255,255,0.78);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .corp-nav-links a:hover { color: white; background: rgba(255,255,255,0.1); }
+  .corp-nav-links a.shop-link {
+    background: var(--secondary);
+    color: white;
+    border-radius: 20px;
+    padding: 7px 16px;
+  }
+  .corp-nav-links a.shop-link:hover { background: #e05f00; }
+  .corp-nav-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .corp-search-toggle {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s;
+  }
+  .corp-search-toggle:hover { background: rgba(255,255,255,0.2); }
+  .corp-cart-btn {
+    background: var(--secondary);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  .corp-cart-btn:hover { background: #e05f00; transform: translateY(-1px); }
+  .corp-cart-count {
+    background: white;
+    color: var(--secondary);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+  /* Search bar dropdown */
+  .corp-search-bar {
+    background: rgba(0,0,0,0.25);
+    padding: 0 32px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+  .corp-search-bar.open {
+    max-height: 64px;
+    padding: 10px 32px;
+  }
+  .corp-search-inner {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .corp-search-inner input {
+    flex: 1;
+    border: none;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    outline: none;
+    color: var(--text);
+  }
+  .corp-search-inner button {
+    background: var(--primary);
+    border: none;
+    padding: 10px 18px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.1rem;
+  }
+  /* Shop category nav */
+  .shop-cat-nav {
+    background: rgba(255,255,255,0.07);
+    padding: 0 32px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  .shop-cat-nav::-webkit-scrollbar { display: none; }
+
+  /* Hamburger (mobile) */
+  .nav-hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-left: auto;
+  }
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: var(--dark);
+    padding: 12px 24px 20px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 1rem;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+
+  /* ===== CORP HERO ===== */
+  .corp-hero {
+    background: linear-gradient(135deg, #1E4745 0%, #2D5F5D 50%, #4AADA8 100%);
+    color: white;
+    padding: 100px 32px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .corp-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(ellipse, rgba(74,173,168,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .corp-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    right: -10%;
+    width: 50%;
+    height: 150%;
+    background: radial-gradient(ellipse, rgba(244,132,95,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .corp-hero-badge {
+    display: inline-block;
+    background: rgba(74,173,168,0.3);
+    border: 1px solid rgba(74,173,168,0.5);
+    color: #A8E6E3;
+    border-radius: 20px;
+    padding: 6px 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .corp-hero h1 {
+    font-size: 3.2rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .corp-hero h1 span { color: #7ECECA; }
+  .corp-hero p {
+    font-size: 1.2rem;
+    opacity: 0.85;
+    max-width: 560px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+    position: relative;
+  }
+  .hero-cta-group {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .hero-cta-primary {
+    background: var(--secondary);
+    color: white;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .hero-cta-primary:hover { background: #e05f00; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(244,132,95,0.4); }
+  .hero-cta-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255,255,255,0.5);
+    padding: 14px 36px;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .hero-cta-secondary:hover { border-color: white; background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num { font-size: 2rem; font-weight: 800; color: #7ECECA; }
+  .hero-stat-label { font-size: 0.85rem; opacity: 0.7; margin-top: 4px; }
+
+  /* ===== ABOUT SECTION ===== */
+  .section-about {
+    background: white;
+    padding: 80px 32px;
+  }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    text-align: center;
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: #6c7a7a;
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin: 0 auto 56px;
+    line-height: 1.7;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .about-text h3 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 16px;
+  }
+  .about-text p {
+    color: #5a6868;
+    line-height: 1.8;
+    margin-bottom: 16px;
+    font-size: 1rem;
+  }
+  .about-highlights {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .about-highlight {
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    text-align: center;
+  }
+  .about-highlight-num {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--primary);
+  }
+  .about-highlight-label {
+    font-size: 0.82rem;
+    color: #6c7a7a;
+    margin-top: 4px;
+  }
+  .about-visual {
+    background: linear-gradient(135deg, var(--dark) 0%, #4AADA8 100%);
+    border-radius: 24px;
+    padding: 48px 40px;
+    color: white;
+    text-align: center;
+  }
+  .about-visual-icon { font-size: 4rem; margin-bottom: 20px; }
+  .about-visual h4 { font-size: 1.4rem; font-weight: 700; margin-bottom: 10px; }
+  .about-visual p { opacity: 0.85; line-height: 1.7; }
+
+  /* ===== SERVICES SECTION ===== */
+  .section-services {
+    background: var(--light);
+    padding: 80px 32px;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .service-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(74,173,168,0.15); }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-icon { font-size: 2.4rem; margin-bottom: 16px; }
+  .service-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+  .service-card p { color: #6c7a7a; font-size: 0.93rem; line-height: 1.65; }
+
+  /* ===== WHY US SECTION ===== */
+  .section-why {
+    background: linear-gradient(135deg, var(--dark) 0%, #1E4745 100%);
+    padding: 80px 32px;
+    color: white;
+  }
+  .section-why .section-title { color: white; }
+  .section-why .section-subtitle { color: rgba(255,255,255,0.7); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 24px;
+  }
+  .why-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    text-align: center;
+    transition: all 0.25s;
+  }
+  .why-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-4px); }
+  .why-icon { font-size: 2.4rem; margin-bottom: 14px; }
+  .why-card h3 { font-size: 1rem; font-weight: 700; color: #A8E6E3; margin-bottom: 8px; }
+  .why-card p { color: rgba(255,255,255,0.7); font-size: 0.88rem; line-height: 1.6; }
+
+  /* ===== HISTORY SECTION ===== */
+  .section-history {
+    background: white;
+    padding: 80px 32px;
+  }
+  .timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+    transform: translateX(-50%);
+  }
+  .timeline-item {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: calc(50% + 28px);
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .timeline-item:nth-child(even) {
+    justify-content: flex-start;
+    padding-right: 0;
+    padding-left: calc(50% + 28px);
+  }
+  .timeline-dot {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    width: 16px;
+    height: 16px;
+    background: var(--primary);
+    border: 3px solid white;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 0 3px var(--border);
+  }
+  .timeline-card {
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    width: 100%;
+  }
+  .timeline-year {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .timeline-card h4 { color: var(--dark); font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+  .timeline-card p { color: #6c7a7a; font-size: 0.88rem; line-height: 1.6; }
+
+  /* Projects grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .project-card {
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .project-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .project-card-img {
+    background: linear-gradient(135deg, #2D5F5D, #4AADA8);
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+  }
+  .project-card-body { padding: 20px; }
+  .project-tag {
+    display: inline-block;
+    background: rgba(74,173,168,0.12);
+    color: var(--primary-dark);
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .project-card h4 { color: var(--dark); font-size: 0.97rem; font-weight: 700; margin-bottom: 6px; }
+  .project-card p { color: #6c7a7a; font-size: 0.85rem; line-height: 1.55; }
+
+  /* ===== SHOP SECTION ===== */
+  .section-shop {
+    background: var(--light);
+    padding-top: 0;
+  }
+  .shop-section-header {
+    background: linear-gradient(135deg, #4AADA8 0%, #7ECECA 100%);
+    padding: 56px 32px 40px;
+    text-align: center;
+    color: white;
+  }
+  .shop-section-header h2 { font-size: 2rem; font-weight: 800; margin-bottom: 10px; }
+  .shop-section-header p { font-size: 1rem; opacity: 0.9; }
+
+  /* ===== CONTACT SECTION ===== */
+  .section-contact {
+    background: var(--light);
+    padding: 80px 32px;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .contact-info h3 { font-size: 1.3rem; font-weight: 700; color: var(--dark); margin-bottom: 24px; }
+  .contact-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  .contact-icon {
+    background: linear-gradient(135deg, var(--primary), var(--dark));
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .contact-item-text h4 { font-size: 0.9rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+  .contact-item-text p { color: #6c7a7a; font-size: 0.9rem; line-height: 1.6; }
+  .contact-item-text a { color: var(--primary); text-decoration: none; }
+  .contact-item-text a:hover { text-decoration: underline; }
+  .contact-form {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+  }
+  .contact-form h3 { font-size: 1.2rem; font-weight: 700; color: var(--dark); margin-bottom: 20px; }
+  .cf-group { margin-bottom: 16px; }
+  .cf-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .cf-group input, .cf-group textarea, .cf-group select {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.93rem;
+    outline: none;
+    color: var(--text);
+    transition: border 0.2s;
+    font-family: inherit;
+  }
+  .cf-group input:focus, .cf-group textarea:focus, .cf-group select:focus { border-color: var(--primary); }
+  .cf-group textarea { resize: vertical; min-height: 100px; }
+  .cf-submit {
+    width: 100%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .cf-submit:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+  /* ===== RESPONSIVE OVERRIDES ===== */
+  @media(max-width:900px) {
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .timeline::before { left: 16px; }
+    .timeline-item { padding-right: 0; padding-left: 44px; justify-content: flex-start; }
+    .timeline-item:nth-child(even) { padding-left: 44px; padding-right: 0; }
+    .timeline-dot { left: 16px; }
+    .corp-nav-links { display: none; }
+    .nav-hamburger { display: block; }
+    .corp-hero h1 { font-size: 2rem; }
+  }
+  @media(max-width:768px) {
+    .corp-hero { padding: 60px 24px 48px; }
+    .hero-stats { gap: 28px; }
+    .section-about, .section-services, .section-why, .section-history, .section-contact, .section-shop { padding: 56px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CORPORATE NAV -->
+<nav class="corp-nav" id="corpNav">
+  <div class="corp-nav-top">
+    <a href="#home" class="corp-logo" onclick="smoothTo('home')">⚡ Wonder<span>Shop</span></a>
+    <div class="corp-nav-links">
+      <a href="#about" onclick="smoothTo('about')">關於我們</a>
+      <a href="#services" onclick="smoothTo('services')">服務項目</a>
+      <a href="#why" onclick="smoothTo('why')">企業優勢</a>
+      <a href="#history" onclick="smoothTo('history')">發展歷程</a>
+      <a href="#shop" onclick="smoothTo('shop')" class="shop-link">🛒 線上商店</a>
+      <a href="#contact" onclick="smoothTo('contact')">聯絡我們</a>
+    </div>
+    <div class="corp-nav-actions">
+      <button class="corp-search-toggle" onclick="toggleSearch()" title="搜尋">🔍</button>
+      <button class="corp-cart-btn" onclick="openCart()">
+        🛒 購物車
+        <span class="corp-cart-count cart-count" id="cartCount">0</span>
+      </button>
+      <button class="nav-hamburger" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </div>
+  <!-- Search dropdown -->
+  <div class="corp-search-bar" id="corpSearchBar">
+    <div class="corp-search-inner">
+      <input type="text" id="searchInput" placeholder="搜尋電子產品..." onkeydown="if(event.key==='Enter'){smoothTo('shop');doSearch();}">
+      <button onclick="smoothTo('shop');doSearch()">🔍</button>
+    </div>
+  </div>
+  <!-- Shop category nav (shown when in shop section) -->
+  <nav class="shop-cat-nav" id="shopCatNav">
+    <button class="cat-btn active" onclick="filterCat(this,'all')">全部商品</button>
+    <button class="cat-btn" onclick="filterCat(this,'phone')">📱 手機/平板</button>
+    <button class="cat-btn" onclick="filterCat(this,'computer')">💻 電腦/配件</button>
+    <button class="cat-btn" onclick="filterCat(this,'audio')">🎧 耳機/音響</button>
+    <button class="cat-btn" onclick="filterCat(this,'smarthome')">🏠 智能家居</button>
+    <button class="cat-btn" onclick="filterCat(this,'service')">🔧 維修及工程</button>
+    <button class="cat-btn" onclick="filterCat(this,'gaming')">🎮 電競遊戲</button>
+  </nav>
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="smoothTo('about');closeMobileMenu()">關於我們</a>
+    <a href="#services" onclick="smoothTo('services');closeMobileMenu()">服務項目</a>
+    <a href="#why" onclick="smoothTo('why');closeMobileMenu()">企業優勢</a>
+    <a href="#history" onclick="smoothTo('history');closeMobileMenu()">發展歷程</a>
+    <a href="#shop" onclick="smoothTo('shop');closeMobileMenu()">🛒 線上商店</a>
+    <a href="#contact" onclick="smoothTo('contact');closeMobileMenu()">聯絡我們</a>
+  </div>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="corp-hero">
+  <div class="corp-hero-badge">🇲🇴 澳門領先電子科技服務商</div>
+  <h1>值得信賴的<span>科技夥伴</span></h1>
+  <p>為澳門企業及個人客戶提供專業電子產品銷售、維修及IT工程服務，從選購到售後，全程安心。</p>
+  <div class="hero-cta-group">
+    <a href="#shop" class="hero-cta-primary" onclick="smoothTo('shop')">立即選購 →</a>
+    <a href="#about" class="hero-cta-secondary" onclick="smoothTo('about')">了解更多</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">10+</div>
+      <div class="hero-stat-label">年行業經驗</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">149+</div>
+      <div class="hero-stat-label">正品商品</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">1000+</div>
+      <div class="hero-stat-label">服務客戶</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">全澳</div>
+      <div class="hero-stat-label">送貨覆蓋</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section-about">
+  <div class="section-inner">
+    <div class="section-label">關於我們</div>
+    <h2 class="section-title">深耕澳門，服務每一位客戶</h2>
+    <p class="section-subtitle">我們是澳門本地電子產品及IT服務的專業供應商，以誠信和專業服務每一位客戶。</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <h3>WonderShop 科技商城</h3>
+        <p>【佔位文字】WonderShop 科技商城成立於澳門，專注於為本地市場提供最新、最優質的電子產品及IT服務。我們與各大國際品牌建立了緊密的合作關係，確保每一件商品均為正品。</p>
+        <p>【佔位文字】無論是個人用戶選購電腦、手機，還是企業客戶的IT採購及維修工程，我們的專業團隊都能提供最合適的解決方案，讓科技真正服務您的生活與工作。</p>
+        <div class="about-highlights">
+          <div class="about-highlight">
+            <div class="about-highlight-num">正品</div>
+            <div class="about-highlight-label">100% 原廠保証</div>
+          </div>
+          <div class="about-highlight">
+            <div class="about-highlight-num">7日</div>
+            <div class="about-highlight-label">換貨保障</div>
+          </div>
+          <div class="about-highlight">
+            <div class="about-highlight-num">全澳</div>
+            <div class="about-highlight-label">送貨服務</div>
+          </div>
+          <div class="about-highlight">
+            <div class="about-highlight-num">專業</div>
+            <div class="about-highlight-label">技術支援團隊</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="about-visual-icon">💡</div>
+        <h4>我們的使命</h4>
+        <p>【佔位文字】以最專業的服務態度、最優惠的價格，讓每一位澳門市民都能輕鬆享受科技帶來的便利生活。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="section-services">
+  <div class="section-inner">
+    <div class="section-label">服務項目</div>
+    <h2 class="section-title">全方位電子科技服務</h2>
+    <p class="section-subtitle">從個人消費電子到企業IT基礎建設，我們提供一站式解決方案。</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🖥️</div>
+        <h3>電子產品銷售</h3>
+        <p>提供最新款電腦、手機、平板、電競設備及各類配件，全部正品行貨，享原廠保固。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔧</div>
+        <h3>維修服務</h3>
+        <p>【佔位文字】專業維修各品牌電腦及手機，包括硬件更換、系統重裝、資料恢復等，快速診斷，當日取機。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏢</div>
+        <h3>企業 IT 採購</h3>
+        <p>【佔位文字】為企業客戶提供批量採購、設備部署及資產管理服務，專屬報價，一站到底。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌐</div>
+        <h3>網絡工程</h3>
+        <p>【佔位文字】辦公室網絡佈線、Wi-Fi 覆蓋優化、伺服器架設及日常維護，確保業務穩定運行。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">☁️</div>
+        <h3>雲端解決方案</h3>
+        <p>【佔位文字】協助企業部署雲端辦公環境，包括 Microsoft 365、Google Workspace 及備份方案。</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📦</div>
+        <h3>全澳送貨</h3>
+        <p>覆蓋澳門半島、氹仔、路環、路氹城，快速送貨上門，讓您足不出戶即可收到心儀產品。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why" class="section-why">
+  <div class="section-inner">
+    <div class="section-label" style="color:#A8E6E3;">為何選擇我們</div>
+    <h2 class="section-title">您信賴我們的理由</h2>
+    <p class="section-subtitle">多年來我們以誠信和專業贏得客戶的口碑，以下是我們的核心承諾。</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">✅</div>
+        <h3>100% 正品保證</h3>
+        <p>直接向品牌代理商進貨，每件商品均附有原廠保固，假一賠十。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚡</div>
+        <h3>快速響應</h3>
+        <p>【佔位文字】維修查詢 4 小時內回覆，急件維修當日完成，企業客戶優先處理。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💰</div>
+        <h3>價格透明</h3>
+        <p>公開定價，無隱藏收費，維修前先報價，客戶確認後才施工。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">👨‍💻</div>
+        <h3>專業團隊</h3>
+        <p>【佔位文字】持牌技術人員，具備多項國際認証，持續進修以掌握最新技術。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔄</div>
+        <h3>7日換貨保障</h3>
+        <p>購買後 7 日內如有品質問題，無條件換貨，讓您購物無後顧之憂。</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🤝</div>
+        <h3>長期夥伴關係</h3>
+        <p>【佔位文字】與多家本地企業建立長期合作，提供持續技術支援及設備升級顧問服務。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section id="history" class="section-history">
+  <div class="section-inner">
+    <div class="section-label">發展歷程</div>
+    <h2 class="section-title">我們的故事</h2>
+    <p class="section-subtitle">【佔位文字】從小小的維修工作室，成長為澳門知名的電子科技服務商，每一步都有您的支持。</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="timeline-year">【年份】</span>
+          <h4>公司創立</h4>
+          <p>【佔位文字】於澳門開設第一間門店，主要提供電腦維修及配件銷售服務。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="timeline-year">【年份】</span>
+          <h4>拓展服務範圍</h4>
+          <p>【佔位文字】開始代理國際知名電腦品牌，並成立企業IT服務部門，為商業客戶提供一站式解決方案。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="timeline-year">【年份】</span>
+          <h4>線上商店啟動</h4>
+          <p>推出 WonderShop 線上商城，讓全澳客戶足不出戶即可選購心儀產品並享受送貨服務。</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <span class="timeline-year">現在</span>
+          <h4>持續成長中</h4>
+          <p>【佔位文字】團隊不斷壯大，服務範圍涵蓋個人、企業、學校及政府機構，致力成為澳門最值得信賴的科技服務商。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Past Projects -->
+    <div style="margin-top:64px;">
+      <h3 style="text-align:center;font-size:1.4rem;color:var(--dark);margin-bottom:12px;">精選案例</h3>
+      <p style="text-align:center;color:#6c7a7a;margin-bottom:0;font-size:0.95rem;">【佔位文字】以下為部分服務案例，具體內容待確認後更新。</p>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-card-img">🏢</div>
+          <div class="project-card-body">
+            <span class="project-tag">企業採購</span>
+            <h4>【佔位文字】某本地企業 IT 採購</h4>
+            <p>【佔位文字】為客戶提供 XX 台工作站及網絡設備採購、部署及培訓服務。</p>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-card-img">🌐</div>
+          <div class="project-card-body">
+            <span class="project-tag">網絡工程</span>
+            <h4>【佔位文字】辦公室網絡翻新工程</h4>
+            <p>【佔位文字】為客戶完成全辦公室 Wi-Fi 6 覆蓋優化及結構化佈線工程。</p>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-card-img">🖥️</div>
+          <div class="project-card-body">
+            <span class="project-tag">維修服務</span>
+            <h4>【佔位文字】批量設備維修</h4>
+            <p>【佔位文字】為某機構完成 XX 台設備的定期保養及維修服務，確保穩定運行。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP SECTION -->
+<section id="shop" class="section-shop">
+  <div class="shop-section-header">
+    <h2>🛒 線上商店</h2>
+    <p>149+ 款正品電子產品，全澳送貨，正品保證</p>
+  </div>
+  <!-- FILTERS -->
+  <div class="filters-bar">
+    <span class="filter-label">排序：</span>
+    <select class="sort-select" id="sortSelect" onchange="applySort()">
+      <option value="default">預設排序</option>
+      <option value="price-asc">價格由低至高</option>
+      <option value="price-desc">價格由高至低</option>
+      <option value="rating">評分最高</option>
+      <option value="name">產品名稱</option>
+    </select>
+    <span class="filter-label">價格：</span>
+    <div class="price-filter">
+      <input type="number" id="priceMin" placeholder="最低" min="0">
+      <span>–</span>
+      <input type="number" id="priceMax" placeholder="最高" min="0">
+    </div>
+    <button class="filter-btn" onclick="applyPriceFilter()">篩選</button>
+    <button class="filter-btn" style="background:#6c757d;" onclick="resetFilters()">重置</button>
+    <span class="result-count" id="resultCount"></span>
+  </div>
+  <!-- MAIN -->
+  <main class="main">
+    <div class="products-grid" id="productsGrid"></div>
+  </main>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" class="section-contact">
+  <div class="section-inner">
+    <div class="section-label">聯絡我們</div>
+    <h2 class="section-title">隨時為您服務</h2>
+    <p class="section-subtitle">有任何查詢或需要報價，歡迎透過以下方式聯絡我們的團隊。</p>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>聯絡資料</h3>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div class="contact-item-text">
+            <h4>電話</h4>
+            <p><a href="tel:28403503">2840 3503</a> &nbsp;/&nbsp; <a href="tel:63928613">6392 8613</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-item-text">
+            <h4>電郵</h4>
+            <p><a href="mailto:info@pcshop-net.com">info@pcshop-net.com</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-item-text">
+            <h4>地址</h4>
+            <p>【佔位文字】澳門 XX 區 XX 街 XX 號 XX 樓</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div class="contact-item-text">
+            <h4>營業時間</h4>
+            <p>【佔位文字】星期一至六：10:00 – 20:00<br>星期日及公眾假期：12:00 – 18:00</p>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3>📩 發送查詢</h3>
+        <div class="cf-group">
+          <label>姓名</label>
+          <input type="text" placeholder="您的姓名">
+        </div>
+        <div class="cf-group">
+          <label>電話 / 電郵</label>
+          <input type="text" placeholder="聯絡方式">
+        </div>
+        <div class="cf-group">
+          <label>查詢類別</label>
+          <select>
+            <option>產品查詢</option>
+            <option>維修服務</option>
+            <option>企業採購</option>
+            <option>網絡工程</option>
+            <option>其他</option>
+          </select>
+        </div>
+        <div class="cf-group">
+          <label>訊息內容</label>
+          <textarea placeholder="請簡述您的需求..."></textarea>
+        </div>
+        <button class="cf-submit" onclick="alert('感謝您的查詢！我們將於一個工作天內回覆。')">📨 提交查詢</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h2>🛒 我的購物車</h2>
+    <button class="close-cart" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-summary">
+      <div class="cart-row"><span>小計</span><span id="subtotalVal">HK$0</span></div>
+      <div class="cart-row"><span>運費</span><span id="shippingVal">HK$40</span></div>
+      <div class="cart-row"><span>折扣</span><span id="discountVal" style="color:var(--success)">-HK$0</span></div>
+      <div class="cart-row cart-total"><span>合計</span><span id="totalVal">HK$0</span></div>
+    </div>
+    <button class="checkout-btn" onclick="openCheckout()">💳 前往結帳</button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal" id="checkoutModalBox">
+    <div class="modal-header">
+      <h2>🛍️ 填寫訂單資料</h2>
+      <button class="close-modal" onclick="closeCheckout()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-section">
+        <h3>👤 個人資料</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>姓名 *</label>
+            <input type="text" id="fullName" placeholder="陳大文">
+          </div>
+          <div class="form-group">
+            <label>電話 *</label>
+            <input type="tel" id="phone" placeholder="9123 4567">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>電郵地址 *</label>
+          <input type="email" id="email" placeholder="example@email.com">
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>🚚 送貨地址</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>地區 *</label>
+            <select id="district">
+              <option value="">選擇地區</option>
+              <option>澳門半島</option><option>氹仔</option><option>路環</option><option>路氹城</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>送貨方式</label>
+            <select id="delivery" onchange="updateShipping()">
+              <option value="40">順豐速遞 (HK$40)</option>
+              <option value="0">門市自取 (免費)</option>
+              <option value="80">指定時段送貨 (HK$80)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>詳細地址 *</label>
+          <input type="text" id="address" placeholder="例：九龍旺角彌敦道100號3樓">
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>💳 付款方式</h3>
+        <div class="payment-methods">
+          <div class="payment-option selected" onclick="selectPayment(this)" data-method="credit">
+            <div class="icon">💳</div>
+            <div class="name">信用卡</div>
+          </div>
+          <div class="payment-option" onclick="selectPayment(this)" data-method="fps">
+            <div class="icon">📲</div>
+            <div class="name">轉數快</div>
+          </div>
+          <div class="payment-option" onclick="selectPayment(this)" data-method="payme">
+            <div class="icon">🟢</div>
+            <div class="name">PayMe</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>📋 訂單摘要</h3>
+        <div class="order-summary-box" id="orderSummaryBox"></div>
+        <div class="form-group" style="margin-top:14px;">
+          <label>優惠碼</label>
+          <div style="display:flex;gap:8px;">
+            <input type="text" id="couponInput" placeholder="輸入優惠碼 (試試 TECH10)">
+            <button class="filter-btn" onclick="applyCoupon()" style="white-space:nowrap;">套用</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="place-order-btn" onclick="placeOrder()">✅ 確認下單</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+  <div class="modal">
+    <div class="success-modal">
+      <div class="success-icon">🎉</div>
+      <h2>訂單成功！</h2>
+      <p>感謝您的購買，我們將盡快為您處理訂單。</p>
+      <p class="order-num" id="orderNum"></p>
+      <p style="font-size:0.85rem;color:#aaa;margin-top:8px;">確認電郵將發送至您的郵箱</p>
+      <button class="continue-btn" onclick="closeSuccess()">繼續購物</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<footer>
+  <strong>⚡ WonderShop 科技商城</strong> &copy; 2025 · 澳門正版電子產品專門店 · 正品保証 · 7日換貨
+  <div style="margin-top:10px; font-size:0.88rem; display:flex; justify-content:center; gap:28px; flex-wrap:wrap; opacity:0.85;">
+    <span>📞 <a href="tel:28403503" style="color:inherit;text-decoration:none;">2840 3503</a> &nbsp;/&nbsp; <a href="tel:63928613" style="color:inherit;text-decoration:none;">6392 8613</a></span>
+    <span>✉️ <a href="mailto:info@pcshop-net.com" style="color:inherit;text-decoration:none;">info@pcshop-net.com</a></span>
+  </div>
+  <div style="margin-top:14px; display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
+    <a href="#home" onclick="smoothTo('home')" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">首頁</a>
+    <a href="#about" onclick="smoothTo('about')" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">關於我們</a>
+    <a href="#services" onclick="smoothTo('services')" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">服務項目</a>
+    <a href="#shop" onclick="smoothTo('shop')" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">線上商店</a>
+    <a href="#contact" onclick="smoothTo('contact')" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">聯絡我們</a>
+    <button onclick="openAdminLogin()" style="background:none;border:none;color:rgba(255,255,255,0.3);font-size:0.78rem;cursor:pointer;text-decoration:underline;">🔒 管理員後台</button>
+  </div>
+</footer>
+
+<!-- ADMIN LOGIN MODAL -->
+<div class="admin-overlay" id="adminLoginOverlay">
+  <div class="admin-login-box">
+    <div style="font-size:2.5rem;margin-bottom:12px;">🔐</div>
+    <h2>管理員登入</h2>
+    <p>請輸入後台管理密碼</p>
+    <input type="password" id="adminPwInput" placeholder="輸入密碼" onkeydown="if(event.key==='Enter')doAdminLogin()">
+    <div id="adminLoginErr" style="color:var(--danger);font-size:0.83rem;margin-bottom:10px;display:none;">❌ 密碼錯誤，請重試</div>
+    <button class="admin-login-btn" onclick="doAdminLogin()">登入後台</button>
+    <button class="admin-cancel-btn" onclick="closeAdminLogin()">取消</button>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-topbar">
+    <span style="font-size:1.4rem;">⚙️</span>
+    <div>
+      <h1>WonderShop 後台管理</h1>
+      <span>產品管理系統</span>
+    </div>
+    <button class="admin-close-btn" onclick="closeAdminPanel()">← 返回商店</button>
+  </div>
+  <div class="admin-body">
+    <!-- Stats -->
+    <div class="admin-stats" id="adminStats"></div>
+    <!-- Toolbar -->
+    <div class="admin-toolbar">
+      <h2>📦 產品列表</h2>
+      <button class="admin-add-btn" onclick="openAddProduct()">＋ 新增產品</button>
+      <input class="admin-search" type="text" id="adminSearchInput" placeholder="搜尋產品..." oninput="renderAdminTable()">
+    </div>
+    <!-- Table -->
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>圖示</th>
+            <th>產品名稱</th>
+            <th>類別</th>
+            <th>售價</th>
+            <th>原價</th>
+            <th>評分</th>
+            <th>標籤</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT ADD/EDIT MODAL -->
+<div class="prod-modal-overlay" id="prodModalOverlay">
+  <div class="prod-modal">
+    <div class="prod-modal-header">
+      <h3 id="prodModalTitle">新增產品</h3>
+      <button class="prod-modal-close" onclick="closeProdModal()">✕</button>
+    </div>
+    <div class="prod-modal-body">
+      <input type="hidden" id="editProdId">
+      <div class="prod-form-row">
+        <div class="prod-form-group">
+          <label>產品名稱 *</label>
+          <input type="text" id="fName" placeholder="例：iPhone 15 Pro">
+        </div>
+        <div class="prod-form-group">
+          <label>圖示 Emoji *</label>
+          <input type="text" id="fEmoji" placeholder="例：📱">
+        </div>
+      </div>
+      <div class="prod-form-group">
+        <label>產品描述 *</label>
+        <input type="text" id="fDesc" placeholder="簡短描述產品特點">
+      </div>
+      <div class="prod-form-row">
+        <div class="prod-form-group">
+          <label>類別 *</label>
+          <select id="fCat">
+            <option value="phone">📱 手機/平板</option>
+            <option value="computer">💻 電腦/配件</option>
+            <option value="audio">🎧 耳機/音響</option>
+            <option value="smarthome">🏠 智能家居</option>
+            <option value="service">🔧 維修及工程</option>
+          </select>
+        </div>
+        <div class="prod-form-group">
+          <label>標籤</label>
+          <select id="fBadge">
+            <option value="">無標籤</option>
+            <option value="hot">熱賣</option>
+            <option value="new">新品</option>
+            <option value="sale">折扣</option>
+          </select>
+        </div>
+      </div>
+      <div class="prod-form-row">
+        <div class="prod-form-group">
+          <label>售價 (MOP$) *</label>
+          <input type="number" id="fPrice" placeholder="0" min="0">
+        </div>
+        <div class="prod-form-group">
+          <label>原價 (劃線，選填)</label>
+          <input type="number" id="fOldPrice" placeholder="留空表示不顯示" min="0">
+        </div>
+      </div>
+      <div class="prod-form-row">
+        <div class="prod-form-group">
+          <label>評分 (1–5)</label>
+          <input type="number" id="fRating" placeholder="4.8" min="1" max="5" step="0.1">
+        </div>
+        <div class="prod-form-group">
+          <label>評論數量</label>
+          <input type="number" id="fReviews" placeholder="0" min="0">
+        </div>
+      </div>
+      <button class="prod-save-btn" onclick="saveProd()">💾 儲存產品</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="icon">🗑️</div>
+    <h3>確認刪除</h3>
+    <p id="confirmMsg">確定要刪除這個產品嗎？此動作不可復原。</p>
+    <div class="confirm-btns">
+      <button class="confirm-no" onclick="closeConfirm()">取消</button>
+      <button class="confirm-yes" onclick="doDelete()">確認刪除</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================
+// ADMIN PASSWORD
+// ============================
+const ADMIN_PASSWORD = 'admin888';
+
+// ============================
+// PRODUCT DATA (default)
+// ============================
+const defaultProducts = [
+  // PHONES
+  { id:1, cat:'phone', emoji:'📱', name:'iPhone 15 Pro Max 256GB', desc:'A17 Pro 芯片、鈦金屬機身、4800萬像素', price:9499, oldPrice:9999, rating:4.9, reviews:312, badge:'hot' },
+  { id:2, cat:'phone', emoji:'📱', name:'Samsung Galaxy S24 Ultra', desc:'Snapdragon 8 Gen 3、6.8" AMOLED、S Pen支援', price:8999, oldPrice:9799, rating:4.8, reviews:241, badge:'sale' },
+  { id:3, cat:'phone', emoji:'📱', name:'iPad Pro 13" M4 WiFi', desc:'M4芯片、OLED顯示屏、Apple Pencil Pro兼容', price:11999, oldPrice:null, rating:4.9, reviews:178, badge:'new' },
+  { id:4, cat:'phone', emoji:'📱', name:'Google Pixel 8 Pro', desc:'Google Tensor G3、AI攝影功能、7年更新', price:6499, oldPrice:7199, rating:4.6, reviews:95, badge:'sale' },
+  // COMPUTERS
+  { id:5, cat:'computer', emoji:'💻', name:'MacBook Pro 14" M3 Pro', desc:'M3 Pro芯片、18GB RAM、512GB SSD、Liquid Retina', price:19999, oldPrice:21999, rating:4.9, reviews:203, badge:'hot' },
+  { id:6, cat:'computer', emoji:'🖥️', name:'Dell XPS 15 OLED', desc:'Intel Core i9、32GB RAM、1TB SSD、OLED顯示屏', price:16500, oldPrice:18000, rating:4.7, reviews:88, badge:null },
+  { id:7, cat:'computer', emoji:'⌨️', name:'Logitech MX Keys S 鍵盤', desc:'背光智能鍵盤、多設備切換、快速充電', price:1099, oldPrice:1299, rating:4.8, reviews:420, badge:'sale' },
+  { id:8, cat:'computer', emoji:'🖱️', name:'Logitech MX Master 3S 滑鼠', desc:'8K DPI、靜音點擊、MagSpeed磁力滾輪', price:849, oldPrice:999, rating:4.9, reviews:567, badge:'hot' },
+  // AUDIO
+  { id:9, cat:'audio', emoji:'🎧', name:'Sony WH-1000XM5 降噪耳機', desc:'業界頂級降噪、30小時續航、LDAC高清音質', price:2499, oldPrice:2999, rating:4.9, reviews:784, badge:'hot' },
+  { id:10, cat:'audio', emoji:'🎵', name:'Apple AirPods Pro 2', desc:'H2芯片、自適應音效、MagSafe充電盒', price:1799, oldPrice:1999, rating:4.8, reviews:1024, badge:'sale' },
+  { id:11, cat:'audio', emoji:'🔊', name:'Sonos Era 300 音響', desc:'空間音頻、Dolby Atmos、WiFi & 藍牙', price:3999, oldPrice:null, rating:4.7, reviews:156, badge:'new' },
+  { id:12, cat:'audio', emoji:'🎤', name:'JBL Flip 6 防水藍牙喇叭', desc:'IPX7防水、12小時播放、PartyBoost連接', price:699, oldPrice:899, rating:4.6, reviews:392, badge:'sale' },
+  // SMART HOME
+  { id:13, cat:'smarthome', emoji:'💡', name:'Philips Hue 智能燈泡套裝', desc:'1600萬色彩、語音控制、App調光', price:799, oldPrice:999, rating:4.7, reviews:218, badge:'sale' },
+  { id:14, cat:'smarthome', emoji:'📷', name:'Aqara 室內攝影機 G3', desc:'2K解析度、AI人臉識別、Matter支援', price:649, oldPrice:null, rating:4.6, reviews:134, badge:'new' },
+  { id:15, cat:'smarthome', emoji:'🌡️', name:'Dyson Pure Cool TP09', desc:'HEPA+碳濾網、360°感測、實時空氣質量顯示', price:4499, oldPrice:4999, rating:4.8, reviews:89, badge:null },
+  { id:16, cat:'smarthome', emoji:'🔌', name:'小米智能插座 (3口)', desc:'遠端控制、用電統計、防過載保護', price:199, oldPrice:249, rating:4.5, reviews:603, badge:'sale' },
+  // SERVICES
+  { id:17, cat:'service', emoji:'🔧', name:'手機維修服務 (一般)', desc:'屏幕更換、電池更換、按鍵修復，當日完成', price:380, oldPrice:null, rating:4.8, reviews:256, badge:null },
+  { id:18, cat:'service', emoji:'💻', name:'電腦清潔及優化', desc:'清塵、散熱膏更換、系統優化、驅動更新', price:280, oldPrice:350, rating:4.7, reviews:189, badge:'sale' },
+  { id:19, cat:'service', emoji:'🏠', name:'智能家居安裝服務', desc:'上門安裝調試、系統整合、使用教學，包1小時', price:650, oldPrice:null, rating:4.9, reviews:77, badge:'new' },
+  { id:20, cat:'service', emoji:'🛡️', name:'數據備份及恢復服務', desc:'手機/電腦數據備份、意外刪除數據恢復', price:450, oldPrice:580, rating:4.8, reviews:142, badge:'sale' },
+  // ── ASUS V440 AiO ─────────────────────────────────────────────────────
+  { id:21, cat:'computer', emoji:'🖥️', name:'ASUS V440 VM640KA-AI7005WT AiO', desc:'AMD Ryzen AI 7 350、16GB DDR5、1TB SSD、23.8" FHD、Win11、附KB+Mouse、3年保', price:9282, oldPrice:null, rating:4.7, reviews:0, badge:'new' },
+  { id:22, cat:'computer', emoji:'🖥️', name:'ASUS V440 V440VAT-WH3001WT AiO', desc:'Intel Core 3 100U、16GB DDR5、512GB SSD、23.8" FHD、Win11、附KB+Mouse、3年保', price:6187, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:23, cat:'computer', emoji:'🖥️', name:'ASUS V440 V440VAT-WH5002WT AiO', desc:'Intel Core 5 210H、16GB DDR5、1TB SSD、23.8" FHD、Win11、附KB+Mouse、3年保', price:7219, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:24, cat:'computer', emoji:'🖥️', name:'ASUS V440 V440VAT-WH7003WT AiO', desc:'Intel Core 7 240H、16GB DDR5、1TB SSD、23.8" FHD、Win11、附KB+Mouse、3年保', price:8250, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:25, cat:'computer', emoji:'🖥️', name:'ASUS V440 V440VAT-WPD039W AiO', desc:'Intel Core i5 13420H、16GB DDR5、1TB SSD、23.8" FHD觸控、Win11、附KB+Mouse', price:6291, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:26, cat:'computer', emoji:'🖥️', name:'ASUS V470 V470VAT-WPF022W AiO', desc:'Intel Core i7 13620H、32GB DDR5、2TB SSD、27" FHD觸控、Win11、附KB+Mouse', price:9591, oldPrice:null, rating:4.8, reviews:0, badge:'hot' },
+  { id:27, cat:'computer', emoji:'🖥️', name:'ASUS V470 V470VAT-WH5004WT AiO', desc:'Intel Core 5 210H、16GB DDR5、1TB SSD、27" FHD觸控、Win11、附KB+Mouse', price:8250, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:28, cat:'computer', emoji:'🖥️', name:'ASUS V440 F5401WYAT-WA5809W AiO', desc:'AMD Ryzen 7 5825U、16GB DDR5、1TB SSD、23.8" FHD觸控、Win11、附KB+Mouse', price:4847, oldPrice:null, rating:4.5, reviews:0, badge:'sale' },
+  { id:29, cat:'computer', emoji:'🖥️', name:'ASUS V440 A5402WVART-WPD005W AiO', desc:'Intel Core 7 150U、32GB DDR5、1TB SSD、23.8" FHD觸控、Win11、附KB+Mouse', price:8044, oldPrice:null, rating:4.7, reviews:0, badge:null },
+
+  // ── Lenovo IdeaPad ────────────────────────────────────────────────────
+  { id:30, cat:'computer', emoji:'💻', name:'Lenovo IdeaPad Slim3 14IRH10R (Core 5)', desc:'Intel Core 5 210H、16GB DDR5、1TB SSD、14" WUXGA IPS、Win11、3年保', price:5878, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:31, cat:'computer', emoji:'💻', name:'Lenovo IdeaPad Slim3 14IRH10R (Core 7)', desc:'Intel Core 7 240H、16GB DDR5、1TB SSD、14" WUXGA IPS、Win11、3年保', price:6497, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:32, cat:'computer', emoji:'💻', name:'Lenovo IdeaPad Slim3 16IRU9', desc:'Intel Core 5-120U、16GB DDR5、512GB SSD、16" WUXGA IPS、Win11、3年保', price:5672, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:33, cat:'computer', emoji:'💻', name:'Lenovo IdeaPad Slim 5 16AKP10', desc:'AMD Ryzen AI 5 330、16GB DDR5、1TB SSD、16" WUXGA、Win11、2年保', price:6703, oldPrice:null, rating:4.6, reviews:0, badge:'new' },
+  { id:34, cat:'computer', emoji:'💻', name:'Lenovo IdeaPad Slim 5 14IAH10', desc:'Intel Ultra 7 255H、24GB LPDDR5x、1TB SSD、14" WUXGA OLED、Wi-Fi 7、Win11、3年保', price:7735, oldPrice:null, rating:4.8, reviews:0, badge:'hot' },
+  { id:35, cat:'computer', emoji:'💻', name:'Lenovo IdeaPad IPS5L 14ABR8', desc:'AMD Ryzen 7-7730U、16GB DDR4、512GB SSD、14" FHD IPS、Win11、2年保', price:4640, oldPrice:null, rating:4.5, reviews:0, badge:'sale' },
+  { id:36, cat:'computer', emoji:'💻', name:'Lenovo IdeaPad Slim 5 13ARP10', desc:'AMD Ryzen 7 7735HS、16GB DDR5、512GB SSD、13.3" WUXGA IPS、Win11、2年保', price:5156, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:37, cat:'computer', emoji:'💻', name:'Lenovo IdeaPad 5 2in1 14IAL10 (Ultra 5)', desc:'Intel Ultra 5 225H、16GB LPDDR5x、512GB SSD、14" WUXGA 2合1、Wi-Fi 7、Win11', price:6497, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:38, cat:'computer', emoji:'💻', name:'Lenovo IdeaPad 5 2in1 14IAL10 (Ultra 7)', desc:'Intel Ultra 7 255U、16GB LPDDR5x、512GB SSD、14" WUXGA 2合1、Wi-Fi 7、Win11', price:7528, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:39, cat:'computer', emoji:'💻', name:'Lenovo IdeaPad 5 Pro 14IMH9', desc:'Intel Ultra 9 185H、32GB LPDDR5x、1TB SSD、14" 2.8K 120Hz OLED、Wi-Fi 7、Win11', price:9282, oldPrice:null, rating:4.8, reviews:0, badge:'hot' },
+  { id:40, cat:'computer', emoji:'💻', name:'Lenovo Yoga 7 2in1 14ILL10', desc:'Intel Ultra 5 228V、32GB DDR5、1TB SSD、14" 2.8K OLED 120Hz、Win11、3年保+ADP', price:10004, oldPrice:null, rating:4.8, reviews:0, badge:'new' },
+  { id:41, cat:'computer', emoji:'💻', name:'Lenovo Yoga 7 2in1 16ILL10', desc:'Intel Ultra 7 256V、16GB DDR5、1TB SSD、16" 2.8K OLED 120Hz、Win11、3年保+ADP', price:11345, oldPrice:null, rating:4.9, reviews:0, badge:'hot' },
+  { id:42, cat:'computer', emoji:'💻', name:'Lenovo Yoga 7 2in1 16IML9', desc:'Intel Ultra 5 125U、16GB DDR5、1TB SSD、16" WUXGA IPS 2合1、Win11、3年保+ADP', price:6703, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:43, cat:'computer', emoji:'💻', name:'Lenovo Yoga S7 14IMH9', desc:'Intel Ultra 7 155H、16GB DDR5、1TB SSD、14" WUXGA OLED、Win11、3年保', price:7219, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:44, cat:'computer', emoji:'💻', name:'Lenovo Yoga Slim 7 14ILL10', desc:'Intel Ultra 7 258V、32GB DDR5、1TB SSD、14" 2.8K 120Hz OLED、Win11、3年保', price:10004, oldPrice:null, rating:4.8, reviews:0, badge:'new' },
+
+  // ── ASUS Vivobook S14/S16 ─────────────────────────────────────────────
+  { id:45, cat:'computer', emoji:'💻', name:'ASUS Vivobook E1504FA-MB5E80W', desc:'AMD Ryzen 5 7520U、8GB、512GB SSD、15.6" FHD、Win11', price:3815, oldPrice:null, rating:4.5, reviews:0, badge:'hot' },
+  { id:46, cat:'computer', emoji:'💻', name:'ASUS Vivobook X1504VA-QB7021W', desc:'Intel Core 7-150U、16GB、1TB SSD、15.6" FHD、Win11', price:6497, oldPrice:null, rating:4.6, reviews:0, badge:'hot' },
+  { id:47, cat:'computer', emoji:'💻', name:'ASUS Vivobook X1607CA-QB7056W', desc:'Intel Ultra 7 255H、16GB、1TB SSD、16" WUXGA 144Hz、Arc顯卡、Win11、2年保', price:7528, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:48, cat:'computer', emoji:'💻', name:'ASUS Vivobook X1404VAP-CS7018W', desc:'Intel Core 7-150U、16GB、1TB SSD、14" FHD、Win11', price:6497, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:49, cat:'computer', emoji:'💻', name:'ASUS Vivobook X1704VA-QB7023W', desc:'Intel Core 7 150U、16GB、1TB SSD、17" FHD、Win11 Home、2年保', price:7219, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:50, cat:'computer', emoji:'💻', name:'ASUS Vivobook X1605VA-IB7012W', desc:'Intel i7-13620H、16GB、1TB SSD、16" FHD IPS、Win11', price:6497, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:51, cat:'computer', emoji:'💻', name:'ASUS Vivobook M1605NAQ-QB5010W', desc:'AMD Ryzen 5 150、16GB、1TB SSD、16" WUXGA、Radeon顯卡、Win11 Home、2年保', price:6084, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:52, cat:'computer', emoji:'💻', name:'ASUS Vivobook M3407GA-MG7014W', desc:'AMD Ryzen AI 7 445、32GB、1TB SSD、14" WUXGA、AI Boost NPU、Win11、3年保', price:11345, oldPrice:null, rating:4.8, reviews:0, badge:'new' },
+  { id:53, cat:'computer', emoji:'💻', name:'ASUS Vivobook X1607CA-QB5019W', desc:'Intel Ultra 5-225H、16GB、512GB SSD、16" FHD、Win11', price:5878, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:54, cat:'computer', emoji:'💻', name:'ASUS Vivobook S3607VA-MG567W', desc:'Intel Core 5 210H、16GB、512GB SSD、16" WUXGA 144Hz、Win11、2年保', price:5569, oldPrice:null, rating:4.6, reviews:0, badge:'hot' },
+  { id:55, cat:'computer', emoji:'💻', name:'ASUS Vivobook S3607CA-MG7R60W', desc:'Intel Ultra 7 255H、16GB、1TB SSD、16" WUXGA 144Hz、Arc顯卡、Win11、2年保', price:8147, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:56, cat:'computer', emoji:'💻', name:'ASUS Vivobook S3407CA-MG7R58W', desc:'Intel Ultra 7 255H、16GB、1TB SSD、14" WUXGA、AI Boost NPU、Win11、3年保', price:7941, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:57, cat:'computer', emoji:'💻', name:'ASUS Vivobook M3607GA-MG7015W', desc:'AMD Ryzen AI 7 445、32GB、1TB SSD、16" FHD OLED 60Hz、Win11、2年保', price:11345, oldPrice:null, rating:4.8, reviews:0, badge:'new' },
+  { id:58, cat:'computer', emoji:'💻', name:'ASUS Vivobook TP3407SA-MG5048WT', desc:'Intel Ultra 5 226V、16GB、1TB SSD、14" WUXGA OLED觸控、ARC顯卡、Win11 Home', price:8250, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:59, cat:'computer', emoji:'💻', name:'ASUS Vivobook TP3407SA-MG7049WT', desc:'Intel Ultra 7 256V、32GB、1TB SSD、14" WUXGA OLED觸控、ARC顯卡、Win11 Home', price:10313, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:60, cat:'computer', emoji:'💻', name:'ASUS Vivobook TP3607SA-MG7051WT', desc:'Intel Ultra 7 258V、32GB、1TB SSD、16" 3K觸控、Arc顯卡、Win11', price:10828, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:61, cat:'computer', emoji:'💻', name:'ASUS Vivobook S5406SA-LB7042W', desc:'Intel Ultra 7 258V、32GB、1TB SSD、14" WUXGA OLED 60Hz、ARC顯卡、Win11', price:8973, oldPrice:null, rating:4.8, reviews:0, badge:'new' },
+  { id:62, cat:'computer', emoji:'💻', name:'ASUS Vivobook M1807GA-QB5012W', desc:'AMD Ryzen AI 5 430、16GB、1TB SSD、18" WUXGA、Radeon顯卡、Win11 Home、2年保', price:8250, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:63, cat:'computer', emoji:'💻', name:'ASUS Vivobook M1807HA-QB7029W', desc:'AMD R7-260、16GB、1TB SSD、18.4" FHD 144Hz、AMD顯卡、Win11、2年保', price:6910, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:64, cat:'computer', emoji:'💻', name:'ASUS Vivobook M1807GA-QB7013W', desc:'AMD Ryzen AI 7 445、16GB、1TB SSD、18" WUXGA、Radeon顯卡、Win11、2年保', price:9282, oldPrice:null, rating:4.6, reviews:0, badge:null },
+
+  // ── ASUS ExpertBook ───────────────────────────────────────────────────
+  { id:65, cat:'computer', emoji:'💼', name:'ASUS ExpertBook B5404CMA-QM1962X', desc:'Intel Ultra 5 125U、16GB、1TB SSD、14" WQHD、4G LTE、Win11 Pro、3年保+電池3年', price:7528, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:66, cat:'computer', emoji:'💼', name:'ASUS ExpertBook B5404CMA-QM1961X', desc:'Intel Ultra 7 155U、16GB、1TB SSD、14" WQHD、4G LTE、Win11 Pro、3年保+電池3年', price:8560, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:67, cat:'computer', emoji:'💼', name:'ASUS ExpertBook B3605CCA-MB0288X', desc:'Intel Ultra 5 225H、16GB、512GB SSD、16" WUXGA、AI Boost NPU、Win11 Pro、4年保', price:7735, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:68, cat:'computer', emoji:'💼', name:'ASUS ExpertBook B3405CCA-LY1314XA', desc:'Intel Ultra 5 125H、16GB、512GB SSD、14" WUXGA、Win11 Pro、4年保+電池4年', price:6084, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:69, cat:'computer', emoji:'💼', name:'ASUS ExpertBook P1403CVA-S61938W', desc:'Intel Core 7 150U、16GB、1TB SSD、14" FHD、Win11 Home、3年保+電池3年', price:6479, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:70, cat:'computer', emoji:'💼', name:'ASUS ExpertBook P5405CSA-NZ0166W', desc:'Intel Ultra 5 226V、32GB、1TB SSD、14" WQXGA 144Hz、1.27KG、Win11 Home、3年保', price:8250, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:71, cat:'computer', emoji:'💼', name:'ASUS ExpertBook P5405CSA-NZ0579X', desc:'Intel Ultra 5 226V、16GB、512GB SSD、14" WQXGA、Win11 Pro、3年保+電池3年', price:8250, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:72, cat:'computer', emoji:'💼', name:'ASUS ExpertBook P5405CSA-NZ0837X', desc:'Intel Ultra 7 258V、38GB、1TB SSD、14" WQXGA、Win11 Pro、3年保+電池3年', price:10725, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:73, cat:'computer', emoji:'💼', name:'ASUS ExpertBook B1503CVA-S75717X', desc:'Intel Core 7 150U、16GB、512GB SSD、15" FHD、Iris Xe顯卡、Win11 Pro、4年保+電池4年', price:7116, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:74, cat:'computer', emoji:'💼', name:'ASUS ExpertBook B1503CVA-S75716X', desc:'Intel Core 5 120U、16GB、512GB SSD、15" FHD、UHD顯卡、Win11 Pro、4年保+電池4年', price:6084, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:75, cat:'computer', emoji:'💼', name:'ASUS ExpertBook B1503CVA-S72275X', desc:'Intel i7 1355U、16GB、512GB SSD、15" FHD、Iris Xe顯卡、Win11 Pro、4年保+電池4年', price:6497, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:76, cat:'computer', emoji:'💼', name:'ASUS ExpertBook B1403CVA-S61503X', desc:'Intel i7 1355U、16GB、512GB SSD、14" FHD、Iris Xe顯卡、Win11 Pro、4年保+電池4年', price:6497, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:77, cat:'computer', emoji:'💼', name:'ASUS ExpertBook B1403CVA-S65434X (Core 5)', desc:'Intel Core 5 120U、16GB、512GB SSD、14" FHD、Iris Xe顯卡、Win11 Pro、4年保+電池4年', price:6084, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:78, cat:'computer', emoji:'💼', name:'ASUS ExpertBook B1403CVA-S65434X (Core 7)', desc:'Intel Core 7 150U、16GB、512GB SSD、14" FHD、Iris Xe顯卡、Win11 Pro、4年保+電池4年', price:7116, oldPrice:null, rating:4.6, reviews:0, badge:null },
+
+  // ── ASUS ProArt ───────────────────────────────────────────────────────
+  { id:79, cat:'computer', emoji:'🎨', name:'ASUS ProArt PX13 HN7306EA-GPM888WT', desc:'AMD Ryzen AI Max+ 395、128GB、1TB SSD、13" 3K OLED觸控、XDNA NPU 50TOPS、Win11', price:34038, oldPrice:null, rating:4.9, reviews:0, badge:'hot' },
+  { id:80, cat:'computer', emoji:'🎨', name:'ASUS ProArt PX13 HN7306EA-NBM029WT', desc:'AMD Ryzen AI Max+ 395、64GB、1TB SSD、13" 3K OLED觸控、XDNA NPU 50TOPS、Win11', price:21660, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:81, cat:'computer', emoji:'🎨', name:'ASUS ProArt P16 OLED H7606WM-NB9060WT', desc:'AMD AI 9-HX370、32GB、1TB SSD、16" 4K OLED觸控、RTX5060 8G、1.85KG、Win11', price:20628, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:82, cat:'computer', emoji:'🎨', name:'ASUS ProArt P16 OLED H7606WP-NB9070WT', desc:'AMD AI 9-HX370、64GB、2TB SSD、16" 4K OLED觸控、RTX5070 8G、Win11', price:25786, oldPrice:null, rating:4.9, reviews:0, badge:null },
+  { id:83, cat:'computer', emoji:'🎨', name:'ASUS ProArt P16 OLED H7606WW-AI9080WT', desc:'AMD AI 9-HX370、64GB、2TB SSD、16" 4K OLED觸控、RTX5080 16G、Win11', price:31975, oldPrice:null, rating:4.9, reviews:0, badge:'hot' },
+  { id:84, cat:'computer', emoji:'🎨', name:'ASUS Vivobook Pro M5406WA-NB9042W', desc:'AMD AI 9-HX370、32GB、1TB SSD、14" WUXGA OLED 60Hz、Radeon 890M、1.3KG、Win11', price:8766, oldPrice:null, rating:4.7, reviews:0, badge:null },
+
+  // ── ASUS TUF + ROG (from ProArt flyer) ───────────────────────────────
+  { id:85, cat:'gaming', emoji:'🎮', name:'ASUS TUF FA401KM-RG004W', desc:'AMD Ryzen AI 7 350、32GB、1TB SSD、14" 2.5K 165Hz、RTX5060 8GB、Win11 Home', price:13202, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:86, cat:'gaming', emoji:'🎮', name:'ASUS ROG Zephyrus GA605KM', desc:'AMD Ryzen AI 7 350、32GB、2TB SSD、16" 2.5K OLED 240Hz、RTX5060 8GB、Win11、2年保', price:17225, oldPrice:null, rating:4.8, reviews:0, badge:null },
+
+  // ── ASUS Desktop + Monitors ───────────────────────────────────────────
+  { id:87, cat:'computer', emoji:'🖥️', name:'ASUS ExperCenter C2221HF 顯示器', desc:'22" IPS FHD 100Hz、1ms、HDMI x1、D-SUB x1', price:721, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:88, cat:'computer', emoji:'🖥️', name:'ASUS ExperCenter C2241HF 顯示器', desc:'24" IPS FHD 100Hz、1ms、HDMI x1、D-SUB x1', price:824, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:89, cat:'computer', emoji:'🖥️', name:'ASUS TM500MH-700602XT 主機', desc:'AMD Ryzen 7 260、16GB DDR5、1TB SSD、RX 9060xt DUAL 16GB、Win11、附KB+Mouse、3年保', price:10313, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:90, cat:'computer', emoji:'🖥️', name:'ASUS TM500MH-700605W 主機', desc:'AMD Ryzen 7 260、32GB DDR5、1TB SSD、RTX 5060 DUAL 8GB、Win11、附KB+Mouse、3年保', price:12376, oldPrice:null, rating:4.7, reviews:0, badge:'hot' },
+  { id:91, cat:'computer', emoji:'🖥️', name:'ASUS T500MV-70060I4W 主機', desc:'Intel Core 7 240H、32GB DDR5、1TB SSD、RTX5060Ti Dual 8GB、Win11、附KB+Mouse、3年保', price:14439, oldPrice:null, rating:4.7, reviews:0, badge:'hot' },
+  { id:92, cat:'computer', emoji:'🖥️', name:'ASUS V501MV-7001W 主機 (Core 7)', desc:'Intel Core 7 240H、16GB DDR5、1TB SSD、Win11、附KB+Mouse、3年保', price:6806, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:93, cat:'computer', emoji:'🖥️', name:'ASUS P500SV-05210H072X 主機', desc:'Intel Core 5 210H、16GB DDR5、512GB SSD、Win11 Pro、3年保', price:5569, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:94, cat:'computer', emoji:'🖥️', name:'ASUS P500MV-511X 主機', desc:'Intel Core i5 13420H、16GB DDR5、512GB SSD、Win11 Pro、附KB+Mouse、3年保', price:5362, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:95, cat:'computer', emoji:'🖥️', name:'ASUS D501SER-514400151X 主機', desc:'Intel Core i5 14400、16GB DDR5、512GB SSD、Win11 Pro、5年保', price:5775, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:96, cat:'computer', emoji:'🖥️', name:'ASUS P500MV-i5 主機 (RTX 3050)', desc:'Intel Core i5 13420H、16GB DDR5、512GB SSD、RTX 3050、Win11 PRO、附KB+Mouse、3年保', price:6910, oldPrice:null, rating:4.5, reviews:0, badge:null },
+  { id:97, cat:'computer', emoji:'🖥️', name:'ASUS P500MV-i5 主機 (RTX 5060)', desc:'Intel Core i5 13420H、16GB DDR5、512GB SSD、RTX 5060、Win11 PRO、附KB+Mouse、3年保', price:8250, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:98, cat:'computer', emoji:'🖥️', name:'ASUS P500MV-i5 主機 (RTX 5060Ti)', desc:'Intel Core i5 13420H、16GB DDR5、512GB SSD、RTX 5060Ti、Win11 PRO、附KB+Mouse、3年保', price:8765, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:99, cat:'computer', emoji:'🖥️', name:'ASUS V501MV-7001W 主機 (RTX 3050)', desc:'Intel Core 7 240H、16GB DDR5、1TB SSD、RTX 3050、Win11、附KB+Mouse、3年保', price:8250, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:100, cat:'computer', emoji:'🖥️', name:'ASUS V501MV-7001W 主機 (RTX 5060)', desc:'Intel Core 7 240H、16GB DDR5、1TB SSD、RTX 5060、Win11、附KB+Mouse、3年保', price:9282, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:101, cat:'computer', emoji:'🖥️', name:'ASUS V501MV-7001W 主機 (RTX 5060Ti)', desc:'Intel Core 7 240H、16GB DDR5、1TB SSD、RTX 5060Ti、Win11、附KB+Mouse、3年保', price:9798, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:102, cat:'computer', emoji:'🖥️', name:'ASUS V500MV-13420H141W 主機', desc:'Intel Core i5 13420H、16GB DDR5、512GB SSD、DVD-RW、Win11、附KB+Mouse', price:5053, oldPrice:null, rating:4.4, reviews:0, badge:null },
+
+  // ── ASUS ROG Gaming ───────────────────────────────────────────────────
+  { id:103, cat:'gaming', emoji:'🎮', name:'ASUS ROG ALLY X RC72LA', desc:'AMD Ryzen Z1 Extreme、24GB、1TB SSD、7" FHD 120Hz、80WHrs、Win11', price:5156, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:104, cat:'gaming', emoji:'🎮', name:'ASUS ROG Xbox ALLY X RC73XA', desc:'AMD Ryzen Z2 Extreme、24GB、1TB SSD、7" FHD 120Hz、1.58Lbs、Win11 Home、2年保', price:7941, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:105, cat:'gaming', emoji:'🎮', name:'ASUS V3607VH-PL215H 電競筆電', desc:'Intel Core 5 210H、16GB、1TB SSD、16" WQXGA 144Hz、RTX5050 8GB、Win11、2年保', price:9901, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:106, cat:'gaming', emoji:'🎮', name:'ASUS V3607VM-PL101W 電競筆電', desc:'Intel Core 7 240H、16GB、1TB SSD、16" 2.5K 144Hz、RTX5060 8GB、Win11、2年保', price:11345, oldPrice:null, rating:4.8, reviews:0, badge:'hot' },
+  { id:107, cat:'gaming', emoji:'🎮', name:'ASUS TUF FA401UH', desc:'AMD Ryzen 7 260、16GB、512GB+1TB、14" 2.5K 165Hz、RTX5050 8GB、Win11、2年保', price:11345, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:108, cat:'gaming', emoji:'🎮', name:'ASUS TUF FA608UH', desc:'AMD Ryzen 7 260、16GB、1TB、16" FHD+ 165Hz、RTX5050 8GB、Win11、2年保', price:10829, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:109, cat:'gaming', emoji:'🎮', name:'ASUS TUF FX608JMR', desc:'Intel i7-14650HX、16GB、1TB、16" WQXGA 165Hz、RTX 5060 8G、Win11、2年保', price:11964, oldPrice:null, rating:4.7, reviews:0, badge:'sale' },
+  { id:110, cat:'gaming', emoji:'🎮', name:'ASUS TUF FA608PP', desc:'AMD Ryzen 9 8940HX、16GB、1TB、16" 2.5K 165Hz、RTX5070 8GB、Win11、2年保', price:14439, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:111, cat:'gaming', emoji:'🎮', name:'ASUS TUF FA808UM', desc:'AMD Ryzen 7 260、16GB、1TB、18" 2.5K 240Hz、RTX5060 8GB、Win11、2年保', price:14439, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:112, cat:'gaming', emoji:'🎮', name:'ASUS ROG STRIX G16 G614PR', desc:'AMD Ryzen 9 8940HX、32GB、1TB、16" 2.5K 165Hz、RTX5070Ti 12GB、Win11、2年保', price:16502, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:113, cat:'gaming', emoji:'🎮', name:'ASUS ROG STRIX G16 G614PP', desc:'AMD Ryzen 9 8940HX、16GB、1TB、16" 2.5K 240Hz、RTX5070 8GB、Win11', price:15471, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:114, cat:'gaming', emoji:'🎮', name:'ASUS ROG STRIX G16 G615LM', desc:'Intel Ultra7-255HX、16GB、1TB SSD、16" 2.5K ROG Nebula 240Hz、RTX5060 8G、Win11', price:15162, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:115, cat:'gaming', emoji:'🎮', name:'ASUS ROG STRIX G16 G615LW', desc:'Intel Ultra 9 275HX、32GB、1TB、16" 2.5K 240Hz、RTX5080 16GB、Win11、2年保', price:23723, oldPrice:null, rating:4.9, reviews:0, badge:'hot' },
+  { id:116, cat:'gaming', emoji:'🎮', name:'ASUS ROG STRIX G18 G815JPR', desc:'Intel i9 14900HX、16GB、1TB SSD、18" 2.5K WQXGA 240Hz、RTX 5070 8GB、Win11、2年保', price:16502, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:117, cat:'gaming', emoji:'🎮', name:'ASUS ROG STRIX G18 G815LR', desc:'Intel Ultra9-275HX、32GB、1TB、18" 2.5K ROG Nebula 240Hz、RTX5070Ti 12G、Win11', price:22691, oldPrice:null, rating:4.9, reviews:0, badge:null },
+  { id:118, cat:'gaming', emoji:'🎮', name:'ASUS ROG STRIX SCAR 16 G635LW', desc:'Intel Ultra9-275HX、32GB、2TB SSD、16" 2.5K MiniLED 240Hz、RTX 5080 16GB、Win11、2年保', price:26817, oldPrice:null, rating:4.9, reviews:0, badge:null },
+  { id:119, cat:'gaming', emoji:'🎮', name:'ASUS ROG STRIX SCAR 16 G635LX', desc:'Intel Ultra9-275HX、32GB、2TB SSD、16" 2.5K MiniLED 240Hz、RTX 5090 24GB、Win11、2年保', price:34038, oldPrice:null, rating:4.9, reviews:0, badge:'hot' },
+  { id:120, cat:'gaming', emoji:'🎮', name:'ASUS ROG Zephyrus G14 GA403UM', desc:'AMD R9-270、32GB、1TB SSD、14" 3K ROG Nebula 120Hz、RTX5060 8G、1.65KG、Win11', price:17534, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:121, cat:'gaming', emoji:'🎮', name:'ASUS ROG Zephyrus GU605CR', desc:'Intel Ultra 9 285H、32GB、2TB SSD、16" 2.5K OLED 240Hz、RTX5070Ti 12GB、Win11、2年保', price:23723, oldPrice:null, rating:4.9, reviews:0, badge:null },
+  { id:122, cat:'gaming', emoji:'🎮', name:'ASUS ROG Zephyrus GU605CX', desc:'Intel Ultra 9 285H、64GB、2TB SSD、16" 2.5K OLED 240Hz、RTX5090 24GB、Win11', price:35069, oldPrice:null, rating:4.9, reviews:0, badge:'hot' },
+  { id:123, cat:'gaming', emoji:'🎮', name:'ASUS ROG FLOW Z13 GZ302EA 128GB', desc:'AMD AI MAX+395、128GB、1TB SSD、13.4" 2.5K ROG Nebula 180Hz、AMD XDNA 50TOPS、Win11、3年保', price:25786, oldPrice:null, rating:4.9, reviews:0, badge:null },
+  { id:124, cat:'gaming', emoji:'🎮', name:'ASUS ROG FLOW Z13 GZ302EA 32GB', desc:'AMD AI MAX+395、32GB、1TB SSD、13.4" 2.5K ROG Nebula 180Hz、AMD XDNA 50TOPS、Win11', price:15471, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:125, cat:'gaming', emoji:'🎮', name:'ASUS ROG FLOW Z13 GZ302EA 64GB', desc:'AMD AI MAX+395、64GB、1TB SSD、13.4" 2.5K ROG Nebula 180Hz、AMD XDNA 50TOPS、Win11', price:19597, oldPrice:null, rating:4.8, reviews:0, badge:null },
+
+  // ── ASUS Zenbook ──────────────────────────────────────────────────────
+  { id:126, cat:'computer', emoji:'💻', name:'ASUS Zenbook UX8406CA-IG9612WT', desc:'Intel Ultra 9 285H、32GB、2TB SSD、14" FHD OLED、AI Boost NPU、Win11、3年保', price:18565, oldPrice:null, rating:4.8, reviews:0, badge:'new' },
+  { id:127, cat:'computer', emoji:'💻', name:'ASUS Zenbook UM3406GA-JB7077WT', desc:'AMD AI 7 445、32GB、1TB SSD、14" WUXGA OLED觸控、1.28KG、Win11、2年保', price:12376, oldPrice:null, rating:4.8, reviews:0, badge:'hot' },
+  { id:128, cat:'computer', emoji:'💻', name:'ASUS Zenbook UM5606GA-AG9628WT', desc:'AMD Ryzen AI 9 465、32GB、2TB SSD、16" 3K 120Hz OLED觸控、Radeon 880M、Win11 Home、2年保', price:17534, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:129, cat:'computer', emoji:'💻', name:'ASUS Zenbook UX3407RA-ZBX024W', desc:'Qualcomm X1E-78-100、32GB、1TB SSD、14" 3K 120Hz OLED、Adreno顯卡、Win11', price:10623, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:130, cat:'computer', emoji:'💻', name:'ASUS Zenbook UX5406SA-ZG0724WT', desc:'Intel Ultra 7 258V、32GB、1TB SSD、14" 3K 120Hz OLED、ARC顯卡、Win11', price:12376, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:131, cat:'computer', emoji:'💻', name:'ASUS Zenbook S16-ZGAI9', desc:'AMD Ryzen AI 9 HX 370、32GB、1TB SSD、16" 3K 120Hz OLED、Radeon 890M、Win11、2年保', price:12273, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:132, cat:'computer', emoji:'💻', name:'ASUS Zenbook UM3406GA-JB5016WT', desc:'AMD AI 5 430、16GB、1TB SSD、14" WUXGA OLED觸控、1.28KG、Win11、2年保', price:9282, oldPrice:null, rating:4.6, reviews:0, badge:null },
+  { id:133, cat:'computer', emoji:'💻', name:'ASUS Zenbook UM3406GA-JB7017WT', desc:'AMD AI 7 445、16GB、1TB SSD、14" WUXGA OLED觸控、1.28KG、Win11、2年保', price:11345, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:134, cat:'computer', emoji:'💻', name:'ASUS Zenbook UM5606GA-AG7627WT', desc:'AMD Ryzen AI 7 445、32GB、2TB SSD、16" 3K 120Hz OLED觸控、Radeon 880M、Win11 Home、2年保', price:15471, oldPrice:null, rating:4.8, reviews:0, badge:null },
+
+  // ── Lenovo Legion ─────────────────────────────────────────────────────
+  { id:135, cat:'gaming', emoji:'🎮', name:'Lenovo LOQ 15IRX9 (2年保)', desc:'Intel i7 14700HX、16GB、1TB SSD、RTX 4060 8GB、15.6" FHD 144Hz、Win11 Home、2年保', price:9591, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:136, cat:'gaming', emoji:'🎮', name:'Lenovo LOQ 15IRX9 (3年保)', desc:'Intel i7-14700HX、16GB、1TB SSD、RTX 4060 8GB、15.6" FHD 144Hz、Win11、3年保', price:10004, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:137, cat:'gaming', emoji:'🎮', name:'Lenovo LOQ 15IRX10 (RTX5060)', desc:'Intel i7-14700HX、16GB、1TB、RTX 5060 8GB、15.6" FHD 144Hz、Win11、3年保', price:11242, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:138, cat:'gaming', emoji:'🎮', name:'Lenovo LOQ 15IRX10 (24GB)', desc:'Intel i7-14700HX、24GB、1TB、RTX 5060 8GB、15.6" FHD 144Hz、Win11、3年保', price:11861, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:139, cat:'gaming', emoji:'🎮', name:'Lenovo LOQ 17IRX10', desc:'Intel i7 14700HX、24GB、1TB SSD、RTX 5070 8GB、17" FHD 165Hz、Win11 Home、2年保', price:12376, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:140, cat:'gaming', emoji:'🎮', name:'Lenovo LEGION GO S (Ryzen Z2 GO)', desc:'AMD Ryzen Z2 GO、16GB、512GB SSD、8" WUXGA 120Hz、Win11、2年ADP', price:4021, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:141, cat:'gaming', emoji:'🎮', name:'Lenovo LEGION GO S (Z1 Extreme)', desc:'AMD Ryzen Z1 Extreme、32GB、1TB SSD、8" WUXGA 120Hz、Win11、2年ADP', price:5878, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:142, cat:'gaming', emoji:'🎮', name:'Lenovo LEGION Pro 5 16IRX9', desc:'Intel i7 13650HX、32GB、1TB SSD、RTX 4060 8G、16" WQXGA 165Hz OLED、Win11 Home、3年Legion', price:9282, oldPrice:null, rating:4.7, reviews:0, badge:null },
+  { id:143, cat:'gaming', emoji:'🎮', name:'Lenovo LEGION Pro 5i 16IAX10', desc:'Intel Ultra 7 255HX、32GB、1TB、RTX 5070 8GB、16" WQXGA 165Hz OLED、Win11 Home、3年Legion', price:16502, oldPrice:null, rating:4.8, reviews:0, badge:'hot' },
+  { id:144, cat:'gaming', emoji:'🎮', name:'Lenovo LEGION Pro 5 15IRX10', desc:'Intel i7 14700HX、24GB、1TB、RTX 5060 8GB、15.1" WQXGA 165Hz OLED、Win11 Home、3年Legion', price:13408, oldPrice:null, rating:4.8, reviews:0, badge:null },
+  { id:145, cat:'gaming', emoji:'🎮', name:'Lenovo LEGION Pro 5 16IAX10H', desc:'Intel Ultra 9-275HX、32GB、1TB SSD、RTX 5070Ti 12GB、16" WQXGA 240Hz OLED、3年Legion+ADP', price:19597, oldPrice:null, rating:4.9, reviews:0, badge:'hot' },
+  { id:146, cat:'gaming', emoji:'🎮', name:'Lenovo LEGION 7i 16IAX10H', desc:'Intel Ultra 9 275HX、32GB、1TB SSD、RTX 5070 8GB、16" WQXGA 240Hz OLED、Win11 Home、3年Legion', price:18565, oldPrice:null, rating:4.9, reviews:0, badge:null },
+  { id:147, cat:'gaming', emoji:'🎮', name:'Lenovo Legion Pro 7 16IAX10H (RTX5070Ti)', desc:'Intel Ultra 9 275HX、32GB、1TB SSD、RTX 5070Ti 12GB、16" WQXGA 240Hz OLED、Win11 Home、3年Legion', price:21660, oldPrice:null, rating:4.9, reviews:0, badge:null },
+  { id:148, cat:'gaming', emoji:'🎮', name:'Lenovo Legion Pro 7 16IAX10H (RTX5080)', desc:'Intel Ultra 9 275HX、32GB、1TB SSD、RTX 5080 16GB、16" WQXGA 240Hz OLED、Win11 Home、3年Legion', price:26817, oldPrice:null, rating:4.9, reviews:0, badge:'hot' },
+  { id:149, cat:'gaming', emoji:'🎮', name:'Lenovo Legion Pro 7 16IAX10H (RTX5090)', desc:'Intel Ultra 9 275HX、64GB、1TB SSD、RTX 5090 24GB、16" WQXGA 240Hz OLED、Win11 Home、3年Legion', price:35069, oldPrice:null, rating:4.9, reviews:0, badge:'hot' },
+];
+
+// Load products, merging any new defaults not yet in localStorage
+(function() {
+  const saved = JSON.parse(localStorage.getItem('ws_products') || 'null');
+  if (saved) {
+    const savedIds = new Set(saved.map(p => p.id));
+    const newOnes = defaultProducts.filter(p => !savedIds.has(p.id));
+    window._products = newOnes.length ? [...saved, ...newOnes] : saved;
+  } else {
+    window._products = defaultProducts.map(p => ({...p}));
+  }
+})();
+let products = window._products;
+function saveProducts() { localStorage.setItem('ws_products', JSON.stringify(products)); }
+
+// ============================
+// STATE
+// ============================
+let cart = [];
+let currentCat = 'all';
+let currentSearch = '';
+let priceMin = 0, priceMax = Infinity;
+let sortMode = 'default';
+let discountAmt = 0;
+let shipping = 40;
+let selectedPayment = 'credit';
+
+// ============================
+// RENDER PRODUCTS
+// ============================
+function getFilteredProducts() {
+  let filtered = products.filter(p => {
+    const matchCat = currentCat === 'all' || p.cat === currentCat;
+    const matchSearch = p.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                        p.desc.toLowerCase().includes(currentSearch.toLowerCase());
+    const matchPrice = p.price >= priceMin && p.price <= priceMax;
+    return matchCat && matchSearch && matchPrice;
+  });
+  if (sortMode === 'price-asc') filtered.sort((a,b) => a.price - b.price);
+  else if (sortMode === 'price-desc') filtered.sort((a,b) => b.price - a.price);
+  else if (sortMode === 'rating') filtered.sort((a,b) => b.rating - a.rating);
+  else if (sortMode === 'name') filtered.sort((a,b) => a.name.localeCompare(b.name, 'zh'));
+  return filtered;
+}
+
+function renderProducts() {
+  const grid = document.getElementById('productsGrid');
+  const filtered = getFilteredProducts();
+  document.getElementById('resultCount').textContent = `共 ${filtered.length} 件產品`;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><p>找不到相關產品，請嘗試其他搜尋條件</p></div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(p => {
+    const badgeHTML = p.badge ? `<div class="product-badge ${p.badge}">${p.badge==='sale'?'折扣':p.badge==='new'?'新品':p.badge==='hot'?'熱賣':p.badge}</div>` : '';
+    const oldPriceHTML = p.oldPrice ? `<span class="product-old-price">HK$${p.oldPrice.toLocaleString()}</span>` : '';
+    const stars = '★'.repeat(Math.floor(p.rating)) + (p.rating%1>=0.5?'½':'');
+    return `
+      <div class="product-card" onclick="openProduct(${p.id})">
+        ${badgeHTML}
+        <div class="product-img">${p.emoji}</div>
+        <div class="product-info">
+          <div class="product-category">${catLabel(p.cat)}</div>
+          <div class="product-name">${p.name}</div>
+          <div class="product-desc">${p.desc}</div>
+          <div class="product-rating">
+            <span class="stars">${'★'.repeat(Math.floor(p.rating))}</span>
+            <span>${p.rating} (${p.reviews}評)</span>
+          </div>
+          <div class="product-price-row">
+            <span class="product-price">HK$${p.price.toLocaleString()}</span>
+            ${oldPriceHTML}
+          </div>
+          <button class="add-cart-btn" id="btn-${p.id}" onclick="event.stopPropagation(); addToCart(${p.id})">
+            🛒 加入購物車
+          </button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function catLabel(cat) {
+  return {phone:'手機/平板', computer:'電腦/配件', audio:'耳機/音響', smarthome:'智能家居', service:'維修及工程', gaming:'電競遊戲'}[cat] || cat;
+}
+
+function openProduct(id) {
+  const p = products.find(x=>x.id===id);
+  showToast(`✅ 已查看：${p.name}`);
+}
+
+// ============================
+// FILTER / SORT / SEARCH
+// ============================
+function filterCat(btn, cat) {
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCat = cat;
+  renderProducts();
+}
+function doSearch() {
+  currentSearch = document.getElementById('searchInput').value.trim();
+  renderProducts();
+}
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('searchInput').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+  renderProducts();
+});
+function applySort() {
+  sortMode = document.getElementById('sortSelect').value;
+  renderProducts();
+}
+function applyPriceFilter() {
+  const min = parseFloat(document.getElementById('priceMin').value) || 0;
+  const max = parseFloat(document.getElementById('priceMax').value) || Infinity;
+  priceMin = min; priceMax = max;
+  renderProducts();
+}
+function resetFilters() {
+  priceMin = 0; priceMax = Infinity;
+  sortMode = 'default';
+  currentSearch = '';
+  document.getElementById('priceMin').value = '';
+  document.getElementById('priceMax').value = '';
+  document.getElementById('sortSelect').value = 'default';
+  document.getElementById('searchInput').value = '';
+  renderProducts();
+}
+
+// ============================
+// CART
+// ============================
+function addToCart(id) {
+  const p = products.find(x=>x.id===id);
+  const item = cart.find(x=>x.id===id);
+  if (item) item.qty++;
+  else cart.push({...p, qty:1});
+  updateCartCount();
+  renderCart();
+  showToast(`🛒 ${p.name} 已加入購物車`);
+  const btn = document.getElementById('btn-'+id);
+  if(btn){btn.classList.add('added');btn.textContent='✓ 已加入';setTimeout(()=>{btn.classList.remove('added');btn.innerHTML='🛒 加入購物車';},1500);}
+}
+function updateCartCount() {
+  const total = cart.reduce((s,i)=>s+i.qty, 0);
+  document.getElementById('cartCount').textContent = total;
+}
+function openCart() {
+  document.getElementById('cartOverlay').classList.add('open');
+  document.getElementById('cartSidebar').classList.add('open');
+  renderCart();
+}
+function closeCart() {
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.getElementById('cartSidebar').classList.remove('open');
+}
+function renderCart() {
+  const body = document.getElementById('cartBody');
+  const footer = document.getElementById('cartFooter');
+  if (cart.length === 0) {
+    body.innerHTML = `<div class="cart-empty"><div class="icon">🛒</div><p>購物車是空的</p><p style="font-size:0.85rem;color:#ccc;margin-top:8px;">快去選購心儀產品吧！</p></div>`;
+    footer.style.display = 'none';
+    return;
+  }
+  body.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-img">${item.emoji}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-price">HK$${(item.price * item.qty).toLocaleString()}</div>
+        <div class="cart-item-controls">
+          <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+          <button class="remove-item" onclick="removeItem(${item.id})">🗑️</button>
+        </div>
+      </div>
+    </div>`).join('');
+  footer.style.display = 'block';
+  updateCartTotals();
+}
+function changeQty(id, delta) {
+  const item = cart.find(x=>x.id===id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) cart = cart.filter(x=>x.id!==id);
+  updateCartCount();
+  renderCart();
+}
+function removeItem(id) {
+  cart = cart.filter(x=>x.id!==id);
+  updateCartCount();
+  renderCart();
+}
+function getSubtotal() { return cart.reduce((s,i)=>s+i.price*i.qty, 0); }
+function updateCartTotals() {
+  const sub = getSubtotal();
+  const total = Math.max(0, sub + shipping - discountAmt);
+  document.getElementById('subtotalVal').textContent = `HK$${sub.toLocaleString()}`;
+  document.getElementById('shippingVal').textContent = shipping === 0 ? '免費' : `HK$${shipping}`;
+  document.getElementById('discountVal').textContent = discountAmt > 0 ? `-HK$${discountAmt}` : '-HK$0';
+  document.getElementById('totalVal').textContent = `HK$${total.toLocaleString()}`;
+}
+
+// ============================
+// CHECKOUT
+// ============================
+function openCheckout() {
+  if (cart.length === 0) { showToast('購物車是空的！'); return; }
+  closeCart();
+  renderOrderSummary();
+  document.getElementById('checkoutModal').classList.add('open');
+}
+function closeCheckout() {
+  document.getElementById('checkoutModal').classList.remove('open');
+}
+function renderOrderSummary() {
+  const sub = getSubtotal();
+  const total = Math.max(0, sub + shipping - discountAmt);
+  const itemsHTML = cart.map(i=>`<div class="row"><span>${i.emoji} ${i.name} x${i.qty}</span><span>HK$${(i.price*i.qty).toLocaleString()}</span></div>`).join('');
+  document.getElementById('orderSummaryBox').innerHTML = `
+    ${itemsHTML}
+    <div class="row"><span>運費</span><span>${shipping===0?'免費':'HK$'+shipping}</span></div>
+    ${discountAmt>0?`<div class="row"><span>折扣</span><span style="color:var(--success)">-HK$${discountAmt}</span></div>`:''}
+    <div class="row total-row"><span>合計</span><span>HK$${total.toLocaleString()}</span></div>`;
+}
+function updateShipping() {
+  shipping = parseInt(document.getElementById('delivery').value) || 0;
+  renderOrderSummary();
+}
+function selectPayment(el) {
+  document.querySelectorAll('.payment-option').forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedPayment = el.dataset.method;
+}
+function applyCoupon() {
+  const code = document.getElementById('couponInput').value.trim().toUpperCase();
+  if (code === 'TECH10') { discountAmt = Math.round(getSubtotal()*0.1); showToast('🎉 優惠碼已套用！享9折優惠'); }
+  else if (code === 'FREE') { shipping = 0; showToast('🎉 免運費優惠已套用！'); }
+  else { discountAmt = 0; showToast('❌ 無效優惠碼'); }
+  renderOrderSummary();
+}
+function placeOrder() {
+  const name = document.getElementById('fullName').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const district = document.getElementById('district').value;
+  const address = document.getElementById('address').value.trim();
+  if (!name || !phone || !email || !district || !address) {
+    showToast('⚠️ 請填寫所有必填欄位'); return;
+  }
+  const orderNum = 'WS' +Date.now().toString().slice(-8);
+  document.getElementById('orderNum').textContent = `訂單編號：${orderNum}`;
+  closeCheckout();
+  setTimeout(()=>{ document.getElementById('successModal').classList.add('open'); }, 300);
+  cart = []; discountAmt = 0; shipping = 40;
+  updateCartCount();
+}
+function closeSuccess() {
+  document.getElementById('successModal').classList.remove('open');
+  renderProducts();
+}
+
+// ============================
+// TOAST
+// ============================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+// ============================
+// ADMIN LOGIN
+// ============================
+function openAdminLogin() {
+  document.getElementById('adminPwInput').value = '';
+  document.getElementById('adminLoginErr').style.display = 'none';
+  document.getElementById('adminLoginOverlay').classList.add('open');
+  setTimeout(()=>document.getElementById('adminPwInput').focus(), 300);
+}
+function closeAdminLogin() {
+  document.getElementById('adminLoginOverlay').classList.remove('open');
+}
+function doAdminLogin() {
+  const pw = document.getElementById('adminPwInput').value;
+  if (pw === ADMIN_PASSWORD) {
+    closeAdminLogin();
+    openAdminPanel();
+  } else {
+    document.getElementById('adminLoginErr').style.display = 'block';
+    document.getElementById('adminPwInput').value = '';
+    document.getElementById('adminPwInput').focus();
+  }
+}
+
+// ============================
+// ADMIN PANEL
+// ============================
+function openAdminPanel() {
+  document.getElementById('adminPanel').classList.add('open');
+  renderAdminStats();
+  renderAdminTable();
+}
+function closeAdminPanel() {
+  document.getElementById('adminPanel').classList.remove('open');
+  renderProducts();
+}
+
+function renderAdminStats() {
+  const cats = {phone:0, computer:0, audio:0, smarthome:0, service:0};
+  products.forEach(p => { if(cats[p.cat]!==undefined) cats[p.cat]++; });
+  document.getElementById('adminStats').innerHTML = `
+    <div class="stat-card"><div class="stat-num">${products.length}</div><div class="stat-label">全部產品</div></div>
+    <div class="stat-card"><div class="stat-num">${products.filter(p=>p.badge==='hot').length}</div><div class="stat-label">熱賣商品</div></div>
+    <div class="stat-card"><div class="stat-num">${products.filter(p=>p.badge==='new').length}</div><div class="stat-label">新品</div></div>
+    <div class="stat-card"><div class="stat-num">${products.filter(p=>p.badge==='sale').length}</div><div class="stat-label">折扣商品</div></div>
+    <div class="stat-card"><div class="stat-num">${cats.phone}</div><div class="stat-label">手機/平板</div></div>
+    <div class="stat-card"><div class="stat-num">${cats.computer}</div><div class="stat-label">電腦/配件</div></div>
+  `;
+}
+
+function renderAdminTable() {
+  const q = (document.getElementById('adminSearchInput').value||'').toLowerCase();
+  const rows = products
+    .filter(p => !q || p.name.toLowerCase().includes(q) || catLabel(p.cat).includes(q))
+    .map(p => `
+      <tr>
+        <td style="font-size:1.5rem;text-align:center;">${p.emoji}</td>
+        <td><strong>${p.name}</strong></td>
+        <td>${catLabel(p.cat)}</td>
+        <td><strong style="color:var(--primary)">MOP$${p.price.toLocaleString()}</strong></td>
+        <td>${p.oldPrice ? `<span style="text-decoration:line-through;color:#bbb">MOP$${p.oldPrice.toLocaleString()}</span>` : '—'}</td>
+        <td>${p.rating} ⭐</td>
+        <td><span class="admin-badge ${p.badge||'none'}">${p.badge==='hot'?'熱賣':p.badge==='new'?'新品':p.badge==='sale'?'折扣':'無'}</span></td>
+        <td>
+          <button class="tbl-edit-btn" onclick="openEditProduct(${p.id})">✏️ 編輯</button>
+          <button class="tbl-del-btn" onclick="confirmDelete(${p.id})">🗑️ 刪除</button>
+        </td>
+      </tr>`).join('');
+  document.getElementById('adminTableBody').innerHTML = rows || '<tr><td colspan="8" style="text-align:center;padding:28px;color:#bbb;">找不到產品</td></tr>';
+}
+
+// ============================
+// ADD / EDIT PRODUCT
+// ============================
+function openAddProduct() {
+  document.getElementById('prodModalTitle').textContent = '＋ 新增產品';
+  document.getElementById('editProdId').value = '';
+  document.getElementById('fName').value = '';
+  document.getElementById('fEmoji').value = '';
+  document.getElementById('fDesc').value = '';
+  document.getElementById('fCat').value = 'phone';
+  document.getElementById('fBadge').value = '';
+  document.getElementById('fPrice').value = '';
+  document.getElementById('fOldPrice').value = '';
+  document.getElementById('fRating').value = '4.5';
+  document.getElementById('fReviews').value = '0';
+  document.getElementById('prodModalOverlay').classList.add('open');
+}
+function openEditProduct(id) {
+  const p = products.find(x=>x.id===id);
+  if (!p) return;
+  document.getElementById('prodModalTitle').textContent = '✏️ 編輯產品';
+  document.getElementById('editProdId').value = id;
+  document.getElementById('fName').value = p.name;
+  document.getElementById('fEmoji').value = p.emoji;
+  document.getElementById('fDesc').value = p.desc;
+  document.getElementById('fCat').value = p.cat;
+  document.getElementById('fBadge').value = p.badge || '';
+  document.getElementById('fPrice').value = p.price;
+  document.getElementById('fOldPrice').value = p.oldPrice || '';
+  document.getElementById('fRating').value = p.rating;
+  document.getElementById('fReviews').value = p.reviews;
+  document.getElementById('prodModalOverlay').classList.add('open');
+}
+function closeProdModal() {
+  document.getElementById('prodModalOverlay').classList.remove('open');
+}
+function saveProd() {
+  const name = document.getElementById('fName').value.trim();
+  const emoji = document.getElementById('fEmoji').value.trim();
+  const desc = document.getElementById('fDesc').value.trim();
+  const price = parseFloat(document.getElementById('fPrice').value);
+  if (!name || !emoji || !desc || isNaN(price)) {
+    showToast('⚠️ 請填寫所有必填欄位'); return;
+  }
+  const oldPriceVal = parseFloat(document.getElementById('fOldPrice').value);
+  const prod = {
+    name, emoji, desc,
+    cat: document.getElementById('fCat').value,
+    badge: document.getElementById('fBadge').value || null,
+    price,
+    oldPrice: isNaN(oldPriceVal) || oldPriceVal <= 0 ? null : oldPriceVal,
+    rating: parseFloat(document.getElementById('fRating').value) || 4.5,
+    reviews: parseInt(document.getElementById('fReviews').value) || 0,
+  };
+  const editId = parseInt(document.getElementById('editProdId').value);
+  if (editId) {
+    const idx = products.findIndex(x=>x.id===editId);
+    products[idx] = { ...products[idx], ...prod };
+    showToast('✅ 產品已更新！');
+  } else {
+    prod.id = Date.now();
+    products.push(prod);
+    showToast('✅ 產品已新增！');
+  }
+  saveProducts();
+  closeProdModal();
+  renderAdminStats();
+  renderAdminTable();
+}
+
+// ============================
+// DELETE PRODUCT
+// ============================
+let pendingDeleteId = null;
+function confirmDelete(id) {
+  const p = products.find(x=>x.id===id);
+  pendingDeleteId = id;
+  document.getElementById('confirmMsg').textContent = `確定要刪除「${p.name}」嗎？此動作不可復原。`;
+  document.getElementById('confirmOverlay').classList.add('open');
+}
+function closeConfirm() {
+  pendingDeleteId = null;
+  document.getElementById('confirmOverlay').classList.remove('open');
+}
+function doDelete() {
+  if (!pendingDeleteId) return;
+  products = products.filter(x=>x.id!==pendingDeleteId);
+  saveProducts();
+  closeConfirm();
+  showToast('🗑️ 產品已刪除');
+  renderAdminStats();
+  renderAdminTable();
+  pendingDeleteId = null;
+}
+
+// ============================
+// CORPORATE NAV HELPERS
+// ============================
+function smoothTo(id) {
+  const el = document.getElementById(id);
+  if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  return false;
+}
+function toggleSearch() {
+  const bar = document.getElementById('corpSearchBar');
+  bar.classList.toggle('open');
+  if (bar.classList.contains('open')) {
+    setTimeout(()=>document.getElementById('searchInput').focus(), 150);
+  }
+}
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+// Show/hide shop category nav when near shop section
+(function() {
+  const catNav = document.getElementById('shopCatNav');
+  if (!catNav) return;
+  catNav.style.display = 'none';
+  function checkScroll() {
+    const shop = document.getElementById('shop');
+    if (!shop) return;
+    const rect = shop.getBoundingClientRect();
+    const inShop = rect.top < 100 && rect.bottom > 100;
+    catNav.style.display = inShop ? 'flex' : 'none';
+  }
+  window.addEventListener('scroll', checkScroll, { passive: true });
+  checkScroll();
+})();
+</script>
+</body>
+</html>
