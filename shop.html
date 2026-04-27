@@ -2831,4 +2831,24 @@ function saveProd() {
     showToast('✅ 產品已更新！');
   } else {
     prod.id = Date.now();
-    products.push(prod)
+    products.push(prod);
+  }
+  saveProducts();
+  renderProducts();
+  renderAdminTable();
+  renderAdminStats();
+  closeProdModal();
+  showToast('✅ 產品已儲存！');
+}
+function deleteProd(id) {
+  if (!confirm('確定要刪除此產品？')) return;
+  products = products.filter(p => p.id !== id);
+  saveProducts();
+  renderProducts();
+  renderAdminTable();
+  renderAdminStats();
+  showToast('🗑️ 產品已刪除');
+}
+</script>
+</body>
+</html>
