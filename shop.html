@@ -569,6 +569,7 @@
   }
   .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
   .payment-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media (min-width: 480px) { .payment-methods { grid-template-columns: repeat(5, 1fr); } }
   .payment-option { border: 2px solid var(--border); border-radius: 10px; padding: 12px 8px; text-align: center; cursor: pointer; transition: all 0.2s; }
   .payment-option:hover, .payment-option.selected { border-color: var(--primary); background: #f0f6ff; }
   .payment-option .icon { font-size: 1.6rem; margin-bottom: 4px; }
@@ -1636,7 +1637,7 @@
             <label>地區 *</label>
             <select id="district">
               <option value="">選擇地區</option>
-              <option>澳門半島</option><option>氹仔</option><option>路環</option><option>路氹城</option>
+              <option>澳門半島</option><option>氹仔</option><option>路環</option><option>路氹城</option><option>橫琴</option>
             </select>
           </div>
           <div class="form-group">
@@ -1668,6 +1669,14 @@
           <div class="payment-option" onclick="selectPayment(this)" data-method="payme">
             <div class="icon">🟢</div>
             <div class="name">PayMe</div>
+          </div>
+          <div class="payment-option" onclick="selectPayment(this)" data-method="mpay">
+            <div class="icon">🔵</div>
+            <div class="name">MPay</div>
+          </div>
+          <div class="payment-option" onclick="selectPayment(this)" data-method="boc">
+            <div class="icon">🏦</div>
+            <div class="name">中銀</div>
           </div>
         </div>
       </div>
@@ -2653,7 +2662,8 @@ function closeCheckout() {
 function renderOrderSummary() {
   const sub = getSubtotal();
   const total = Math.max(0, sub + shipping - discountAmt);
-  const itemsHTML = cart.map(i=>`<div class="row"><span>${i.emoji} ${i.name} x${i.qty}</span><span>HK$${(i.price*i.qty).toLocaleString()}</span></div>`).join('');
+  const summaryIcons = {'laptop-business':'💼','laptop-everyday':'💻','laptop-gaming':'🎮','desktop':'🖥️','monitor':'🖵','printer':'🖨️','components-cpu':'💻','components-gpu':'🎮','components-mb':'🔲','components-ram':'🧩','components-ssd':'💾','components-hdd':'💿','accessories':'🖱️'};
+  const itemsHTML = cart.map(i=>`<div class="row"><span>${i.emoji || summaryIcons[i.cat] || '📦'} ${i.name} x${i.qty}</span><span>HK$${(i.price*i.qty).toLocaleString()}</span></div>`).join('');
   document.getElementById('orderSummaryBox').innerHTML = `
     ${itemsHTML}
     <div class="row"><span>運費</span><span>${shipping===0?'免費':'HK$'+shipping}</span></div>
