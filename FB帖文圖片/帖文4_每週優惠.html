@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1200px; height:630px; overflow:hidden; font-family:'Noto Sans HK', sans-serif; }
+.bg { width:100%; height:100%; background:linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); position:relative; overflow:hidden; }
+.circle1 { position:absolute; width:400px; height:400px; border-radius:50%; border:1px solid rgba(0,255,136,0.15); top:-100px; right:-50px; }
+.circle2 { position:absolute; width:600px; height:600px; border-radius:50%; border:1px solid rgba(0,255,136,0.08); top:-200px; right:-200px; }
+.content { position:relative; z-index:10; padding:40px 60px; height:100%; display:flex; flex-direction:column; justify-content:space-between; }
+.header { display:flex; align-items:center; gap:16px; }
+.logo-badge { background:linear-gradient(135deg, #00ff88, #00cc66); color:#000; font-weight:900; font-size:18px; padding:8px 18px; border-radius:8px; }
+.week-badge { background:rgba(255,200,0,0.15); border:2px solid #ffc800; color:#ffc800; font-size:16px; font-weight:900; padding:6px 20px; border-radius:20px; letter-spacing:2px; }
+.main { display:flex; gap:50px; align-items:center; }
+.text-side { flex:1; }
+.tag-line { font-size:16px; color:rgba(0,255,136,0.8); font-weight:700; margin-bottom:8px; letter-spacing:2px; }
+.headline { font-size:48px; font-weight:900; color:white; line-height:1.1; margin-bottom:20px; }
+.headline span { color:#00ff88; }
+.product-feature { background:rgba(0,255,136,0.06); border:2px solid rgba(0,255,136,0.3); border-radius:18px; padding:24px 28px; margin-bottom:16px; }
+.product-title { font-size:22px; font-weight:900; color:white; margin-bottom:6px; }
+.product-spec { font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:14px; }
+.price-row { display:flex; align-items:baseline; gap:12px; }
+.price-main { font-size:42px; font-weight:900; color:#00ff88; }
+.price-label { font-size:14px; color:rgba(255,255,255,0.5); }
+.combo-text { font-size:14px; color:rgba(255,255,255,0.6); margin-top:10px; }
+.combo-text span { color:#ffc800; font-weight:700; }
+.visual { width:280px; display:flex; flex-direction:column; gap:14px; }
+.deal-badge { background:linear-gradient(135deg, #ff4444, #ff8800); color:white; font-size:28px; font-weight:900; text-align:center; padding:20px; border-radius:16px; }
+.spec-list { display:flex; flex-direction:column; gap:8px; }
+.spec-item { background:rgba(255,255,255,0.05); border:1px solid rgba(0,255,136,0.2); border-radius:10px; padding:10px 14px; display:flex; align-items:center; gap:10px; }
+.spec-icon { font-size:20px; }
+.spec-text { color:rgba(255,255,255,0.8); font-size:13px; font-weight:700; }
+.footer { display:flex; justify-content:space-between; align-items:center; }
+.contact { color:rgba(255,255,255,0.6); font-size:14px; line-height:1.9; }
+.contact strong { color:#00ff88; }
+.tags { color:rgba(0,255,136,0.4); font-size:12px; text-align:right; line-height:2; }
+</style>
+</head>
+<body>
+<div class="bg">
+  <div class="circle1"></div>
+  <div class="circle2"></div>
+  <div class="content">
+    <div class="header">
+      <div class="logo-badge">PC SHOP</div>
+      <div class="week-badge">💥 本週推介</div>
+    </div>
+    <div class="main">
+      <div class="text-side">
+        <div class="tag-line">▶ 高性價比之選</div>
+        <div class="headline">入門電競<br><span>極致體驗</span></div>
+        <div class="product-feature">
+          <div class="product-title">ViewSonic VX27G58-2K</div>
+          <div class="product-spec">27" 2K IPS · 210Hz 高刷新率 · AMD FreeSync</div>
+          <div class="price-row">
+            <div class="price-main">HK$1,455</div>
+            <div class="price-label">現售價</div>
+          </div>
+          <div class="combo-text">配合 <span>RTX 5060 顯示卡</span>，2K 電競體驗即刻升級！</div>
+        </div>
+      </div>
+      <div class="visual">
+        <div class="deal-badge">🔥<br>超筍<br>價錢</div>
+        <div class="spec-list">
+          <div class="spec-item"><span class="spec-icon">📐</span><span class="spec-text">27吋 2K 解析度</span></div>
+          <div class="spec-item"><span class="spec-icon">⚡</span><span class="spec-text">210Hz 超高刷新</span></div>
+          <div class="spec-item"><span class="spec-icon">🎨</span><span class="spec-text">IPS 廣色域面板</span></div>
+          <div class="spec-item"><span class="spec-icon">🔗</span><span class="spec-text">HDMI + DisplayPort</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="contact">
+        <strong>🌐 pcshop-net.com</strong><br>
+        📞 2840 3503　📍 澳門 PC Shop 專業電腦店
+      </div>
+      <div class="tags">
+        #ViewSonic #每週優惠 #電競螢幕<br>#澳門電腦 #性價比
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

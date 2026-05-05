@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1200px; height:630px; overflow:hidden; font-family:'Noto Sans HK', sans-serif; }
+.bg { width:100%; height:100%; background:linear-gradient(135deg, #0d1117 0%, #161b22 100%); position:relative; overflow:hidden; }
+.content { position:relative; z-index:10; padding:40px 60px; height:100%; display:flex; flex-direction:column; justify-content:space-between; }
+.header { display:flex; align-items:center; gap:16px; }
+.logo-badge { background:linear-gradient(135deg, #4AADA8, #2D8F8A); color:white; font-weight:900; font-size:18px; padding:8px 18px; border-radius:8px; }
+.engage-badge { background:rgba(74,173,168,0.15); border:1px solid rgba(74,173,168,0.4); color:#4AADA8; font-size:14px; font-weight:700; padding:6px 16px; border-radius:20px; }
+.main { display:flex; gap:40px; align-items:center; }
+.text-side { flex:1; }
+.headline { font-size:44px; font-weight:900; color:white; line-height:1.15; margin-bottom:8px; }
+.headline span { color:#4AADA8; }
+.subtitle { color:rgba(255,255,255,0.5); font-size:16px; margin-bottom:24px; }
+.options { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.option { border-radius:16px; padding:18px 20px; display:flex; align-items:center; gap:14px; cursor:pointer; border:2px solid transparent; }
+.option-a { background:rgba(255,107,107,0.1); border-color:rgba(255,107,107,0.4); }
+.option-b { background:rgba(74,173,168,0.1); border-color:rgba(74,173,168,0.4); }
+.option-c { background:rgba(255,200,0,0.1); border-color:rgba(255,200,0,0.4); }
+.option-d { background:rgba(150,100,255,0.1); border-color:rgba(150,100,255,0.4); }
+.opt-letter { font-size:28px; font-weight:900; width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.opt-a-l { background:rgba(255,107,107,0.2); color:#ff6b6b; }
+.opt-b-l { background:rgba(74,173,168,0.2); color:#4AADA8; }
+.opt-c-l { background:rgba(255,200,0,0.2); color:#ffc800; }
+.opt-d-l { background:rgba(150,100,255,0.2); color:#9664ff; }
+.opt-content { flex:1; }
+.opt-emoji { font-size:20px; }
+.opt-text { font-size:15px; font-weight:700; color:white; margin-top:2px; }
+.opt-sub { font-size:12px; color:rgba(255,255,255,0.5); }
+.cta { margin-top:16px; background:rgba(74,173,168,0.1); border:1px solid rgba(74,173,168,0.3); border-radius:12px; padding:12px 18px; color:rgba(255,255,255,0.7); font-size:14px; }
+.cta strong { color:#4AADA8; }
+.footer { display:flex; justify-content:space-between; align-items:center; }
+.contact { color:rgba(255,255,255,0.6); font-size:14px; line-height:1.9; }
+.contact strong { color:#4AADA8; }
+.tags { color:rgba(74,173,168,0.4); font-size:12px; text-align:right; line-height:2; }
+</style>
+</head>
+<body>
+<div class="bg">
+  <div class="content">
+    <div class="header">
+      <div class="logo-badge">PC SHOP</div>
+      <div class="engage-badge">💬 你係邊種？</div>
+    </div>
+    <div class="main">
+      <div class="text-side">
+        <div class="headline">你係邊種<br><span>電腦用家</span>？</div>
+        <div class="subtitle">留言告訴我們，我們幫你搵最啱的配置！</div>
+        <div class="options">
+          <div class="option option-a">
+            <div class="opt-letter opt-a-l">A</div>
+            <div class="opt-content">
+              <div class="opt-emoji">🎮</div>
+              <div class="opt-text">電競玩家</div>
+              <div class="opt-sub">追求高 FPS · 低延遲</div>
+            </div>
+          </div>
+          <div class="option option-b">
+            <div class="opt-letter opt-b-l">B</div>
+            <div class="opt-content">
+              <div class="opt-emoji">🎨</div>
+              <div class="opt-text">創作者</div>
+              <div class="opt-sub">高色準 · 4K 顯示器</div>
+            </div>
+          </div>
+          <div class="option option-c">
+            <div class="opt-letter opt-c-l">C</div>
+            <div class="opt-content">
+              <div class="opt-emoji">💼</div>
+              <div class="opt-text">商務用戶</div>
+              <div class="opt-sub">穩定可靠 · 長保養</div>
+            </div>
+          </div>
+          <div class="option option-d">
+            <div class="opt-letter opt-d-l">D</div>
+            <div class="opt-content">
+              <div class="opt-emoji">🔧</div>
+              <div class="opt-text">DIY 發燒友</div>
+              <div class="opt-sub">自己砌機 · 最爽</div>
+            </div>
+          </div>
+        </div>
+        <div class="cta">👇 <strong>留言你的答案</strong>，我們免費幫你配置最適合的方案！</div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="contact">
+        <strong>🌐 pcshop-net.com</strong><br>
+        📞 2840 3503　📍 澳門 PC Shop 專業電腦店
+      </div>
+      <div class="tags">
+        #澳門電腦 #PCShop #電腦推薦<br>#DIY電腦 #電競
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1200px; height:630px; overflow:hidden; font-family:'Noto Sans HK', sans-serif; background:#0a0e1a; }
+.bg {
+  width:100%; height:100%;
+  background: linear-gradient(135deg, #0a0e1a 0%, #0d1f3c 50%, #0a2a2a 100%);
+  position:relative; overflow:hidden;
+}
+.glow-circle {
+  position:absolute; border-radius:50%;
+  background: radial-gradient(circle, rgba(0,200,180,0.15) 0%, transparent 70%);
+}
+.glow1 { width:600px; height:600px; top:-100px; right:-100px; }
+.glow2 { width:400px; height:400px; bottom:-100px; left:200px; background: radial-gradient(circle, rgba(0,120,255,0.1) 0%, transparent 70%); }
+.grid-lines {
+  position:absolute; width:100%; height:100%;
+  background-image: linear-gradient(rgba(0,200,180,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,200,180,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.content { position:relative; z-index:10; padding:40px 60px; height:100%; display:flex; flex-direction:column; justify-content:space-between; }
+.header { display:flex; align-items:center; gap:16px; }
+.logo-badge {
+  background: linear-gradient(135deg, #00c8b4, #0080ff);
+  color:white; font-weight:900; font-size:18px;
+  padding:8px 18px; border-radius:8px; letter-spacing:1px;
+}
+.new-badge {
+  background:#ff4444; color:white; font-weight:700; font-size:14px;
+  padding:6px 14px; border-radius:20px; letter-spacing:2px;
+}
+.main { flex:1; display:flex; align-items:center; gap:60px; }
+.text-side { flex:1; }
+.headline {
+  font-size:52px; font-weight:900; line-height:1.1;
+  color:white; margin-bottom:16px;
+}
+.headline span {
+  background: linear-gradient(90deg, #00c8b4, #0080ff);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+}
+.subtitle { font-size:20px; color:rgba(255,255,255,0.7); margin-bottom:30px; }
+.products { display:flex; flex-direction:column; gap:12px; }
+.product-item {
+  background:rgba(255,255,255,0.06); border:1px solid rgba(0,200,180,0.3);
+  border-radius:12px; padding:14px 20px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.product-name { color:rgba(255,255,255,0.9); font-size:15px; font-weight:700; }
+.product-price { color:#00c8b4; font-size:20px; font-weight:900; }
+.warning-box {
+  background:rgba(255,68,68,0.1); border:1px solid rgba(255,68,68,0.4);
+  border-radius:10px; padding:12px 18px; margin-top:16px;
+  color:#ff8888; font-size:13px;
+}
+.visual-side { width:320px; display:flex; flex-direction:column; align-items:center; gap:16px; }
+.gpu-box {
+  width:280px; height:180px;
+  background: linear-gradient(135deg, rgba(0,200,180,0.1), rgba(0,128,255,0.1));
+  border:2px solid rgba(0,200,180,0.4); border-radius:16px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:72px;
+}
+.spec-tags { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+.tag {
+  background:rgba(0,200,180,0.15); border:1px solid rgba(0,200,180,0.4);
+  color:#00c8b4; font-size:13px; font-weight:700;
+  padding:6px 12px; border-radius:20px;
+}
+.footer { display:flex; justify-content:space-between; align-items:center; }
+.contact { color:rgba(255,255,255,0.6); font-size:14px; line-height:1.8; }
+.contact strong { color:#00c8b4; }
+.hashtags { color:rgba(0,200,180,0.5); font-size:13px; text-align:right; line-height:2; }
+</style>
+</head>
+<body>
+<div class="bg">
+  <div class="glow-circle glow1"></div>
+  <div class="glow-circle glow2"></div>
+  <div class="grid-lines"></div>
+  <div class="content">
+    <div class="header">
+      <div class="logo-badge">PC SHOP</div>
+      <div class="new-badge">🔥 新品到港</div>
+    </div>
+    <div class="main">
+      <div class="text-side">
+        <div class="headline">RTX 5060 Ti<br><span>正式到港！</span></div>
+        <div class="subtitle">Gigabyte GeForce RTX 5060 Ti 系列 · 限量現貨</div>
+        <div class="products">
+          <div class="product-item">
+            <div class="product-name">RTX 5060 Ti WindForce OC 8GB</div>
+            <div class="product-price">HK$3,738</div>
+          </div>
+          <div class="product-item">
+            <div class="product-name">RTX 5060 Ti Eagle OC 16GB</div>
+            <div class="product-price">HK$5,233</div>
+          </div>
+        </div>
+        <div class="warning-box">⚠️ 16GB 版本供貨即將收緊，有意升級請把握機會！</div>
+      </div>
+      <div class="visual-side">
+        <div class="gpu-box">🎮</div>
+        <div class="spec-tags">
+          <span class="tag">GDDR7</span>
+          <span class="tag">PCIe 5.0</span>
+          <span class="tag">DLSS 4</span>
+          <span class="tag">Ray Tracing</span>
+          <span class="tag">AV1</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="contact">
+        <strong>🌐 pcshop-net.com</strong><br>
+        📞 2840 3503　📍 澳門 PC Shop 專業電腦店
+      </div>
+      <div class="hashtags">
+        #RTX5060Ti #Gigabyte #澳門電腦<br>#電競 #顯示卡 #PCShop
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

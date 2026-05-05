@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1200px; height:630px; overflow:hidden; font-family:'Noto Sans HK', sans-serif; }
+.bg { width:100%; height:100%; background:linear-gradient(135deg, #1a0a0a 0%, #2a1a00 50%, #1a1a1a 100%); position:relative; overflow:hidden; }
+.glow { position:absolute; width:500px; height:300px; background:radial-gradient(ellipse, rgba(255,100,0,0.12) 0%, transparent 70%); top:50%; left:50%; transform:translate(-50%,-50%); }
+.content { position:relative; z-index:10; padding:40px 60px; height:100%; display:flex; flex-direction:column; justify-content:space-between; }
+.header { display:flex; align-items:center; gap:16px; }
+.logo-badge { background:linear-gradient(135deg, #ff6400, #ff0000); color:white; font-weight:900; font-size:18px; padding:8px 18px; border-radius:8px; }
+.news-badge { background:rgba(255,100,0,0.15); border:1px solid rgba(255,100,0,0.5); color:#ff6400; font-size:14px; font-weight:700; padding:6px 16px; border-radius:20px; }
+.main { display:flex; gap:50px; }
+.text-side { flex:1; }
+.news-label { font-size:13px; color:rgba(255,100,0,0.8); font-weight:700; letter-spacing:3px; margin-bottom:8px; }
+.headline { font-size:38px; font-weight:900; color:white; line-height:1.2; margin-bottom:14px; }
+.headline span { color:#ff6400; }
+.news-content { background:rgba(255,255,255,0.04); border-left:3px solid #ff6400; border-radius:0 10px 10px 0; padding:16px 20px; margin-bottom:18px; color:rgba(255,255,255,0.75); font-size:15px; line-height:1.7; }
+.action-box { background:rgba(0,200,150,0.08); border:1px solid rgba(0,200,150,0.3); border-radius:14px; padding:16px 20px; }
+.action-title { color:#00c896; font-size:16px; font-weight:700; margin-bottom:10px; }
+.stock-items { display:flex; gap:16px; }
+.stock-item { flex:1; background:rgba(255,255,255,0.05); border-radius:10px; padding:12px; text-align:center; }
+.stock-label { font-size:12px; color:rgba(255,255,255,0.5); margin-bottom:4px; }
+.stock-price { font-size:18px; font-weight:900; color:#00c896; }
+.stock-avail { font-size:11px; color:rgba(255,255,255,0.4); margin-top:2px; }
+.visual { width:260px; display:flex; flex-direction:column; gap:14px; align-items:center; justify-content:center; }
+.alert-box { background:rgba(255,68,68,0.1); border:2px solid rgba(255,68,68,0.4); border-radius:16px; padding:24px; text-align:center; width:100%; }
+.alert-icon { font-size:48px; margin-bottom:8px; }
+.alert-text { color:#ff8888; font-size:16px; font-weight:700; line-height:1.5; }
+.nvidia-logo { color:rgba(118,185,0,1); font-size:28px; font-weight:900; letter-spacing:2px; }
+.footer { display:flex; justify-content:space-between; align-items:center; }
+.contact { color:rgba(255,255,255,0.6); font-size:14px; line-height:1.9; }
+.contact strong { color:#ff6400; }
+.tags { color:rgba(255,100,0,0.4); font-size:12px; text-align:right; line-height:2; }
+</style>
+</head>
+<body>
+<div class="bg">
+  <div class="glow"></div>
+  <div class="content">
+    <div class="header">
+      <div class="logo-badge">PC SHOP</div>
+      <div class="news-badge">📰 電腦資訊</div>
+    </div>
+    <div class="main">
+      <div class="text-side">
+        <div class="news-label">▶ 最新行業消息</div>
+        <div class="headline">RTX 5060 Ti 16GB<br><span>供貨即將收緊！</span></div>
+        <div class="news-content">
+          NVIDIA 已調整 RTX 50 系列供貨計劃，<strong style="color:#ff6400">RTX 5060 Ti 16GB 版本</strong>即將面臨短缺，市場供應將以 8GB 版本為主。有升級計劃的玩家請盡快行動！
+        </div>
+        <div class="action-box">
+          <div class="action-title">✅ PC Shop 現有現貨</div>
+          <div class="stock-items">
+            <div class="stock-item">
+              <div class="stock-label">RTX 5060 Ti 8GB</div>
+              <div class="stock-price">HK$3,738</div>
+              <div class="stock-avail">現貨供應</div>
+            </div>
+            <div class="stock-item">
+              <div class="stock-label">RTX 5060 Ti 16GB</div>
+              <div class="stock-price">HK$5,233</div>
+              <div class="stock-avail">⚠️ 趁仲有貨</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="visual">
+        <div class="nvidia-logo">NVIDIA</div>
+        <div class="alert-box">
+          <div class="alert-icon">⚠️</div>
+          <div class="alert-text">16GB 版本<br>即將<br>短缺！</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="contact">
+        <strong>🌐 pcshop-net.com</strong><br>
+        📞 2840 3503　📍 澳門 PC Shop 專業電腦店
+      </div>
+      <div class="tags">
+        #NVIDIA #RTX5060Ti #電腦資訊<br>#澳門電腦 #顯示卡
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

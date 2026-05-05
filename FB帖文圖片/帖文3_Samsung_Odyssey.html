@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:1200px; height:630px; overflow:hidden; font-family:'Noto Sans HK', sans-serif; }
+.bg { width:100%; height:100%; background:linear-gradient(160deg, #000428 0%, #004e92 100%); position:relative; overflow:hidden; }
+.wave { position:absolute; bottom:-20px; left:0; right:0; height:200px; background:linear-gradient(transparent, rgba(0,200,255,0.08)); }
+.stars { position:absolute; width:100%; height:100%; background-image:radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px); background-size:50px 50px; opacity:0.3; }
+.content { position:relative; z-index:10; padding:40px 60px; height:100%; display:flex; flex-direction:column; justify-content:space-between; }
+.header { display:flex; align-items:center; gap:16px; }
+.logo-badge { background:linear-gradient(135deg, #1428a0, #00b2ff); color:white; font-weight:900; font-size:18px; padding:8px 18px; border-radius:8px; }
+.cat-badge { background:rgba(0,178,255,0.15); border:1px solid rgba(0,178,255,0.4); color:#00b2ff; font-size:14px; font-weight:700; padding:6px 16px; border-radius:20px; }
+.main { display:flex; gap:40px; align-items:center; }
+.text-side { flex:1; }
+.brand { font-size:18px; color:rgba(255,255,255,0.5); margin-bottom:6px; letter-spacing:3px; }
+.headline { font-size:44px; font-weight:900; color:white; line-height:1.1; margin-bottom:8px; }
+.headline span { color:#00b2ff; }
+.subtitle { color:rgba(255,255,255,0.6); font-size:15px; margin-bottom:22px; }
+.lineup { display:flex; flex-direction:column; gap:10px; }
+.item { display:flex; align-items:center; gap:14px; background:rgba(255,255,255,0.06); border-radius:12px; padding:12px 18px; border-left:3px solid rgba(0,178,255,0.5); }
+.item.oled { border-left-color:#ff6b9d; background:rgba(255,107,157,0.06); }
+.item-badge { font-size:11px; font-weight:700; background:rgba(0,178,255,0.2); color:#00b2ff; padding:3px 8px; border-radius:6px; white-space:nowrap; }
+.item-badge.oled-b { background:rgba(255,107,157,0.2); color:#ff6b9d; }
+.item-info { flex:1; font-size:14px; color:rgba(255,255,255,0.8); }
+.item-price { font-size:18px; font-weight:900; color:white; }
+.visual { width:260px; display:flex; flex-direction:column; align-items:center; gap:14px; }
+.monitor-emoji { font-size:90px; }
+.odyssey-label { color:#00b2ff; font-size:22px; font-weight:900; letter-spacing:2px; }
+.oled-note { font-size:12px; color:rgba(255,107,157,0.8); text-align:center; background:rgba(255,107,157,0.1); border:1px solid rgba(255,107,157,0.3); border-radius:8px; padding:8px 12px; }
+.footer { display:flex; justify-content:space-between; align-items:center; }
+.contact { color:rgba(255,255,255,0.6); font-size:14px; line-height:1.9; }
+.contact strong { color:#00b2ff; }
+.tags { color:rgba(0,178,255,0.4); font-size:12px; text-align:right; line-height:2; }
+</style>
+</head>
+<body>
+<div class="bg">
+  <div class="stars"></div>
+  <div class="wave"></div>
+  <div class="content">
+    <div class="header">
+      <div class="logo-badge">PC SHOP</div>
+      <div class="cat-badge">✨ 電競顯示器</div>
+    </div>
+    <div class="main">
+      <div class="text-side">
+        <div class="brand">SAMSUNG</div>
+        <div class="headline">Odyssey 系列<br><span>視覺新境界</span></div>
+        <div class="subtitle">從入門到旗艦，找到屬於你的完美顯示器</div>
+        <div class="lineup">
+          <div class="item">
+            <span class="item-badge">27" QHD</span>
+            <span class="item-info">Odyssey G5 · 180Hz · 1ms</span>
+            <span class="item-price">HK$1,746</span>
+          </div>
+          <div class="item">
+            <span class="item-badge">32" QHD</span>
+            <span class="item-info">Odyssey G5 · 180Hz · 1ms</span>
+            <span class="item-price">HK$2,631</span>
+          </div>
+          <div class="item oled">
+            <span class="item-badge oled-b">27" OLED</span>
+            <span class="item-info">Odyssey G6 OLED · 360Hz</span>
+            <span class="item-price">HK$4,997</span>
+          </div>
+          <div class="item oled">
+            <span class="item-badge oled-b">32" OLED 4K</span>
+            <span class="item-info">Odyssey G8 OLED · 240Hz</span>
+            <span class="item-price">HK$8,602</span>
+          </div>
+        </div>
+      </div>
+      <div class="visual">
+        <div class="monitor-emoji">🌊</div>
+        <div class="odyssey-label">ODYSSEY</div>
+        <div class="oled-note">OLED 面板<br>色彩通透 · 黑位極深<br>遊戲體驗另一個層次</div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="contact">
+        <strong>🌐 pcshop-net.com</strong><br>
+        📞 2840 3503　📍 澳門 PC Shop 專業電腦店
+      </div>
+      <div class="tags">
+        #Samsung #Odyssey #OLED<br>#電競螢幕 #澳門電腦
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
