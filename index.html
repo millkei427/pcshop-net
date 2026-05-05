@@ -1129,6 +1129,95 @@
   .service-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
   .service-card p { color: #6c7a7a; font-size: 0.93rem; line-height: 1.65; }
 
+  /* ===== SOFTWARE SOLUTIONS SECTION ===== */
+  .section-software {
+    background: white;
+    padding: 80px 32px;
+  }
+  .sw-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 28px;
+    margin-top: 40px;
+  }
+  .sw-card {
+    background: #f8fbff;
+    border: 1px solid #dce8f5;
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .sw-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .sw-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(74,173,168,0.15); }
+  .sw-card:hover::before { transform: scaleX(1); }
+  .sw-card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .sw-icon { font-size: 2.6rem; flex-shrink: 0; line-height: 1; }
+  .sw-card-top h3 { font-size: 1.05rem; font-weight: 700; color: var(--dark); margin: 0 0 6px; }
+  .sw-tag {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+  .sw-card > p { color: #5a6a6a; font-size: 0.92rem; line-height: 1.7; margin-bottom: 18px; }
+  .sw-list {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .sw-list li {
+    font-size: 0.88rem;
+    color: #4a5a5a;
+    line-height: 1.5;
+  }
+  .sw-cta {
+    text-align: center;
+    margin-top: 48px;
+    padding: 36px 28px;
+    background: linear-gradient(135deg, var(--dark) 0%, #1E4745 100%);
+    border-radius: var(--radius);
+    color: white;
+  }
+  .sw-cta p { font-size: 1.05rem; margin-bottom: 20px; color: rgba(255,255,255,0.85); }
+  .sw-cta-btn {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 36px;
+    border-radius: 50px;
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+  .sw-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,173,168,0.4); }
+  @media (max-width: 768px) {
+    .sw-cards { grid-template-columns: 1fr; }
+    .section-software { padding: 56px 20px; }
+  }
+
   /* ===== WHY US SECTION ===== */
   .section-why {
     background: linear-gradient(135deg, var(--dark) 0%, #1E4745 100%);
@@ -1737,6 +1826,7 @@
     <div class="corp-nav-links">
       <a href="javascript:void(0)" onclick="smoothTo('about')">關於我們</a>
       <a href="javascript:void(0)" onclick="smoothTo('services')">服務項目</a>
+      <a href="javascript:void(0)" onclick="smoothTo('software')">軟件方案</a>
       <a href="javascript:void(0)" onclick="smoothTo('why')">企業優勢</a>
       <a href="javascript:void(0)" onclick="smoothTo('history')">發展歷程</a>
       <a href="javascript:void(0)" onclick="smoothTo('smartboard')" style="color:#F4845F;font-weight:700;">📺 電子白板</a>
@@ -1765,6 +1855,7 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="javascript:void(0)" onclick="smoothTo('about');closeMobileMenu()">關於我們</a>
     <a href="javascript:void(0)" onclick="smoothTo('services');closeMobileMenu()">服務項目</a>
+    <a href="javascript:void(0)" onclick="smoothTo('software');closeMobileMenu()">軟件方案</a>
     <a href="javascript:void(0)" onclick="smoothTo('why');closeMobileMenu()">企業優勢</a>
     <a href="javascript:void(0)" onclick="smoothTo('history');closeMobileMenu()">發展歷程</a>
     <a href="javascript:void(0)" onclick="smoothTo('clients');closeMobileMenu()">客戶夥伴</a>
@@ -1886,13 +1977,13 @@
       </div>
       <div class="service-card">
         <div class="service-icon">💻</div>
-        <h3>軟件開發</h3>
-        <p>根據客戶業務需求度身訂製各類軟件系統，涵蓋網站開發、手機 App、企業內部管理系統及資料庫設計。團隊具備豐富的本地項目經驗，由需求分析、設計、開發至上線維護，全程跟進，確保系統穩定可靠、易於操作。</p>
+        <h3>度身訂製軟件開發</h3>
+        <p>深耕澳門市場逾十年，累積豐富本地企業軟件開發經驗。由 POS 收銀系統、ERP 企業管理、會員積分平台到校園智慧教學系統，均由我們全程負責設計、開發、測試及上線。所有項目均配合客戶實際業務流程，貼地開發，而非套用通用模板。</p>
       </div>
       <div class="service-card">
-        <div class="service-icon">🖥️</div>
-        <h3>POS 及商業系統架設</h3>
-        <p>為零售、餐飲、服務業等各行業提供專業的 POS 收銀系統及商業管理軟件部署，包括庫存管理、銷售報表、會員積分及多門市同步功能。系統穩定易用，支援本地化設定，並提供完善的售後培訓及技術支援服務。</p>
+        <div class="service-icon">🏪</div>
+        <h3>POS 收銀系統（軟硬件一站式）</h3>
+        <p>為餐飲、零售及服務業提供軟硬件配套的 POS 解決方案。系統功能涵蓋點餐落單、庫存管理、銷售報表、會員積分及多分店同步，並由我們負責硬件採購、安裝配置及員工培訓，真正做到交鑰匙服務，讓客戶開業即用。</p>
       </div>
       <div class="service-card">
         <div class="service-icon">🤖</div>
@@ -1904,6 +1995,78 @@
 </section>
 
 
+
+<!-- SOFTWARE SOLUTIONS -->
+<section id="software" class="section-software">
+  <div class="section-inner">
+    <div class="section-label">軟件解決方案</div>
+    <h2 class="section-title">深耕澳門逾十年的電子化專家</h2>
+    <p class="section-subtitle">我們不只是電腦店——自 2007 年起，我們已協助澳門數十家企業、學校及機構完成數碼化轉型，以軟硬件一體化方案為客戶解決真實業務問題。</p>
+
+    <div class="sw-cards">
+      <div class="sw-card">
+        <div class="sw-card-top">
+          <div class="sw-icon">🏪</div>
+          <div>
+            <h3>POS 收銀及商業管理系統</h3>
+            <span class="sw-tag">餐飲 · 零售 · 服務業</span>
+          </div>
+        </div>
+        <p>自主開發及部署各行業 POS 系統，服務澳門餐廳、零售店及服務業多年。我們提供完整的軟硬件配套方案：從觸控收銀機、廚房打印機、掃碼器到後台管理系統，一手包辦。</p>
+        <ul class="sw-list">
+          <li>📋 餐飲 POS：點餐、落單、廚房出餐、外賣管理</li>
+          <li>🛒 零售 POS：庫存管理、條碼掃描、銷售報表</li>
+          <li>💆 服務業 POS：預約系統、員工績效、會員積分</li>
+          <li>🔗 多分店數據同步，總部即時掌握各店狀況</li>
+          <li>🛠️ 包安裝、包培訓、包後續技術支援</li>
+        </ul>
+      </div>
+
+      <div class="sw-card">
+        <div class="sw-card-top">
+          <div class="sw-icon">⚙️</div>
+          <div>
+            <h3>企業度身訂製軟件開發</h3>
+            <span class="sw-tag">中小企 · 機構 · 政府</span>
+          </div>
+        </div>
+        <p>為澳門本地企業及機構提供專屬軟件開發服務，由業務分析到系統上線，全程本地團隊跟進，溝通無障礙。</p>
+        <ul class="sw-list">
+          <li>🌐 企業形象網站及電商平台開發</li>
+          <li>📊 ERP 企業資源管理系統</li>
+          <li>💰 會計及財務管理系統</li>
+          <li>📱 手機 App 開發（iOS / Android）</li>
+          <li>🗄️ 客製化資料庫及後台管理系統</li>
+          <li>🔄 舊系統整合及數據遷移</li>
+        </ul>
+      </div>
+
+      <div class="sw-card">
+        <div class="sw-card-top">
+          <div class="sw-icon">🏫</div>
+          <div>
+            <h3>智慧教學系統</h3>
+            <span class="sw-tag">中小學 · 大學 · 教育機構</span>
+          </div>
+        </div>
+        <p>為澳門多所學校提供智慧教學解決方案，軟硬件一體化配置，協助學校建立現代化的數碼學習環境。</p>
+        <ul class="sw-list">
+          <li>📺 互動電子白板安裝及配置</li>
+          <li>🖥️ 電腦教室整體部署（硬件 + 軟件 + 網絡）</li>
+          <li>📡 校園 Wi-Fi 全覆蓋規劃及工程</li>
+          <li>🎓 教學管理平台（出勤、作業、成績管理）</li>
+          <li>🤖 AI 教育工具引入及師生培訓</li>
+          <li>🔧 長期駐場維護及技術支援服務</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sw-cta">
+      <p>有項目想討論？我們提供免費業務評估及方案建議</p>
+      <a href="#contact" onclick="smoothTo('contact')" class="sw-cta-btn">📞 立即查詢</a>
+    </div>
+  </div>
+</section>
 
 <!-- WHY US -->
 <section id="why" class="section-why">
