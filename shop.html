@@ -568,8 +568,8 @@
     font-family: inherit;
   }
   .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
-  .payment-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  @media (min-width: 480px) { .payment-methods { grid-template-columns: repeat(5, 1fr); } }
+  .payment-methods { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  @media (min-width: 480px) { .payment-methods { grid-template-columns: repeat(4, 1fr); } }
   .payment-option { border: 2px solid var(--border); border-radius: 10px; padding: 12px 8px; text-align: center; cursor: pointer; transition: all 0.2s; }
   .payment-option:hover, .payment-option.selected { border-color: var(--primary); background: #f0f6ff; }
   .payment-option .icon { font-size: 1.6rem; margin-bottom: 4px; }
@@ -1651,7 +1651,7 @@
         </div>
         <div class="form-group">
           <label>詳細地址 *</label>
-          <input type="text" id="address" placeholder="例：九龍旺角彌敦道100號3樓">
+          <input type="text" id="address" placeholder="例：澳門半島新馬路100號3樓">
         </div>
       </div>
 
@@ -1666,12 +1666,8 @@
             <div class="icon">📲</div>
             <div class="name">轉數快</div>
           </div>
-          <div class="payment-option" onclick="selectPayment(this)" data-method="payme">
-            <div class="icon">🟢</div>
-            <div class="name">PayMe</div>
-          </div>
           <div class="payment-option" onclick="selectPayment(this)" data-method="mpay">
-            <div class="icon">🔵</div>
+            <div class="icon"><img src="https://www.mpay.com.mo/images/logo.png" alt="MPay" style="width:36px;height:36px;object-fit:contain;" onerror="this.outerHTML='<span style=\'font-size:1.4rem;font-weight:700;color:#0066cc;\'>M</span>'"></div>
             <div class="name">MPay</div>
           </div>
           <div class="payment-option" onclick="selectPayment(this)" data-method="boc">
