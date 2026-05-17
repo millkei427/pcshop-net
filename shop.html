@@ -147,8 +147,10 @@
     display: flex;
     gap: 4px;
     overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
-  .category-nav::-webkit-scrollbar { display: none; }
+  .category-nav::-webkit-scrollbar { display: none; width: 0; height: 0; }
   .cat-btn {
     background: transparent;
     border: none;
