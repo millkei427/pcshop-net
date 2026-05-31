@@ -1809,9 +1809,232 @@
     .hero-stats { gap: 28px; }
     .section-about, .section-services, .section-why, .section-history, .section-contact, .section-shop { padding: 56px 20px; }
   }
+
+  /* ===== CPTTM POP-UP ===== */
+  #cpttmPopup {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 99998;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(3px);
+  }
+  #cpttmPopup.open { display: flex; }
+  .cpttm-modal {
+    background: white;
+    border-radius: 20px;
+    max-width: 860px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+    position: relative;
+    animation: cpttmIn 0.35s cubic-bezier(.22,.68,0,1.2);
+  }
+  @keyframes cpttmIn {
+    from { opacity: 0; transform: scale(0.92) translateY(20px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .cpttm-header {
+    background: linear-gradient(135deg, #2D5F5D 0%, #1a3a38 100%);
+    color: white;
+    padding: 30px 36px 26px;
+    border-radius: 20px 20px 0 0;
+    text-align: center;
+    position: relative;
+  }
+  .cpttm-badge {
+    display: inline-block;
+    background: rgba(74,173,168,0.25);
+    border: 1px solid rgba(74,173,168,0.55);
+    color: #7dd6d2;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+  }
+  .cpttm-title { font-size: 1.65rem; font-weight: 800; margin-bottom: 8px; }
+  .cpttm-subtitle { color: rgba(255,255,255,0.6); font-size: 0.88rem; }
+  .cpttm-close {
+    position: absolute; top: 14px; right: 18px;
+    background: rgba(255,255,255,0.12); border: none;
+    color: white; width: 34px; height: 34px; border-radius: 50%;
+    font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .cpttm-close:hover { background: rgba(255,255,255,0.28); }
+  .cpttm-body { padding: 28px 32px 20px; }
+  .cpttm-plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+  }
+  .cpttm-plan-card {
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 18px 18px;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .cpttm-plan-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 22px rgba(74,173,168,0.18);
+    transform: translateY(-3px);
+  }
+  .plan-num {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.88rem; margin-bottom: 12px;
+  }
+  .plan-name { font-weight: 700; font-size: 0.92rem; color: var(--dark); margin-bottom: 8px; }
+  .plan-desc { font-size: 0.79rem; color: #6b7c7b; line-height: 1.6; }
+  .cpttm-footer strong { color: var(--primary); }
+  .cpttm-footer {
+    text-align: center; padding: 16px 32px 30px;
+    border-top: 1px solid var(--border); margin-top: 8px;
+  }
+  .cpttm-footer p { color: #8a9e9d; font-size: 0.82rem; margin-bottom: 14px; }
+  .cpttm-cta {
+    display: inline-block; background: var(--primary);
+    color: white; padding: 12px 30px; border-radius: 30px;
+    font-weight: 700; text-decoration: none; font-size: 0.9rem;
+    transition: background 0.2s; border: none; cursor: pointer;
+  }
+  .cpttm-cta:hover { background: var(--primary-dark); }
+  @media(max-width:600px) {
+    .cpttm-header { padding: 22px 20px 18px; }
+    .cpttm-title { font-size: 1.25rem; }
+    .cpttm-body { padding: 20px 16px 12px; }
+    .cpttm-plans { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .cpttm-footer { padding: 14px 16px 22px; }
+    .cpttm-plan-card { padding: 14px 12px 12px; }
+  }
+
+  /* ===== CPTTM TOP BANNER ===== */
+  #cpttmBanner {
+    background: linear-gradient(90deg, #1a3a38 0%, #2D5F5D 50%, #1a3a38 100%);
+    color: white;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    position: relative;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .banner-badge {
+    background: rgba(74,173,168,0.25);
+    border: 1px solid rgba(74,173,168,0.5);
+    color: #7dd6d2;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+  }
+  .banner-text {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.92);
+    letter-spacing: 0.2px;
+  }
+  .banner-link {
+    background: var(--primary);
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+  .banner-link:hover { background: var(--primary-dark); }
+  .banner-dismiss {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.45);
+    font-size: 1rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 6px;
+    transition: color 0.2s;
+  }
+  .banner-dismiss:hover { color: white; }
+  @media(max-width:600px) {
+    #cpttmBanner { padding: 8px 40px 8px 16px; gap: 8px; }
+    .banner-text { font-size: 0.8rem; }
+  }
 </style>
 </head>
 <body>
+
+<!-- ===== CPTTM TOP ANNOUNCEMENT BANNER ===== -->
+<div id="cpttmBanner">
+  <span class="banner-badge">🏆 CPTTM 認可供應商</span>
+  <span class="banner-text">2026 中小企業數字化支援服務</span>
+  <button class="banner-link" onclick="openCpttmPopup()">了解五大方案 →</button>
+  <button class="banner-dismiss" onclick="dismissBanner()" title="關閉">✕</button>
+</div>
+
+<!-- ===== CPTTM 2026 數字化方案 POP-UP ===== -->
+<div id="cpttmPopup" onclick="if(event.target===this)closeCpttmPopup()">
+  <div class="cpttm-modal">
+    <div class="cpttm-header">
+      <button class="cpttm-close" onclick="closeCpttmPopup()" title="關閉">✕</button>
+      <div class="cpttm-badge">🏆 CPTTM 認可供應商</div>
+      <div class="cpttm-title">2026 中小企業數字化支援服務</div>
+      <div class="cpttm-subtitle">PC Shop 現為 CPTTM 認可供應商，提供五大行業 AI 方案・每個方案 MOP 18,000・政府全額資助</div>
+    </div>
+    <div class="cpttm-body">
+      <div class="cpttm-plans">
+        <div class="cpttm-plan-card">
+          <div class="plan-num" style="background:linear-gradient(135deg,#4AADA8,#2D8A85);">A</div>
+          <div class="plan-name">🗓️ BizBuddy 智能預約通</div>
+          <div class="plan-desc">適合：美容美甲・健身瑜伽・課程培訓・寵物服務<br><br>客人自己 Book、AI 幫你排期、No-show 自動提醒，WhatsApp 接預約接唔切的救星。</div>
+        </div>
+        <div class="cpttm-plan-card">
+          <div class="plan-num" style="background:linear-gradient(135deg,#2B7BB9,#1a5a8f);">A2</div>
+          <div class="plan-name">🏥 BizBuddy 醫療通</div>
+          <div class="plan-desc">適合：醫療診所・中醫・牙科・物理治療<br><br>AI 醫療預約管理、複診提醒、病人資料整合，專為醫療行業設計的數字化方案。</div>
+        </div>
+        <div class="cpttm-plan-card">
+          <div class="plan-num" style="background:linear-gradient(135deg,#E8874A,#c96a2e);">B</div>
+          <div class="plan-name">📊 BizBuddy 營運管家</div>
+          <div class="plan-desc">適合：零售店・餐飲小店・批發貿易・微型商戶<br><br>講句嘢就記帳、月底自動出報表、進銷存一目了然，輕量 AI 帳簿取代手工記帳。</div>
+        </div>
+        <div class="cpttm-plan-card">
+          <div class="plan-num" style="background:linear-gradient(135deg,#8B5CF6,#6d3fd4);">C</div>
+          <div class="plan-name">👥 BizBuddy 團隊管理王</div>
+          <div class="plan-desc">適合：酒店旅遊・物業管理・保安清潔・餐飲連鎖<br><br>自動排班、人臉打卡、薪酬計算一鍵搞掂，硬件 + 軟件一條龍 HR 解決方案。</div>
+        </div>
+        <div class="cpttm-plan-card">
+          <div class="plan-num" style="background:linear-gradient(135deg,#3B82F6,#1d62d4);">D</div>
+          <div class="plan-name">🚀 BizBuddy 全能 AI 商務套件</div>
+          <div class="plan-desc">適合：專業服務・律師・會計・綜合型中小企<br><br>一個平台全部搞掂 — 預約、人事、記帳、客戶管理，17 個 AI 技能全開。</div>
+        </div>
+      </div>
+    </div>
+    <div class="cpttm-footer">
+      <p>🎁 每個方案 <strong>MOP 18,000</strong>，政府全額資助，企業零負擔・名額有限，立即查詢</p>
+      <a href="https://wa.me/85263928613" class="cpttm-cta" target="_blank">📲 WhatsApp 立即查詢</a>
+    </div>
+  </div>
+</div>
 
 <!-- CORPORATE NAV -->
 <nav class="corp-nav" id="corpNav">
@@ -3413,6 +3636,44 @@ function sendContactEmail() {
 
   window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
 }
+
+// ===== CPTTM TOP BANNER =====
+function dismissBanner() {
+  const b = document.getElementById('cpttmBanner');
+  b.style.transition = 'max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease';
+  b.style.maxHeight = '0';
+  b.style.opacity = '0';
+  b.style.padding = '0';
+  b.style.overflow = 'hidden';
+  sessionStorage.setItem('cpttmBannerDismissed', '1');
+}
+
+function openCpttmPopup() {
+  document.getElementById('cpttmPopup').classList.add('open');
+}
+
+// ===== CPTTM POP-UP =====
+function closeCpttmPopup() {
+  const popup = document.getElementById('cpttmPopup');
+  popup.style.transition = 'opacity 0.3s';
+  popup.style.opacity = '0';
+  setTimeout(() => { popup.classList.remove('open'); popup.style.opacity = ''; }, 320);
+  sessionStorage.setItem('cpttmSeen', '1');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Hide banner if already dismissed this session
+  if (sessionStorage.getItem('cpttmBannerDismissed')) {
+    const b = document.getElementById('cpttmBanner');
+    b.style.display = 'none';
+  }
+  // Auto show pop-up once per session
+  if (!sessionStorage.getItem('cpttmSeen')) {
+    setTimeout(function() {
+      document.getElementById('cpttmPopup').classList.add('open');
+    }, 900);
+  }
+});
 </script>
 
 <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
