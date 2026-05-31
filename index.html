@@ -1966,6 +1966,22 @@
   .plan-name { font-weight: 700; font-size: 0.92rem; color: var(--dark); margin-bottom: 8px; }
   .plan-desc { font-size: 0.79rem; color: #6b7c7b; line-height: 1.6; }
   .cpttm-footer strong { color: var(--primary); }
+  .plan-actions { display: flex; gap: 8px; margin-top: 12px; }
+  .plan-btn-view {
+    flex: 1; text-align: center; font-size: 0.75rem; font-weight: 700;
+    color: var(--primary); border: 1.5px solid var(--primary);
+    border-radius: 7px; padding: 6px 8px; text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .plan-btn-view:hover { background: var(--primary); color: white; }
+  .plan-btn-dl {
+    flex: 1; text-align: center; font-size: 0.75rem; font-weight: 700;
+    color: white; background: var(--primary);
+    border: 1.5px solid var(--primary);
+    border-radius: 7px; padding: 6px 8px; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .plan-btn-dl:hover { background: var(--primary-dark); border-color: var(--primary-dark); }
   .cpttm-footer {
     text-align: center; padding: 16px 32px 30px;
     border-top: 1px solid var(--border); margin-top: 8px;
@@ -2073,35 +2089,50 @@
     </div>
     <div class="cpttm-body">
       <div class="cpttm-plans">
-        <div class="cpttm-plan-card" onclick="window.open('cpttm/booking.html','_blank')">
+        <div class="cpttm-plan-card">
           <div class="plan-num" style="background:linear-gradient(135deg,#4AADA8,#2D8A85);">A</div>
           <div class="plan-name">🗓️ SmartBizBuddy 智能預約通</div>
           <div class="plan-desc">適合：美容美甲・健身瑜伽・課程培訓・寵物服務<br><br>客人自己 Book、AI 幫你排期、No-show 自動提醒，WhatsApp 接預約接唔切的救星。</div>
-          <div style="margin-top:12px;font-size:0.75rem;color:#4AADA8;font-weight:700;">查看詳情 →</div>
+          <div class="plan-actions">
+            <a href="cpttm/booking.html" target="_blank" class="plan-btn-view">查看詳情 →</a>
+            <a href="cpttm/scheme-a.pdf" download="SmartBizBuddy_預約通.pdf" class="plan-btn-dl">⬇ 下載介紹</a>
+          </div>
         </div>
-        <div class="cpttm-plan-card" onclick="window.open('cpttm/medical.html','_blank')">
+        <div class="cpttm-plan-card">
           <div class="plan-num" style="background:linear-gradient(135deg,#2B7BB9,#1a5a8f);">B</div>
           <div class="plan-name">🏥 SmartBizBuddy 醫療通</div>
           <div class="plan-desc">適合：醫療診所・中醫・牙科・物理治療<br><br>AI 醫療預約管理、複診提醒、病人資料整合，專為醫療行業設計的數字化方案。</div>
-          <div style="margin-top:12px;font-size:0.75rem;color:#2B7BB9;font-weight:700;">查看詳情 →</div>
+          <div class="plan-actions">
+            <a href="cpttm/medical.html" target="_blank" class="plan-btn-view">查看詳情 →</a>
+            <a href="cpttm/scheme-b.pdf" download="SmartBizBuddy_醫療通.pdf" class="plan-btn-dl">⬇ 下載介紹</a>
+          </div>
         </div>
-        <div class="cpttm-plan-card" onclick="window.open('cpttm/operations.html','_blank')">
+        <div class="cpttm-plan-card">
           <div class="plan-num" style="background:linear-gradient(135deg,#E8874A,#c96a2e);">C</div>
           <div class="plan-name">📊 SmartBizBuddy 營運管家</div>
           <div class="plan-desc">適合：零售店・餐飲小店・批發貿易・微型商戶<br><br>講句嘢就記帳、月底自動出報表、進銷存一目了然，輕量 AI 帳簿取代手工記帳。</div>
-          <div style="margin-top:12px;font-size:0.75rem;color:#E8874A;font-weight:700;">查看詳情 →</div>
+          <div class="plan-actions">
+            <a href="cpttm/operations.html" target="_blank" class="plan-btn-view">查看詳情 →</a>
+            <a href="cpttm/scheme-c.pdf" download="SmartBizBuddy_營運管家.pdf" class="plan-btn-dl">⬇ 下載介紹</a>
+          </div>
         </div>
-        <div class="cpttm-plan-card" onclick="window.open('cpttm/team.html','_blank')">
+        <div class="cpttm-plan-card">
           <div class="plan-num" style="background:linear-gradient(135deg,#8B5CF6,#6d3fd4);">D</div>
           <div class="plan-name">👥 SmartBizBuddy 團隊管理王</div>
           <div class="plan-desc">適合：酒店旅遊・物業管理・保安清潔・餐飲連鎖<br><br>自動排班、人臉打卡、薪酬計算一鍵搞掂，硬件 + 軟件一條龍 HR 解決方案。</div>
-          <div style="margin-top:12px;font-size:0.75rem;color:#8B5CF6;font-weight:700;">查看詳情 →</div>
+          <div class="plan-actions">
+            <a href="cpttm/team.html" target="_blank" class="plan-btn-view">查看詳情 →</a>
+            <a href="cpttm/scheme-d.pdf" download="SmartBizBuddy_團隊管理王.pdf" class="plan-btn-dl">⬇ 下載介紹</a>
+          </div>
         </div>
-        <div class="cpttm-plan-card" onclick="window.open('cpttm/allinone.html','_blank')">
+        <div class="cpttm-plan-card">
           <div class="plan-num" style="background:linear-gradient(135deg,#3B82F6,#1d62d4);">E</div>
           <div class="plan-name">🚀 SmartBizBuddy 全能 AI 商務套件</div>
           <div class="plan-desc">適合：專業服務・律師・會計・綜合型中小企<br><br>一個平台全部搞掂 — 預約、人事、記帳、客戶管理，17 個 AI 技能全開。</div>
-          <div style="margin-top:12px;font-size:0.75rem;color:#3B82F6;font-weight:700;">查看詳情 →</div>
+          <div class="plan-actions">
+            <a href="cpttm/allinone.html" target="_blank" class="plan-btn-view">查看詳情 →</a>
+            <a href="cpttm/scheme-e.pdf" download="SmartBizBuddy_全能AI商務套件.pdf" class="plan-btn-dl">⬇ 下載介紹</a>
+          </div>
         </div>
       </div>
     </div>
