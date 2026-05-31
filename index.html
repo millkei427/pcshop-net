@@ -1010,6 +1010,89 @@
   .hero-stat-num { font-size: 2rem; font-weight: 800; color: #7ECECA; }
   .hero-stat-label { font-size: 0.85rem; opacity: 0.7; margin-top: 4px; }
 
+  /* ── Hero two-column ── */
+  .corp-hero { text-align: left; padding: 80px 32px 56px; }
+  .corp-hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 44px;
+    max-width: 1140px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  .corp-hero-left { text-align: left; }
+  .corp-hero-left .corp-hero-badge { margin-bottom: 20px; }
+  .corp-hero-left h1 { margin-bottom: 18px; }
+  .corp-hero-left p { margin: 0 0 32px 0; max-width: 520px; }
+  .hero-cta-group { justify-content: flex-start; }
+  .hero-stats { max-width: 1140px; margin: 48px auto 0; justify-content: flex-start; padding-top: 32px; }
+
+  /* ── CPTTM Hero Card ── */
+  .cpttm-hero-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(74,173,168,0.4);
+    border-radius: 20px;
+    padding: 26px 24px 22px;
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cpttm-hero-card::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(74,173,168,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cpttm-hero-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+    background: rgba(255,255,255,0.1);
+  }
+  .cpttm-hero-top {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+  }
+  .cpttm-hero-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .cpttm-hero-label { font-size: 0.7rem; color: #7dd6d2; font-weight: 700; letter-spacing: 0.5px; }
+  .cpttm-hero-title { font-size: 1.05rem; font-weight: 800; color: white; line-height: 1.3; }
+  .cpttm-hero-sub { font-size: 0.78rem; color: rgba(255,255,255,0.55); margin: 10px 0 16px; line-height: 1.5; }
+  .cpttm-plan-list { list-style: none; margin-bottom: 20px; display: flex; flex-direction: column; gap: 7px; }
+  .cpttm-plan-list li {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.8rem; color: rgba(255,255,255,0.8);
+  }
+  .cpttm-plan-list li span.dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .cpttm-hero-btn {
+    display: block; width: 100%; text-align: center;
+    background: var(--primary); color: white;
+    border: none; padding: 11px; border-radius: 10px;
+    font-weight: 700; font-size: 0.88rem; cursor: pointer;
+    transition: background 0.2s; text-decoration: none;
+  }
+  .cpttm-hero-btn:hover { background: var(--primary-dark); }
+  .cpttm-hero-subsidy {
+    text-align: center; font-size: 0.72rem;
+    color: rgba(255,255,255,0.4); margin-top: 10px;
+  }
+  @media(max-width:900px) {
+    .corp-hero-inner { grid-template-columns: 1fr; }
+    .corp-hero-right { max-width: 480px; }
+    .corp-hero { text-align: center; }
+    .corp-hero-left p { max-width: 100%; }
+    .hero-cta-group { justify-content: center; }
+    .hero-stats { justify-content: center; }
+  }
+
   /* ===== ABOUT SECTION ===== */
   .section-about {
     background: white;
@@ -2002,30 +2085,35 @@
     </div>
     <div class="cpttm-body">
       <div class="cpttm-plans">
-        <div class="cpttm-plan-card">
+        <div class="cpttm-plan-card" onclick="window.open('cpttm/booking.html','_blank')">
           <div class="plan-num" style="background:linear-gradient(135deg,#4AADA8,#2D8A85);">A</div>
           <div class="plan-name">🗓️ BizBuddy 智能預約通</div>
           <div class="plan-desc">適合：美容美甲・健身瑜伽・課程培訓・寵物服務<br><br>客人自己 Book、AI 幫你排期、No-show 自動提醒，WhatsApp 接預約接唔切的救星。</div>
+          <div style="margin-top:12px;font-size:0.75rem;color:#4AADA8;font-weight:700;">查看詳情 →</div>
         </div>
-        <div class="cpttm-plan-card">
+        <div class="cpttm-plan-card" onclick="window.open('cpttm/medical.html','_blank')">
           <div class="plan-num" style="background:linear-gradient(135deg,#2B7BB9,#1a5a8f);">A2</div>
           <div class="plan-name">🏥 BizBuddy 醫療通</div>
           <div class="plan-desc">適合：醫療診所・中醫・牙科・物理治療<br><br>AI 醫療預約管理、複診提醒、病人資料整合，專為醫療行業設計的數字化方案。</div>
+          <div style="margin-top:12px;font-size:0.75rem;color:#2B7BB9;font-weight:700;">查看詳情 →</div>
         </div>
-        <div class="cpttm-plan-card">
+        <div class="cpttm-plan-card" onclick="window.open('cpttm/operations.html','_blank')">
           <div class="plan-num" style="background:linear-gradient(135deg,#E8874A,#c96a2e);">B</div>
           <div class="plan-name">📊 BizBuddy 營運管家</div>
           <div class="plan-desc">適合：零售店・餐飲小店・批發貿易・微型商戶<br><br>講句嘢就記帳、月底自動出報表、進銷存一目了然，輕量 AI 帳簿取代手工記帳。</div>
+          <div style="margin-top:12px;font-size:0.75rem;color:#E8874A;font-weight:700;">查看詳情 →</div>
         </div>
-        <div class="cpttm-plan-card">
+        <div class="cpttm-plan-card" onclick="window.open('cpttm/team.html','_blank')">
           <div class="plan-num" style="background:linear-gradient(135deg,#8B5CF6,#6d3fd4);">C</div>
           <div class="plan-name">👥 BizBuddy 團隊管理王</div>
           <div class="plan-desc">適合：酒店旅遊・物業管理・保安清潔・餐飲連鎖<br><br>自動排班、人臉打卡、薪酬計算一鍵搞掂，硬件 + 軟件一條龍 HR 解決方案。</div>
+          <div style="margin-top:12px;font-size:0.75rem;color:#8B5CF6;font-weight:700;">查看詳情 →</div>
         </div>
-        <div class="cpttm-plan-card">
+        <div class="cpttm-plan-card" onclick="window.open('cpttm/allinone.html','_blank')">
           <div class="plan-num" style="background:linear-gradient(135deg,#3B82F6,#1d62d4);">D</div>
           <div class="plan-name">🚀 BizBuddy 全能 AI 商務套件</div>
           <div class="plan-desc">適合：專業服務・律師・會計・綜合型中小企<br><br>一個平台全部搞掂 — 預約、人事、記帳、客戶管理，17 個 AI 技能全開。</div>
+          <div style="margin-top:12px;font-size:0.75rem;color:#3B82F6;font-weight:700;">查看詳情 →</div>
         </div>
       </div>
     </div>
@@ -2091,13 +2179,41 @@
 
 <!-- HOME -->
 <section id="home" class="corp-hero">
-  <div class="corp-hero-badge">🇲🇴 澳門 · 成立於 2007 年</div>
-  <h1>PC Shop —<span>澳門專業電腦店</span></h1>
-  <p>成立於 2007 年，主要從事 IT 軟硬件供應服務、資訊系統設備供應及軟體開發工作。公司設有門市部、軟體開發部及系統方案部，為澳門少數能夠一站式提供軟硬件整合的資訊科技公司。</p>
-  <div class="hero-cta-group">
-    <a href="shop.html" class="hero-cta-primary">立即選購 →</a>
-    <a href="javascript:void(0)" class="hero-cta-secondary" onclick="smoothTo('about')">了解更多</a>
+  <div class="corp-hero-inner">
+    <!-- LEFT: Company intro -->
+    <div class="corp-hero-left">
+      <div class="corp-hero-badge">🇲🇴 澳門 · 成立於 2007 年</div>
+      <h1>PC Shop —<span>澳門專業電腦店</span></h1>
+      <p>成立於 2007 年，主要從事 IT 軟硬件供應服務、資訊系統設備供應及軟體開發工作。公司設有門市部、軟體開發部及系統方案部，為澳門少數能夠一站式提供軟硬件整合的資訊科技公司。</p>
+      <div class="hero-cta-group">
+        <a href="shop.html" class="hero-cta-primary">立即選購 →</a>
+        <a href="javascript:void(0)" class="hero-cta-secondary" onclick="smoothTo('about')">了解更多</a>
+      </div>
+    </div>
+    <!-- RIGHT: CPTTM 2026 promo card -->
+    <div class="corp-hero-right">
+      <div class="cpttm-hero-card" onclick="openCpttmPopup()">
+        <div class="cpttm-hero-top">
+          <div class="cpttm-hero-icon">🏆</div>
+          <div>
+            <div class="cpttm-hero-label">CPTTM 認可供應商</div>
+            <div class="cpttm-hero-title">2026 中小企業<br>數字化支援服務</div>
+          </div>
+        </div>
+        <div class="cpttm-hero-sub">政府全額資助 · 每個方案 MOP 18,000 · 企業零負擔</div>
+        <ul class="cpttm-plan-list">
+          <li><span class="dot" style="background:#4AADA8;"></span>方案 A　智能預約通（美容・健身・課程）</li>
+          <li><span class="dot" style="background:#2B7BB9;"></span>方案 A2　醫療通（診所・中醫・牙科）</li>
+          <li><span class="dot" style="background:#E8874A;"></span>方案 B　營運管家（零售・餐飲・批發）</li>
+          <li><span class="dot" style="background:#8B5CF6;"></span>方案 C　團隊管理王（酒店・物管・保安）</li>
+          <li><span class="dot" style="background:#3B82F6;"></span>方案 D　全能 AI 商務套件</li>
+        </ul>
+        <button class="cpttm-hero-btn">了解五大方案 →</button>
+        <div class="cpttm-hero-subsidy">⚡ 名額有限，立即了解申請資格</div>
+      </div>
+    </div>
   </div>
+  <!-- Stats: full width below -->
   <div class="hero-stats">
     <div class="hero-stat">
       <div class="hero-stat-num">18+</div>
