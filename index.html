@@ -1010,88 +1010,76 @@
   .hero-stat-num { font-size: 2rem; font-weight: 800; color: #7ECECA; }
   .hero-stat-label { font-size: 0.85rem; opacity: 0.7; margin-top: 4px; }
 
-  /* ── Hero two-column ── */
-  .corp-hero { text-align: left; padding: 80px 32px 56px; }
-  .corp-hero-inner {
-    display: grid;
-    grid-template-columns: 1fr 400px;
-    gap: 44px;
-    max-width: 1140px;
-    margin: 0 auto;
-    align-items: center;
-  }
-  .corp-hero-left { text-align: left; }
-  .corp-hero-left .corp-hero-badge { margin-bottom: 20px; }
-  .corp-hero-left h1 { margin-bottom: 18px; }
-  .corp-hero-left p { margin: 0 0 32px 0; max-width: 520px; }
-  .hero-cta-group { justify-content: flex-start; }
-  .hero-stats { max-width: 1140px; margin: 48px auto 0; justify-content: flex-start; padding-top: 32px; }
-
-  /* ── CPTTM Hero Card ── */
-  .cpttm-hero-card {
-    background: rgba(255,255,255,0.06);
+  /* ── CPTTM Fixed Floating Card ── */
+  #cpttmFloat {
+    position: fixed;
+    right: 20px;
+    top: 76px;
+    width: 268px;
+    z-index: 990;
+    background: linear-gradient(160deg, #1E3A38 0%, #1a3230 100%);
     border: 1px solid rgba(74,173,168,0.4);
-    border-radius: 20px;
-    padding: 26px 24px 22px;
-    cursor: pointer;
-    transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
-    position: relative;
+    border-radius: 18px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.45);
     overflow: hidden;
+    transition: width 0.3s ease, height 0.3s ease;
   }
-  .cpttm-hero-card::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 200px; height: 200px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(74,173,168,0.15) 0%, transparent 70%);
-    pointer-events: none;
+  #cpttmFloat.collapsed { width: 48px; }
+  .cpttm-float-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 13px 14px; cursor: pointer;
+    background: rgba(74,173,168,0.12);
+    border-bottom: 1px solid rgba(74,173,168,0.2);
+    user-select: none;
   }
-  .cpttm-hero-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 16px 48px rgba(0,0,0,0.35);
-    background: rgba(255,255,255,0.1);
-  }
-  .cpttm-hero-top {
-    display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
-  }
-  .cpttm-hero-icon {
-    width: 42px; height: 42px; border-radius: 10px;
+  .cpttm-float-icon {
+    width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem; flex-shrink: 0;
+    font-size: 1rem;
   }
-  .cpttm-hero-label { font-size: 0.7rem; color: #7dd6d2; font-weight: 700; letter-spacing: 0.5px; }
-  .cpttm-hero-title { font-size: 1.05rem; font-weight: 800; color: white; line-height: 1.3; }
-  .cpttm-hero-sub { font-size: 0.78rem; color: rgba(255,255,255,0.55); margin: 10px 0 16px; line-height: 1.5; }
-  .cpttm-plan-list { list-style: none; margin-bottom: 20px; display: flex; flex-direction: column; gap: 7px; }
-  .cpttm-plan-list li {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 0.8rem; color: rgba(255,255,255,0.8);
+  .cpttm-float-htext { flex: 1; overflow: hidden; }
+  .cpttm-float-label { font-size: 0.64rem; color: #7dd6d2; font-weight: 700; letter-spacing: 0.5px; white-space: nowrap; }
+  .cpttm-float-title { font-size: 0.82rem; font-weight: 800; color: white; white-space: nowrap; }
+  .cpttm-float-toggle {
+    background: none; border: none; color: rgba(255,255,255,0.5);
+    font-size: 0.8rem; cursor: pointer; padding: 2px 4px; flex-shrink: 0;
+    transition: color 0.2s;
   }
-  .cpttm-plan-list li span.dot {
-    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  .cpttm-float-toggle:hover { color: white; }
+  .cpttm-float-body { padding: 14px 14px 10px; }
+  .cpttm-float-sub {
+    font-size: 0.7rem; color: rgba(255,255,255,0.45);
+    margin-bottom: 12px; line-height: 1.5;
   }
-  .cpttm-hero-btn {
+  .cpttm-float-plans { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+  .cpttm-float-plans li {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.76rem; color: rgba(255,255,255,0.82);
+  }
+  .cpttm-float-plans li .dot {
+    width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+  }
+  .cpttm-float-btn {
     display: block; width: 100%; text-align: center;
-    background: var(--primary); color: white;
-    border: none; padding: 11px; border-radius: 10px;
-    font-weight: 700; font-size: 0.88rem; cursor: pointer;
-    transition: background 0.2s; text-decoration: none;
+    background: var(--primary); color: white; border: none;
+    padding: 10px; border-radius: 9px; font-weight: 700;
+    font-size: 0.82rem; cursor: pointer; transition: background 0.2s;
+    text-decoration: none;
   }
-  .cpttm-hero-btn:hover { background: var(--primary-dark); }
-  .cpttm-hero-subsidy {
-    text-align: center; font-size: 0.72rem;
-    color: rgba(255,255,255,0.4); margin-top: 10px;
+  .cpttm-float-btn:hover { background: var(--primary-dark); }
+  .cpttm-float-foot {
+    text-align: center; font-size: 0.65rem;
+    color: rgba(255,255,255,0.3); padding: 8px 14px 12px;
   }
-  @media(max-width:900px) {
-    .corp-hero-inner { grid-template-columns: 1fr; }
-    .corp-hero-right { max-width: 480px; }
-    .corp-hero { text-align: center; }
-    .corp-hero-left p { max-width: 100%; }
-    .hero-cta-group { justify-content: center; }
-    .hero-stats { justify-content: center; }
-  }
+  /* Hide body when collapsed */
+  #cpttmFloat.collapsed .cpttm-float-body,
+  #cpttmFloat.collapsed .cpttm-float-foot,
+  #cpttmFloat.collapsed .cpttm-float-htext,
+  #cpttmFloat.collapsed .cpttm-float-toggle { display: none; }
+  #cpttmFloat.collapsed .cpttm-float-header { padding: 11px; justify-content: center; border-bottom: none; }
+  /* Hide on mobile */
+  @media(max-width:900px) { #cpttmFloat { display: none; } }
 
   /* ===== ABOUT SECTION ===== */
   .section-about {
@@ -2179,41 +2167,13 @@
 
 <!-- HOME -->
 <section id="home" class="corp-hero">
-  <div class="corp-hero-inner">
-    <!-- LEFT: Company intro -->
-    <div class="corp-hero-left">
-      <div class="corp-hero-badge">🇲🇴 澳門 · 成立於 2007 年</div>
-      <h1>PC Shop —<span>澳門專業電腦店</span></h1>
-      <p>成立於 2007 年，主要從事 IT 軟硬件供應服務、資訊系統設備供應及軟體開發工作。公司設有門市部、軟體開發部及系統方案部，為澳門少數能夠一站式提供軟硬件整合的資訊科技公司。</p>
-      <div class="hero-cta-group">
-        <a href="shop.html" class="hero-cta-primary">立即選購 →</a>
-        <a href="javascript:void(0)" class="hero-cta-secondary" onclick="smoothTo('about')">了解更多</a>
-      </div>
-    </div>
-    <!-- RIGHT: CPTTM 2026 promo card -->
-    <div class="corp-hero-right">
-      <div class="cpttm-hero-card" onclick="openCpttmPopup()">
-        <div class="cpttm-hero-top">
-          <div class="cpttm-hero-icon">🏆</div>
-          <div>
-            <div class="cpttm-hero-label">CPTTM 認可供應商</div>
-            <div class="cpttm-hero-title">2026 中小企業<br>數字化支援服務</div>
-          </div>
-        </div>
-        <div class="cpttm-hero-sub">政府全額資助 · 每個方案 MOP 18,000 · 企業零負擔</div>
-        <ul class="cpttm-plan-list">
-          <li><span class="dot" style="background:#4AADA8;"></span>方案 A　智能預約通（美容・健身・課程）</li>
-          <li><span class="dot" style="background:#2B7BB9;"></span>方案 A2　醫療通（診所・中醫・牙科）</li>
-          <li><span class="dot" style="background:#E8874A;"></span>方案 B　營運管家（零售・餐飲・批發）</li>
-          <li><span class="dot" style="background:#8B5CF6;"></span>方案 C　團隊管理王（酒店・物管・保安）</li>
-          <li><span class="dot" style="background:#3B82F6;"></span>方案 D　全能 AI 商務套件</li>
-        </ul>
-        <button class="cpttm-hero-btn">了解五大方案 →</button>
-        <div class="cpttm-hero-subsidy">⚡ 名額有限，立即了解申請資格</div>
-      </div>
-    </div>
+  <div class="corp-hero-badge">🇲🇴 澳門 · 成立於 2007 年</div>
+  <h1>PC Shop —<span>澳門專業電腦店</span></h1>
+  <p>成立於 2007 年，主要從事 IT 軟硬件供應服務、資訊系統設備供應及軟體開發工作。公司設有門市部、軟體開發部及系統方案部，為澳門少數能夠一站式提供軟硬件整合的資訊科技公司。</p>
+  <div class="hero-cta-group">
+    <a href="shop.html" class="hero-cta-primary">立即選購 →</a>
+    <a href="javascript:void(0)" class="hero-cta-secondary" onclick="smoothTo('about')">了解更多</a>
   </div>
-  <!-- Stats: full width below -->
   <div class="hero-stats">
     <div class="hero-stat">
       <div class="hero-stat-num">18+</div>
@@ -3753,6 +3713,21 @@ function sendContactEmail() {
   window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
 }
 
+// ===== CPTTM FLOATING CARD =====
+(function initFloat() {
+  if (localStorage.getItem('cpttmFloatCollapsed') === '1') {
+    const el = document.getElementById('cpttmFloat');
+    if (el) el.classList.add('collapsed');
+  }
+})();
+
+function toggleCpttmFloat() {
+  const el = document.getElementById('cpttmFloat');
+  el.classList.toggle('collapsed');
+  const isCollapsed = el.classList.contains('collapsed');
+  localStorage.setItem('cpttmFloatCollapsed', isCollapsed ? '1' : '0');
+}
+
 // ===== CPTTM TOP BANNER =====
 function dismissBanner() {
   const b = document.getElementById('cpttmBanner');
@@ -3791,6 +3766,30 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+
+<!-- ===== CPTTM FIXED FLOATING CARD ===== -->
+<div id="cpttmFloat">
+  <div class="cpttm-float-header" onclick="toggleCpttmFloat()">
+    <div class="cpttm-float-icon">🏆</div>
+    <div class="cpttm-float-htext">
+      <div class="cpttm-float-label">CPTTM 認可供應商</div>
+      <div class="cpttm-float-title">2026 數字化支援服務</div>
+    </div>
+    <button class="cpttm-float-toggle" onclick="event.stopPropagation();toggleCpttmFloat()" title="收起">◀</button>
+  </div>
+  <div class="cpttm-float-body">
+    <div class="cpttm-float-sub">政府全額資助 · 每方案 MOP 18,000 · 企業零負擔</div>
+    <ul class="cpttm-float-plans">
+      <li><span class="dot" style="background:#4AADA8;"></span>方案 A　智能預約通</li>
+      <li><span class="dot" style="background:#2B7BB9;"></span>方案 A2　醫療通</li>
+      <li><span class="dot" style="background:#E8874A;"></span>方案 B　營運管家</li>
+      <li><span class="dot" style="background:#8B5CF6;"></span>方案 C　團隊管理王</li>
+      <li><span class="dot" style="background:#3B82F6;"></span>方案 D　全能 AI 商務套件</li>
+    </ul>
+    <button class="cpttm-float-btn" onclick="openCpttmPopup()">了解五大方案 →</button>
+  </div>
+  <div class="cpttm-float-foot">⚡ 名額有限，立即了解申請資格</div>
+</div>
 
 <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
 <a href="https://wa.me/85263928613" target="_blank" id="wa-float" title="WhatsApp 查詢" aria-label="WhatsApp 查詢">
