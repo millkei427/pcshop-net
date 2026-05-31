@@ -2080,25 +2080,25 @@
           <div style="margin-top:12px;font-size:0.75rem;color:#4AADA8;font-weight:700;">查看詳情 →</div>
         </div>
         <div class="cpttm-plan-card" onclick="window.open('cpttm/medical.html','_blank')">
-          <div class="plan-num" style="background:linear-gradient(135deg,#2B7BB9,#1a5a8f);">A2</div>
+          <div class="plan-num" style="background:linear-gradient(135deg,#2B7BB9,#1a5a8f);">B</div>
           <div class="plan-name">🏥 BizBuddy 醫療通</div>
           <div class="plan-desc">適合：醫療診所・中醫・牙科・物理治療<br><br>AI 醫療預約管理、複診提醒、病人資料整合，專為醫療行業設計的數字化方案。</div>
           <div style="margin-top:12px;font-size:0.75rem;color:#2B7BB9;font-weight:700;">查看詳情 →</div>
         </div>
         <div class="cpttm-plan-card" onclick="window.open('cpttm/operations.html','_blank')">
-          <div class="plan-num" style="background:linear-gradient(135deg,#E8874A,#c96a2e);">B</div>
+          <div class="plan-num" style="background:linear-gradient(135deg,#E8874A,#c96a2e);">C</div>
           <div class="plan-name">📊 BizBuddy 營運管家</div>
           <div class="plan-desc">適合：零售店・餐飲小店・批發貿易・微型商戶<br><br>講句嘢就記帳、月底自動出報表、進銷存一目了然，輕量 AI 帳簿取代手工記帳。</div>
           <div style="margin-top:12px;font-size:0.75rem;color:#E8874A;font-weight:700;">查看詳情 →</div>
         </div>
         <div class="cpttm-plan-card" onclick="window.open('cpttm/team.html','_blank')">
-          <div class="plan-num" style="background:linear-gradient(135deg,#8B5CF6,#6d3fd4);">C</div>
+          <div class="plan-num" style="background:linear-gradient(135deg,#8B5CF6,#6d3fd4);">D</div>
           <div class="plan-name">👥 BizBuddy 團隊管理王</div>
           <div class="plan-desc">適合：酒店旅遊・物業管理・保安清潔・餐飲連鎖<br><br>自動排班、人臉打卡、薪酬計算一鍵搞掂，硬件 + 軟件一條龍 HR 解決方案。</div>
           <div style="margin-top:12px;font-size:0.75rem;color:#8B5CF6;font-weight:700;">查看詳情 →</div>
         </div>
         <div class="cpttm-plan-card" onclick="window.open('cpttm/allinone.html','_blank')">
-          <div class="plan-num" style="background:linear-gradient(135deg,#3B82F6,#1d62d4);">D</div>
+          <div class="plan-num" style="background:linear-gradient(135deg,#3B82F6,#1d62d4);">E</div>
           <div class="plan-name">🚀 BizBuddy 全能 AI 商務套件</div>
           <div class="plan-desc">適合：專業服務・律師・會計・綜合型中小企<br><br>一個平台全部搞掂 — 預約、人事、記帳、客戶管理，17 個 AI 技能全開。</div>
           <div style="margin-top:12px;font-size:0.75rem;color:#3B82F6;font-weight:700;">查看詳情 →</div>
@@ -3758,12 +3758,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const b = document.getElementById('cpttmBanner');
     b.style.display = 'none';
   }
-  // Auto show pop-up once per session
-  if (!sessionStorage.getItem('cpttmSeen')) {
-    setTimeout(function() {
-      document.getElementById('cpttmPopup').classList.add('open');
-    }, 900);
-  }
+  // Pop-up is opened manually via banner or floating card
 });
 </script>
 
@@ -3781,10 +3776,10 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="cpttm-float-sub">政府全額資助 · 每方案 MOP 18,000 · 企業零負擔</div>
     <ul class="cpttm-float-plans">
       <li><span class="dot" style="background:#4AADA8;"></span>方案 A　智能預約通</li>
-      <li><span class="dot" style="background:#2B7BB9;"></span>方案 A2　醫療通</li>
-      <li><span class="dot" style="background:#E8874A;"></span>方案 B　營運管家</li>
-      <li><span class="dot" style="background:#8B5CF6;"></span>方案 C　團隊管理王</li>
-      <li><span class="dot" style="background:#3B82F6;"></span>方案 D　全能 AI 商務套件</li>
+      <li><span class="dot" style="background:#2B7BB9;"></span>方案 B　醫療通</li>
+      <li><span class="dot" style="background:#E8874A;"></span>方案 C　營運管家</li>
+      <li><span class="dot" style="background:#8B5CF6;"></span>方案 D　團隊管理王</li>
+      <li><span class="dot" style="background:#3B82F6;"></span>方案 E　全能 AI 商務套件</li>
     </ul>
     <button class="cpttm-float-btn" onclick="openCpttmPopup()">了解五大方案 →</button>
   </div>
