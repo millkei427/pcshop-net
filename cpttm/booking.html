@@ -492,6 +492,22 @@
   }
   .cpttm-banner strong { font-size: 16px; }
 </style>
+
+<style>
+/* Fix broken images */
+.hero-images { display: flex; gap: 16px; margin-top: 24px; }
+.img-placeholder {
+  flex: 1; min-height: 200px; border-radius: 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px; color: rgba(255,255,255,0.4); font-size: 0.82rem;
+  text-align: center; padding: 20px;
+}
+.img-placeholder .icon { font-size: 2rem; opacity: 0.5; }
+.screenshot-card .img-placeholder { min-height: 160px; border-radius: 0; }
+</style>
 </head>
 <body>
 
@@ -518,8 +534,8 @@
     <span class="hero-tag"><span class="icon">&#9889;</span> 專業服務</span>
   </div>
   <div class="hero-images">
-    <img src="images/whatsapp_booking.png" alt="WhatsApp AI 助手對話介面">
-    <img src="images/dashboard_booking.png" alt="智能預約管理後台">
+    <div class="img-placeholder"><div class="icon">🖥️</div><div>WhatsApp AI 助手對話介面</div><div style="font-size:0.7rem;opacity:0.6">（系統截圖即將更新）</div></div>
+    <div class="img-placeholder"><div class="icon">🖥️</div><div>智能預約管理後台</div><div style="font-size:0.7rem;opacity:0.6">（系統截圖即將更新）</div></div>
   </div>
 </div>
 
@@ -679,11 +695,11 @@
   </div>
   <div class="screenshots-grid">
     <div class="screenshot-card">
-      <img src="images/dashboard_booking.png" alt="管理儀表板">
+      <div class="img-placeholder"><div class="icon">🖥️</div><div>管理儀表板</div><div style="font-size:0.7rem;opacity:0.6">（系統截圖即將更新）</div></div>
       <div class="caption">&#128202; 管理儀表板 — 今日預約一目了然</div>
     </div>
     <div class="screenshot-card">
-      <img src="images/analytics_booking.png" alt="數據分析">
+      <div class="img-placeholder"><div class="icon">🖥️</div><div>數據分析</div><div style="font-size:0.7rem;opacity:0.6">（系統截圖即將更新）</div></div>
       <div class="caption">&#128200; 數據分析 — 預約趨勢 + 客戶洞察</div>
     </div>
   </div>
