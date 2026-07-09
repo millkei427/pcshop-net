@@ -2131,7 +2131,7 @@
 <!-- CORPORATE NAV -->
 <nav class="corp-nav" id="corpNav">
   <div class="corp-nav-top">
-    <a href="javascript:void(0)" class="corp-logo" onclick="smoothTo('home')">
+    <a href="#home" class="corp-logo" onclick="smoothTo('home');return false">
       <span class="corp-logo-icon">🖥️</span>
       <span class="corp-logo-text">
         <span class="corp-logo-main">PC<span class="corp-logo-shop">Shop</span></span>
@@ -2139,15 +2139,15 @@
       </span>
     </a>
     <div class="corp-nav-links">
-      <a href="javascript:void(0)" onclick="smoothTo('about')">關於我們</a>
-      <a href="javascript:void(0)" onclick="smoothTo('services')">服務項目</a>
-      <a href="javascript:void(0)" onclick="smoothTo('software')">軟件方案</a>
-      <a href="javascript:void(0)" onclick="smoothTo('why')">企業優勢</a>
-      <a href="javascript:void(0)" onclick="smoothTo('history')">發展歷程</a>
-      <a href="javascript:void(0)" onclick="smoothTo('smartboard')" style="color:#F4845F;font-weight:700;">📺 電子白板</a>
-      <a href="javascript:void(0)" onclick="smoothTo('clients')">客戶夥伴</a>
+      <a href="#about" onclick="smoothTo('about');return false">關於我們</a>
+      <a href="#services" onclick="smoothTo('services');return false">服務項目</a>
+      <a href="#software" onclick="smoothTo('software');return false">軟件方案</a>
+      <a href="#why" onclick="smoothTo('why');return false">企業優勢</a>
+      <a href="#history" onclick="smoothTo('history');return false">發展歷程</a>
+      <a href="#smartboard" onclick="smoothTo('smartboard');return false" style="color:#F4845F;font-weight:700;">📺 電子白板</a>
+      <a href="#clients" onclick="smoothTo('clients');return false">客戶夥伴</a>
       <a href="shop.html" class="shop-link">🛒 線上商店</a>
-      <a href="javascript:void(0)" onclick="smoothTo('contact')">聯絡我們</a>
+      <a href="#contact" onclick="smoothTo('contact');return false">聯絡我們</a>
     </div>
     <div class="corp-nav-actions">
       <button class="corp-search-toggle" onclick="toggleSearch()" title="搜尋">🔍</button>
@@ -2168,14 +2168,14 @@
 </nav>
   <!-- Mobile menu -->
   <div class="mobile-menu" id="mobileMenu">
-    <a href="javascript:void(0)" onclick="smoothTo('about');closeMobileMenu()">關於我們</a>
-    <a href="javascript:void(0)" onclick="smoothTo('services');closeMobileMenu()">服務項目</a>
-    <a href="javascript:void(0)" onclick="smoothTo('software');closeMobileMenu()">軟件方案</a>
-    <a href="javascript:void(0)" onclick="smoothTo('why');closeMobileMenu()">企業優勢</a>
-    <a href="javascript:void(0)" onclick="smoothTo('history');closeMobileMenu()">發展歷程</a>
-    <a href="javascript:void(0)" onclick="smoothTo('clients');closeMobileMenu()">客戶夥伴</a>
-    <a href="javascript:void(0)" href="shop.html">🛒 線上商店</a>
-    <a href="javascript:void(0)" onclick="smoothTo('contact');closeMobileMenu()">聯絡我們</a>
+    <a href="#about" onclick="smoothTo('about');closeMobileMenu();return false">關於我們</a>
+    <a href="#services" onclick="smoothTo('services');closeMobileMenu();return false">服務項目</a>
+    <a href="#software" onclick="smoothTo('software');closeMobileMenu();return false">軟件方案</a>
+    <a href="#why" onclick="smoothTo('why');closeMobileMenu();return false">企業優勢</a>
+    <a href="#history" onclick="smoothTo('history');closeMobileMenu();return false">發展歷程</a>
+    <a href="#clients" onclick="smoothTo('clients');closeMobileMenu();return false">客戶夥伴</a>
+    <a href="shop.html">🛒 線上商店</a>
+    <a href="#contact" onclick="smoothTo('contact');closeMobileMenu();return false">聯絡我們</a>
   </div>
 </nav>
 
@@ -2188,7 +2188,7 @@
   <p>成立於 2007 年，主要從事 IT 軟硬件供應服務、資訊系統設備供應及軟體開發工作。公司設有門市部、軟體開發部及系統方案部，為澳門少數能夠一站式提供軟硬件整合的資訊科技公司。</p>
   <div class="hero-cta-group">
     <a href="shop.html" class="hero-cta-primary">立即選購 →</a>
-    <a href="javascript:void(0)" class="hero-cta-secondary" onclick="smoothTo('about')">了解更多</a>
+    <a href="#about" class="hero-cta-secondary" onclick="smoothTo('about');return false">了解更多</a>
   </div>
   <div class="hero-stats">
     <div class="hero-stat">
@@ -2514,6 +2514,30 @@
             <p>為本澳電訊機構提供年度設備定期保養及維修服務，保障業務系統穩定運行。</p>
           </div>
         </div>
+        <div class="project-card">
+          <div class="project-card-img">📺</div>
+          <div class="project-card-body">
+            <span class="project-tag">電子白板</span>
+            <h4>SMARTBoard 入校安裝工程</h4>
+            <p>為澳門多所學校及機構完成 SMARTBoard 電子白板供貨、安裝及教師培訓，覆蓋課室、會議室及演講廳場景。</p>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-card-img">🧾</div>
+          <div class="project-card-body">
+            <span class="project-tag">POS 系統</span>
+            <h4>餐飲零售 POS 收銀方案</h4>
+            <p>為本澳餐飲及零售商戶部署 POS 收銀及商業管理系統，整合收銀、庫存與報表，簡化日常營運。</p>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-card-img">⚙️</div>
+          <div class="project-card-body">
+            <span class="project-tag">軟件開發</span>
+            <h4>企業度身訂製系統</h4>
+            <p>為澳門中小企開發預約管理、營運管理等度身訂製系統，配合中小企數字化趨勢，由需求分析到上線一站式交付。</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -2556,8 +2580,8 @@
         </div>
 
         <div class="sb-cta-group" style="margin-top:20px;">
-          <a href="javascript:void(0)" onclick="smoothTo('contact')" class="sb-cta-primary">📞 預約免費示範</a>
-          <a href="javascript:void(0)" onclick="smoothTo('contact')" class="sb-cta-secondary">查詢報價 →</a>
+          <a href="#contact" onclick="smoothTo('contact');return false" class="sb-cta-primary">📞 預約免費示範</a>
+          <a href="#contact" onclick="smoothTo('contact');return false" class="sb-cta-secondary">查詢報價 →</a>
         </div>
       </div>
       <div class="sb-hero-right">
@@ -3317,7 +3341,7 @@
               <div style="font-size:2.8rem;">📸</div>
               <div style="font-size:1.15rem;font-weight:800;color:#4A5FCF;line-height:1.4;">項目太多，不能盡錄</div>
               <div style="font-size:0.88rem;color:#6c7a7a;line-height:1.6;">以上只是部分安裝案例。<br>我們在澳門各學校、企業及機構<br>完成了更多電子白板工程項目，<br>歡迎聯絡我們了解更多。</div>
-              <a href="javascript:void(0)" onclick="smoothTo('contact')" style="margin-top:8px;background:linear-gradient(135deg,#4A5FCF,#7C6FF0);color:white;padding:10px 24px;border-radius:24px;font-size:0.85rem;font-weight:700;text-decoration:none;box-shadow:0 4px 14px rgba(74,95,207,0.3);">📩 聯絡我們查詢</a>
+              <a href="#contact" onclick="smoothTo('contact');return false" style="margin-top:8px;background:linear-gradient(135deg,#4A5FCF,#7C6FF0);color:white;padding:10px 24px;border-radius:24px;font-size:0.85rem;font-weight:700;text-decoration:none;box-shadow:0 4px 14px rgba(74,95,207,0.3);">📩 聯絡我們查詢</a>
             </div>
           </div>
         </div>
@@ -3461,8 +3485,8 @@
           <label>訊息內容</label>
           <textarea id="cf-msg" placeholder="請簡述您的需求..."></textarea>
         </div>
-        <button class="cf-submit" onclick="sendContactEmail()">📨 提交查詢</button>
-        <p style="font-size:0.75rem;color:#999;margin-top:10px;text-align:center;">提交後將開啟您的電郵程式，確認發送即可。</p>
+        <button class="cf-submit" onclick="sendContactEmail()">💬 透過 WhatsApp 發送</button>
+        <p style="font-size:0.75rem;color:#999;margin-top:10px;text-align:center;">提交後將開啟 WhatsApp，內容已為您填好，按發送即可。亦可電郵至 info@pcshop-net.com。</p>
       </div>
     </div>
   </div>
@@ -3479,11 +3503,11 @@
     <span>✉️ <a href="mailto:info@pcshop-net.com" style="color:inherit;text-decoration:none;">info@pcshop-net.com</a></span>
   </div>
   <div style="margin-top:14px; display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
-    <a href="javascript:void(0)" onclick="smoothTo('home')" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">首頁</a>
-    <a href="javascript:void(0)" onclick="smoothTo('about')" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">關於我們</a>
-    <a href="javascript:void(0)" onclick="smoothTo('services')" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">服務項目</a>
-    <a href="javascript:void(0)" href="shop.html" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">線上商店</a>
-    <a href="javascript:void(0)" onclick="smoothTo('contact')" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">聯絡我們</a>
+    <a href="#home" onclick="smoothTo('home');return false" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">首頁</a>
+    <a href="#about" onclick="smoothTo('about');return false" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">關於我們</a>
+    <a href="#services" onclick="smoothTo('services');return false" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">服務項目</a>
+    <a href="shop.html" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">線上商店</a>
+    <a href="#contact" onclick="smoothTo('contact');return false" style="color:rgba(255,255,255,0.5);font-size:0.8rem;text-decoration:none;">聯絡我們</a>
     
   </div>
 </footer>
@@ -3716,17 +3740,14 @@ function sendContactEmail() {
     return;
   }
 
-  const to      = 'info@pcshop-net.com';
-  const subject = encodeURIComponent('【PC Shop 網站查詢】' + type + ' - ' + name);
-  const body    = encodeURIComponent(
-    '查詢類別：' + type + '\n' +
+  // WhatsApp 直送（澳門用戶手機大多冇設定 email client，mailto 會流失查詢）
+  const text = encodeURIComponent(
+    '【PC Shop 網站查詢】' + type + '\n' +
     '姓名：' + name + '\n' +
     '聯絡方式：' + contact + '\n\n' +
-    '訊息內容：\n' + msg + '\n\n' +
-    '---\n此訊息來自 PC Shop 官網查詢表單'
+    '訊息內容：\n' + msg
   );
-
-  window.location.href = 'mailto:' + to + '?subject=' + subject + '&body=' + body;
+  window.open('https://wa.me/85263928613?text=' + text, '_blank');
 }
 
 // ===== CPTTM FLOATING CARD =====
