@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /cpttm/
 Disallow: /FB帖文圖片/
 
 Sitemap: https://pcshop-net.com/sitemap.xml
