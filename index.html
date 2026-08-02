@@ -1826,6 +1826,160 @@
     transition: background 0.2s, transform 0.2s;
   }
   .sb-dot.active { background: #4AADA8; transform: scale(1.3); }
+
+  /* ===== SB SOFTWARE SECTION ===== */
+  .sb-software {
+    margin: 60px 0 0;
+    padding: 40px 36px;
+    background: linear-gradient(135deg, #0F2A28 0%, #1a3230 60%, #1E3A38 100%);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .sb-software::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(74,173,168,0.15) 0%, transparent 70%);
+  }
+  .sb-sw-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .sb-sw-dev-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(74,173,168,0.18);
+    border: 1px solid rgba(74,173,168,0.4);
+    color: #4AADA8;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+  .sb-sw-dev-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #4AADA8;
+    animation: swPulse 1.6s ease-in-out infinite;
+  }
+  @keyframes swPulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50% { opacity:0.4; transform:scale(0.7); }
+  }
+  .sb-sw-titles { flex: 1; }
+  .sb-sw-titles h3 {
+    font-size: 1.45rem;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .sb-sw-titles p {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    max-width: 520px;
+  }
+  /* Feature pills row */
+  .sb-sw-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .sb-sw-pill {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 24px;
+    padding: 7px 16px;
+    color: rgba(255,255,255,0.9);
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .sb-sw-pill:hover { background: rgba(74,173,168,0.2); border-color: rgba(74,173,168,0.5); }
+  .sb-sw-pill-icon { font-size: 1rem; }
+  .sb-sw-pill.ready { border-color: rgba(74,173,168,0.5); color: #7ECCC8; }
+  .sb-sw-pill.coming { border-color: rgba(244,132,95,0.4); color: rgba(255,200,170,0.85); }
+  /* Dev log */
+  .sb-devlog {
+    background: rgba(0,0,0,0.25);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 24px;
+    border-left: 3px solid rgba(74,173,168,0.6);
+  }
+  .sb-devlog-head {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #4AADA8;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 14px;
+  }
+  .sb-devlog-item {
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.83rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.5;
+  }
+  .sb-devlog-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .sb-devlog-date {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: rgba(74,173,168,0.8);
+    white-space: nowrap;
+    font-family: monospace;
+  }
+  /* Tutorial teaser */
+  .sb-tutorial-teaser {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: rgba(244,132,95,0.08);
+    border: 1px solid rgba(244,132,95,0.25);
+    border-radius: 12px;
+    padding: 16px 20px;
+    flex-wrap: wrap;
+  }
+  .sb-tutorial-icon { font-size: 2rem; flex-shrink: 0; }
+  .sb-tutorial-body { flex: 1; }
+  .sb-tutorial-body strong { display:block; color:#F4845F; font-size:0.9rem; margin-bottom:3px; }
+  .sb-tutorial-body span { color:rgba(255,255,255,0.6); font-size:0.82rem; line-height:1.5; }
+  .sb-tutorial-btn {
+    background: linear-gradient(135deg, #F4845F, #e86b42);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    opacity: 0.7;
+    white-space: nowrap;
+  }
+  @media(max-width:900px) {
+    .sb-software { padding: 28px 20px; }
+    .sb-sw-header { flex-direction: column; gap: 12px; }
+  }
+
   @media(max-width:900px) {
     .sb-hero { grid-template-columns: 1fr; }
     .sb-hero-right { display: none; }
@@ -3378,6 +3532,8 @@
           <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-31.jpg" alt="SMARTBoard 安裝場景 31"></div>
           <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-32.jpg" alt="SMARTBoard 安裝場景 32"></div>
           <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-33.jpg" alt="SMARTBoard 安裝場景 33"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-34.jpg" alt="SMARTBoard 98吋 安裝場景 — 澳門街坊會聯合總會"></div>
+          <div class="sb-slide"><img src="Photos/SmartBoard-Photos/sb-photo-35.jpg" alt="SMARTBoard 98吋 安裝場景 — 澳門街坊會聯合總會"></div>
           <div class="sb-slide sb-slide-more">
             <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:16px;padding:24px;text-align:center;">
               <div style="font-size:2.8rem;">📸</div>
@@ -3392,6 +3548,58 @@
 
       <div class="sb-dots" id="sbDots"></div>
     </div>
+
+    <!-- ===== 配套自研軟件 ===== -->
+    <div class="sb-software">
+
+      <div class="sb-sw-header">
+        <div>
+          <span class="sb-sw-dev-badge">持續開發中</span>
+        </div>
+        <div class="sb-sw-titles">
+          <h3>🖥️ 配套自研電子白板軟件</h3>
+          <p>PC Shop 正自主研發專屬配套軟件，完美融合硬件優勢，為澳門學校及企業提供更完整的互動白板體驗。軟件持續更新，功能不斷擴充。</p>
+        </div>
+      </div>
+
+      <!-- Feature pills -->
+      <div class="sb-sw-pills">
+        <div class="sb-sw-pill ready"><span class="sb-sw-pill-icon">🌐</span>繁/簡/英 三語介面</div>
+        <div class="sb-sw-pill ready"><span class="sb-sw-pill-icon">🧰</span>多功能工具列</div>
+        <div class="sb-sw-pill ready"><span class="sb-sw-pill-icon">🖊️</span>手寫批註</div>
+        <div class="sb-sw-pill ready"><span class="sb-sw-pill-icon">🖼️</span>多媒體支援</div>
+        <div class="sb-sw-pill coming"><span class="sb-sw-pill-icon">🎓</span>教學輔助模式 <small style="opacity:0.7;font-size:0.7rem;margin-left:2px;">即將推出</small></div>
+        <div class="sb-sw-pill coming"><span class="sb-sw-pill-icon">☁️</span>雲端同步 <small style="opacity:0.7;font-size:0.7rem;margin-left:2px;">即將推出</small></div>
+      </div>
+
+      <!-- Dev log -->
+      <div class="sb-devlog">
+        <div class="sb-devlog-head">📋 最新開發動態</div>
+        <div class="sb-devlog-item">
+          <span class="sb-devlog-date">2026.08</span>
+          <span>i18n 多語言框架正式完成，繁體中文 · 簡體中文 · English 即時切換，語言偏好自動記憶</span>
+        </div>
+        <div class="sb-devlog-item">
+          <span class="sb-devlog-date">2026.08</span>
+          <span>主工具列（Toolbar）組件建立完成，介面語言聯動切換</span>
+        </div>
+        <div class="sb-devlog-item">
+          <span class="sb-devlog-date">2026.07</span>
+          <span>軟件架構確立，Next.js + React 技術棧，支援多平台部署</span>
+        </div>
+      </div>
+
+      <!-- Tutorial teaser -->
+      <div class="sb-tutorial-teaser">
+        <div class="sb-tutorial-icon">🎓</div>
+        <div class="sb-tutorial-body">
+          <strong>教學輔助資源 — 即將推出</strong>
+          <span>操作指引、影片教程及課堂應用範例正在製作中，敬請期待。如需提前了解或試用，歡迎聯絡我們。</span>
+        </div>
+        <button class="sb-tutorial-btn" onclick="smoothTo('contact')" title="即將推出">📩 聯絡查詢</button>
+      </div>
+
+    </div><!-- end sb-software -->
 
   </div>
 </section>
