@@ -11,9 +11,26 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-H76SZSZJ8C');
+  // ===== GA4 lead tracking (event delegation covers all current + future links) =====
   document.addEventListener('click', function(e){
-    var a = e.target && e.target.closest ? e.target.closest('a[href*="wa.me"]') : null;
-    if (a) gtag('event', 'whatsapp_click', { link_url: a.href });
+    if (!e.target || !e.target.closest) return;
+    var wa = e.target.closest('a[href*="wa.me"], a[href*="whatsapp"]');
+    if (wa) {
+      gtag('event', 'whatsapp_click', {
+        method: 'whatsapp',
+        location: window.location.pathname,
+        link_url: wa.href
+      });
+      return;
+    }
+    var tel = e.target.closest('a[href^="tel:"]');
+    if (tel) {
+      gtag('event', 'phone_click', {
+        method: 'phone',
+        location: window.location.pathname,
+        link_url: tel.href
+      });
+    }
   });
 </script>
 <meta name="description" content="澳門專業電腦店，門市位於雅廉訪幸運閣。企業 IT 採購、電腦維修、網絡工程、POS 系統、訂製軟件開發及 SMARTBoard 電子白板，服務學校、酒店、政府及中小企。WhatsApp 6392 8613 查詢。" />
@@ -4236,6 +4253,15 @@ function sendContactEmail() {
   if (!name || !contact || !msg) {
     alert('請填寫姓名、聯絡方式及訊息內容。');
     return;
+  }
+
+  // GA4：查詢表提交 = lead（帶查詢類別做 item_name）
+  if (typeof gtag === 'function') {
+    gtag('event', 'contact_submit', {
+      item_name: type,
+      method: 'whatsapp',
+      location: window.location.pathname
+    });
   }
 
   // WhatsApp 直送（澳門用戶手機大多冇設定 email client，mailto 會流失查詢）
