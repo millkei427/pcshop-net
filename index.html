@@ -4274,6 +4274,29 @@ function sendContactEmail() {
   window.open('https://wa.me/85263928613?text=' + text, '_blank');
 }
 
+// ===== GA4 product_view：每張服務卡進入視窗各 fire 一次（P2 輔助事件，非關鍵）=====
+(function initProductView(){
+  if (!('IntersectionObserver' in window)) return;
+  var fired = {};
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var h = en.target.querySelector('h3');
+      var name = h ? h.textContent.trim() : '';
+      if (!name || fired[name]) return;
+      fired[name] = true;
+      if (typeof gtag === 'function') {
+        gtag('event', 'product_view', {
+          item_name: name,
+          location: window.location.pathname
+        });
+      }
+      io.unobserve(en.target);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.service-card').forEach(function(c){ io.observe(c); });
+})();
+
 // ===== CPTTM FLOATING CARD =====
 (function initFloat() {
   if (localStorage.getItem('cpttmFloatCollapsed') === '1') {
