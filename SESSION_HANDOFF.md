@@ -122,7 +122,7 @@ _Cowork session → Claude Code session 交接_
 D:\ClaudeAI\WonderShop\
 ├── index.html                          ← 主文件（全部頁面內容 + GA4 tracking）
 ├── SESSION_HANDOFF.md                  ← 本文件
-├── _config.yml                         ← Jekyll exclude：令下面兩個 .md 唔公開 serve
+├── _config.yml                         ← Jekyll exclude：內部 .md + docx + pdf + FB帖文圖片/ 唔公開 serve（線上 404，檔案仍在 repo）
 ├── PCSHOP_GA4_FUNNEL_GUIDE.md          ← GA4 後台報表設定指南（入 repo 但 Jekyll 排除、線上 404）
 ├── Photos/
 │   └── SmartBoard-Photos/
