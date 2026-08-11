@@ -1,6 +1,22 @@
 # GitHub Pages / Jekyll 設定
-# 目的：內部文檔照 commit 入 repo，但唔畀 Jekyll 發佈到公開網站（線上會 404）。
+# 目的：內部 / 行銷 collateral 照 commit 入 repo，但唔畀 Jekyll 發佈到公開網站（線上 404）。
+# 已核實：以下檔案冇被任何 serve 緊嘅頁面（index / shop / cpttm）引用，exclude 唔會整爛連結。
 # 靜態站無 front matter 嘅 .html / 圖片一律原樣 copy，唔受影響。
 exclude:
+  # 內部交接文檔
   - SESSION_HANDOFF.md
   - PCSHOP_GA4_FUNNEL_GUIDE.md
+  # FB 帖文（7 個 html + 內容庫 docx，整個資料夾）
+  - "FB帖文圖片"
+  # 對話總結 docx
+  - "WonderShop_對話總結.docx"
+  - "WonderShop_對話總結（第二期）.docx"
+  - "WonderShop_對話總結（第三期）.docx"
+  # 行家價 PDF
+  - "DIY最新行家價 2026-04-04 僅供參考.pdf"
+  # CPTTM 方案 PDF（內部提案）
+  - "cpttm/scheme-a.pdf"
+  - "cpttm/scheme-b.pdf"
+  - "cpttm/scheme-c.pdf"
+  - "cpttm/scheme-d.pdf"
+  - "cpttm/scheme-e.pdf"
