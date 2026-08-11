@@ -1,0 +1,6 @@
+# GitHub Pages / Jekyll 設定
+# 目的：內部文檔照 commit 入 repo，但唔畀 Jekyll 發佈到公開網站（線上會 404）。
+# 靜態站無 front matter 嘅 .html / 圖片一律原樣 copy，唔受影響。
+exclude:
+  - SESSION_HANDOFF.md
+  - PCSHOP_GA4_FUNNEL_GUIDE.md
