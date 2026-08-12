@@ -11,9 +11,13 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-H76SZSZJ8C');
+  // ===== GA4 lead tracking (event delegation, same as index) =====
   document.addEventListener('click', function(e){
-    var a = e.target && e.target.closest ? e.target.closest('a[href*="wa.me"]') : null;
-    if (a) gtag('event', 'whatsapp_click', { link_url: a.href });
+    if (!e.target || !e.target.closest) return;
+    var wa = e.target.closest('a[href*="wa.me"], a[href*="whatsapp"]');
+    if (wa) { gtag('event', 'whatsapp_click', { method:'whatsapp', location: window.location.pathname, link_url: wa.href }); return; }
+    var tel = e.target.closest('a[href^="tel:"]');
+    if (tel) { gtag('event', 'phone_click', { method:'phone', location: window.location.pathname, link_url: tel.href }); }
   });
 </script>
 <meta name="description" content="澳門專業電腦店，提供Samsung、LG、ASUS、Gigabyte顯示器，電競裝備，DIY零件，桌上型電腦及電子白板。澳門最齊全電腦產品，3年保養，專業售後服務。">
@@ -2453,8 +2457,11 @@ function catLabel(cat) {
   return {phone:'手機/平板', computer:'電腦/配件', audio:'耳機/音響', smarthome:'智能家居', service:'維修及工程', gaming:'電競遊戲'}[cat] || cat;
 }
 
+// GA4 電商 item helper
+function gaItem(p, qty){ return { item_id:'SKU'+p.id, item_name:p.name, item_brand:p.brandName||p.brand, item_category:p.catName||p.cat, price:p.price, quantity:qty||1 }; }
 function openProduct(id) {
   const p = products.find(x=>x.id===id);
+  if (typeof gtag==='function' && p) gtag('event','view_item',{ currency:'HKD', value:p.price, items:[gaItem(p,1)] });
   showToast(`✅ 已查看：${p.name}`);
 }
 
@@ -2547,9 +2554,27 @@ function doSearch() {
   currentSearch = document.getElementById('searchInput').value.trim();
   renderProducts();
 }
+// SEO: 由 products 自動生成 Product ItemList JSON-LD（Google rich result）
+function injectProductSchema(){
+  if (typeof products === 'undefined' || !products.length) return;
+  var list = products.slice(0, 100).map(function(p, i){
+    return { "@type":"ListItem", "position": i+1, "item": {
+      "@type":"Product", "name": p.name,
+      "image": (p.img && p.img.indexOf('http')===0) ? p.img : undefined,
+      "description": p.desc || undefined,
+      "brand": { "@type":"Brand", "name": p.brandName || p.brand },
+      "category": p.catName || p.cat,
+      "offers": { "@type":"Offer", "price": p.price, "priceCurrency":"HKD", "availability":"https://schema.org/InStock", "url":"https://pcshop-net.com/shop.html" }
+    }};
+  });
+  var schema = { "@context":"https://schema.org", "@type":"ItemList", "name":"PC Shop 產品目錄", "numberOfItems": list.length, "itemListElement": list };
+  var s = document.createElement('script'); s.type='application/ld+json'; s.text = JSON.stringify(schema);
+  document.head.appendChild(s);
+}
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('searchInput').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
   renderProducts();
+  injectProductSchema();
 });
 function applySort() {
   sortMode = document.getElementById('sortSelect').value;
@@ -2586,6 +2611,7 @@ function addToCart(id) {
   const item = cart.find(x=>x.id===id);
   if (item) item.qty++;
   else cart.push({...p, qty:1});
+  if (typeof gtag==='function' && p) gtag('event','add_to_cart',{ currency:'HKD', value:p.price, items:[gaItem(p,1)] });
   updateCartCount();
   renderCart();
   showToast(`🛒 ${p.name} 已加入購物車`);
@@ -2666,6 +2692,7 @@ function updateCartTotals() {
 // ============================
 function openCheckout() {
   if (cart.length === 0) { showToast('購物車是空的！'); return; }
+  if (typeof gtag==='function') gtag('event','begin_checkout',{ currency:'HKD', value:getSubtotal(), items:cart.map(i=>gaItem(i,i.qty)) });
   closeCart();
   renderOrderSummary();
   document.getElementById('checkoutModal').classList.add('open');
@@ -2711,6 +2738,7 @@ function placeOrder() {
   }
   const orderNum = 'WS' +Date.now().toString().slice(-8);
   document.getElementById('orderNum').textContent = `訂單編號：${orderNum}`;
+  if (typeof gtag==='function') gtag('event','purchase',{ transaction_id:orderNum, currency:'HKD', value:Math.max(0,getSubtotal()+shipping-discountAmt), shipping:shipping, items:cart.map(i=>gaItem(i,i.qty)) });
   closeCheckout();
   setTimeout(()=>{ document.getElementById('successModal').classList.add('open'); }, 300);
   cart = []; discountAmt = 0; shipping = 40;
