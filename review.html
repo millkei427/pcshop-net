@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>給 PC Shop 評價 | 澳門專業電腦店</title>
+<meta name="robots" content="noindex, follow">
+<!-- Google tag (gtag.js) · GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H76SZSZJ8C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H76SZSZJ8C');
+</script>
+<!--
+  ⚙️ 設定：把下面 REVIEW_URL 換成你 GBP 的官方「留評論」短連結。
+  攞法（30 秒）：Google 商家檔案 → 主頁「獲得更多評論」→ 複製個 https://g.page/r/xxxxxxxx/review 連結，貼落去。
+-->
+<script>
+  var REVIEW_URL = "https://g.page/r/REPLACE_WITH_YOUR_GBP_REVIEW_LINK/review";
+</script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root{ --primary:#4AADA8; --primary-dark:#358F8A; --secondary:#F4845F; --dark:#2D5F5D; --text:#3D4A49; --light:#F5FAFA; --border:#D6ECEA; }
+  body{ font-family:'Segoe UI','PingFang HK',Arial,sans-serif; background:linear-gradient(160deg,#F5FAFA 0%,#E4F3F1 100%); color:var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+  .card{ background:#fff; max-width:440px; width:100%; border-radius:20px; box-shadow:0 12px 40px rgba(45,95,93,0.14); padding:40px 30px; text-align:center; }
+  .brand{ font-size:1.05rem; font-weight:800; color:var(--dark); letter-spacing:.5px; }
+  .brand small{ display:block; font-size:.72rem; color:#8aa; font-weight:600; margin-top:2px; letter-spacing:1px; }
+  .stars{ font-size:2.4rem; margin:22px 0 6px; letter-spacing:4px; }
+  h1{ font-size:1.5rem; color:var(--dark); margin:14px 0 10px; line-height:1.35; }
+  p.lead{ font-size:1rem; color:#5a6d6c; line-height:1.7; margin-bottom:26px; }
+  .btn{ display:block; width:100%; padding:16px; border:none; border-radius:14px; font-size:1.08rem; font-weight:800; cursor:pointer; text-decoration:none; transition:transform .15s, box-shadow .15s; }
+  .btn-google{ background:linear-gradient(135deg,#4AADA8,#358F8A); color:#fff; box-shadow:0 6px 18px rgba(74,173,168,.4); }
+  .btn-google:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(74,173,168,.5); }
+  .btn-wa{ background:#25D366; color:#fff; margin-top:12px; box-shadow:0 6px 18px rgba(37,211,102,.35); }
+  .btn-wa:hover{ transform:translateY(-2px); }
+  .divider{ margin:26px 0 18px; border-top:1px solid var(--border); }
+  .contact{ font-size:.85rem; color:#8aa; line-height:1.8; }
+  .contact a{ color:var(--primary-dark); text-decoration:none; font-weight:700; }
+  .note{ display:none; background:#FFF6E5; color:#8a6d3b; font-size:.82rem; padding:12px; border-radius:10px; margin-bottom:18px; text-align:left; line-height:1.6; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">🖥️ PC Shop 專業電腦店 <small>PROFESSIONAL COMPUTER SHOP</small></div>
+    <div class="stars">⭐⭐⭐⭐⭐</div>
+    <h1>多謝您選擇 PC Shop！</h1>
+    <p class="lead">您的一句好評，是我們持續進步的最大動力。<br>只需 30 秒，在 Google 上分享您的體驗，讓更多澳門朋友認識我們。</p>
+
+    <div class="note" id="setupNote">
+      ⚙️ <strong>尚未設定：</strong>請把頁面內的 <code>REVIEW_URL</code> 換成貴店 Google 商家檔案的「留評論」連結（商家檔案 → 獲得更多評論 → 複製連結）。
+    </div>
+
+    <a class="btn btn-google" id="reviewBtn" href="#" onclick="return goReview()">⭐ 在 Google 上給我們評價</a>
+    <a class="btn btn-wa" id="shareBtn" href="#" onclick="return shareWa()">💬 推薦畀朋友</a>
+
+    <div class="divider"></div>
+    <div class="contact">
+      查詢：<a href="https://wa.me/85263928613">WhatsApp 6392 8613</a> ·
+      <a href="tel:28403503">2840 3503</a><br>
+      澳門雅廉訪大馬路幸運閣商場 BG 舖
+    </div>
+  </div>
+
+<script>
+  var isSet = REVIEW_URL.indexOf("REPLACE_WITH_YOUR_GBP_REVIEW_LINK") === -1;
+  if (!isSet) { document.getElementById('setupNote').style.display = 'block'; }
+
+  function goReview(){
+    if (typeof gtag === 'function') gtag('event','review_click',{ method:'google', location:'/review.html' });
+    if (!isSet){ document.getElementById('setupNote').style.display='block'; return false; }
+    window.open(REVIEW_URL, '_blank');
+    return false;
+  }
+  function shareWa(){
+    if (typeof gtag === 'function') gtag('event','review_share',{ method:'whatsapp', location:'/review.html' });
+    var msg = encodeURIComponent('推薦 PC Shop 專業電腦店（澳門）！電腦、維修、電子白板一站式：https://pcshop-net.com');
+    window.open('https://wa.me/?text=' + msg, '_blank');
+    return false;
+  }
+</script>
+</body>
+</html>
