@@ -1551,6 +1551,7 @@
     <button class="filter-cat-btn" onclick="filterParent(this,'accessories')">🖱️ 配件</button>
     <button class="filter-cat-btn" onclick="filterParent(this,'software')">💿 軟件</button>
     <button class="filter-cat-btn" onclick="filterParent(this,'console')">🕹️ 遊戲機</button>
+    <button class="filter-cat-btn" onclick="filterParent(this,'phone')">📲 手機</button>
     <button class="filter-cat-btn" onclick="filterParent(this,'tablet')">📱 平板</button>
     <button class="filter-cat-btn" onclick="filterParent(this,'camera')">📷 相機/無人機</button>
     <button class="filter-cat-btn" onclick="filterParent(this,'networking')">🌐 網絡</button>
@@ -2952,6 +2953,51 @@ const defaultProducts = [
   { id:1116, brand:"tp-link", brandName:"TP-Link", cat:"camera", catName:"相機/攝影", name:"TP-Link Tapo D210 視訊門鈴", desc:"2K 影像視訊門鈴攝影機・電池續航6個月・160°超廣角・免費偵測與通知・雙向語音・IP65 防水防塵", price:449, img:null, badge:null },
   { id:1117, brand:"tp-link", brandName:"TP-Link", cat:"accessories", catName:"配件", name:"TP-Link Tapo RV30 Max Plus 掃拖機械人", desc:"5300Pa 超強吸力・智能集塵箱底座・3L 大防塵袋自動清空・LiDAR+IMU 雙導航系統・地毯迴避・Tapo IQ+ 智慧清潔・自動充電", price:1319, img:null, badge:null },
   { id:1118, brand:"tp-link", brandName:"TP-Link", cat:"accessories", catName:"配件", name:"TP-Link Tapo RV20 Max Plus 掃拖機械人", desc:"5300Pa 吸力・智能集塵箱底座・3L 大防塵袋自動清空・83毫米超薄設計・MagSlim LiDAR 導航・Tapo IQ+ 智慧清潔・自動充電", price:1209, img:null, badge:null },
+  { id:1119, brand:"microsoft", brandName:"Microsoft", cat:"tablet", catName:"平板", name:"Microsoft Surface Pro 12吋 (256GB)", desc:"12吋觸控螢幕・Snapdragon X Plus・16GB RAM・256GB 儲存・Copilot+ PC", price:8899, img:null, badge:null },
+  { id:1120, brand:"microsoft", brandName:"Microsoft", cat:"tablet", catName:"平板", name:"Microsoft Surface Pro 12吋 (512GB)", desc:"12吋觸控螢幕・Snapdragon X Plus・16GB RAM・512GB 儲存・Copilot+ PC", price:9599, img:null, badge:null },
+  { id:1121, brand:"microsoft", brandName:"Microsoft", cat:"tablet", catName:"平板", name:"Microsoft Surface Pro 13吋 第11版 (X Plus 5G 256GB)", desc:"13吋觸控螢幕・Snapdragon X Plus・5G・16GB RAM・256GB 儲存・Copilot+ PC", price:14399, img:null, badge:null },
+  { id:1122, brand:"microsoft", brandName:"Microsoft", cat:"tablet", catName:"平板", name:"Microsoft Surface Pro 13吋 第11版 (X Plus 512GB)", desc:"13吋觸控螢幕・Snapdragon X Plus・16GB RAM・512GB 儲存・Copilot+ PC", price:12399, img:null, badge:null },
+  { id:1123, brand:"microsoft", brandName:"Microsoft", cat:"tablet", catName:"平板", name:"Microsoft Surface Pro 13吋 第11版 (X Elite 512GB)", desc:"13吋觸控螢幕・Snapdragon X Elite・16GB RAM・512GB 儲存・Copilot+ PC", price:14499, img:null, badge:null },
+  { id:1124, brand:"microsoft", brandName:"Microsoft", cat:"tablet", catName:"平板", name:"Microsoft Surface Pro 13吋 第12版 (X2 Plus 512GB)", desc:"13吋 LCD 觸控螢幕・Snapdragon X2 Plus (10核)・16GB RAM・512GB 儲存・80 TOPS NPU", price:13399, img:null, badge:null },
+  { id:1125, brand:"microsoft", brandName:"Microsoft", cat:"tablet", catName:"平板", name:"Microsoft Surface Pro 13吋 第12版 (X2 Elite OLED 512GB)", desc:"13吋 OLED 觸控螢幕・Snapdragon X2 Elite (12核)・16GB RAM・512GB 儲存・80 TOPS NPU", price:14599, img:null, badge:null },
+  { id:1126, brand:"microsoft", brandName:"Microsoft", cat:"tablet", catName:"平板", name:"Microsoft Surface Pro 13吋 第12版 (X2 Elite OLED 1TB/16GB)", desc:"13吋 OLED 觸控螢幕・Snapdragon X2 Elite (12核)・16GB RAM・1TB 儲存・80 TOPS NPU", price:16899, img:null, badge:null },
+  { id:1127, brand:"microsoft", brandName:"Microsoft", cat:"tablet", catName:"平板", name:"Microsoft Surface Pro 13吋 第12版 (X2 Elite OLED 1TB/32GB)", desc:"13吋 OLED 觸控螢幕・Snapdragon X2 Elite (12核)・32GB RAM・1TB 儲存・80 TOPS NPU", price:22909, img:null, badge:null },
+  { id:1128, brand:"microsoft", brandName:"Microsoft", cat:"laptop-business", catName:"商務筆電", name:"Microsoft Surface Laptop 13吋 (256GB)", desc:"13吋觸控螢幕・Snapdragon X Plus・16GB RAM・256GB 儲存・Copilot+ PC", price:9699, img:null, badge:null },
+  { id:1129, brand:"microsoft", brandName:"Microsoft", cat:"laptop-business", catName:"商務筆電", name:"Microsoft Surface Laptop 13吋 (512GB)", desc:"13吋觸控螢幕・Snapdragon X Plus・16GB RAM・512GB 儲存・Copilot+ PC", price:10299, img:null, badge:null },
+  { id:1130, brand:"microsoft", brandName:"Microsoft", cat:"laptop-business", catName:"商務筆電", name:"Microsoft Surface Laptop 第7版 13.8吋 (X Plus 512GB)", desc:"13.8吋觸控螢幕・Snapdragon X Plus・16GB RAM・512GB 儲存・Copilot+ PC", price:12399, img:null, badge:null },
+  { id:1131, brand:"microsoft", brandName:"Microsoft", cat:"laptop-business", catName:"商務筆電", name:"Microsoft Surface Laptop 第7版 13.8吋 (X Elite 512GB)", desc:"13.8吋觸控螢幕・Snapdragon X Elite・16GB RAM・512GB 儲存・Copilot+ PC", price:13699, img:null, badge:null },
+  { id:1132, brand:"microsoft", brandName:"Microsoft", cat:"laptop-business", catName:"商務筆電", name:"Microsoft Surface Laptop 第7版 13.8吋 (X Elite 1TB/32GB)", desc:"13.8吋觸控螢幕・Snapdragon X Elite・32GB RAM・1TB 儲存・Copilot+ PC", price:22209, img:null, badge:null },
+  { id:1133, brand:"microsoft", brandName:"Microsoft", cat:"laptop-business", catName:"商務筆電", name:"Microsoft Surface Laptop 第7版 15吋 (X Elite 512GB)", desc:"15吋觸控螢幕・Snapdragon X Elite・16GB RAM・512GB 儲存・Copilot+ PC", price:14399, img:null, badge:null },
+  { id:1134, brand:"microsoft", brandName:"Microsoft", cat:"laptop-business", catName:"商務筆電", name:"Microsoft Surface Laptop 第8版 13.8吋 (X2 Plus 512GB)", desc:"13.8吋 LCD 觸控螢幕・Snapdragon X2 Plus (10核)・16GB RAM・512GB 儲存・80 TOPS NPU", price:13399, img:null, badge:null },
+  { id:1135, brand:"microsoft", brandName:"Microsoft", cat:"laptop-business", catName:"商務筆電", name:"Microsoft Surface Laptop 第8版 13.8吋 (X2 Elite 512GB)", desc:"13.8吋 LCD 觸控螢幕・Snapdragon X2 Elite (12核)・16GB RAM・512GB 儲存・80 TOPS NPU", price:14399, img:null, badge:null },
+  { id:1136, brand:"microsoft", brandName:"Microsoft", cat:"laptop-business", catName:"商務筆電", name:"Microsoft Surface Laptop 第8版 13.8吋 (X2 Elite 1TB/16GB)", desc:"13.8吋 LCD 觸控螢幕・Snapdragon X2 Elite (12核)・16GB RAM・1TB 儲存・80 TOPS NPU", price:15899, img:null, badge:null },
+  { id:1137, brand:"microsoft", brandName:"Microsoft", cat:"laptop-business", catName:"商務筆電", name:"Microsoft Surface Laptop 第8版 13.8吋 (X2 Elite 1TB/32GB)", desc:"13.8吋 LCD 觸控螢幕・Snapdragon X2 Elite (12核)・32GB RAM・1TB 儲存・80 TOPS NPU", price:22209, img:null, badge:null },
+  { id:1138, brand:"microsoft", brandName:"Microsoft", cat:"laptop-business", catName:"商務筆電", name:"Microsoft Surface Laptop 第8版 15吋 (X2 Elite 512GB)", desc:"15吋 LCD 觸控螢幕・Snapdragon X2 Elite (12核)・16GB RAM・512GB 儲存・80 TOPS NPU", price:14599, img:null, badge:null },
+  { id:1139, brand:"microsoft", brandName:"Microsoft", cat:"laptop-business", catName:"商務筆電", name:"Microsoft Surface Laptop 第8版 15吋 (X2 Elite 1TB/32GB)", desc:"15吋 LCD 觸控螢幕・Snapdragon X2 Elite (12核)・32GB RAM・1TB 儲存・80 TOPS NPU", price:22909, img:null, badge:null },
+  { id:1140, brand:"huawei", brandName:"HUAWEI", cat:"phone", catName:"手機", name:"HUAWEI Pura 90s Pro (12GB+512GB)", desc:"澳門行貨・超大底2億像素長焦鏡頭・第二代紅楓原色鏡頭・全新AI智能拍攝・抗反光防刮崑崙玻璃・高速5G通訊", price:6989, img:null, badge:null },
+  { id:1141, brand:"huawei", brandName:"HUAWEI", cat:"phone", catName:"手機", name:"HUAWEI Pura 90s Pro Max (12GB+512GB)", desc:"澳門行貨・超大底2億像素長焦鏡頭・第二代紅楓原色鏡頭・全新AI智能拍攝・抗反光防刮崑崙玻璃・高速5G通訊", price:7999, img:null, badge:null },
+  { id:1142, brand:"huawei", brandName:"HUAWEI", cat:"phone", catName:"手機", name:"HUAWEI nova 15 Max", desc:"澳門行貨・6.84吋 OLED 120Hz・8500mAh・8GB RAM+256GB ROM・EMUI 14.2", price:2289, img:null, badge:null },
+  { id:1143, brand:"huawei", brandName:"HUAWEI", cat:"phone", catName:"手機", name:"HUAWEI Mate X7 折疊屏", desc:"澳門行貨・6.49/8吋 LTPO OLED 1-120Hz 自適應・16GB RAM+512GB ROM・EMUI 15", price:15999, img:null, badge:null },
+  { id:1144, brand:"huawei", brandName:"HUAWEI", cat:"tablet", catName:"平板", name:"HUAWEI MatePad Mini", desc:"澳門行貨・8.8吋柔性OLED 2K 1800nits・Kirin 9010B・12GB+256GB・Wi-Fi 版", price:4289, img:null, badge:null },
+  { id:1145, brand:"huawei", brandName:"HUAWEI", cat:"tablet", catName:"平板", name:"HUAWEI MatePad 11.5", desc:"澳門行貨・11.5吋 2K 120Hz 屏幕・Kirin T82B・8GB+128GB・Wi-Fi 版", price:1899, img:null, badge:null },
+  { id:1146, brand:"huawei", brandName:"HUAWEI", cat:"tablet", catName:"平板", name:"HUAWEI MatePad SE 11 LTE", desc:"澳門行貨・11吋 IPS 100% sRGB 護眼屏幕・7700mAh・8GB+128GB・LTE 版", price:1989, img:null, badge:null },
+  { id:1147, brand:"huawei", brandName:"HUAWEI", cat:"tablet", catName:"平板", name:"HUAWEI MatePad 11.5S (2026)", desc:"澳門行貨・11.5吋 LCD 高達144Hz 刷新率・鴻蒙 4.3・12GB+256GB・Wi-Fi 版", price:3589, img:null, badge:null },
+  { id:1148, brand:"huawei", brandName:"HUAWEI", cat:"accessories", catName:"配件", name:"HUAWEI Freeclip 2", desc:"澳門行貨・舒適佩戴開放聆聽・AI清晰通話・36小時強勁續航・充電10分鐘聽歌3小時・雙設備連接・一年保養", price:1399, img:null, badge:null },
+  { id:1149, brand:"huawei", brandName:"HUAWEI", cat:"accessories", catName:"配件", name:"HUAWEI WATCH Kids X1 Pro", desc:"澳門行貨・兒童手錶支援澳門手機卡・1.82吋 AMOLED・雙向通話・無網離線定位・拍照・即時聊天・一年保養", price:2389, img:null, badge:null },
+  { id:1150, brand:"huawei", brandName:"HUAWEI", cat:"accessories", catName:"配件", name:"HUAWEI Band 11", desc:"澳門行貨・1.62吋高亮度屏幕・升級睡眠監測・超輕薄舒適佩戴・多維度情緒健康・一年保養", price:319, img:null, badge:null },
+  { id:1151, brand:"huawei", brandName:"HUAWEI", cat:"accessories", catName:"配件", name:"HUAWEI Band 11 Pro", desc:"澳門行貨・1.62吋高亮度屏幕・升級睡眠監測・超輕薄舒適佩戴・多維度情緒健康・一年保養", price:449, img:null, badge:null },
+  { id:1152, brand:"huawei", brandName:"HUAWEI", cat:"accessories", catName:"配件", name:"HUAWEI WATCH Fit 5", desc:"澳門行貨・1.82吋 AMOLED 2500nits・鋁合金・約27克・電池續航最長可達10天", price:1189, img:null, badge:null },
+  { id:1153, brand:"huawei", brandName:"HUAWEI", cat:"accessories", catName:"配件", name:"HUAWEI WATCH D2", desc:"澳門行貨・1.82吋 AMOLED 屏幕・腕上動態血壓監測・全面健康管理・一年保養", price:2999, img:null, badge:null },
+  { id:1154, brand:"huawei", brandName:"HUAWEI", cat:"networking", catName:"網絡設備", name:"HUAWEI WiFi Mesh X3 Pro", desc:"澳門行貨・全屋 Wi-Fi 覆蓋・3.6 Gbps 雙頻 Wi-Fi 7・直觀顯示全 Wi-Fi 覆蓋狀況・一年保養", price:2189, img:null, badge:null },
+  { id:1155, brand:"honor", brandName:"HONOR", cat:"phone", catName:"手機", name:"HONOR X6d 5G", desc:"澳門行貨・6.75吋・5000萬像素後置鏡頭・5260mAh・MTK6300・4GB RAM+128GB ROM・一年保養", price:1139, img:null, badge:null },
+  { id:1156, brand:"honor", brandName:"HONOR", cat:"phone", catName:"手機", name:"HONOR 600 Lite", desc:"澳門行貨・6.6吋 OLED・1億像素後置鏡頭・6320mAh・MTK7100 Elite・8GB+256GB ROM・一年保養", price:2499, img:null, badge:null },
+  { id:1157, brand:"honor", brandName:"HONOR", cat:"phone", catName:"手機", name:"HONOR 600", desc:"澳門行貨・6.57吋 AMOLED・2億像素相機・驍龍 7 Gen 4・7000mAh・12GB RAM+512GB ROM・一年保養", price:4699, img:null, badge:null },
+  { id:1158, brand:"honor", brandName:"HONOR", cat:"phone", catName:"手機", name:"HONOR 600 Pro", desc:"澳門行貨・6.57吋 AMOLED・2億像素相機・驍龍 8 Elite・7000mAh・12GB RAM+512GB ROM・一年保養", price:7509, img:null, badge:null },
+  { id:1159, brand:"honor", brandName:"HONOR", cat:"phone", catName:"手機", name:"HONOR Magic V5", desc:"澳門行貨・6.43吋外屏 / 7.95吋內屏 OLED・驍龍 8 Elite・16GB+512GB ROM・一年保養", price:12009, img:null, badge:null },
+  { id:1160, brand:"honor", brandName:"HONOR", cat:"phone", catName:"手機", name:"HONOR Magic V6", desc:"澳門行貨・6.52吋外屏 / 7.95吋內屏 OLED・驍龍 8 Elite Gen 5・16GB+1TB ROM・一年保養", price:15709, img:null, badge:null },
+  { id:1161, brand:"honor", brandName:"HONOR", cat:"tablet", catName:"平板", name:"HONOR Pad X8b (Wi-Fi)", desc:"澳門行貨・11吋 LCD(IPS) 90Hz・10100mAh・驍龍680・4GB RAM+128GB ROM・一年保養", price:1399, img:null, badge:null },
+  { id:1162, brand:"honor", brandName:"HONOR", cat:"tablet", catName:"平板", name:"HONOR Pad X8b (LTE)", desc:"澳門行貨・11吋 LCD(IPS) 90Hz・10100mAh・驍龍680・6GB RAM+128GB ROM・一年保養", price:1699, img:null, badge:null },
+  { id:1163, brand:"honor", brandName:"HONOR", cat:"tablet", catName:"平板", name:"HONOR MagicPad 4", desc:"澳門行貨・12.3吋 OLED 165Hz・10100mAh・驍龍 8 Gen5・16GB RAM+512GB ROM・一年保養", price:6909, img:null, badge:null },
 ];
 
 // Load products, merging any new defaults not yet in localStorage
@@ -2985,6 +3031,7 @@ const parentCatMap = {
   'accessories': ['accessories'],
   'software': ['software'],
   'console': ['console'],
+  'phone': ['phone'],
   'tablet': ['tablet'],
   'camera': ['camera'],
   'networking': ['networking'],
@@ -3029,10 +3076,10 @@ function escAttr(v) {
 }
 const escHtml = escAttr;
 
-const PRODUCT_BRAND_COLORS = {lenovo:'#E2231A','tp-link':'#4ACBD6',iflytek:'#1E50A2',asus:'#00539C',dell:'#007DB8',gigabyte:'#E6001E',hp:'#0096D6',microsoft:'#00A4EF',canon:'#CC0000',brother:'#003893',epson:'#1F6CBB',intel:'#0071C5',amd:'#ED1C24',samsung:'#1428A0',wd:'#1A6499',kingston:'#DB1F26',corsair:'#F5A623',lg:'#A50034',seagate:'#00B4B5',acer:'#83B81A',viewsonic:'#003F8C',benq:'#1C3F95'};
+const PRODUCT_BRAND_COLORS = {lenovo:'#E2231A',huawei:'#CF0A2C',honor:'#0099FF','tp-link':'#4ACBD6',iflytek:'#1E50A2',asus:'#00539C',dell:'#007DB8',gigabyte:'#E6001E',hp:'#0096D6',microsoft:'#00A4EF',canon:'#CC0000',brother:'#003893',epson:'#1F6CBB',intel:'#0071C5',amd:'#ED1C24',samsung:'#1428A0',wd:'#1A6499',kingston:'#DB1F26',corsair:'#F5A623',lg:'#A50034',seagate:'#00B4B5',acer:'#83B81A',viewsonic:'#003F8C',benq:'#1C3F95'};
 const PRODUCT_BRAND_NAMES = {lenovo:'Lenovo',asus:'ASUS',dell:'Dell',gigabyte:'Gigabyte',hp:'HP',microsoft:'Microsoft',canon:'Canon',brother:'Brother',epson:'Epson',intel:'Intel',amd:'AMD',samsung:'Samsung',wd:'WD',kingston:'Kingston',corsair:'Corsair',lg:'LG',seagate:'Seagate',acer:'Acer',viewsonic:'ViewSonic',benq:'BenQ'};
-const PRODUCT_CAT_NAMES = {'laptop-business':'商務筆電','laptop-everyday':'日常筆電','laptop-gaming':'電競筆電','desktop':'台式電腦','monitor':'顯示器','printer':'打印機','components':'散件','components-cpu':'CPU','components-gpu':'顯示卡','components-mb':'主機板','components-ram':'記憶體','components-ssd':'SSD','components-hdd':'HDD','accessories':'配件','software':'軟件','console':'遊戲機','tablet':'平板','camera':'相機/攝影','networking':'網絡設備','nas':'NAS'};
-const PRODUCT_CAT_ICONS = {'laptop-business':'💼','laptop-everyday':'💻','laptop-gaming':'🎮','desktop':'🖥️','monitor':'🖵','printer':'🖨️','components':'🔧','accessories':'🖱️','software':'💿','console':'🕹️','tablet':'📱','camera':'📷','networking':'🌐','nas':'🗄️'};
+const PRODUCT_CAT_NAMES = {'laptop-business':'商務筆電','laptop-everyday':'日常筆電','laptop-gaming':'電競筆電','desktop':'台式電腦','monitor':'顯示器','printer':'打印機','components':'散件','components-cpu':'CPU','components-gpu':'顯示卡','components-mb':'主機板','components-ram':'記憶體','components-ssd':'SSD','components-hdd':'HDD','accessories':'配件','software':'軟件','console':'遊戲機','phone':'手機','tablet':'平板','camera':'相機/攝影','networking':'網絡設備','nas':'NAS'};
+const PRODUCT_CAT_ICONS = {'laptop-business':'💼','laptop-everyday':'💻','laptop-gaming':'🎮','desktop':'🖥️','monitor':'🖵','printer':'🖨️','components':'🔧','accessories':'🖱️','software':'💿','console':'🕹️','phone':'📲','tablet':'📱','camera':'📷','networking':'🌐','nas':'🗄️'};
 
 function productBrandName(p) { return p.brandName || PRODUCT_BRAND_NAMES[p.brand] || p.brand; }
 function productCatName(p) { return p.catName || PRODUCT_CAT_NAMES[p.cat] || p.cat; }
