@@ -2965,6 +2965,40 @@ function getFilteredProducts() {
   return filtered;
 }
 
+// HTML escaping — 產品名有 " (如 16")、描述有 &，唔 escape 會爆屬性同標記
+function escAttr(v) {
+  return String(v == null ? '' : v)
+    .replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+const escHtml = escAttr;
+
+const PRODUCT_BRAND_COLORS = {lenovo:'#E2231A',asus:'#00539C',dell:'#007DB8',gigabyte:'#E6001E',hp:'#0096D6',microsoft:'#00A4EF',canon:'#CC0000',brother:'#003893',epson:'#1F6CBB',intel:'#0071C5',amd:'#ED1C24',samsung:'#1428A0',wd:'#1A6499',kingston:'#DB1F26',corsair:'#F5A623',lg:'#A50034',seagate:'#00B4B5',acer:'#83B81A',viewsonic:'#003F8C',benq:'#1C3F95'};
+const PRODUCT_BRAND_NAMES = {lenovo:'Lenovo',asus:'ASUS',dell:'Dell',gigabyte:'Gigabyte',hp:'HP',microsoft:'Microsoft',canon:'Canon',brother:'Brother',epson:'Epson',intel:'Intel',amd:'AMD',samsung:'Samsung',wd:'WD',kingston:'Kingston',corsair:'Corsair',lg:'LG',seagate:'Seagate',acer:'Acer',viewsonic:'ViewSonic',benq:'BenQ'};
+const PRODUCT_CAT_NAMES = {'laptop-business':'商務筆電','laptop-everyday':'日常筆電','laptop-gaming':'電競筆電','desktop':'台式電腦','monitor':'顯示器','printer':'打印機','components':'散件','components-cpu':'CPU','components-gpu':'顯示卡','components-mb':'主機板','components-ram':'記憶體','components-ssd':'SSD','components-hdd':'HDD','accessories':'配件','software':'軟件','console':'遊戲機','tablet':'平板','camera':'相機/攝影','networking':'網絡設備','nas':'NAS'};
+const PRODUCT_CAT_ICONS = {'laptop-business':'💼','laptop-everyday':'💻','laptop-gaming':'🎮','desktop':'🖥️','monitor':'🖵','printer':'🖨️','components':'🔧','accessories':'🖱️','software':'💿','console':'🕹️','tablet':'📱','camera':'📷','networking':'🌐','nas':'🗄️'};
+
+function productBrandName(p) { return p.brandName || PRODUCT_BRAND_NAMES[p.brand] || p.brand; }
+function productCatName(p) { return p.catName || PRODUCT_CAT_NAMES[p.cat] || p.cat; }
+
+// 冇圖 / 圖 load 唔到嘅品牌色卡（兩條路共用同一個生成器，唔好各寫一份）
+function productPlaceholderHTML(p) {
+  const bColor = PRODUCT_BRAND_COLORS[p.brand] || '#4AADA8';
+  const cIcon = PRODUCT_CAT_ICONS[p.cat] || '📦';
+  const bName = productBrandName(p);
+  return `<div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:linear-gradient(160deg,${bColor}10 0%,#f8f8f8 60%,${bColor}06 100%);">
+      <div style="width:96px;height:96px;background:white;border-radius:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px ${bColor}28,0 1px 6px rgba(0,0,0,0.06);">
+        <div style="font-size:2.8rem;line-height:1;">${cIcon}</div>
+      </div>
+      <div style="background:${bColor};color:white;font-size:0.68rem;font-weight:800;padding:3px 14px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">${escHtml(bName)}</div>
+    </div>`;
+}
+
+// 圖 load 唔到先至 call；以前係將成段 HTML 塞落 onerror 屬性，個屬性會提早收口
+function productImgFallback(img, id) {
+  const p = (typeof products !== "undefined" ? products : []).find(x => x.id === id);
+  if (p && img.parentElement) img.parentElement.innerHTML = productPlaceholderHTML(p);
+}
 function renderProducts() {
   const grid = document.getElementById('productsGrid');
   const filtered = getFilteredProducts();
@@ -2979,32 +3013,20 @@ function renderProducts() {
     const badgeMap = {sale:'折扣',new:'新品',hot:'熱賣','新品':'新品','熱賣':'熱賣','清倉':'清倉','限量':'限量',clearance:'清倉'};
     const badgeClass = p.badge === 'sale' ? 'sale' : p.badge === 'hot' || p.badge === '熱賣' ? 'hot' : p.badge === '清倉' || p.badge === 'clearance' ? 'clearance' : 'new';
     const badgeHTML = p.badge ? `<div class="product-badge ${badgeClass}">${badgeMap[p.badge] || p.badge}</div>` : '';
-    const brandColors = {lenovo:'#E2231A',asus:'#00539C',dell:'#007DB8',gigabyte:'#E6001E',hp:'#0096D6',microsoft:'#00A4EF',canon:'#CC0000',brother:'#003893',epson:'#1F6CBB',intel:'#0071C5',amd:'#ED1C24',samsung:'#1428A0',wd:'#1A6499',kingston:'#DB1F26',corsair:'#F5A623',lg:'#A50034',seagate:'#00B4B5',acer:'#83B81A',viewsonic:'#003F8C',benq:'#1C3F95'};
-    const brandDisplayNames = {lenovo:'Lenovo',asus:'ASUS',dell:'Dell',gigabyte:'Gigabyte',hp:'HP',microsoft:'Microsoft',canon:'Canon',brother:'Brother',epson:'Epson',intel:'Intel',amd:'AMD',samsung:'Samsung',wd:'WD',kingston:'Kingston',corsair:'Corsair',lg:'LG',seagate:'Seagate',acer:'Acer',viewsonic:'ViewSonic',benq:'BenQ'};
-    const catDisplayNames = {'laptop-business':'商務筆電','laptop-everyday':'日常筆電','laptop-gaming':'電競筆電','desktop':'台式電腦','monitor':'顯示器','printer':'打印機','components':'散件','components-cpu':'CPU','components-gpu':'顯示卡','components-mb':'主機板','components-ram':'記憶體','components-ssd':'SSD','components-hdd':'HDD','accessories':'配件','software':'軟件','console':'遊戲機','tablet':'平板','camera':'相機/攝影','networking':'網絡設備','nas':'NAS'};
-    const catIcons = {'laptop-business':'💼','laptop-everyday':'💻','laptop-gaming':'🎮','desktop':'🖥️','monitor':'🖵','printer':'🖨️','components':'🔧','accessories':'🖱️','software':'💿','console':'🕹️','tablet':'📱','camera':'📷','networking':'🌐','nas':'🗄️'};
-    const bColor = brandColors[p.brand] || '#4AADA8';
-    const cIcon = catIcons[p.cat] || '📦';
-    const bName = p.brandName || brandDisplayNames[p.brand] || p.brand;
-    const cName = p.catName || catDisplayNames[p.cat] || p.cat;
-    const placeholder = `<div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:linear-gradient(160deg,${bColor}10 0%,#f8f8f8 60%,${bColor}06 100%);">
-      <div style="width:96px;height:96px;background:white;border-radius:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px ${bColor}28,0 1px 6px rgba(0,0,0,0.06);">
-        <div style="font-size:2.8rem;line-height:1;">${cIcon}</div>
-      </div>
-      <div style="background:${bColor};color:white;font-size:0.68rem;font-weight:800;padding:3px 14px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;">${bName}</div>
-    </div>`;
+    const bName = productBrandName(p);
+    const cName = productCatName(p);
     const isRealImg = p.img && (p.img.startsWith('http') || p.img.startsWith('//'));
     const imgHTML = isRealImg
-      ? `<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:contain;padding:16px;background:#fff;" onerror="this.parentElement.innerHTML=\`${placeholder.replace(/`/g,"'")}\`">`
-      : placeholder;
+      ? `<img src="${escAttr(p.img)}" alt="${escAttr(p.name)}" style="width:100%;height:100%;object-fit:contain;padding:16px;background:#fff;" onerror="productImgFallback(this,${p.id})">`
+      : productPlaceholderHTML(p);
     return `
       <div class="product-card" onclick="openProduct(${p.id})">
         ${badgeHTML}
         <div class="product-img">${imgHTML}</div>
         <div class="product-info">
-          <div class="product-category">${bName} · ${cName}</div>
-          <div class="product-name">${p.name}</div>
-          <div class="product-desc">${p.desc}</div>
+          <div class="product-category">${escHtml(bName)} · ${escHtml(cName)}</div>
+          <div class="product-name">${escHtml(p.name)}</div>
+          <div class="product-desc">${escHtml(p.desc)}</div>
           <div class="product-price-row">
             <span class="product-price">HK\$${p.price.toLocaleString()}</span>
           </div>
