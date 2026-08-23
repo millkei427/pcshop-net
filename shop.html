@@ -3127,15 +3127,27 @@ function injectProductSchema(){
       "description": p.desc || undefined,
       "brand": { "@type":"Brand", "name": p.brandName || p.brand },
       "category": p.catName || p.cat,
-      "offers": { "@type":"Offer", "price": p.price, "priceCurrency":"HKD", "availability":"https://schema.org/InStock", "url":"https://pcshop-net.com/shop.html" }
+      "offers": { "@type":"Offer", "price": p.price, "priceCurrency":"HKD", "availability":"https://schema.org/InStock", "url":"https://pcshop-net.com/shop.html?p=" + p.id }
     }};
   });
   var schema = { "@context":"https://schema.org", "@type":"ItemList", "name":"PC Shop 產品目錄", "numberOfItems": list.length, "itemListElement": list };
   var s = document.createElement('script'); s.type='application/ld+json'; s.text = JSON.stringify(schema);
   document.head.appendChild(s);
 }
+// 產品深層連結：?p=<id> 直接顯示該件產品（產品 feed / 外部連結入口）
+function applyDeepLink() {
+  const id = parseInt(new URLSearchParams(location.search).get('p'), 10);
+  if (!id) return;
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  currentSearch = p.name;
+  const box = document.getElementById('searchInput');
+  if (box) box.value = p.name;
+  document.title = p.name + ' | PC Shop 澳門';
+}
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('searchInput').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+  applyDeepLink();
   renderProducts();
   injectProductSchema();
 });
