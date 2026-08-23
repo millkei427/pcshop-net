@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PC Shop 專業電腦店 | 澳門電腦、顯示器、電競裝備專門店</title>
+<title>線上商店 | PC Shop 澳門電腦、顯示器、電競裝備</title>
 <!-- Google tag (gtag.js) · GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H76SZSZJ8C"></script>
 <script>
@@ -1725,9 +1725,9 @@
     <div class="success-modal">
       <div class="success-icon">🎉</div>
       <h2>訂單成功！</h2>
-      <p>感謝您的購買，我們將盡快為您處理訂單。</p>
+      <p>感謝您的訂購，我們將盡快與您聯絡確認貨品及送貨安排。</p>
       <p class="order-num" id="orderNum"></p>
-      <p style="font-size:0.85rem;color:#aaa;margin-top:8px;">確認電郵將發送至您的郵箱</p>
+      <p style="font-size:0.85rem;color:#aaa;margin-top:8px;">訂單已送到我們的 WhatsApp，我們會盡快與您確認</p>
       <button class="continue-btn" onclick="closeSuccess()">繼續購物</button>
     </div>
   </div>
@@ -2915,6 +2915,7 @@ function saveProducts() { localStorage.setItem('ws_products', JSON.stringify(pro
 // ============================
 // STATE
 // ============================
+const WA_ORDER_NUMBER = '85263928613';
 let cart = [];
 let currentParentCat = 'all';
 let currentSubCat = 'all';
@@ -3300,7 +3301,30 @@ function placeOrder() {
   }
   const orderNum = 'WS' +Date.now().toString().slice(-8);
   document.getElementById('orderNum').textContent = `訂單編號：${orderNum}`;
-  if (typeof gtag==='function') gtag('event','purchase',{ transaction_id:orderNum, currency:'HKD', value:Math.max(0,getSubtotal()+shipping-discountAmt), shipping:shipping, items:cart.map(i=>gaItem(i,i.qty)) });
+  const sub = getSubtotal();
+  const total = Math.max(0, sub + shipping - discountAmt);
+  if (typeof gtag==='function') gtag('event','purchase',{ transaction_id:orderNum, currency:'HKD', value:total, shipping:shipping, items:cart.map(i=>gaItem(i,i.qty)) });
+  // 送單去 WhatsApp（澳門客戶主要聯絡途徑；本站冇後端，唔送就等於漏單）
+  const orderLines = [
+    '【PC Shop 線上訂單】',
+    '訂單編號：' + orderNum,
+    '',
+    '訂購貨品：',
+    ...cart.map(i => '· ' + i.name + ' × ' + i.qty + ' = HK$' + (i.price * i.qty).toLocaleString()),
+    '',
+    '小計：HK$' + sub.toLocaleString(),
+    '運費：' + (shipping === 0 ? '免費' : 'HK$' + shipping),
+    ...(discountAmt > 0 ? ['優惠：-HK$' + discountAmt.toLocaleString()] : []),
+    '總計：HK$' + total.toLocaleString(),
+    '',
+    '收貨資料：',
+    '姓名：' + name,
+    '電話：' + phone,
+    '電郵：' + email,
+    '地區：' + district,
+    '地址：' + address,
+  ];
+  window.open('https://wa.me/' + WA_ORDER_NUMBER + '?text=' + encodeURIComponent(orderLines.join('\n')), '_blank');
   closeCheckout();
   setTimeout(()=>{ document.getElementById('successModal').classList.add('open'); }, 300);
   cart = []; discountAmt = 0; shipping = 40;
