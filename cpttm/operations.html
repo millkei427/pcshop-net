@@ -3,6 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) · GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H76SZSZJ8C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H76SZSZJ8C');
+  // ===== GA4 lead tracking (event delegation covers all current + future links) =====
+  document.addEventListener('click', function(e){
+    if (!e.target || !e.target.closest) return;
+    var wa = e.target.closest('a[href*="wa.me"], a[href*="whatsapp"]');
+    if (wa) {
+      gtag('event', 'whatsapp_click', {
+        method: 'whatsapp',
+        location: window.location.pathname,
+        link_url: wa.href
+      });
+      return;
+    }
+    var tel = e.target.closest('a[href^="tel:"]');
+    if (tel) {
+      gtag('event', 'phone_click', {
+        method: 'phone',
+        location: window.location.pathname,
+        link_url: tel.href
+      });
+    }
+  });
+</script>
 <title>SmartBizBuddy 營運管家 — AI 智能管理系統 | PCShop 專業電腦店</title>
 <style>
   :root {

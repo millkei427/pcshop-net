@@ -3,6 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) · GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H76SZSZJ8C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H76SZSZJ8C');
+  // ===== GA4 lead tracking (event delegation covers all current + future links) =====
+  document.addEventListener('click', function(e){
+    if (!e.target || !e.target.closest) return;
+    var wa = e.target.closest('a[href*="wa.me"], a[href*="whatsapp"]');
+    if (wa) {
+      gtag('event', 'whatsapp_click', {
+        method: 'whatsapp',
+        location: window.location.pathname,
+        link_url: wa.href
+      });
+      return;
+    }
+    var tel = e.target.closest('a[href^="tel:"]');
+    if (tel) {
+      gtag('event', 'phone_click', {
+        method: 'phone',
+        location: window.location.pathname,
+        link_url: tel.href
+      });
+    }
+  });
+</script>
 <title>澳門網站開發公司選擇指南：從設計到上線的完整考量 | PC Shop</title>
 <meta name="description" content="澳門企業慎選網站開發公司？一文看清服務範圍、報價陷阱與維護要點。本地專家傳授完美網站建置攻略，助你選擇可靠夥伴。">
 <meta name="keywords" content="澳門網站開發公司, 澳門 IT, PC Shop, pcshop-net.com">

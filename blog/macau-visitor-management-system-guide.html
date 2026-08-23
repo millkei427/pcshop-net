@@ -3,6 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) · GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H76SZSZJ8C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H76SZSZJ8C');
+  // ===== GA4 lead tracking (event delegation covers all current + future links) =====
+  document.addEventListener('click', function(e){
+    if (!e.target || !e.target.closest) return;
+    var wa = e.target.closest('a[href*="wa.me"], a[href*="whatsapp"]');
+    if (wa) {
+      gtag('event', 'whatsapp_click', {
+        method: 'whatsapp',
+        location: window.location.pathname,
+        link_url: wa.href
+      });
+      return;
+    }
+    var tel = e.target.closest('a[href^="tel:"]');
+    if (tel) {
+      gtag('event', 'phone_click', {
+        method: 'phone',
+        location: window.location.pathname,
+        link_url: tel.href
+      });
+    }
+  });
+</script>
 <title>澳門訪客管理系統：中小企前台數碼轉型必讀指南 | PC Shop</title>
 <meta name="description" content="澳門訪客管理系統如何提升前台效率與保安？了解 DSEDT 資助、功能重點、選型考慮。歡迎致電 PC Shop 28403503 諮詢。">
 <meta name="keywords" content="澳門訪客管理系統, 澳門 IT, PC Shop, pcshop-net.com">

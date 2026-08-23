@@ -3,6 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) · GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H76SZSZJ8C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H76SZSZJ8C');
+  // ===== GA4 lead tracking (event delegation covers all current + future links) =====
+  document.addEventListener('click', function(e){
+    if (!e.target || !e.target.closest) return;
+    var wa = e.target.closest('a[href*="wa.me"], a[href*="whatsapp"]');
+    if (wa) {
+      gtag('event', 'whatsapp_click', {
+        method: 'whatsapp',
+        location: window.location.pathname,
+        link_url: wa.href
+      });
+      return;
+    }
+    var tel = e.target.closest('a[href^="tel:"]');
+    if (tel) {
+      gtag('event', 'phone_click', {
+        method: 'phone',
+        location: window.location.pathname,
+        link_url: tel.href
+      });
+    }
+  });
+</script>
 <title>澳門診所預約系統：提升效率與病人體驗的關鍵方案 | PC Shop</title>
 <meta name="description" content="為澳門診所選擇合適的預約系統，減少等候時間、優化排程。本文分析功能要點、法規考量及本地案例，助您數碼轉型。">
 <meta name="keywords" content="澳門診所預約系統, 澳門 IT, PC Shop, pcshop-net.com">
@@ -15,7 +44,7 @@
 <meta property="og:url" content="https://pcshop-net.com/blog/macau-clinic-booking-system-guide.html">
 <meta property="og:image" content="https://pcshop-net.com/smartboard-logo.png">
 <meta property="og:site_name" content="PC Shop">
-<meta property="article:published_time" content="2026-05-25">
+<meta property="article:published_time" content="2026-08-23">
 <meta property="article:author" content="PC Shop">
 
 <!-- Twitter -->
@@ -25,7 +54,7 @@
 <meta name="twitter:image" content="https://pcshop-net.com/smartboard-logo.png">
 
 <!-- Schema.org -->
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"澳門診所預約系統：提升效率與病人體驗的關鍵方案","description":"為澳門診所選擇合適的預約系統，減少等候時間、優化排程。本文分析功能要點、法規考量及本地案例，助您數碼轉型。","image":"https://pcshop-net.com/smartboard-logo.png","datePublished":"2026-05-25","dateModified":"2026-05-25","author":{"@type":"Organization","name":"PC Shop (Professional Computer Shop)"},"publisher":{"@type":"Organization","name":"PC Shop","logo":{"@type":"ImageObject","url":"https://pcshop-net.com/smartboard-logo.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://pcshop-net.com/blog/macau-clinic-booking-system-guide.html"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"澳門診所預約系統：提升效率與病人體驗的關鍵方案","description":"為澳門診所選擇合適的預約系統，減少等候時間、優化排程。本文分析功能要點、法規考量及本地案例，助您數碼轉型。","image":"https://pcshop-net.com/smartboard-logo.png","datePublished":"2026-08-23","dateModified":"2026-08-23","author":{"@type":"Organization","name":"PC Shop (Professional Computer Shop)"},"publisher":{"@type":"Organization","name":"PC Shop","logo":{"@type":"ImageObject","url":"https://pcshop-net.com/smartboard-logo.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://pcshop-net.com/blog/macau-clinic-booking-system-guide.html"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"診所預約系統需要符合澳門哪些法規？","acceptedAnswer":{"@type":"Answer","text":"主要需遵守《個人資料保護法》，確保病人資料加密儲存、限制存取權限，並提供資料刪除機制。若系統涉及電子病歷，亦需符合衛生局相關指引。"}},{"@type":"Question","name":"小型診所導入預約系統的成本大約多少？","acceptedAnswer":{"@type":"Answer","text":"成本因功能而異，基本雲端系統月費約澳門幣500至2000元，包含線上預約、提醒、基本報表。客製化或整合EMR則需另計。PC Shop提供彈性方案，歡迎查詢。"}},{"@type":"Question","name":"系統能否與澳門常用的支付工具整合？","acceptedAnswer":{"@type":"Answer","text":"可以。主流系統支援澳門通、MPay、Visa/Mastercard、銀聯等，部分亦整合微信支付及支付寶。"}},{"@type":"Question","name":"如果診所已有病歷系統，能否與預約系統對接？","acceptedAnswer":{"@type":"Answer","text":"多數預約系統提供API或標準匯出格式，可與現有系統整合。PC Shop的開發團隊可協助客製化對接，確保資料同步。"}},{"@type":"Question","name":"病人不懂使用線上預約怎麼辦？","acceptedAnswer":{"@type":"Answer","text":"系統可保留電話預約通道，前台人員代為輸入。同時提供簡單圖文教學，或安排現場協助。多數診所導入後，長者使用率亦逐步提升。"}}]}</script>
 
 <style>
@@ -89,7 +118,7 @@
     <h1>澳門診所預約系統：提升效率與病人體驗的關鍵方案</h1>
     <p class="subtitle"></p>
     <div class="meta">
-      📅 2026-05-25 · ⏱ 7 分鐘閱讀 · 🏷 澳門診所預約系統
+      📅 2026-08-23 · ⏱ 7 分鐘閱讀 · 🏷 澳門診所預約系統
     </div>
 
     <p class="hook">澳門診所每日面對大量預約查詢，傳統電話登記容易出錯、耗費人力，病人亦常因等候過久而不滿。一套專業的診所預約系統不僅能自動化管理時段，更能整合病歷、發送提醒，顯著提升營運效率。本文將從功能需求、法規合規、本地市場特色等角度，為您剖析如何選擇最適合的方案。</p>

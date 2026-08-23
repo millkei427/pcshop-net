@@ -3,6 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) · GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H76SZSZJ8C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H76SZSZJ8C');
+  // ===== GA4 lead tracking (event delegation covers all current + future links) =====
+  document.addEventListener('click', function(e){
+    if (!e.target || !e.target.closest) return;
+    var wa = e.target.closest('a[href*="wa.me"], a[href*="whatsapp"]');
+    if (wa) {
+      gtag('event', 'whatsapp_click', {
+        method: 'whatsapp',
+        location: window.location.pathname,
+        link_url: wa.href
+      });
+      return;
+    }
+    var tel = e.target.closest('a[href^="tel:"]');
+    if (tel) {
+      gtag('event', 'phone_click', {
+        method: 'phone',
+        location: window.location.pathname,
+        link_url: tel.href
+      });
+    }
+  });
+</script>
 <title>部落格 | PC Shop 澳門 IT 公司</title>
 <meta name="description" content="PC Shop 部落格 — 澳門 IT 趨勢、POS 系統、企業數碼轉型、政府補貼指南。">
 <link rel="canonical" href="https://pcshop-net.com/blog/">
@@ -56,7 +85,7 @@
     <article class="card">
       <h2><a href="/blog/macau-clinic-booking-system-guide.html">澳門診所預約系統：提升效率與病人體驗的關鍵方案</a></h2>
       <p>為澳門診所選擇合適的預約系統，減少等候時間、優化排程。本文分析功能要點、法規考量及本地案例，助您數碼轉型。</p>
-      <div class="meta">📅 2026-05-25 · industry</div>
+      <div class="meta">📅 2026-08-23 · industry</div>
     </article>
 </main>
 <footer>
