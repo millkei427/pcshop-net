@@ -1549,6 +1549,12 @@
     <button class="filter-cat-btn" onclick="filterParent(this,'printer')">🖨️ 打印機</button>
     <button class="filter-cat-btn" onclick="filterParent(this,'components')">🔧 散件</button>
     <button class="filter-cat-btn" onclick="filterParent(this,'accessories')">🖱️ 配件</button>
+    <button class="filter-cat-btn" onclick="filterParent(this,'software')">💿 軟件</button>
+    <button class="filter-cat-btn" onclick="filterParent(this,'console')">🕹️ 遊戲機</button>
+    <button class="filter-cat-btn" onclick="filterParent(this,'tablet')">📱 平板</button>
+    <button class="filter-cat-btn" onclick="filterParent(this,'camera')">📷 相機/無人機</button>
+    <button class="filter-cat-btn" onclick="filterParent(this,'networking')">🌐 網絡</button>
+    <button class="filter-cat-btn" onclick="filterParent(this,'nas')">🗄️ NAS</button>
   </div>
   <!-- 品牌/類型篩選 (Level 2) -->
   <div class="filter-sub-row" id="filterSubRow" style="display:none;">
@@ -2762,6 +2768,18 @@ const defaultProducts = [
   { id:932, brand:"asus", brandName:"ASUS", cat:"laptop-gaming", catName:"電競筆電", name:"ASUS TUF Gaming A16 FA608UH-RV030R", desc:"16\" FHD+ 165Hz・AMD Ryzen 7 260・32GB(16+16)・1TB SSD・RTX 5050 8GB・Win11・2Y", price:12959, img:null, badge:null },
   { id:933, brand:"asus", brandName:"ASUS", cat:"laptop-gaming", catName:"電競筆電", name:"ASUS TUF Gaming A16 FA608UMI-QT194W", desc:"16\" FHD+ 165Hz・AMD Ryzen 7 260・32GB(16+16)・1TB SSD・RTX 5060 8GB・Win11・2Y", price:15119, img:null, badge:null },
   { id:934, brand:"asus", brandName:"ASUS", cat:"laptop-gaming", catName:"電競筆電", name:"ASUS TUF Gaming A16 FA608UP-QT115W", desc:"16\" 2.5K 240Hz・AMD Ryzen 7 260・32GB(16+16)・1TB SSD・RTX 5070 8GB・Win11・2Y", price:16199, img:null, badge:null },
+  { id:935, brand:"microsoft", brandName:"Microsoft", cat:"software", catName:"軟件", name:"Microsoft 365 個人版 (一年訂閱)", desc:"1 位使用者・Word/Excel/PowerPoint/Outlook/OneDrive・1TB 雲端・進階保安", price:339, img:null, badge:null },
+  { id:936, brand:"microsoft", brandName:"Microsoft", cat:"software", catName:"軟件", name:"Microsoft 365 家用版 (一年訂閱)", desc:"最多 6 人・完整 Office 應用・每人 1TB OneDrive・進階保安", price:689, img:null, badge:null },
+  { id:937, brand:"microsoft", brandName:"Microsoft", cat:"software", catName:"軟件", name:"Microsoft Office Home & Student 2021 (買斷·簡中)", desc:"1 部 PC/Mac・Word/Excel/PowerPoint 2021", price:689, img:null, badge:null },
+  { id:938, brand:"microsoft", brandName:"Microsoft", cat:"software", catName:"軟件", name:"Microsoft Office Home & Student 2024 (買斷·繁中)", desc:"1 部 PC/Mac・Word/Excel/PowerPoint 2024", price:919, img:null, badge:null },
+  { id:939, brand:"microsoft", brandName:"Microsoft", cat:"software", catName:"軟件", name:"Microsoft Office Home & Business 2024 (買斷·繁中)", desc:"1 部 PC/Mac・Word/Excel/PowerPoint/Outlook 2024", price:1979, img:null, badge:null },
+  { id:940, brand:"eset", brandName:"ESET", cat:"software", catName:"軟件", name:"ESET NOD32 Antivirus (1台2年)", desc:"防毒・反釣魚・勒索軟件防護", price:169, img:null, badge:null },
+  { id:941, brand:"eset", brandName:"ESET", cat:"software", catName:"軟件", name:"ESET NOD32 Antivirus (1台3年)", desc:"防毒・反釣魚・勒索軟件防護", price:229, img:null, badge:null },
+  { id:942, brand:"eset", brandName:"ESET", cat:"software", catName:"軟件", name:"ESET NOD32 Antivirus (3台3年)", desc:"防毒・反釣魚・勒索軟件防護", price:489, img:null, badge:null },
+  { id:943, brand:"eset", brandName:"ESET", cat:"software", catName:"軟件", name:"ESET NOD32 Antivirus (5台3年)", desc:"防毒・反釣魚・勒索軟件防護", price:769, img:null, badge:null },
+  { id:944, brand:"eset", brandName:"ESET", cat:"software", catName:"軟件", name:"ESET Home Security Essential (1台3年)", desc:"防火牆・家庭網絡防護・網銀防護", price:299, img:null, badge:null },
+  { id:945, brand:"eset", brandName:"ESET", cat:"software", catName:"軟件", name:"ESET Home Security Essential (3台3年)", desc:"防火牆・家庭網絡防護・網銀防護", price:649, img:null, badge:null },
+  { id:946, brand:"eset", brandName:"ESET", cat:"software", catName:"軟件", name:"ESET Home Security Essential (5台3年)", desc:"防火牆・家庭網絡防護・網銀防護", price:919, img:null, badge:null },
 ];
 
 // Load products, merging any new defaults not yet in localStorage
@@ -2792,6 +2810,12 @@ const parentCatMap = {
   'printer': ['printer'],
   'components': ['components-cpu','components-gpu','components-mb','components-ram','components-ssd','components-hdd'],
   'accessories': ['accessories'],
+  'software': ['software'],
+  'console': ['console'],
+  'tablet': ['tablet'],
+  'camera': ['camera'],
+  'networking': ['networking'],
+  'nas': ['nas'],
 };
 let currentSearch = '';
 let priceMin = 0, priceMax = Infinity;
@@ -2840,8 +2864,8 @@ function renderProducts() {
     const badgeHTML = p.badge ? `<div class="product-badge ${badgeClass}">${badgeMap[p.badge] || p.badge}</div>` : '';
     const brandColors = {lenovo:'#E2231A',asus:'#00539C',dell:'#007DB8',gigabyte:'#E6001E',hp:'#0096D6',microsoft:'#00A4EF',canon:'#CC0000',brother:'#003893',epson:'#1F6CBB',intel:'#0071C5',amd:'#ED1C24',samsung:'#1428A0',wd:'#1A6499',kingston:'#DB1F26',corsair:'#F5A623',lg:'#A50034',seagate:'#00B4B5',acer:'#83B81A',viewsonic:'#003F8C',benq:'#1C3F95'};
     const brandDisplayNames = {lenovo:'Lenovo',asus:'ASUS',dell:'Dell',gigabyte:'Gigabyte',hp:'HP',microsoft:'Microsoft',canon:'Canon',brother:'Brother',epson:'Epson',intel:'Intel',amd:'AMD',samsung:'Samsung',wd:'WD',kingston:'Kingston',corsair:'Corsair',lg:'LG',seagate:'Seagate',acer:'Acer',viewsonic:'ViewSonic',benq:'BenQ'};
-    const catDisplayNames = {'laptop-business':'商務筆電','laptop-everyday':'日常筆電','laptop-gaming':'電競筆電','desktop':'台式電腦','monitor':'顯示器','printer':'打印機','components':'散件','components-cpu':'CPU','components-gpu':'顯示卡','components-mb':'主機板','components-ram':'記憶體','components-ssd':'SSD','components-hdd':'HDD','accessories':'配件'};
-    const catIcons = {'laptop-business':'💼','laptop-everyday':'💻','laptop-gaming':'🎮','desktop':'🖥️','monitor':'🖵','printer':'🖨️','components':'🔧','accessories':'🖱️'};
+    const catDisplayNames = {'laptop-business':'商務筆電','laptop-everyday':'日常筆電','laptop-gaming':'電競筆電','desktop':'台式電腦','monitor':'顯示器','printer':'打印機','components':'散件','components-cpu':'CPU','components-gpu':'顯示卡','components-mb':'主機板','components-ram':'記憶體','components-ssd':'SSD','components-hdd':'HDD','accessories':'配件','software':'軟件','console':'遊戲機','tablet':'平板','camera':'相機/攝影','networking':'網絡設備','nas':'NAS'};
+    const catIcons = {'laptop-business':'💼','laptop-everyday':'💻','laptop-gaming':'🎮','desktop':'🖥️','monitor':'🖵','printer':'🖨️','components':'🔧','accessories':'🖱️','software':'💿','console':'🕹️','tablet':'📱','camera':'📷','networking':'🌐','nas':'🗄️'};
     const bColor = brandColors[p.brand] || '#4AADA8';
     const cIcon = catIcons[p.cat] || '📦';
     const bName = p.brandName || brandDisplayNames[p.brand] || p.brand;
