@@ -223,7 +223,7 @@
     <g:price>1137.00 HKD</g:price>
     <g:brand>samsung</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU333</g:id>
@@ -236,7 +236,7 @@
     <g:price>1029.00 HKD</g:price>
     <g:brand>samsung</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU336</g:id>
@@ -249,7 +249,7 @@
     <g:price>4997.00 HKD</g:price>
     <g:brand>samsung</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU337</g:id>
@@ -262,7 +262,7 @@
     <g:price>8639.00 HKD</g:price>
     <g:brand>samsung</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU340</g:id>
@@ -275,7 +275,7 @@
     <g:price>7559.00 HKD</g:price>
     <g:brand>samsung</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU341</g:id>
@@ -288,7 +288,7 @@
     <g:price>1582.00 HKD</g:price>
     <g:brand>samsung</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU342</g:id>
@@ -301,7 +301,7 @@
     <g:price>2199.00 HKD</g:price>
     <g:brand>samsung</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU343</g:id>
@@ -314,7 +314,7 @@
     <g:price>2404.00 HKD</g:price>
     <g:brand>samsung</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU344</g:id>
@@ -327,7 +327,7 @@
     <g:price>2859.00 HKD</g:price>
     <g:brand>samsung</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU350</g:id>
@@ -340,7 +340,7 @@
     <g:price>4428.00 HKD</g:price>
     <g:brand>gigabyte</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU351</g:id>
@@ -353,7 +353,7 @@
     <g:price>6149.00 HKD</g:price>
     <g:brand>gigabyte</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU352</g:id>
@@ -366,7 +366,7 @@
     <g:price>5719.00 HKD</g:price>
     <g:brand>gigabyte</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU353</g:id>
@@ -379,7 +379,7 @@
     <g:price>5939.00 HKD</g:price>
     <g:brand>gigabyte</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU354</g:id>
@@ -392,7 +392,7 @@
     <g:price>5499.00 HKD</g:price>
     <g:brand>gigabyte</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU355</g:id>
@@ -405,7 +405,7 @@
     <g:price>3606.00 HKD</g:price>
     <g:brand>gigabyte</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU356</g:id>
@@ -418,7 +418,7 @@
     <g:price>2402.00 HKD</g:price>
     <g:brand>gigabyte</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU357</g:id>
@@ -431,7 +431,7 @@
     <g:price>4069.00 HKD</g:price>
     <g:brand>gigabyte</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU358</g:id>
@@ -444,7 +444,7 @@
     <g:price>4399.00 HKD</g:price>
     <g:brand>gigabyte</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU359</g:id>
@@ -457,7 +457,7 @@
     <g:price>3299.00 HKD</g:price>
     <g:brand>gigabyte</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU360</g:id>
@@ -470,7 +470,7 @@
     <g:price>2391.00 HKD</g:price>
     <g:brand>gigabyte</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU361</g:id>
@@ -483,7 +483,7 @@
     <g:price>1392.00 HKD</g:price>
     <g:brand>gigabyte</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU362</g:id>
@@ -496,7 +496,7 @@
     <g:price>799.00 HKD</g:price>
     <g:brand>gigabyte</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU372</g:id>
@@ -509,7 +509,7 @@
     <g:price>734.00 HKD</g:price>
     <g:brand>lg</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU373</g:id>
@@ -522,7 +522,7 @@
     <g:price>848.00 HKD</g:price>
     <g:brand>lg</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU374</g:id>
@@ -535,7 +535,7 @@
     <g:price>759.00 HKD</g:price>
     <g:brand>lg</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU375</g:id>
@@ -548,7 +548,7 @@
     <g:price>886.00 HKD</g:price>
     <g:brand>lg</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU376</g:id>
@@ -561,7 +561,7 @@
     <g:price>1012.00 HKD</g:price>
     <g:brand>lg</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU377</g:id>
@@ -574,7 +574,7 @@
     <g:price>1582.00 HKD</g:price>
     <g:brand>lg</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU380</g:id>
@@ -587,7 +587,7 @@
     <g:price>1202.00 HKD</g:price>
     <g:brand>lg</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU381</g:id>
@@ -600,7 +600,7 @@
     <g:price>1898.00 HKD</g:price>
     <g:brand>lg</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU382</g:id>
@@ -613,7 +613,7 @@
     <g:price>2985.00 HKD</g:price>
     <g:brand>lg</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU383</g:id>
@@ -626,7 +626,7 @@
     <g:price>4048.00 HKD</g:price>
     <g:brand>lg</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU384</g:id>
@@ -639,7 +639,7 @@
     <g:price>4744.00 HKD</g:price>
     <g:brand>lg</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU385</g:id>
@@ -652,7 +652,7 @@
     <g:price>6071.00 HKD</g:price>
     <g:brand>lg</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU386</g:id>
@@ -665,7 +665,7 @@
     <g:price>6689.00 HKD</g:price>
     <g:brand>lg</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU387</g:id>
@@ -678,7 +678,7 @@
     <g:price>3896.00 HKD</g:price>
     <g:brand>lg</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU460</g:id>
@@ -691,7 +691,7 @@
     <g:price>5169.00 HKD</g:price>
     <g:brand>acer</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>laptop-everyday</g:product_type>
+    <g:product_type>日常筆電</g:product_type>
   </item>
   <item>
     <g:id>SKU462</g:id>
@@ -704,7 +704,7 @@
     <g:price>5118.00 HKD</g:price>
     <g:brand>acer</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>laptop-business</g:product_type>
+    <g:product_type>商務筆電</g:product_type>
   </item>
   <item>
     <g:id>SKU463</g:id>
@@ -717,7 +717,7 @@
     <g:price>11549.00 HKD</g:price>
     <g:brand>acer</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>laptop-gaming</g:product_type>
+    <g:product_type>電競筆電</g:product_type>
   </item>
   <item>
     <g:id>SKU464</g:id>
@@ -730,7 +730,7 @@
     <g:price>4025.00 HKD</g:price>
     <g:brand>acer</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>laptop-everyday</g:product_type>
+    <g:product_type>日常筆電</g:product_type>
   </item>
   <item>
     <g:id>SKU467</g:id>
@@ -743,7 +743,7 @@
     <g:price>10799.00 HKD</g:price>
     <g:brand>acer</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>laptop-gaming</g:product_type>
+    <g:product_type>電競筆電</g:product_type>
   </item>
   <item>
     <g:id>SKU468</g:id>
@@ -756,7 +756,7 @@
     <g:price>9389.00 HKD</g:price>
     <g:brand>acer</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>laptop-business</g:product_type>
+    <g:product_type>商務筆電</g:product_type>
   </item>
   <item>
     <g:id>SKU480</g:id>
@@ -769,7 +769,7 @@
     <g:price>649.00 HKD</g:price>
     <g:brand>viewsonic</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU481</g:id>
@@ -782,7 +782,7 @@
     <g:price>919.00 HKD</g:price>
     <g:brand>viewsonic</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU482</g:id>
@@ -795,7 +795,7 @@
     <g:price>1209.00 HKD</g:price>
     <g:brand>viewsonic</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU483</g:id>
@@ -808,7 +808,7 @@
     <g:price>1029.00 HKD</g:price>
     <g:brand>viewsonic</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU484</g:id>
@@ -821,7 +821,7 @@
     <g:price>1209.00 HKD</g:price>
     <g:brand>viewsonic</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU485</g:id>
@@ -834,7 +834,7 @@
     <g:price>1455.00 HKD</g:price>
     <g:brand>viewsonic</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU486</g:id>
@@ -847,7 +847,7 @@
     <g:price>1759.00 HKD</g:price>
     <g:brand>viewsonic</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU487</g:id>
@@ -860,7 +860,7 @@
     <g:price>3036.00 HKD</g:price>
     <g:brand>viewsonic</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU488</g:id>
@@ -873,7 +873,7 @@
     <g:price>3036.00 HKD</g:price>
     <g:brand>viewsonic</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU489</g:id>
@@ -886,7 +886,7 @@
     <g:price>2024.00 HKD</g:price>
     <g:brand>viewsonic</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU490</g:id>
@@ -899,7 +899,7 @@
     <g:price>4554.00 HKD</g:price>
     <g:brand>viewsonic</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU500</g:id>
@@ -912,7 +912,7 @@
     <g:price>9085.00 HKD</g:price>
     <g:brand>dell</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>desktop</g:product_type>
+    <g:product_type>台式電腦</g:product_type>
   </item>
   <item>
     <g:id>SKU501</g:id>
@@ -925,7 +925,7 @@
     <g:price>7418.00 HKD</g:price>
     <g:brand>dell</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>desktop</g:product_type>
+    <g:product_type>台式電腦</g:product_type>
   </item>
   <item>
     <g:id>SKU502</g:id>
@@ -938,7 +938,7 @@
     <g:price>10809.00 HKD</g:price>
     <g:brand>dell</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>desktop</g:product_type>
+    <g:product_type>台式電腦</g:product_type>
   </item>
   <item>
     <g:id>SKU503</g:id>
@@ -951,7 +951,7 @@
     <g:price>3795.00 HKD</g:price>
     <g:brand>dell</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>desktop</g:product_type>
+    <g:product_type>台式電腦</g:product_type>
   </item>
   <item>
     <g:id>SKU504</g:id>
@@ -964,7 +964,7 @@
     <g:price>6038.00 HKD</g:price>
     <g:brand>dell</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>desktop</g:product_type>
+    <g:product_type>台式電腦</g:product_type>
   </item>
   <item>
     <g:id>SKU505</g:id>
@@ -977,7 +977,7 @@
     <g:price>6038.00 HKD</g:price>
     <g:brand>dell</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>desktop</g:product_type>
+    <g:product_type>台式電腦</g:product_type>
   </item>
   <item>
     <g:id>SKU510</g:id>
@@ -990,7 +990,7 @@
     <g:price>4149.00 HKD</g:price>
     <g:brand>benq</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU511</g:id>
@@ -1003,7 +1003,7 @@
     <g:price>5469.00 HKD</g:price>
     <g:brand>benq</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
   <item>
     <g:id>SKU512</g:id>
@@ -1016,7 +1016,7 @@
     <g:price>9179.00 HKD</g:price>
     <g:brand>benq</g:brand>
     <g:identifier_exists>no</g:identifier_exists>
-    <g:product_type>monitor</g:product_type>
+    <g:product_type>顯示器</g:product_type>
   </item>
 </channel>
 </rss>
