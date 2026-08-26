@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) · GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H76SZSZJ8C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H76SZSZJ8C');
+  document.addEventListener('click', function(e){
+    if (!e.target || !e.target.closest) return;
+    var wa = e.target.closest('a[href*="wa.me"], a[href*="whatsapp"]');
+    if (wa) { gtag('event', 'whatsapp_click', { method:'whatsapp', location: window.location.pathname, link_url: wa.href }); return; }
+    var tel = e.target.closest('a[href^="tel:"]');
+    if (tel) { gtag('event', 'phone_click', { method:'phone', location: window.location.pathname, link_url: tel.href }); }
+  });
+</script>
+<title>服務及收費｜澳門電腦維修、上門支援、網絡工程 - PC Shop 專業電腦店</title>
+<meta name="description" content="PC Shop 澳門服務一覽：電腦維修、上門 IT 支援、資料救援、網絡工程、打印機維修、POS 收銀系統。免費檢測及報價，服務全澳門及橫琴。WhatsApp 6392 8613。">
+<link rel="canonical" href="https://pcshop-net.com/service/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="服務及收費｜PC Shop 專業電腦店">
+<meta property="og:url" content="https://pcshop-net.com/service/">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首頁","item":"https://pcshop-net.com/"},{"@type":"ListItem","position":2,"name":"服務","item":"https://pcshop-net.com/service/"}]}</script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root { --primary:#4AADA8; --primary-dark:#358F8A; --secondary:#F4845F; --dark:#2D5F5D;
+          --text:#3D4A49; --light:#F5FAFA; --border:#D6ECEA; }
+  body { font-family:'Segoe UI','PingFang HK','Microsoft JhengHei',Arial,sans-serif;
+         background:var(--light); color:var(--text); line-height:1.75; }
+  a { color:var(--primary-dark); }
+  header { background:linear-gradient(135deg,var(--dark) 0%,#1E4745 100%); color:#fff;
+           padding:14px 20px; position:sticky; top:0; z-index:20; }
+  header nav { max-width:1000px; margin:0 auto; display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
+  header a { color:#fff; text-decoration:none; font-weight:600; font-size:.95rem; }
+  header .logo { font-size:1.15rem; flex:1; min-width:150px; }
+  .hero { background:var(--dark); color:#fff; padding:44px 20px 38px; text-align:center; }
+  .hero h1 { font-size:2rem; margin-bottom:12px; line-height:1.35; }
+  .hero p { max-width:680px; margin:0 auto; opacity:.92; }
+  .crumb { max-width:1000px; margin:0 auto; padding:12px 20px 0; font-size:.85rem; color:#6B7B7A; }
+  .crumb a { color:#6B7B7A; }
+  main { max-width:1000px; margin:0 auto; padding:8px 20px 48px; }
+  section { background:#fff; border:1px solid var(--border); border-radius:14px;
+            padding:26px 24px; margin:20px 0; }
+  h2 { color:var(--dark); font-size:1.4rem; margin-bottom:14px; }
+  h3 { color:var(--primary-dark); font-size:1.08rem; margin:18px 0 8px; }
+  ul { margin-left:20px; }
+  li { margin:6px 0; }
+  .tbl-wrap { overflow-x:auto; margin:12px 0 6px; }
+  table { width:100%; border-collapse:collapse; min-width:420px; }
+  th, td { padding:11px 14px; text-align:left; border-bottom:1px solid var(--border); }
+  th { background:var(--dark); color:#fff; font-weight:700; }
+  td.price { font-weight:700; color:var(--dark); white-space:nowrap; }
+  td .note { display:block; font-size:.82rem; color:#6B7B7A; font-weight:400; }
+  .foot-note { font-size:.86rem; color:#6B7B7A; margin-top:8px; }
+  ol.steps { counter-reset:s; list-style:none; margin:0; }
+  ol.steps li { counter-increment:s; position:relative; padding-left:42px; margin:12px 0; }
+  ol.steps li::before { content:counter(s); position:absolute; left:0; top:1px;
+    width:28px; height:28px; border-radius:50%; background:var(--primary); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.9rem; }
+  details { border:1px solid var(--border); border-radius:10px; padding:12px 16px; margin:10px 0; background:#fff; }
+  details summary { font-weight:700; color:var(--dark); cursor:pointer; }
+  details p { margin-top:10px; }
+  .cta { background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);
+         color:#fff; text-align:center; border:0; }
+  .cta h2 { color:#fff; }
+  .btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:16px; }
+  .btn { display:inline-block; padding:13px 26px; border-radius:30px; text-decoration:none;
+         font-weight:700; background:#fff; color:var(--primary-dark); }
+  .btn.alt { background:rgba(255,255,255,.15); color:#fff; border:2px solid rgba(255,255,255,.6); }
+  .rel { display:flex; gap:10px; flex-wrap:wrap; margin-top:6px; }
+  .rel a { display:inline-block; padding:8px 16px; border:1px solid var(--border);
+           border-radius:20px; background:#fff; text-decoration:none; font-size:.92rem; }
+  footer { background:var(--dark); color:rgba(255,255,255,.85); padding:30px 20px; text-align:center; font-size:.9rem; }
+  footer a { color:rgba(255,255,255,.85); }
+  footer .nap { margin-bottom:10px; }
+  @media (max-width:640px){ .hero h1 { font-size:1.5rem; } section { padding:20px 16px; } }
+</style>
+</head>
+<body>
+<header>
+  <nav>
+    <a class="logo" href="/">PC Shop 專業電腦店</a>
+    <a href="/service/">服務</a>
+    <a href="/shop.html">線上商店</a>
+    <a href="/blog/">技術文章</a>
+    <a href="/#contact">聯絡我們</a>
+  </nav>
+</header>
+<div class="hero">
+  <h1>服務及收費</h1>
+  <p>深耕澳門逾十年。免費檢測及報價，確認後才施工。服務全澳門及橫琴粵澳深度合作區。</p>
+</div>
+<div class="crumb"><a href="/">首頁</a> › 服務</div>
+<main>
+  <section>
+    <h2><a href="/service/repair.html" style="text-decoration:none;">澳門電腦維修服務</a></h2>
+    <p>免費檢測及報價，確認後才施工。臺式及手提電腦、各大品牌，門市維修或上門支援，服務全澳門及橫琴。</p>
+    <p style="margin-top:10px;"><a href="/service/repair.html">查看詳情及收費 →</a></p>
+  </section>
+  <section>
+    <h2><a href="/service/onsite.html" style="text-decoration:none;">澳門上門電腦維修及 IT 支援</a></h2>
+    <p>唔方便搬機？我哋上門。服務全澳門及橫琴粵澳深度合作區，企業、學校、酒店、診所及家居均可預約。</p>
+    <p style="margin-top:10px;"><a href="/service/onsite.html">查看詳情及收費 →</a></p>
+  </section>
+  <section>
+    <h2><a href="/service/data-recovery.html" style="text-decoration:none;">澳門資料救援及數據備份</a></h2>
+    <p>硬碟壞、誤刪檔案、電腦開唔到機 —— 唔好急住格式化。先攞嚟免費檢測，睇下救唔救得返。</p>
+    <p style="margin-top:10px;"><a href="/service/data-recovery.html">查看詳情及收費 →</a></p>
+  </section>
+  <section>
+    <h2><a href="/service/network.html" style="text-decoration:none;">澳門網絡工程及 Wi-Fi 安裝</a></h2>
+    <p>由一部路由器到成層寫字樓佈線，我哋規劃、施工、設定、驗收一條龍。服務全澳門及橫琴。</p>
+    <p style="margin-top:10px;"><a href="/service/network.html">查看詳情及收費 →</a></p>
+  </section>
+  <section>
+    <h2><a href="/service/printer.html" style="text-decoration:none;">澳門打印機維修及保養</a></h2>
+    <p>噴墨、鐳射到卡片打印機都做。免費檢測報價，企業客戶可安排定期清潔保養。</p>
+    <p style="margin-top:10px;"><a href="/service/printer.html">查看詳情及收費 →</a></p>
+  </section>
+  <section>
+    <h2><a href="/service/pos.html" style="text-decoration:none;">澳門 POS 收銀系統</a></h2>
+    <p>軟件、硬件、安裝、培訓、售後由同一間跟。餐飲、零售、美容及服務業都用得。</p>
+    <p style="margin-top:10px;"><a href="/service/pos.html">查看詳情及收費 →</a></p>
+  </section>
+<section class="cta">
+  <h2>需要查詢？</h2>
+  <p>免費檢測及報價，確認後才施工。WhatsApp 傳個型號或者影張相畀我哋，即刻可以初步判斷。</p>
+  <div class="btns">
+    <a class="btn" href="https://wa.me/85263928613">WhatsApp 6392 8613</a>
+    <a class="btn alt" href="tel:28403503">致電 2840 3503</a>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="nap"><strong>PC Shop 專業電腦店</strong> · 澳門雅廉訪大馬路幸運閣商場 BG 舖</div>
+  <div class="nap">電話 <a href="tel:28403503">2840 3503</a> · WhatsApp <a href="https://wa.me/85263928613">6392 8613</a> · <a href="mailto:info@pcshop-net.com">info@pcshop-net.com</a></div>
+  <div class="nap">星期一至六 10:30 – 19:30（星期日及公眾假期休息）</div>
+  <div style="margin-top:12px;opacity:.6;">© PC Shop 專業電腦店 · 深耕澳門逾十年</div>
+</footer>
+</body>
+</html>
