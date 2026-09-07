@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>給 PC Shop 評價 | 澳門專業電腦店</title>
+<title>Leave PC Shop a Review | Computer Store in Macau</title>
 <meta name="robots" content="noindex, follow">
 <!-- Google tag (gtag.js) · GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-H76SZSZJ8C"></script>
@@ -41,7 +41,7 @@
   .contact a{ color:var(--primary-dark); text-decoration:none; font-weight:700; }
   .note{ display:none; background:#FFF6E5; color:#8a6d3b; font-size:.82rem; padding:12px; border-radius:10px; margin-bottom:18px; text-align:left; line-height:1.6; }
 </style>
-
+<link rel="canonical" href="https://pcshop-net.com/en/review.html">
 <link rel="alternate" hreflang="zh-Hant" href="https://pcshop-net.com/review.html">
 <link rel="alternate" hreflang="en" href="https://pcshop-net.com/en/review.html">
 <link rel="alternate" hreflang="x-default" href="https://pcshop-net.com/review.html">
@@ -58,25 +58,25 @@
   @media print { .lang-switch { display:none; } }
 </style>
 </head>
-<body><nav class="lang-switch" aria-label="Language"><a href="#" class="lang-on" hreflang="zh-Hant" lang="zh-Hant">繁體</a><a href="https://pcshop-net.com/en/review.html" class="" hreflang="en" lang="en">EN</a></nav>
+<body><nav class="lang-switch" aria-label="Language"><a href="https://pcshop-net.com/review.html" class="" hreflang="zh-Hant" lang="zh-Hant">繁體</a><a href="#" class="lang-on" hreflang="en" lang="en">EN</a></nav>
   <div class="card">
-    <div class="brand">🖥️ PC Shop 專業電腦店 <small>PROFESSIONAL COMPUTER SHOP</small></div>
+    <div class="brand">🖥️ PC Shop <small>PROFESSIONAL COMPUTER SHOP</small></div>
     <div class="stars">⭐⭐⭐⭐⭐</div>
-    <h1>多謝您選擇 PC Shop！</h1>
-    <p class="lead">您的一句好評，是我們持續進步的最大動力。<br>只需 30 秒，在 Google 上分享您的體驗，讓更多澳門朋友認識我們。</p>
+    <h1>Thank you for choosing PC Shop!</h1>
+    <p class="lead">A few words from you is the best encouragement we get.<br>It takes 30 seconds — share your experience on Google and help more people in Macau find us.</p>
 
     <div class="note" id="setupNote">
-      ⚙️ <strong>尚未設定：</strong>請把頁面內的 <code>REVIEW_URL</code> 換成貴店 Google 商家檔案的「留評論」連結（商家檔案 → 獲得更多評論 → 複製連結）。
+      ⚙️ <strong>Not configured yet: </strong>replace the page’s <code>REVIEW_URL</code> with the shop’s Google Business Profile review link (Business Profile → Get more reviews → Copy link).
     </div>
 
-    <a class="btn btn-google" id="reviewBtn" href="#" onclick="return goReview()">⭐ 在 Google 上給我們評價</a>
-    <a class="btn btn-wa" id="shareBtn" href="#" onclick="return shareWa()">💬 推薦畀朋友</a>
+    <a class="btn btn-google" id="reviewBtn" href="#" onclick="return goReview()">⭐ Review us on Google</a>
+    <a class="btn btn-wa" id="shareBtn" href="#" onclick="return shareWa()">💬 Tell a friend</a>
 
     <div class="divider"></div>
     <div class="contact">
-      查詢：<a href="https://wa.me/85363928613">WhatsApp 6392 8613</a> ·
+      Enquiries: <a href="https://wa.me/85363928613">WhatsApp 6392 8613</a> ·
       <a href="tel:28403503">2840 3503</a><br>
-      澳門雅廉訪大馬路幸運閣商場 BG 舖
+      Shop BG, Hang Wan Kok Mall, Avenida do Ouvidor Arriaga, Macau
     </div>
   </div>
 
@@ -85,14 +85,14 @@
   if (!isSet) { document.getElementById('setupNote').style.display = 'block'; }
 
   function goReview(){
-    if (typeof gtag === 'function') gtag('event','review_click',{ method:'google', location:'/review.html' });
+    if (typeof gtag === 'function') gtag('event','review_click',{ method:'google', location:'/en/review.html' });
     if (!isSet){ document.getElementById('setupNote').style.display='block'; return false; }
     window.open(REVIEW_URL, '_blank');
     return false;
   }
   function shareWa(){
-    if (typeof gtag === 'function') gtag('event','review_share',{ method:'whatsapp', location:'/review.html' });
-    var msg = encodeURIComponent('推薦 PC Shop 專業電腦店（澳門）！電腦、維修、電子白板一站式：https://pcshop-net.com');
+    if (typeof gtag === 'function') gtag('event','review_share',{ method:'whatsapp', location:'/en/review.html' });
+    var msg = encodeURIComponent('I recommend PC Shop in Macau — computers, repairs and interactive whiteboards in one place: https://pcshop-net.com');
     window.open('https://wa.me/?text=' + msg, '_blank');
     return false;
   }

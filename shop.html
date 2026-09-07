@@ -25,6 +25,9 @@
 <meta name="author" content="PC Shop 專業電腦店">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://pcshop-net.com/shop.html">
+<link rel="alternate" hreflang="zh-Hant" href="https://pcshop-net.com/shop.html">
+<link rel="alternate" hreflang="en" href="https://pcshop-net.com/en/shop.html">
+<link rel="alternate" hreflang="x-default" href="https://pcshop-net.com/shop.html">
 <!-- Open Graph for Facebook / Social sharing -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="PC Shop 專業電腦店 | 澳門電腦、顯示器、電競裝備">
@@ -50,7 +53,7 @@
   "priceRange": "$$",
   "email": "info@pcshop-net.com",
   "sameAs": [
-    "https://www.facebook.com/專業電腦店"
+    "https://www.facebook.com/pcshopmacau"
   ]
 }
 </script>
@@ -1476,6 +1479,18 @@
   }
 
 </style>
+
+<style>
+  .lang-switch { display:inline-flex; align-items:center; gap:2px; vertical-align:middle;
+    background:rgba(255,255,255,.14); border-radius:20px; padding:3px 4px; margin-right:8px;
+    font-family:'Segoe UI','PingFang HK','Microsoft JhengHei',Arial,sans-serif; }
+  .lang-switch a { color:rgba(255,255,255,.78); text-decoration:none; font-size:.8rem;
+    font-weight:700; padding:5px 10px; border-radius:16px; line-height:1; white-space:nowrap; }
+  .lang-switch a.lang-on { background:#fff; color:#2D5F5D; }
+  .lang-switch a:not(.lang-on):hover { color:#fff; background:rgba(255,255,255,.16); }
+  @media (max-width:640px){ .lang-switch a { padding:5px 8px; font-size:.76rem; } }
+  @media print { .lang-switch { display:none; } }
+</style>
 </head>
 <body>
 
@@ -1496,6 +1511,7 @@
       <a href="index.html#contact" style="color:rgba(255,255,255,0.6);font-size:0.85rem;">聯絡我們</a>
     </div>
     <div class="corp-nav-actions">
+      <nav class="lang-switch" aria-label="Language"><a href="#" class="lang-on" hreflang="zh-Hant" lang="zh-Hant">繁體</a><a href="https://pcshop-net.com/en/shop.html" class="" hreflang="en" lang="en">EN</a></nav>
       <button class="corp-search-toggle" onclick="toggleShopSearch()" title="搜尋">🔍</button>
       <button class="corp-cart-btn" onclick="openCart()">
         🛒 購物車
