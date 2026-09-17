@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>訂單管理｜PC Shop</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<!-- Customer data and a session token live on this page: allow nothing but our own
+     scripts and the order API, so an injected script has nowhere to send them. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://uxoacipysaczewlkjmsr.supabase.co; connect-src https://uxoacipysaczewlkjmsr.supabase.co; base-uri 'none'; form-action 'none'">
+<style>
+  :root {
+    --primary: #4AADA8; --primary-dark: #358F8A; --dark: #2D5F5D; --text: #2F3B3A; --muted: #6B7A79;
+    --light: #F3F8F8; --border: #D6ECEA; --danger: #C9453F; --warn: #C98A1A; --ok: #2E8B57; --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', 'PingFang HK', 'Microsoft JhengHei', Arial, sans-serif; background: var(--light); color: var(--text); line-height: 1.55; font-size: 15px; }
+  [hidden] { display: none !important; }
+  header { background: linear-gradient(135deg, var(--dark), #1E4745); color: #fff; padding: 12px 16px; position: sticky; top: 0; z-index: 5; }
+  header .inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  header b { font-size: 1.05rem; }
+  header .who { font-size: .8rem; opacity: .8; }
+  header button { background: rgba(255,255,255,.15); color: #fff; border: 0; border-radius: 8px; padding: 6px 10px; font: inherit; font-size: .82rem; cursor: pointer; }
+  main { max-width: 900px; margin: 0 auto; padding: 16px 12px 60px; }
+
+  .card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; }
+  h1 { font-size: 1.2rem; color: var(--dark); margin-bottom: 6px; }
+  h2 { font-size: 1rem; color: var(--dark); margin-bottom: 10px; }
+  .muted { color: var(--muted); font-size: .85rem; }
+
+  label { display: block; font-size: .85rem; color: var(--muted); margin: 12px 0 4px; }
+  input { width: 100%; padding: 11px 12px; border: 1.5px solid var(--border); border-radius: 10px; font: inherit; }
+  input:focus { outline: none; border-color: var(--primary); }
+  input.code { font-size: 1.5rem; letter-spacing: 8px; text-align: center; font-family: Consolas, monospace; }
+
+  .btn { display: inline-block; border: 0; border-radius: 10px; padding: 11px 16px; font: inherit; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none; }
+  .btn:disabled { opacity: .55; cursor: wait; }
+  .btn-block { display: block; width: 100%; margin-top: 14px; }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-ok { background: var(--ok); color: #fff; }
+  .btn-danger { background: #fff; color: var(--danger); border: 1.5px solid var(--danger); }
+  .btn-ghost { background: #fff; color: var(--primary-dark); border: 1.5px solid var(--primary); }
+  .btn-sm { padding: 6px 10px; font-size: .82rem; font-weight: 600; }
+  .link { background: none; border: 0; color: var(--primary-dark); font: inherit; font-size: .85rem; cursor: pointer; text-decoration: underline; margin-top: 10px; }
+
+  .msg { margin-top: 12px; border-radius: 10px; padding: 10px 12px; font-size: .88rem; }
+  .msg.err { background: #FDECEA; color: #8A2C28; border: 1px solid #F5C6C3; }
+  .msg.info { background: #EAF6F5; color: var(--dark); border: 1px solid var(--border); }
+
+  .tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 12px; }
+  .tab { flex-shrink: 0; border: 1.5px solid var(--border); background: #fff; border-radius: 20px; padding: 6px 12px; font: inherit; font-size: .85rem; cursor: pointer; color: var(--text); }
+  .tab[aria-selected="true"] { background: var(--dark); border-color: var(--dark); color: #fff; }
+  .tab .n { display: inline-block; min-width: 18px; margin-left: 4px; padding: 0 5px; border-radius: 9px; background: rgba(0,0,0,.08); font-size: .75rem; }
+  .tab[aria-selected="true"] .n { background: rgba(255,255,255,.25); }
+  .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+
+  .order { display: block; width: 100%; text-align: left; background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 8px; cursor: pointer; font: inherit; color: inherit; }
+  .order:hover { border-color: var(--primary); }
+  .order .top { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+  .order .no { font-family: Consolas, monospace; font-weight: 700; }
+  .order .amt { font-weight: 800; color: var(--dark); white-space: nowrap; }
+  .order .mid { display: flex; justify-content: space-between; gap: 8px; margin-top: 4px; font-size: .88rem; }
+  .order .when { color: var(--muted); font-size: .8rem; margin-top: 2px; }
+
+  .badge { display: inline-block; font-size: .75rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+  .s-pending_payment { background: #FFF4DE; color: #8A5A00; }
+  .s-proof_submitted { background: #E3F0FF; color: #1E5AA8; }
+  .s-paid { background: #E1F4E8; color: #1F6B3E; }
+  .s-cancelled { background: #EEEEEE; color: #666; }
+
+  .empty { text-align: center; color: var(--muted); padding: 40px 10px; }
+
+  dl.kv { display: grid; grid-template-columns: 84px 1fr; gap: 6px 10px; font-size: .92rem; }
+  dl.kv dt { color: var(--muted); }
+  dl.kv dd { word-break: break-word; }
+  table.items { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  table.items td { padding: 6px 0; border-bottom: 1px solid #EEF4F3; vertical-align: top; }
+  table.items td:last-child { text-align: right; white-space: nowrap; padding-left: 10px; }
+  table.items tr.sum td { font-weight: 800; border-bottom: 0; }
+
+  .proofs { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .proof { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #FAFDFD; }
+  .proof a { display: block; background: #F0F4F4; }
+  .proof img { display: block; width: 100%; height: 190px; object-fit: contain; }
+  .proof .meta { padding: 8px; font-size: .78rem; color: var(--muted); }
+  .proof .meta b { color: var(--text); }
+
+  .actions { display: grid; gap: 8px; }
+  .verify-note { background: #FFF8E6; border: 1px solid #F1DBA6; border-radius: 10px; padding: 10px 12px; font-size: .86rem; margin-bottom: 10px; }
+  ul.events { list-style: none; font-size: .85rem; }
+  ul.events li { padding: 6px 0; border-bottom: 1px solid #EEF4F3; }
+  ul.events li:last-child { border-bottom: 0; }
+
+  dialog { border: 0; border-radius: 14px; padding: 20px; max-width: 420px; width: calc(100% - 32px); }
+  dialog::backdrop { background: rgba(0,0,0,.45); }
+  dialog h2 { margin-bottom: 8px; }
+  dialog .row { display: flex; gap: 8px; margin-top: 16px; }
+  dialog .row .btn { flex: 1; }
+</style>
+</head>
+<body>
+<header>
+  <div class="inner">
+    <div><b>PC Shop 訂單管理</b><div class="who" id="who"></div></div>
+    <button type="button" id="logoutBtn" hidden>登出</button>
+  </div>
+</header>
+
+<main>
+  <!-- ============================== sign in -->
+  <section id="vLogin" class="card" hidden>
+    <h1>登入</h1>
+    <p class="muted">輸入管理人員電郵，系統會發送一次性驗證碼。</p>
+
+    <div id="stepEmail">
+      <label for="emailInput">電郵</label>
+      <input type="email" id="emailInput" autocomplete="email" inputmode="email" placeholder="name@pcshop-net.com">
+      <button type="button" class="btn btn-primary btn-block" id="sendCodeBtn">發送驗證碼</button>
+    </div>
+
+    <div id="stepCode" hidden>
+      <p class="msg info" id="codeSentMsg"></p>
+      <label for="codeInput">驗證碼（6 位數字）</label>
+      <input type="text" id="codeInput" class="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••">
+      <button type="button" class="btn btn-primary btn-block" id="verifyBtn">登入</button>
+      <button type="button" class="link" id="backBtn">更改電郵或重新發送</button>
+    </div>
+
+    <div class="msg err" id="loginErr" role="alert" hidden></div>
+  </section>
+
+  <!-- ============================== list -->
+  <section id="vList" hidden>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="toolbar">
+      <span class="muted" id="listInfo"></span>
+      <button type="button" class="btn btn-ghost btn-sm" id="refreshBtn">重新整理</button>
+    </div>
+    <div id="orders"></div>
+    <div class="msg err" id="listErr" role="alert" hidden></div>
+  </section>
+
+  <!-- ============================== detail -->
+  <section id="vDetail" hidden>
+    <button type="button" class="btn btn-ghost btn-sm" id="backToList" style="margin-bottom:12px;">← 返回訂單列表</button>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;">
+        <h1 id="dNo" style="font-family:Consolas,monospace;"></h1>
+        <span class="badge" id="dStatus"></span>
+      </div>
+      <div style="font-size:1.6rem;font-weight:800;color:var(--dark);" id="dMop"></div>
+      <div class="muted" id="dHkd"></div>
+      <div class="muted" id="dTimes" style="margin-top:6px;"></div>
+    </div>
+
+    <div class="card">
+      <h2>付款證明</h2>
+      <div id="dProofs"></div>
+    </div>
+
+    <div class="card">
+      <h2>處理</h2>
+      <div class="verify-note">標記「已收款」前，請先於中國銀行或澳門通商戶平台核實款項確已到帳。截圖只作通知，不能作為收款憑證。</div>
+      <div class="actions" id="dActions"></div>
+      <div class="msg err" id="actionErr" role="alert" hidden></div>
+    </div>
+
+    <div class="card">
+      <h2>客戶資料</h2>
+      <dl class="kv" id="dCustomer"></dl>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;" id="dContact"></div>
+    </div>
+
+    <div class="card">
+      <h2>訂購貨品</h2>
+      <table class="items"><tbody id="dItems"></tbody></table>
+    </div>
+
+    <div class="card">
+      <h2>處理紀錄</h2>
+      <ul class="events" id="dEvents"></ul>
+    </div>
+  </section>
+</main>
+
+<dialog id="confirmDlg">
+  <h2 id="cfTitle"></h2>
+  <p id="cfText" style="font-size:.92rem;"></p>
+  <div class="row">
+    <button type="button" class="btn btn-ghost" id="cfCancel">返回</button>
+    <button type="button" class="btn" id="cfOk"></button>
+  </div>
+</dialog>
+
+<script>
+(function () {
+  var API = 'https://uxoacipysaczewlkjmsr.supabase.co/functions/v1/shop-admin';
+  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4b2FjaXB5c2FjemV3bGtqbXNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2MzcwNTAsImV4cCI6MjEwNTIxMzA1MH0.8VJHU9iuBsNrRAKUD-DTfV5UBeHEZCxPagQVj_2DQcc';
+  var TOKEN_KEY = 'pcshop_admin_session';
+
+  var STATUS = {
+    proof_submitted: '已上傳付款證明',
+    pending_payment: '待付款',
+    paid: '已收款',
+    cancelled: '已取消'
+  };
+  // Proofs waiting to be checked come first: that is the tab that needs action.
+  var TAB_ORDER = ['proof_submitted', 'pending_payment', 'paid', 'cancelled', 'all'];
+  var METHOD = { macaupass: '澳門通掃碼（MPay／微信／支付寶）', boc_mop: '中銀轉帳・澳門元戶口', boc_hkd: '中銀轉帳・港幣戶口' };
+  var ERR = {
+    invalid_code: '驗證碼不正確或已失效。請使用最新一封電郵中的驗證碼。',
+    too_many_attempts: '輸入錯誤次數過多，請重新發送驗證碼。',
+    too_many_codes: '一小時內發送次數過多，請稍後再試。',
+    email_failed: '驗證碼電郵未能發出，請稍後再試。',
+    changed_elsewhere: '此訂單剛被其他人更新，已重新載入最新狀態。',
+    network: '網絡連線中斷，請檢查網絡後再試。',
+    server_error: '系統暫時未能處理，請稍後再試。'
+  };
+
+  var state = { tab: 'proof_submitted', current: null, email: '' };
+
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function fmt(n) { return Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 }); }
+  function when(iso) {
+    return iso ? new Date(iso).toLocaleString('zh-HK', { timeZone: 'Asia/Macau', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) : '—';
+  }
+  function token() { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } }
+  function setToken(t) { try { t ? localStorage.setItem(TOKEN_KEY, t) : localStorage.removeItem(TOKEN_KEY); } catch (e) {} }
+
+  function show(view) {
+    ['vLogin', 'vList', 'vDetail'].forEach(function (v) { $(v).hidden = v !== view; });
+    $('logoutBtn').hidden = view === 'vLogin';
+    window.scrollTo(0, 0);
+  }
+  function showErr(id, code) { $(id).textContent = ERR[code] || ERR.server_error; $(id).hidden = false; }
+  function hideErr(id) { $(id).hidden = true; }
+
+  function call(method, path, body) {
+    var headers = { Authorization: 'Bearer ' + ANON, apikey: ANON, 'x-admin-token': token() };
+    if (body) headers['Content-Type'] = 'application/json';
+    return fetch(API + path, { method: method, headers: headers, body: body ? JSON.stringify(body) : undefined, cache: 'no-store' })
+      .then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (b) {
+          if (r.status === 401) { signedOut(); throw { code: 'unauthorized' }; }
+          if (!r.ok) throw { code: b.error || 'server_error', status: r.status };
+          return b;
+        });
+      }, function () { throw { code: 'network' }; });
+  }
+
+  function signedOut() {
+    setToken('');
+    $('who').textContent = '';
+    $('stepEmail').hidden = false;
+    $('stepCode').hidden = true;
+    show('vLogin');
+  }
+
+  // ---------------------------------------------------------------- sign in
+  $('sendCodeBtn').addEventListener('click', function () {
+    hideErr('loginErr');
+    var email = $('emailInput').value.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { $('loginErr').textContent = '請輸入有效的電郵地址。'; $('loginErr').hidden = false; return; }
+    var btn = this; btn.disabled = true; btn.textContent = '正在發送…';
+    call('POST', '/request-code', { email: email })
+      .then(function () {
+        state.email = email;
+        // Same wording whether or not the address is an admin: the page must not
+        // reveal which addresses are allowed.
+        $('codeSentMsg').textContent = '如 ' + email + ' 為管理人員電郵，驗證碼已經發出，10 分鐘內有效。';
+        $('stepEmail').hidden = true; $('stepCode').hidden = false;
+        $('codeInput').value = ''; $('codeInput').focus();
+      })
+      .catch(function (e) { if (e.code !== 'unauthorized') showErr('loginErr', e.code); })
+      .then(function () { btn.disabled = false; btn.textContent = '發送驗證碼'; });
+  });
+
+  $('codeInput').addEventListener('input', function () {
+    this.value = this.value.replace(/\D/g, '').slice(0, 6);
+    if (this.value.length === 6) $('verifyBtn').click();
+  });
+
+  $('verifyBtn').addEventListener('click', function () {
+    hideErr('loginErr');
+    var code = $('codeInput').value;
+    if (code.length !== 6) { showErr('loginErr', 'invalid_code'); return; }
+    var btn = this; if (btn.disabled) return;
+    btn.disabled = true; btn.textContent = '正在登入…';
+    call('POST', '/verify', { email: state.email, code: code })
+      .then(function (r) {
+        setToken(r.token);
+        try { localStorage.setItem(TOKEN_KEY + '_email', r.email); } catch (e) {}
+        $('who').textContent = r.email;
+        loadList();
+      })
+      .catch(function (e) { showErr('loginErr', e.code); $('codeInput').select(); })
+      .then(function () { btn.disabled = false; btn.textContent = '登入'; });
+  });
+
+  $('backBtn').addEventListener('click', function () {
+    hideErr('loginErr');
+    $('stepEmail').hidden = false; $('stepCode').hidden = true;
+  });
+
+  $('logoutBtn').addEventListener('click', function () {
+    call('POST', '/logout').catch(function () {}).then(signedOut);
+  });
+
+  // ---------------------------------------------------------------- list
+  function loadList() {
+    hideErr('listErr');
+    show('vList');
+    $('orders').innerHTML = '<div class="empty">正在載入…</div>';
+    var q = state.tab === 'all' ? '' : '?status=' + state.tab;
+    return call('GET', '/orders' + q)
+      .then(function (r) {
+        renderTabs(r.counts);
+        $('listInfo').textContent = '更新於 ' + when(new Date().toISOString());
+        if (!r.orders.length) { $('orders').innerHTML = '<div class="empty">沒有訂單</div>'; return; }
+        $('orders').innerHTML = r.orders.map(function (o) {
+          return '<button type="button" class="order" data-id="' + esc(o.id) + '">' +
+            '<div class="top"><span class="no">' + esc(o.order_no) + '</span><span class="amt">MOP ' + fmt(o.total_mop) + '</span></div>' +
+            '<div class="mid"><span>' + esc(o.customer_name) + '　' + esc(o.phone) + '</span><span class="badge s-' + esc(o.status) + '">' + esc(STATUS[o.status] || o.status) + '</span></div>' +
+            '<div class="when">下單 ' + when(o.created_at) + (o.proofs ? '　・　付款證明 ' + o.proofs + ' 張' : '') + (o.lang === 'en' ? '　・　英文網站' : '') + '</div>' +
+            '</button>';
+        }).join('');
+      })
+      .catch(function (e) { if (e.code !== 'unauthorized') { $('orders').innerHTML = ''; showErr('listErr', e.code); } });
+  }
+
+  function renderTabs(counts) {
+    $('tabs').innerHTML = TAB_ORDER.map(function (k) {
+      var label = k === 'all' ? '全部' : STATUS[k];
+      return '<button type="button" class="tab" role="tab" data-tab="' + k + '" aria-selected="' + (state.tab === k) + '">' +
+        label + '<span class="n">' + (counts && counts[k] != null ? counts[k] : 0) + '</span></button>';
+    }).join('');
+  }
+
+  $('tabs').addEventListener('click', function (e) {
+    var t = e.target.closest('.tab'); if (!t) return;
+    state.tab = t.dataset.tab; loadList();
+  });
+  $('orders').addEventListener('click', function (e) {
+    var o = e.target.closest('.order'); if (!o) return;
+    loadDetail(o.dataset.id);
+  });
+  $('refreshBtn').addEventListener('click', loadList);
+  $('backToList').addEventListener('click', loadList);
+
+  // ---------------------------------------------------------------- detail
+  function waNumber(phone) {
+    var d = String(phone || '').replace(/\D/g, '');
+    if (d.length === 8) d = '853' + d;   // Macau mobile without country code
+    return d.length >= 10 ? d : '';
+  }
+
+  function loadDetail(id) {
+    hideErr('actionErr');
+    return call('GET', '/order?id=' + encodeURIComponent(id))
+      .then(function (r) { state.current = r.order; renderDetail(r); show('vDetail'); })
+      .catch(function (e) { if (e.code !== 'unauthorized') showErr('listErr', e.code); });
+  }
+
+  function renderDetail(r) {
+    var o = r.order;
+    $('dNo').textContent = o.order_no;
+    $('dStatus').className = 'badge s-' + o.status;
+    $('dStatus').textContent = STATUS[o.status] || o.status;
+    $('dMop').textContent = 'MOP ' + fmt(o.total_mop);
+    $('dHkd').textContent = 'HK$' + fmt(o.total_hkd) + '（匯率 1 : ' + Number(o.hkd_to_mop) + '）';
+    $('dTimes').innerHTML = '下單：' + esc(when(o.created_at)) +
+      (o.proof_submitted_at ? '<br>上傳證明：' + esc(when(o.proof_submitted_at)) : '') +
+      (o.paid_at ? '<br>標記已收款：' + esc(when(o.paid_at)) + (o.status_changed_by ? '（' + esc(o.status_changed_by) + '）' : '') : '');
+
+    // proofs
+    if (!r.proofs.length) {
+      $('dProofs').innerHTML = '<p class="muted">客戶尚未上傳付款證明。</p>';
+    } else {
+      $('dProofs').innerHTML = '<div class="proofs">' + r.proofs.map(function (p) {
+        var notify = p.notified_at ? '已電郵通知' : (p.notify_error ? '<span style="color:var(--danger)">電郵通知失敗</span>' : '通知處理中');
+        var img = p.url
+          ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener noreferrer"><img src="' + esc(p.url) + '" alt="付款證明" referrerpolicy="no-referrer"></a>'
+          : '<div class="empty" style="padding:20px">未能載入圖片</div>';
+        return '<div class="proof">' + img + '<div class="meta"><b>' + esc(METHOD[p.method] || p.method) + '</b><br>' +
+          esc(when(p.created_at)) + '<br>' + notify + '</div></div>';
+      }).join('') + '</div><p class="muted" style="margin-top:8px;">圖片連結 15 分鐘內有效；逾時請重新開啟此訂單。按圖片可開啟原圖。</p>';
+    }
+
+    // actions
+    var btns = [];
+    if (o.status === 'pending_payment' || o.status === 'proof_submitted') {
+      btns.push('<button type="button" class="btn btn-ok" data-to="paid">標記已收款</button>');
+      btns.push('<button type="button" class="btn btn-danger" data-to="cancelled">取消訂單</button>');
+    } else if (o.status === 'paid') {
+      btns.push('<p class="muted">此訂單已標記為已收款。如標記有誤，可改回：</p>');
+      btns.push('<button type="button" class="btn btn-ghost" data-to="' + (r.proofs.length ? 'proof_submitted' : 'pending_payment') + '">撤銷「已收款」</button>');
+    } else if (o.status === 'cancelled') {
+      btns.push('<button type="button" class="btn btn-ghost" data-to="' + (r.proofs.length ? 'proof_submitted' : 'pending_payment') + '">恢復訂單</button>');
+    }
+    $('dActions').innerHTML = btns.join('');
+
+    // customer
+    var rows = [['姓名', o.customer_name], ['電話', o.phone], ['電郵', o.email], ['地區', o.district], ['地址', o.address], ['網站', o.lang === 'en' ? '英文' : '中文']];
+    $('dCustomer').innerHTML = rows.map(function (x) { return '<dt>' + x[0] + '</dt><dd>' + esc(x[1] || '—') + '</dd>'; }).join('');
+    var wa = waNumber(o.phone);
+    var contact = [];
+    if (wa) contact.push('<a class="btn btn-primary btn-sm" href="https://wa.me/' + wa + '" target="_blank" rel="noopener noreferrer">WhatsApp 客戶</a>');
+    if (o.phone) contact.push('<a class="btn btn-ghost btn-sm" href="tel:' + esc(String(o.phone).replace(/[^\d+]/g, '')) + '">致電</a>');
+    if (o.email) contact.push('<a class="btn btn-ghost btn-sm" href="mailto:' + esc(o.email) + '">電郵</a>');
+    $('dContact').innerHTML = contact.join('');
+
+    // items
+    var items = (o.items || []).map(function (i) {
+      return '<tr><td>' + esc(i.name) + ' × ' + Number(i.qty) + '</td><td>HK$' + fmt(i.price * i.qty) + '</td></tr>';
+    });
+    items.push('<tr><td>運費</td><td>' + (Number(o.shipping_hkd) ? 'HK$' + fmt(o.shipping_hkd) : '免費（門市自取）') + '</td></tr>');
+    if (Number(o.discount_hkd)) items.push('<tr><td>優惠</td><td>-HK$' + fmt(o.discount_hkd) + '</td></tr>');
+    items.push('<tr class="sum"><td>總計</td><td>HK$' + fmt(o.total_hkd) + '<br>MOP ' + fmt(o.total_mop) + '</td></tr>');
+    $('dItems').innerHTML = items.join('');
+
+    // history
+    var ev = ['<li>' + esc(when(o.created_at)) + '　客戶提交訂單</li>'];
+    r.proofs.forEach(function (p) { ev.push({ t: p.created_at, html: '<li>' + esc(when(p.created_at)) + '　客戶上傳付款證明</li>' }); });
+    r.events.forEach(function (e) {
+      ev.push({ t: e.created_at, html: '<li>' + esc(when(e.created_at)) + '　' + esc(e.actor) + '：' +
+        esc(STATUS[e.from_status] || e.from_status) + ' → <b>' + esc(STATUS[e.to_status] || e.to_status) + '</b></li>' });
+    });
+    var first = ev.shift();
+    ev.sort(function (a, b) { return a.t < b.t ? -1 : 1; });
+    $('dEvents').innerHTML = first + ev.map(function (x) { return x.html; }).join('');
+  }
+
+  // ---------------------------------------------------------------- status change
+  var pending = null;
+  $('dActions').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-to]'); if (!b || !state.current) return;
+    var o = state.current, to = b.dataset.to;
+    pending = { id: o.id, to: to };
+    var ok = $('cfOk');
+    if (to === 'paid') {
+      $('cfTitle').textContent = '確認已收款？';
+      $('cfText').innerHTML = '訂單 <b>' + esc(o.order_no) + '</b>　應收 <b>MOP ' + fmt(o.total_mop) + '</b>（HK$' + fmt(o.total_hkd) + '）。<br><br>請確認已於中國銀行或澳門通商戶平台核實款項確已到帳。';
+      ok.className = 'btn btn-ok'; ok.textContent = '已核實，標記已收款';
+    } else if (to === 'cancelled') {
+      $('cfTitle').textContent = '取消此訂單？';
+      $('cfText').innerHTML = '訂單 <b>' + esc(o.order_no) + '</b> 將標記為已取消，客戶的付款頁面亦會顯示「此訂單已取消」。';
+      ok.className = 'btn btn-danger'; ok.textContent = '取消訂單';
+    } else {
+      $('cfTitle').textContent = '更改訂單狀態？';
+      $('cfText').innerHTML = '訂單 <b>' + esc(o.order_no) + '</b> 將改為「' + esc(STATUS[to]) + '」。';
+      ok.className = 'btn btn-primary'; ok.textContent = '確認更改';
+    }
+    $('confirmDlg').showModal();
+  });
+
+  $('cfCancel').addEventListener('click', function () { pending = null; $('confirmDlg').close(); });
+
+  // The dialog stays open, showing progress, until the order has been re-read.
+  // Saving and re-reading take several seconds together; closing the dialog as
+  // soon as the save returned left the old status on screen long enough to look
+  // like the click had not worked.
+  $('cfOk').addEventListener('click', function () {
+    if (!pending) return;
+    var p = pending, btn = this, label = btn.textContent;
+    btn.disabled = true; $('cfCancel').disabled = true;
+    btn.textContent = '正在處理…';
+    function finish() {
+      $('confirmDlg').close();
+      btn.disabled = false; $('cfCancel').disabled = false;
+      btn.textContent = label; pending = null;
+    }
+    call('POST', '/status', { id: p.id, status: p.to })
+      .then(function () { return loadDetail(p.id); })
+      .then(finish)
+      .catch(function (e) {
+        finish();
+        if (e.code === 'unauthorized') return;
+        if (e.code === 'changed_elsewhere') {
+          loadDetail(p.id).then(function () { showErr('actionErr', 'changed_elsewhere'); });
+        } else {
+          showErr('actionErr', e.code);
+        }
+      });
+  });
+  // Escape would otherwise close the dialog mid-save.
+  $('confirmDlg').addEventListener('cancel', function (e) { if ($('cfOk').disabled) e.preventDefault(); });
+
+  // ---------------------------------------------------------------- start
+  if (token()) {
+    try { $('who').textContent = localStorage.getItem(TOKEN_KEY + '_email') || ''; } catch (e) {}
+    loadList();
+  } else {
+    signedOut();
+  }
+})();
+</script>
+</body>
+</html>
