@@ -589,12 +589,6 @@
     font-family: inherit;
   }
   .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
-  .payment-methods { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  @media (min-width: 480px) { .payment-methods { grid-template-columns: repeat(4, 1fr); } }
-  .payment-option { border: 2px solid var(--border); border-radius: 10px; padding: 12px 8px; text-align: center; cursor: pointer; transition: all 0.2s; }
-  .payment-option:hover, .payment-option.selected { border-color: var(--primary); background: #f0f6ff; }
-  .payment-option .icon { font-size: 1.6rem; margin-bottom: 4px; }
-  .payment-option .name { font-size: 0.78rem; font-weight: 600; color: var(--text); }
   .order-summary-box { background: var(--light); border-radius: 10px; padding: 16px; margin-top: 8px; }
   .order-summary-box .row { display: flex; justify-content: space-between; padding: 5px 0; font-size: 0.9rem; }
   .order-summary-box .total-row { border-top: 2px solid var(--border); margin-top: 8px; padding-top: 10px; font-size: 1.05rem; font-weight: 800; color: var(--dark); }
@@ -612,30 +606,9 @@
     transition: all 0.2s;
   }
   .place-order-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,102,255,0.4); }
+  .place-order-btn:disabled { opacity: .6; cursor: wait; transform: none; box-shadow: none; }
+  .pay-next-note { font-size: 0.82rem; color: #6B7A79; text-align: center; margin-top: 10px; line-height: 1.5; }
 
-  /* ===== SUCCESS MODAL ===== */
-  .success-modal {
-    text-align: center;
-    padding: 48px 28px;
-  }
-  .success-icon { font-size: 5rem; margin-bottom: 16px; animation: pop 0.5s ease; }
-  @keyframes pop { 0%{transform:scale(0)} 70%{transform:scale(1.1)} 100%{transform:scale(1)} }
-  .success-modal h2 { font-size: 1.6rem; font-weight: 800; color: var(--success); margin-bottom: 10px; }
-  .success-modal p { color: #666; margin-bottom: 6px; }
-  .order-num { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
-  .continue-btn {
-    margin-top: 24px;
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 12px 32px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 0.95rem;
-    font-weight: 600;
-    transition: background 0.2s;
-  }
-  .continue-btn:hover { background: var(--primary-dark); }
 
   /* ===== TOAST ===== */
   .toast {
@@ -1639,7 +1612,6 @@
     <div class="cart-summary">
       <div class="cart-row"><span>Subtotal</span><span id="subtotalVal">HK$0</span></div>
       <div class="cart-row"><span>Delivery</span><span id="shippingVal">HK$40</span></div>
-      <div class="cart-row"><span>Sale</span><span id="discountVal" style="color:var(--success)">-HK$0</span></div>
       <div class="cart-row cart-total"><span>Total</span><span id="totalVal">HK$0</span></div>
     </div>
     <button class="checkout-btn" onclick="openCheckout()">💳 Checkout</button>
@@ -1698,54 +1670,12 @@
       </div>
 
       <div class="form-section">
-        <h3>💳 Payment Method</h3>
-        <div class="payment-methods">
-          <div class="payment-option selected" onclick="selectPayment(this)" data-method="credit">
-            <div class="icon">💳</div>
-            <div class="name">Credit card</div>
-          </div>
-          <div class="payment-option" onclick="selectPayment(this)" data-method="fps">
-            <div class="icon">📲</div>
-            <div class="name">FPS</div>
-          </div>
-          <div class="payment-option" onclick="selectPayment(this)" data-method="mpay">
-            <div class="icon"><img src="https://www.mpay.com.mo/images/logo.png" alt="MPay" style="width:36px;height:36px;object-fit:contain;" onerror="this.outerHTML='<span style=\'font-size:1.4rem;font-weight:700;color:#0066cc;\'>M</span>'"></div>
-            <div class="name">MPay</div>
-          </div>
-          <div class="payment-option" onclick="selectPayment(this)" data-method="boc">
-            <div class="icon">🏦</div>
-            <div class="name">BOC</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-section">
         <h3>📋 Order Summary</h3>
         <div class="order-summary-box" id="orderSummaryBox"></div>
-        <div class="form-group" style="margin-top:14px;">
-          <label>Promo code</label>
-          <div style="display:flex;gap:8px;">
-            <input type="text" id="couponInput" placeholder="Enter a promo code (try TECH10)">
-            <button class="filter-btn" onclick="applyCoupon()" style="white-space:nowrap;">Apply</button>
-          </div>
-        </div>
       </div>
 
-      <button class="place-order-btn" onclick="placeOrder()">✅ Place Order</button>
-    </div>
-  </div>
-</div>
-
-<!-- SUCCESS MODAL -->
-<div class="modal-overlay" id="successModal">
-  <div class="modal">
-    <div class="success-modal">
-      <div class="success-icon">🎉</div>
-      <h2>Order placed!</h2>
-      <p>Thank you for your order. We will contact you shortly to confirm the items and delivery.</p>
-      <p class="order-num" id="orderNum"></p>
-      <p style="font-size:0.85rem;color:#aaa;margin-top:8px;">Your order has been sent to our WhatsApp and we will confirm it shortly</p>
-      <button class="continue-btn" onclick="closeSuccess()">Continue shopping</button>
+      <button class="place-order-btn" id="placeOrderBtn" onclick="placeOrder()">✅ Place Order</button>
+      <p class="pay-next-note">Next you will go to the payment page, where you can pay by MPay, WeChat Pay, Alipay or Bank of China transfer.</p>
     </div>
   </div>
 </div>
@@ -3035,6 +2965,11 @@ function saveProducts() { localStorage.setItem('ws_products', JSON.stringify(pro
 // STATE
 // ============================
 const WA_ORDER_NUMBER = '85363928613';
+// Orders are stored by the shop-orders Edge Function (Supabase project pcshop-net).
+// The anon key is public by design: every table and the storage bucket are closed
+// to it, and the function validates everything it receives.
+const ORDER_API = 'https://uxoacipysaczewlkjmsr.supabase.co/functions/v1/shop-orders';
+const ORDER_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4b2FjaXB5c2FjemV3bGtqbXNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2MzcwNTAsImV4cCI6MjEwNTIxMzA1MH0.8VJHU9iuBsNrRAKUD-DTfV5UBeHEZCxPagQVj_2DQcc';
 let cart = [];
 let currentParentCat = 'all';
 let currentSubCat = 'all';
@@ -3057,9 +2992,7 @@ const parentCatMap = {
 let currentSearch = '';
 let priceMin = 0, priceMax = Infinity;
 let sortMode = 'default';
-let discountAmt = 0;
 let shipping = 40;
-let selectedPayment = 'credit';
 
 // ============================
 // RENDER PRODUCTS
@@ -3397,10 +3330,9 @@ function removeItem(id) {
 function getSubtotal() { return cart.reduce((s,i)=>s+i.price*i.qty, 0); }
 function updateCartTotals() {
   const sub = getSubtotal();
-  const total = Math.max(0, sub + shipping - discountAmt);
+  const total = sub + shipping;
   document.getElementById('subtotalVal').textContent = `HK$${sub.toLocaleString()}`;
   document.getElementById('shippingVal').textContent = shipping === 0 ? 'Free' : `HK$${shipping}`;
-  document.getElementById('discountVal').textContent = discountAmt > 0 ? `-HK$${discountAmt}` : '-HK$0';
   document.getElementById('totalVal').textContent = `HK$${total.toLocaleString()}`;
 }
 
@@ -3419,74 +3351,109 @@ function closeCheckout() {
 }
 function renderOrderSummary() {
   const sub = getSubtotal();
-  const total = Math.max(0, sub + shipping - discountAmt);
+  const total = sub + shipping;
   const summaryIcons = {'laptop-business':'💼','laptop-everyday':'💻','laptop-gaming':'🎮','desktop':'🖥️','monitor':'🖵','printer':'🖨️','components-cpu':'💻','components-gpu':'🎮','components-mb':'🔲','components-ram':'🧩','components-ssd':'💾','components-hdd':'💿','accessories':'🖱️'};
   const itemsHTML = cart.map(i=>`<div class="row"><span>${i.emoji || summaryIcons[i.cat] || '📦'} ${i.name} x${i.qty}</span><span>HK$${(i.price*i.qty).toLocaleString()}</span></div>`).join('');
   document.getElementById('orderSummaryBox').innerHTML = `
     ${itemsHTML}
     <div class="row"><span>Delivery</span><span>${shipping===0?'Free':'HK$'+shipping}</span></div>
-    ${discountAmt>0?`<div class="row"><span>Sale</span><span style="color:var(--success)">-HK$${discountAmt}</span></div>`:''}
     <div class="row total-row"><span>Total</span><span>HK$${total.toLocaleString()}</span></div>`;
 }
 function updateShipping() {
   shipping = parseInt(document.getElementById('delivery').value) || 0;
   renderOrderSummary();
 }
-function selectPayment(el) {
-  document.querySelectorAll('.payment-option').forEach(e=>e.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedPayment = el.dataset.method;
-}
-function applyCoupon() {
-  const code = document.getElementById('couponInput').value.trim().toUpperCase();
-  if (code === 'TECH10') { discountAmt = Math.round(getSubtotal()*0.1); showToast('🎉 Promo code applied — 10% off'); }
-  else if (code === 'FREE') { shipping = 0; showToast('🎉 Free delivery applied'); }
-  else { discountAmt = 0; showToast('❌ Invalid promo code'); }
-  renderOrderSummary();
-}
-function placeOrder() {
-  const name = document.getElementById('fullName').value.trim();
-  const phone = document.getElementById('phone').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const district = document.getElementById('district').value;
-  const address = document.getElementById('address').value.trim();
-  if (!name || !phone || !email || !district || !address) {
-    showToast('⚠️ Please complete all required fields'); return;
-  }
-  const orderNum = 'WS' +Date.now().toString().slice(-8);
-  document.getElementById('orderNum').textContent = `Order number: ${orderNum}`;
+// Order text for WhatsApp. Used only when the order system cannot be reached, so
+// a network or server failure never loses an order.
+function orderWhatsAppText(c) {
   const sub = getSubtotal();
-  const total = Math.max(0, sub + shipping - discountAmt);
-  if (typeof gtag==='function') gtag('event','purchase',{ transaction_id:orderNum, currency:'HKD', value:total, shipping:shipping, items:cart.map(i=>gaItem(i,i.qty)) });
-  // 送單去 WhatsApp（澳門客戶主要聯絡途徑；本站冇後端，唔送就等於漏單）
-  const orderLines = [
+  return [
     '[PC Shop online order]',
-    'Order number: ' + orderNum,
     '',
     'Items ordered:',
     ...cart.map(i => '· ' + i.name + ' × ' + i.qty + ' = HK$' + (i.price * i.qty).toLocaleString()),
     '',
     'Subtotal: HK$' + sub.toLocaleString(),
     'Delivery: ' + (shipping === 0 ? 'Free' : 'HK$' + shipping),
-    ...(discountAmt > 0 ? ['Discount: -HK$' + discountAmt.toLocaleString()] : []),
-    'Total: HK$' + total.toLocaleString(),
+    'Total: HK$' + (sub + shipping).toLocaleString(),
     '',
     'Delivery details:',
-    'Name: ' + name,
-    'Phone: ' + phone,
-    'Email: ' + email,
-    'District: ' + district,
-    'Address: ' + address,
-  ];
-  window.open('https://wa.me/' + WA_ORDER_NUMBER + '?text=' + encodeURIComponent(orderLines.join('\n')), '_blank');
-  closeCheckout();
-  setTimeout(()=>{ document.getElementById('successModal').classList.add('open'); }, 300);
-  cart = []; discountAmt = 0; shipping = 40;
-  updateCartCount();
+    'Name: ' + c.name,
+    'Phone: ' + c.phone,
+    'Email: ' + c.email,
+    'District: ' + c.district,
+    'Address: ' + c.address,
+  ].join('\n');
 }
-function closeSuccess() {
-  document.getElementById('successModal').classList.remove('open');
-  renderProducts();
+
+async function placeOrder() {
+  const customer = {
+    name: document.getElementById('fullName').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    district: document.getElementById('district').value,
+    address: document.getElementById('address').value.trim(),
+  };
+  if (!customer.name || !customer.phone || !customer.email || !customer.district || !customer.address) {
+    showToast('⚠️ Please complete all required fields'); return;
+  }
+  if (cart.length === 0) { showToast('Your cart is empty!'); return; }
+
+  const btn = document.getElementById('placeOrderBtn');
+  const label = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Placing your order…';
+
+  const payload = {
+    customer,
+    items: cart.map(i => ({ id: i.id, name: i.name, price: i.price, qty: i.qty })),
+    shipping,
+    lang: (document.documentElement.lang || '').toLowerCase().startsWith('en') ? 'en' : 'zh',
+  };
+
+  let res = null;
+  try {
+    const r = await fetch(ORDER_API + '/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + ORDER_API_KEY, apikey: ORDER_API_KEY },
+      body: JSON.stringify(payload),
+    });
+    res = { ok: r.ok, status: r.status, body: await r.json().catch(() => ({})) };
+  } catch (e) {
+    res = null;
+  }
+
+  if (res && res.ok && res.body.pay_token) {
+    // An order placed, not a sale: payment is confirmed by hand later, so this is a
+    // lead. Recording it as `purchase` put HK$27,584 of revenue into GA4 that was
+    // never collected.
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', { currency: 'HKD', value: res.body.total_hkd, lead_source: 'online_order', items: cart.map(i => gaItem(i, i.qty)) });
+    }
+    cart = [];
+    updateCartCount();
+    location.href = '/en/pay?t=' + encodeURIComponent(res.body.pay_token);
+    return;
+  }
+
+  btn.disabled = false;
+  btn.textContent = label;
+
+  if (res && res.status === 429) {
+    showToast('You have reached today’s order limit. Please contact us on WhatsApp.');
+    return;
+  }
+  if (res && res.status === 400) {
+    showToast('⚠️ Some order details are missing. Please check and try again.');
+    return;
+  }
+
+  // The order system is unreachable: fall back to WhatsApp rather than lose the order.
+  // Same-tab navigation, because a window.open after an await is blocked as a pop-up.
+  showToast('Our order system is unavailable right now. Taking you to WhatsApp to send your order…');
+  setTimeout(() => {
+    location.href = 'https://wa.me/' + WA_ORDER_NUMBER + '?text=' + encodeURIComponent(orderWhatsAppText(customer));
+  }, 1200);
 }
 
 // ============================

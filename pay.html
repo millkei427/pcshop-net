@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>付款｜PC Shop 專業電腦店</title>
+<!-- A payment page carries an order-specific token: never index it. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<!-- Google tag (gtag.js) · GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H76SZSZJ8C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  // The token in ?t= is a secret; strip it before GA4 records the page URL.
+  gtag('config', 'G-H76SZSZJ8C', { page_location: location.origin + location.pathname });
+  document.addEventListener('click', function(e){
+    if (!e.target || !e.target.closest) return;
+    var wa = e.target.closest('a[href*="wa.me"]');
+    if (wa) gtag('event', 'whatsapp_click', { method:'whatsapp', location: location.pathname });
+  });
+</script>
+<style>
+  :root {
+    --primary: #4AADA8; --primary-dark: #358F8A; --secondary: #F4845F; --dark: #2D5F5D;
+    --text: #3D4A49; --muted: #6B7A79; --light: #F5FAFA; --border: #D6ECEA;
+    --danger: #D9534F; --success: #3E9B6E; --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', 'PingFang HK', 'Microsoft JhengHei', Arial, sans-serif; background: var(--light); color: var(--text); line-height: 1.6; }
+  header { background: linear-gradient(135deg, var(--dark) 0%, #1E4745 100%); color: #fff; padding: 14px 20px; }
+  header .inner { max-width: 640px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+  header a { color: #fff; text-decoration: none; font-weight: 700; font-size: 1.1rem; }
+  header a span { color: var(--primary); }
+  header small { opacity: .75; font-size: .82rem; }
+  main { max-width: 640px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  .card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
+  .card h2 { font-size: 1.05rem; color: var(--dark); margin-bottom: 12px; }
+  .step { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: #fff; font-size: .8rem; font-weight: 700; margin-right: 8px; vertical-align: 1px; }
+
+  .amount { text-align: center; }
+  .amount .label { font-size: .85rem; color: var(--muted); }
+  .amount .mop { font-size: 2.3rem; font-weight: 800; color: var(--dark); line-height: 1.2; letter-spacing: .5px; }
+  .amount .hkd { font-size: .95rem; color: var(--muted); }
+  .amount .order { margin-top: 10px; font-size: .9rem; }
+  .amount .order b { font-family: Consolas, 'Courier New', monospace; letter-spacing: 1px; }
+
+  details.items { margin-top: 14px; border-top: 1px dashed var(--border); padding-top: 10px; font-size: .88rem; }
+  details.items summary { cursor: pointer; color: var(--primary-dark); }
+  details.items table { width: 100%; margin-top: 8px; border-collapse: collapse; }
+  details.items td { padding: 4px 0; vertical-align: top; }
+  details.items td:last-child { text-align: right; white-space: nowrap; padding-left: 10px; }
+  details.items tr.sum td { border-top: 1px solid var(--border); font-weight: 700; padding-top: 8px; }
+
+  .methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+  .method { border: 2px solid var(--border); border-radius: 12px; padding: 10px 6px; text-align: center; cursor: pointer; background: #fff; font: inherit; color: var(--text); }
+  .method .t { font-weight: 700; font-size: .9rem; display: block; }
+  .method .s { font-size: .74rem; color: var(--muted); display: block; line-height: 1.35; margin-top: 2px; }
+  .method[aria-pressed="true"] { border-color: var(--primary); background: #EEF8F7; }
+  .method:focus-visible { outline: 3px solid var(--secondary); outline-offset: 2px; }
+
+  .panel[hidden] { display: none; }
+  .qr { text-align: center; }
+  .qr img { width: 100%; max-width: 300px; border-radius: 12px; border: 1px solid var(--border); }
+  .qr .wallets { font-size: .82rem; color: var(--muted); margin-top: 6px; }
+
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 0; border-bottom: 1px solid #EEF4F3; }
+  .row:last-child { border-bottom: 0; }
+  .row .k { font-size: .82rem; color: var(--muted); }
+  .row .v { font-weight: 700; font-size: 1.05rem; word-break: break-all; }
+  .row .v.mono { font-family: Consolas, 'Courier New', monospace; letter-spacing: .5px; }
+  .copy { flex-shrink: 0; border: 1px solid var(--primary); color: var(--primary-dark); background: #fff; border-radius: 8px; padding: 6px 12px; font: inherit; font-size: .82rem; cursor: pointer; }
+  .copy.done { background: var(--primary); color: #fff; }
+
+  .note { background: #FFF7E8; border: 1px solid #F3DDB0; border-radius: 10px; padding: 10px 12px; font-size: .85rem; margin-top: 12px; }
+
+  .btn { display: block; width: 100%; border: 0; border-radius: 12px; padding: 14px; font: inherit; font-weight: 700; font-size: 1rem; cursor: pointer; text-align: center; text-decoration: none; }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:disabled { background: #A9CFCD; cursor: not-allowed; }
+  .btn-ghost { background: #fff; color: var(--primary-dark); border: 1px solid var(--primary); margin-top: 10px; }
+  .btn-wa { background: #25D366; color: #fff; }
+
+  .drop { display: block; border: 2px dashed var(--border); border-radius: 12px; padding: 22px 14px; text-align: center; cursor: pointer; background: #FBFEFE; }
+  .drop:hover { border-color: var(--primary); }
+  .drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .drop .big { font-size: 1.8rem; }
+  .drop .hint { font-size: .8rem; color: var(--muted); }
+  .preview { margin-top: 12px; text-align: center; }
+  .preview img { max-width: 100%; max-height: 280px; border-radius: 10px; border: 1px solid var(--border); }
+  .preview .name { font-size: .8rem; color: var(--muted); margin-top: 4px; word-break: break-all; }
+
+  .msg { margin-top: 12px; border-radius: 10px; padding: 10px 12px; font-size: .9rem; }
+  .msg.err { background: #FDECEA; color: #8A2C28; border: 1px solid #F5C6C3; }
+
+  .state { text-align: center; padding: 30px 10px; }
+  .state .icon { font-size: 2.6rem; }
+  .state h1 { font-size: 1.25rem; color: var(--dark); margin: 8px 0; }
+  .state p { color: var(--muted); font-size: .92rem; }
+  .spinner { width: 34px; height: 34px; border: 4px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.9s linear infinite; margin: 0 auto; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  footer { text-align: center; font-size: .8rem; color: var(--muted); padding: 10px 16px 30px; }
+  footer a { color: var(--primary-dark); }
+  /* The subtitle is what tells the two BOC buttons apart — shrink it, never hide it. */
+  @media (max-width: 420px) { .amount .mop { font-size: 2rem; } .method { padding: 9px 4px; } .method .t { font-size: .85rem; } .method .s { font-size: .7rem; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="inner">
+    <a href="/">PC <span>Shop</span></a>
+    <small>專業電腦店・付款</small>
+  </div>
+</header>
+
+<main>
+  <!-- loading -->
+  <section id="vLoading" class="card state">
+    <div class="spinner" aria-hidden="true"></div>
+    <p style="margin-top:12px;">正在讀取訂單資料…</p>
+  </section>
+
+  <!-- order cannot be found -->
+  <section id="vNotFound" class="card state" hidden>
+    <div class="icon">🔍</div>
+    <h1>找不到此訂單</h1>
+    <p>付款連結可能不完整或已失效。請透過 WhatsApp 與我們聯絡，我們會為您查詢。</p>
+    <a class="btn btn-wa" style="margin-top:16px;" href="https://wa.me/85363928613" target="_blank" rel="noopener">WhatsApp 聯絡我們</a>
+  </section>
+
+  <!-- order already paid or cancelled -->
+  <section id="vClosed" class="card state" hidden>
+    <div class="icon">📋</div>
+    <h1 id="closedTitle">此訂單已完成付款</h1>
+    <p id="closedText">如有任何查詢，請透過 WhatsApp 與我們聯絡。</p>
+    <a class="btn btn-wa" style="margin-top:16px;" href="https://wa.me/85363928613" target="_blank" rel="noopener">WhatsApp 聯絡我們</a>
+  </section>
+
+  <!-- proof received -->
+  <section id="vDone" class="card state" hidden>
+    <div class="icon">✅</div>
+    <h1>已收到您的付款證明</h1>
+    <p>我們核對款項後，將以 WhatsApp 通知您送貨安排。</p>
+    <p style="margin-top:6px;">訂單編號：<b id="doneOrderNo"></b></p>
+    <a class="btn btn-wa" id="doneWa" style="margin-top:18px;" href="https://wa.me/85363928613" target="_blank" rel="noopener">WhatsApp 聯絡我們</a>
+    <button class="btn btn-ghost" id="againBtn" type="button">再上傳另一張截圖</button>
+  </section>
+
+  <!-- main payment view -->
+  <div id="vPay" hidden>
+    <section class="card amount">
+      <div class="label">應付金額</div>
+      <div class="mop" id="amtMop">—</div>
+      <div class="hkd" id="amtHkd"></div>
+      <div class="order">訂單編號：<b id="orderNo">—</b></div>
+      <details class="items">
+        <summary>查看訂購貨品</summary>
+        <table><tbody id="itemRows"></tbody></table>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2><span class="step">1</span>選擇付款方式並付款</h2>
+
+      <div class="methods" role="group" aria-label="付款方式">
+        <button type="button" class="method" data-method="macaupass" aria-pressed="true">
+          <span class="t">掃碼付款</span>
+          <span class="s">MPay／微信／支付寶</span>
+        </button>
+        <button type="button" class="method" data-method="boc_mop" aria-pressed="false">
+          <span class="t">中銀轉帳</span>
+          <span class="s">澳門元</span>
+        </button>
+        <button type="button" class="method" data-method="boc_hkd" aria-pressed="false">
+          <span class="t">中銀轉帳</span>
+          <span class="s">港幣</span>
+        </button>
+      </div>
+
+      <!-- Macau Pass aggregate QR -->
+      <div class="panel" data-panel="macaupass">
+        <div class="qr">
+          <img src="/images/pay-qr-macaupass.jpg" alt="專業電腦店 澳門通收款二維碼" width="720" height="923">
+          <div class="wallets">支援 MPay、支付寶、微信支付、Alipay+、聚易用</div>
+        </div>
+        <div class="row">
+          <div><div class="k">請輸入付款金額</div><div class="v" data-amt="mop"></div></div>
+          <button type="button" class="copy" data-copy-amt="mop">複製金額</button>
+        </div>
+        <a class="btn btn-ghost" href="/images/pay-qr-macaupass.jpg" download="PCShop-付款二維碼.jpg">儲存二維碼圖片</a>
+        <div class="note">使用手機瀏覽本頁時，可先儲存二維碼圖片，再於付款程式的「掃一掃」內從相簿選取。</div>
+      </div>
+
+      <!-- BOC MOP -->
+      <div class="panel" data-panel="boc_mop" hidden>
+        <div class="row"><div><div class="k">銀行</div><div class="v">中國銀行澳門分行</div></div></div>
+        <div class="row">
+          <div><div class="k">戶口名稱</div><div class="v">專業電腦店</div></div>
+          <button type="button" class="copy" data-copy="專業電腦店">複製</button>
+        </div>
+        <div class="row">
+          <div><div class="k">澳門元戶口號碼</div><div class="v mono">1811 0120 0182 509</div></div>
+          <button type="button" class="copy" data-copy="181101200182509">複製</button>
+        </div>
+        <div class="row">
+          <div><div class="k">轉帳金額</div><div class="v" data-amt="mop"></div></div>
+          <button type="button" class="copy" data-copy-amt="mop">複製金額</button>
+        </div>
+      </div>
+
+      <!-- BOC HKD -->
+      <div class="panel" data-panel="boc_hkd" hidden>
+        <div class="row"><div><div class="k">銀行</div><div class="v">中國銀行澳門分行</div></div></div>
+        <div class="row">
+          <div><div class="k">戶口名稱</div><div class="v">專業電腦店</div></div>
+          <button type="button" class="copy" data-copy="專業電腦店">複製</button>
+        </div>
+        <div class="row">
+          <div><div class="k">港幣戶口號碼</div><div class="v mono">1811 1120 0324 121</div></div>
+          <button type="button" class="copy" data-copy="181111200324121">複製</button>
+        </div>
+        <div class="row">
+          <div><div class="k">轉帳金額</div><div class="v" data-amt="hkd"></div></div>
+          <button type="button" class="copy" data-copy-amt="hkd">複製金額</button>
+        </div>
+      </div>
+
+      <div class="note">轉帳時，請於備註填寫訂單編號 <b data-order-no></b>，方便我們核對款項。</div>
+    </section>
+
+    <section class="card">
+      <h2><span class="step">2</span>上傳付款證明</h2>
+      <p style="font-size:.9rem;margin-bottom:12px;">付款完成後，請上傳轉帳成功畫面的截圖。</p>
+
+      <label class="drop" for="fileInput">
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif">
+        <div class="big" aria-hidden="true">📎</div>
+        <div><b id="dropText">選擇截圖</b></div>
+        <div class="hint">JPG／PNG／HEIC，最大 5MB</div>
+      </label>
+      <div class="preview" id="preview" hidden>
+        <img id="previewImg" alt="已選擇的截圖預覽">
+        <div class="name" id="previewName"></div>
+      </div>
+
+      <div class="msg err" id="errBox" role="alert" hidden></div>
+
+      <button type="button" class="btn btn-primary" id="submitBtn" style="margin-top:14px;" disabled>提交付款證明</button>
+    </section>
+  </div>
+</main>
+
+<footer>
+  PC Shop 專業電腦店・澳門雅廉訪大馬路幸運閣商場 BG 舖・<a href="tel:28403503">2840 3503</a>
+</footer>
+
+<script>
+(function () {
+  var API = 'https://uxoacipysaczewlkjmsr.supabase.co/functions/v1/shop-orders';
+  // Public anon key: safe to ship. Every table and the storage bucket are closed
+  // to it; it can only reach the shop-orders function, which validates everything.
+  var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4b2FjaXB5c2FjemV3bGtqbXNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2MzcwNTAsImV4cCI6MjEwNTIxMzA1MH0.8VJHU9iuBsNrRAKUD-DTfV5UBeHEZCxPagQVj_2DQcc';
+  var WA = '85363928613';
+  var MAX_BYTES = 5 * 1024 * 1024;
+
+  var ERRORS = {
+    not_found: '找不到此訂單，請透過 WhatsApp 與我們聯絡。',
+    order_closed: '此訂單已完成或已取消，毋須再上傳。',
+    too_many_proofs: '此訂單已上傳的截圖數量已達上限。如需補充，請透過 WhatsApp 傳送給我們。',
+    file_too_large: '圖片超過 5MB，請改為上傳截圖（非相機原圖）。',
+    not_an_image: '檔案格式不支援，請上傳 JPG、PNG 或 HEIC 圖片。',
+    missing_file: '請先選擇截圖。',
+    bad_method: '請先選擇付款方式。',
+    upload_failed: '上傳未能完成，請稍後再試。',
+    server_error: '系統暫時未能處理，請稍後再試，或透過 WhatsApp 傳送截圖給我們。',
+    network: '網絡連線中斷，請檢查網絡後再試。'
+  };
+
+  var token = new URLSearchParams(location.search).get('t') || '';
+  var order = null;
+  var method = 'macaupass';
+  var file = null;
+
+  function $(id) { return document.getElementById(id); }
+  function show(id) {
+    ['vLoading', 'vNotFound', 'vClosed', 'vDone', 'vPay'].forEach(function (v) { $(v).hidden = v !== id; });
+    window.scrollTo(0, 0);
+  }
+  function fmt(n) {
+    return Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function headers() { return { Authorization: 'Bearer ' + ANON, apikey: ANON }; }
+
+  function waLink(orderNo) {
+    var text = '你好，我想查詢訂單 ' + orderNo + ' 的付款事宜。';
+    return 'https://wa.me/' + WA + '?text=' + encodeURIComponent(text);
+  }
+
+  // ---------------------------------------------------------------- load
+  function load() {
+    if (token.length < 20) { show('vNotFound'); return; }
+    fetch(API + '/order?t=' + encodeURIComponent(token), { headers: headers() })
+      .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }); })
+      .then(function (res) {
+        if (!res.ok) { show('vNotFound'); return; }
+        order = res.body;
+        if (order.status === 'paid' || order.status === 'cancelled') {
+          $('closedTitle').textContent = order.status === 'paid' ? '此訂單已完成付款' : '此訂單已取消';
+          show('vClosed');
+          return;
+        }
+        render();
+        show('vPay');
+      })
+      .catch(function () { show('vNotFound'); });
+  }
+
+  function render() {
+    $('orderNo').textContent = order.order_no;
+    $('amtMop').textContent = 'MOP ' + fmt(order.total_mop);
+    $('amtHkd').textContent = '（HK$' + fmt(order.total_hkd) + '）';
+    document.querySelectorAll('[data-order-no]').forEach(function (el) { el.textContent = order.order_no; });
+    document.querySelectorAll('[data-amt]').forEach(function (el) {
+      el.textContent = el.dataset.amt === 'mop' ? 'MOP ' + fmt(order.total_mop) : 'HK$' + fmt(order.total_hkd);
+    });
+
+    var rows = (order.items || []).map(function (i) {
+      return '<tr><td>' + esc(i.name) + ' × ' + Number(i.qty) + '</td><td>HK$' + fmt(i.price * i.qty) + '</td></tr>';
+    });
+    if (Number(order.shipping_hkd) > 0) rows.push('<tr><td>運費</td><td>HK$' + fmt(order.shipping_hkd) + '</td></tr>');
+    if (Number(order.discount_hkd) > 0) rows.push('<tr><td>優惠</td><td>-HK$' + fmt(order.discount_hkd) + '</td></tr>');
+    rows.push('<tr class="sum"><td>總計</td><td>HK$' + fmt(order.total_hkd) + '</td></tr>');
+    $('itemRows').innerHTML = rows.join('');
+
+    $('doneWa').href = waLink(order.order_no);
+  }
+
+  // ---------------------------------------------------------------- method
+  document.querySelectorAll('.method').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      method = btn.dataset.method;
+      document.querySelectorAll('.method').forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+      document.querySelectorAll('.panel').forEach(function (p) { p.hidden = p.dataset.panel !== method; });
+    });
+  });
+
+  // ---------------------------------------------------------------- copy
+  function copyText(text, btn) {
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = '已複製';
+      btn.classList.add('done');
+      setTimeout(function () { btn.textContent = old; btn.classList.remove('done'); }, 1500);
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(done, function () { fallback(text); done(); });
+    } else { fallback(text); done(); }
+  }
+  function fallback(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('.copy');
+    if (!btn || !order) return;
+    // Amounts are copied as bare numbers: banking and wallet apps reject "MOP 1,032".
+    var text = btn.dataset.copy
+      || (btn.dataset.copyAmt === 'mop' ? String(order.total_mop) : String(Number(order.total_hkd)));
+    copyText(text, btn);
+  });
+
+  // ---------------------------------------------------------------- file
+  function showError(code) {
+    $('errBox').textContent = ERRORS[code] || ERRORS.server_error;
+    $('errBox').hidden = false;
+  }
+  function clearError() { $('errBox').hidden = true; }
+
+  $('fileInput').addEventListener('change', function () {
+    clearError();
+    file = this.files && this.files[0] ? this.files[0] : null;
+    if (!file) { $('preview').hidden = true; $('submitBtn').disabled = true; return; }
+    if (file.size > MAX_BYTES) {
+      showError('file_too_large');
+      file = null; this.value = '';
+      $('preview').hidden = true; $('submitBtn').disabled = true;
+      return;
+    }
+    $('previewName').textContent = file.name;
+    $('dropText').textContent = '更換截圖';
+    // HEIC cannot be previewed in most browsers; the upload still works.
+    var img = $('previewImg');
+    img.hidden = false;
+    img.onerror = function () { img.hidden = true; };
+    img.src = URL.createObjectURL(file);
+    $('preview').hidden = false;
+    $('submitBtn').disabled = false;
+  });
+
+  // ---------------------------------------------------------------- submit
+  $('submitBtn').addEventListener('click', function () {
+    if (!file) { showError('missing_file'); return; }
+    clearError();
+    var btn = this;
+    btn.disabled = true;
+    btn.textContent = '正在上傳…';
+
+    var fd = new FormData();
+    fd.append('t', token);
+    fd.append('method', method);
+    fd.append('file', file, file.name);
+
+    fetch(API + '/proof', { method: 'POST', headers: headers(), body: fd })
+      .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }); })
+      .then(function (res) {
+        if (!res.ok) { showError(res.body && res.body.error); return; }
+        if (typeof gtag === 'function') gtag('event', 'submit_payment_proof', { payment_type: method, currency: 'MOP', value: Number(order.total_mop) });
+        $('doneOrderNo').textContent = order.order_no;
+        file = null;
+        $('fileInput').value = '';
+        $('preview').hidden = true;
+        $('dropText').textContent = '選擇截圖';
+        show('vDone');
+      })
+      .catch(function () { showError('network'); })
+      .then(function () {
+        btn.textContent = '提交付款證明';
+        btn.disabled = !file;
+      });
+  });
+
+  $('againBtn').addEventListener('click', function () { show('vPay'); });
+
+  load();
+})();
+</script>
+</body>
+</html>
