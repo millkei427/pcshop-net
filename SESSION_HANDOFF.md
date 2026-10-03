@@ -131,3 +131,42 @@ D:\ClaudeAI\WonderShop\
 │       └── sb-photo-35.jpg             ← 新增（澳門街坊會）
 └── cpttm/                              （另一客戶文件夾）
 ```
+
+---
+
+## 2026-10-03 Session — 軟件服務頁擴充 + Blog 機器修復
+
+### ✅ 已完成
+
+**1. 網站本體（WonderShop / pcshop-net.com）**
+- 首頁「軟件解決方案」區域新增「我們可以為你度身開發的系統」網格（10 個系統類型）
+- 新增 3 個獨立服務頁，全部已上線：
+  - /service/appointment-system.html（預約排程系統）
+  - /service/membership-crm.html（會員 CRM 系統）
+  - /service/hr-system.html（HR 考勤薪酬系統）
+- 服務總覽頁 /service/ 加入上述 3 項連結
+- 首頁網格中 4 個項目（預約、CRM、POS、HR）已加「了解更多」連結
+- sitemap.xml 已更新並補上 lastmod
+
+**2. 增長引擎（pcshop-growth-engine）**
+- Blog Factory 由 Google Sheet 遷移至 repo 內檔案（drafts/blog/*.json），根治 BLOG_SHEET_ID 未 set 導致 6 連敗嘅問題
+- 更新 blog-weekly.yml：cron 自動生成 draft 並 commit 入 repo
+- 刪除過時嘅 blog-publish.yml，重寫 docs/blog-setup.md
+- 發佈第 4 篇 blog：[澳門人力資源系統選型指南](https://pcshop-net.com/blog/macau-hr-system-guide.html)
+- 將舊 3 篇 blog backfill 入 draft store，令 blog index 齊 4 篇
+
+### ⏳ 待辦 / 等你決定
+
+**高優先**
+1. **GMB OAuth 設定**：已開啟 Google Auth Platform consent screen，需繼續完成 Step 2–3，之後跑 `npm run gmb-oauth` 攞 token。
+2. **實習生手動貼文**：posts 1–17 已 approved，實習生可按 `實習生工作包.md` 排程表每週發佈 FB + GBP。
+3. **GBP 資料優化**：類別、服務清單、問與答（`實習生_文案與發佈指南.md` §2.3–§2.8）。
+
+**中優先**
+4. 剩餘 6 個系統類型要否做獨立頁：ERP、訂閱/套票、網店、智慧教學、設備保養、App/小程序。
+5. Tender Radar：213 個活躍招標待 review，揀 IT 相關嘅投。
+6. GA4 checkout 漏斗：檢查 `add_to_cart` 之後嘅 `begin_checkout` / `purchase` 流失。
+
+**雜項**
+- `DCL file/`、`data/`、`docs/*.docx`、`scripts/send-skechers.ts` 未入 git
+- WonderShop 散檔：`GA4_KEY_EVENTS_SPEC.md`、`images/mpay-qr.jpg`
