@@ -82,6 +82,21 @@
   footer a { color:rgba(255,255,255,.85); }
   footer .nap { margin-bottom:10px; }
   @media (max-width:640px){ .hero h1 { font-size:1.5rem; } section { padding:20px 16px; } .feature-grid { grid-template-columns:1fr; } }
+
+  .hero { display:flex; align-items:center; justify-content:center; gap:40px; text-align:left; flex-wrap:wrap; }
+  .hero-text { flex:1 1 360px; max-width:620px; }
+  .hero-text h1 { text-align:left; }
+  .hero-text p { margin:0; }
+  .hero-visual { flex:0 1 360px; max-width:400px; filter:drop-shadow(0 20px 40px rgba(0,0,0,0.18)); }
+  .hero-visual svg { width:100%; height:auto; display:block; }
+  @media (max-width:800px){
+    .hero { text-align:center; }
+    .hero-text h1 { text-align:center; }
+    .hero-text p { margin:0 auto; }
+    .hero-visual { flex-basis:280px; }
+  }
+  @media (max-width:640px){ .hero-visual { max-width:260px; } }
+
 </style>
 </head>
 <body>
@@ -96,8 +111,27 @@
   </nav>
 </header>
 <div class="hero">
-  <h1>澳門 HR 考勤薪酬系統</h1>
-  <p>排班、打卡、假期、出糧、外地僱員藍卡到期提醒。配合澳門勞動法，專為本地中小企設計。</p>
+  <div class="hero-text">
+    <h1>澳門 HR 考勤薪酬系統</h1>
+    <p>排班、打卡、假期、出糧、外地僱員藍卡到期提醒。配合澳門勞動法，專為本地中小企設計。</p>
+  </div>
+  <div class="hero-visual">
+    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <radialGradient id="heroGrad" cx="50%" cy="50%" r="55%">
+      <stop offset="0%" stop-color="#4AADA8" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#2D5F5D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="200" cy="150" r="145" fill="url(#heroGrad)"/>
+  <circle cx="200" cy="150" r="92" fill="#fff" fill-opacity="0.95" stroke="#4AADA8" stroke-width="3"/>
+  <text x="200" y="188" font-size="118" text-anchor="middle">💼</text>
+  <g><circle cx="306.9443188703247" cy="199.86895488540253" r="30" fill="#fff" fill-opacity="0.95" stroke="#4AADA8" stroke-width="2"/><text x="306.9443188703247" y="209.86895488540253" font-size="28" text-anchor="middle">📅</text></g>
+  <g><circle cx="159.64162308757108" cy="260.8837292527372" r="30" fill="#fff" fill-opacity="0.95" stroke="#4AADA8" stroke-width="2"/><text x="159.64162308757108" y="270.8837292527372" font-size="28" text-anchor="middle">🕒</text></g>
+  <g><circle cx="93.05568112967529" cy="100.13104511459748" r="30" fill="#fff" fill-opacity="0.95" stroke="#4AADA8" stroke-width="2"/><text x="93.05568112967529" y="110.13104511459748" font-size="28" text-anchor="middle">🛂</text></g>
+  <g><circle cx="249.86895488540256" cy="43.05568112967532" r="30" fill="#fff" fill-opacity="0.95" stroke="#4AADA8" stroke-width="2"/><text x="249.86895488540256" y="53.05568112967532" font-size="28" text-anchor="middle">💰</text></g>
+</svg>
+  </div>
 </div>
 <div class="crumb"><a href="/">首頁</a> › <a href="/service/">服務</a> › 澳門 HR 考勤薪酬系統</div>
 <main>
