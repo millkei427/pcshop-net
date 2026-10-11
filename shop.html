@@ -3729,19 +3729,19 @@ function renderAdminTable() {
     .filter(p => !q || p.name.toLowerCase().includes(q) || catLabel(p.cat).includes(q))
     .map(p => `
       <tr>
-        <td style="font-size:1.5rem;text-align:center;">${p.emoji}</td>
+        <td style="font-size:1.5rem;text-align:center;">${p.emoji || '•'}</td>
         <td><strong>${p.name}</strong></td>
         <td>${catLabel(p.cat)}</td>
         <td><strong style="color:var(--primary)">HK\$${p.price.toLocaleString()}</strong></td>
         <td>${p.oldPrice ? `<span style="text-decoration:line-through;color:#bbb">HK$${p.oldPrice.toLocaleString()}</span>` : '—'}</td>
-        <td>${p.rating} ⭐</td>
+        <td>${p.rating != null ? p.rating + ' ⭐' : '—'}</td>
         <td><span class="admin-badge ${p.badge||'none'}">${p.badge==='hot'?'熱賣':p.badge==='new'?'新品':p.badge==='sale'?'折扣':'無'}</span></td>
         <td>
           <button class="tbl-edit-btn" onclick="openEditProduct(${p.id})">✏️ 編輯</button>
           <button class="tbl-del-btn" onclick="confirmDelete(${p.id})">🗑️ 刪除</button>
         </td>
       </tr>`).join('');
-  document.getElementById('adminTableBody').innerHTML = rows || '<tr><td colspan="8吋 style="text-align:center;padding:28px;color:#bbb;">找不到產品</td></tr>';
+  document.getElementById('adminTableBody').innerHTML = rows || '<tr><td colspan="8" style="text-align:center;padding:28px;color:#bbb;">找不到產品</td></tr>';
 }
 
 // ============================
