@@ -17,38 +17,47 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Segoe UI', 'PingFang HK', 'Microsoft JhengHei', Arial, sans-serif; background: var(--light); color: var(--text); line-height: 1.55; font-size: 15px; }
   [hidden] { display: none !important; }
+
   header { background: linear-gradient(135deg, var(--dark), #1E4745); color: #fff; padding: 12px 16px; position: sticky; top: 0; z-index: 5; }
-  header .inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  header .inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  header .brand { display: flex; align-items: center; gap: 10px; }
+  header .brand svg { width: 26px; height: 26px; fill: currentColor; flex-shrink: 0; }
   header b { font-size: 1.05rem; }
-  header .who { font-size: .8rem; opacity: .8; }
-  header nav { display: flex; gap: 6px; }
-  header nav button { background: rgba(255,255,255,.12); color: #fff; border: 0; border-radius: 8px; padding: 6px 12px; font: inherit; font-size: .82rem; cursor: pointer; }
+  header .who { font-size: .8rem; opacity: .85; display: flex; align-items: center; gap: 6px; }
+  header nav { display: flex; gap: 6px; background: rgba(255,255,255,.12); border-radius: 10px; padding: 4px; }
+  header nav button { background: transparent; color: #fff; border: 0; border-radius: 8px; padding: 7px 14px; font: inherit; font-size: .85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+  header nav button svg { width: 16px; height: 16px; }
   header nav button[aria-selected="true"] { background: #fff; color: var(--dark); font-weight: 700; }
   header .actions { display: flex; gap: 8px; align-items: center; }
-  main { max-width: 900px; margin: 0 auto; padding: 16px 12px 60px; }
+  main { max-width: 960px; margin: 0 auto; padding: 18px 12px 80px; }
 
-  .card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; }
-  h1 { font-size: 1.2rem; color: var(--dark); margin-bottom: 6px; }
-  h2 { font-size: 1rem; color: var(--dark); margin-bottom: 10px; }
+  .card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 14px; box-shadow: 0 1px 2px rgba(45,95,93,0.04); }
+  h1 { font-size: 1.25rem; color: var(--dark); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  h1 svg { width: 22px; height: 22px; }
+  h2 { font-size: 1rem; color: var(--dark); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  h2 svg { width: 18px; height: 18px; }
   .muted { color: var(--muted); font-size: .85rem; }
 
   label { display: block; font-size: .85rem; color: var(--muted); margin: 12px 0 4px; }
   input, select, textarea { width: 100%; padding: 11px 12px; border: 1.5px solid var(--border); border-radius: 10px; font: inherit; }
-  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(74,173,168,0.12); }
   input.code { font-size: 1.5rem; letter-spacing: 8px; text-align: center; font-family: Consolas, monospace; }
   textarea { resize: vertical; min-height: 80px; }
+  input.invalid, textarea.invalid { border-color: var(--danger); }
 
-  .btn { display: inline-block; border: 0; border-radius: 10px; padding: 11px 16px; font: inherit; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 0; border-radius: 10px; padding: 11px 16px; font: inherit; font-weight: 700; cursor: pointer; text-align: center; text-decoration: none; }
+  .btn svg { width: 16px; height: 16px; }
   .btn:disabled { opacity: .55; cursor: wait; }
-  .btn-block { display: block; width: 100%; margin-top: 14px; }
+  .btn-block { display: flex; width: 100%; margin-top: 14px; }
   .btn-primary { background: var(--primary); color: #fff; }
   .btn-ok { background: var(--ok); color: #fff; }
   .btn-danger { background: #fff; color: var(--danger); border: 1.5px solid var(--danger); }
   .btn-ghost { background: #fff; color: var(--primary-dark); border: 1.5px solid var(--primary); }
-  .btn-sm { padding: 6px 10px; font-size: .82rem; font-weight: 600; }
+  .btn-sm { padding: 7px 12px; font-size: .82rem; font-weight: 600; }
   .link { background: none; border: 0; color: var(--primary-dark); font: inherit; font-size: .85rem; cursor: pointer; text-decoration: underline; margin-top: 10px; }
 
-  .msg { margin-top: 12px; border-radius: 10px; padding: 10px 12px; font-size: .88rem; }
+  .msg { margin-top: 12px; border-radius: 10px; padding: 10px 12px; font-size: .88rem; display: flex; align-items: flex-start; gap: 8px; }
+  .msg svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
   .msg.err { background: #FDECEA; color: #8A2C28; border: 1px solid #F5C6C3; }
   .msg.info { background: #EAF6F5; color: var(--dark); border: 1px solid var(--border); }
   .msg.ok { background: #E1F4E8; color: #1F6B3E; border: 1px solid #B8E0C8; }
@@ -57,22 +66,34 @@
   .toolbar input, .toolbar select { flex: 1; min-width: 140px; margin: 0; }
   .toolbar .grow { flex: 1; }
 
+  .summary { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 14px; }
+  .summary .box { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; text-align: center; }
+  .summary .box .num { font-size: 1.5rem; font-weight: 800; color: var(--dark); }
+  .summary .box .lbl { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+  .summary .box.primary { background: linear-gradient(135deg, var(--dark), #1E4745); color: #fff; border: 0; }
+  .summary .box.primary .num { color: #fff; }
+  .summary .box.primary .lbl { color: rgba(255,255,255,.8); }
+  @media (min-width: 640px) { .summary { grid-template-columns: repeat(4, 1fr); } }
+
   .tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 12px; }
-  .tab { flex-shrink: 0; border: 1.5px solid var(--border); background: #fff; border-radius: 20px; padding: 6px 12px; font: inherit; font-size: .85rem; cursor: pointer; color: var(--text); }
+  .tab { flex-shrink: 0; border: 1.5px solid var(--border); background: #fff; border-radius: 20px; padding: 7px 14px; font: inherit; font-size: .85rem; cursor: pointer; color: var(--text); display: inline-flex; align-items: center; gap: 6px; }
+  .tab svg { width: 14px; height: 14px; }
   .tab[aria-selected="true"] { background: var(--dark); border-color: var(--dark); color: #fff; }
-  .tab .n { display: inline-block; min-width: 18px; margin-left: 4px; padding: 0 5px; border-radius: 9px; background: rgba(0,0,0,.08); font-size: .75rem; }
+  .tab .n { display: inline-block; min-width: 18px; margin-left: 2px; padding: 0 5px; border-radius: 9px; background: rgba(0,0,0,.08); font-size: .75rem; }
   .tab[aria-selected="true"] .n { background: rgba(255,255,255,.25); }
 
-  .order { display: block; width: 100%; text-align: left; background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 8px; cursor: pointer; font: inherit; color: inherit; }
-  .order:hover { border-color: var(--primary); }
+  .order { display: block; width: 100%; text-align: left; background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 10px; cursor: pointer; font: inherit; color: inherit; transition: border-color .15s, box-shadow .15s; }
+  .order:hover { border-color: var(--primary); box-shadow: 0 4px 12px rgba(74,173,168,0.10); }
   .order .top { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
   .order .no { font-family: Consolas, monospace; font-weight: 700; }
   .order .amt { font-weight: 800; color: var(--dark); white-space: nowrap; }
-  .order .mid { display: flex; justify-content: space-between; gap: 8px; margin-top: 4px; font-size: .88rem; }
-  .order .when { color: var(--muted); font-size: .8rem; margin-top: 2px; }
-  .order .summary { color: var(--muted); font-size: .83rem; margin-top: 4px; line-height: 1.4; }
+  .order .mid { display: flex; justify-content: space-between; gap: 8px; margin-top: 6px; font-size: .88rem; align-items: center; }
+  .order .when { color: var(--muted); font-size: .8rem; margin-top: 4px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .order .summary { color: var(--muted); font-size: .83rem; margin-top: 6px; line-height: 1.45; }
+  .order .meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 6px; }
 
-  .badge { display: inline-block; font-size: .75rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+  .badge { display: inline-flex; align-items: center; gap: 4px; font-size: .75rem; font-weight: 700; padding: 3px 9px; border-radius: 10px; white-space: nowrap; }
+  .badge svg { width: 12px; height: 12px; }
   .s-pending_payment { background: #FFF4DE; color: #8A5A00; }
   .s-proof_submitted { background: #E3F0FF; color: #1E5AA8; }
   .s-paid { background: #E1F4E8; color: #1F6B3E; }
@@ -83,27 +104,32 @@
   .ship-shipped { background: #E1F4E8; color: #1F6B3E; }
   .ship-delivered { background: #E8E8E8; color: #444; }
 
-  .empty { text-align: center; color: var(--muted); padding: 40px 10px; }
+  .empty { text-align: center; color: var(--muted); padding: 50px 10px; }
+  .empty svg { width: 56px; height: 56px; opacity: .35; margin-bottom: 10px; }
+  .spinner { display: inline-block; width: 24px; height: 24px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
   dl.kv { display: grid; grid-template-columns: 84px 1fr; gap: 6px 10px; font-size: .92rem; }
   dl.kv dt { color: var(--muted); }
   dl.kv dd { word-break: break-word; }
   table.items { width: 100%; border-collapse: collapse; font-size: .9rem; }
-  table.items td { padding: 6px 0; border-bottom: 1px solid #EEF4F3; vertical-align: top; }
+  table.items td { padding: 8px 0; border-bottom: 1px solid #EEF4F3; vertical-align: top; }
   table.items td:last-child { text-align: right; white-space: nowrap; padding-left: 10px; }
   table.items tr.sum td { font-weight: 800; border-bottom: 0; }
 
-  .proofs { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .proofs { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
   .proof { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: #FAFDFD; }
   .proof a { display: block; background: #F0F4F4; }
-  .proof img { display: block; width: 100%; height: 190px; object-fit: contain; }
-  .proof .meta { padding: 8px; font-size: .78rem; color: var(--muted); }
+  .proof img { display: block; width: 100%; height: 200px; object-fit: contain; }
+  .proof .meta { padding: 10px; font-size: .78rem; color: var(--muted); }
   .proof .meta b { color: var(--text); }
 
   .actions { display: grid; gap: 8px; }
-  .verify-note { background: #FFF8E6; border: 1px solid #F1DBA6; border-radius: 10px; padding: 10px 12px; font-size: .86rem; margin-bottom: 10px; }
+  .verify-note { background: #FFF8E6; border: 1px solid #F1DBA6; border-radius: 10px; padding: 10px 12px; font-size: .86rem; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 8px; }
+  .verify-note svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--warn); }
   ul.events { list-style: none; font-size: .85rem; }
-  ul.events li { padding: 6px 0; border-bottom: 1px solid #EEF4F3; }
+  ul.events li { padding: 8px 0; border-bottom: 1px solid #EEF4F3; display: flex; align-items: flex-start; gap: 8px; }
+  ul.events li svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 3px; color: var(--muted); }
   ul.events li:last-child { border-bottom: 0; }
 
   .field-row { margin-bottom: 12px; }
@@ -115,25 +141,41 @@
   .email-list { display: flex; flex-direction: column; gap: 8px; }
   .email-row { display: flex; gap: 8px; align-items: center; }
   .email-row input { flex: 1; margin: 0; }
-  .email-row button { background: #fff; color: var(--danger); border: 1.5px solid var(--danger); border-radius: 8px; padding: 8px 12px; cursor: pointer; font: inherit; }
+  .email-row input.invalid { border-color: var(--danger); }
+  .email-row button { background: #fff; color: var(--danger); border: 1.5px solid var(--danger); border-radius: 8px; padding: 8px 12px; cursor: pointer; font: inherit; display: inline-flex; align-items: center; gap: 4px; }
+  .email-row button svg { width: 14px; height: 14px; }
 
   dialog { border: 0; border-radius: 14px; padding: 20px; max-width: 420px; width: calc(100% - 32px); }
   dialog::backdrop { background: rgba(0,0,0,.45); }
   dialog h2 { margin-bottom: 8px; }
   dialog .row { display: flex; gap: 8px; margin-top: 16px; }
   dialog .row .btn { flex: 1; }
+
+  .hint { font-size: .8rem; color: var(--muted); margin-top: 6px; }
 </style>
 </head>
 <body>
 <header>
   <div class="inner">
-    <div><b>PC Shop 訂單管理</b><div class="who" id="who"></div></div>
+    <div class="brand">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 18H4V6h16v12zM2 4v16h20V4H2zM6 16h12v-2H6v2z"/></svg>
+      <div><b>PC Shop 訂單管理</b><div class="who" id="who"></div></div>
+    </div>
     <nav id="mainNav" hidden>
-      <button type="button" data-view="list" aria-selected="true">訂單</button>
-      <button type="button" data-view="settings">設定</button>
+      <button type="button" data-view="list" aria-selected="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+        訂單
+      </button>
+      <button type="button" data-view="settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84a.484.484 0 0 0-.48.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.488.488 0 0 0-.59.22L2.74 8.87a.49.49 0 0 0 .12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.27.41.48.41h3.84c.24 0 .44-.17.48-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1 1 15.6 12 3.6 3.6 0 0 1 12 15.6z"/></svg>
+        設定
+      </button>
     </nav>
     <div class="actions">
-      <button type="button" id="logoutBtn" hidden>登出</button>
+      <button type="button" id="logoutBtn" hidden class="btn btn-sm btn-ghost" style="border-color:rgba(255,255,255,.4);color:#fff;">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.09 15.59 11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5a2 2 0 0 0-2 2v4h2V5h14v14H5v-4H3v4a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+        登出
+      </button>
     </div>
   </div>
 </header>
@@ -141,13 +183,19 @@
 <main>
   <!-- ============================== sign in -->
   <section id="vLogin" class="card" hidden>
-    <h1>登入</h1>
+    <h1>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      登入
+    </h1>
     <p class="muted">輸入管理人員電郵，系統會發送一次性驗證碼。</p>
 
     <div id="stepEmail">
       <label for="emailInput">電郵</label>
       <input type="email" id="emailInput" autocomplete="email" inputmode="email" placeholder="name@pcshop-net.com">
-      <button type="button" class="btn btn-primary btn-block" id="sendCodeBtn">發送驗證碼</button>
+      <button type="button" class="btn btn-primary btn-block" id="sendCodeBtn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/></svg>
+        發送驗證碼
+      </button>
     </div>
 
     <div id="stepCode" hidden>
@@ -163,6 +211,7 @@
 
   <!-- ============================== list -->
   <section id="vList" hidden>
+    <div class="summary" id="summary"></div>
     <div class="tabs" role="tablist" id="tabs"></div>
     <div class="toolbar">
       <input type="search" id="searchInput" placeholder="搜尋編號、姓名、電話、產品…">
@@ -172,7 +221,10 @@
         <option value="amount-desc">金額由高至低</option>
         <option value="amount-asc">金額由低至高</option>
       </select>
-      <button type="button" class="btn btn-ghost btn-sm" id="refreshBtn">重新整理</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="refreshBtn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.65 6.35A7.95 7.95 0 0 0 12 4a8 8 0 0 0-8 8 8 8 0 0 0 8 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0 1 12 18a6 6 0 0 1-6-6 6 6 0 0 1 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+        重新整理
+      </button>
     </div>
     <div class="muted" id="listInfo" style="margin-bottom:8px;"></div>
     <div id="orders"></div>
@@ -181,7 +233,10 @@
 
   <!-- ============================== detail -->
   <section id="vDetail" hidden>
-    <button type="button" class="btn btn-ghost btn-sm" id="backToList" style="margin-bottom:12px;">← 返回訂單列表</button>
+    <button type="button" class="btn btn-ghost btn-sm" id="backToList" style="margin-bottom:12px;">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      返回訂單列表
+    </button>
 
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;">
@@ -198,20 +253,32 @@
     </div>
 
     <div class="card">
-      <h2>付款證明</h2>
+      <h2>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+        付款證明
+      </h2>
       <div id="dProofs"></div>
     </div>
 
     <div class="card">
-      <h2>處理</h2>
-      <div class="verify-note">標記「已收款」前，請先於中國銀行或澳門通商戶平台核實款項確已到帳。截圖只作通知，不能作為收款憑證。</div>
+      <h2>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        處理
+      </h2>
+      <div class="verify-note">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+        <span>標記「已收款」前，請先於中國銀行或澳門通商戶平台核實款項確已到帳。截圖只作通知，不能作為收款憑證。</span>
+      </div>
       <div class="actions" id="dActions"></div>
       <div class="notify-opts" id="dNotify" hidden>
         <label><input type="checkbox" id="notifyCustomer" checked> 同步發送電郵通知客戶</label>
       </div>
 
       <div style="margin-top:18px;border-top:1px solid var(--border);padding-top:16px;">
-        <h2>出貨狀態</h2>
+        <h2>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9 1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+          出貨狀態
+        </h2>
         <div class="field-row">
           <select id="dShipmentSelect">
             <option value="pending">待出貨</option>
@@ -220,16 +287,25 @@
             <option value="delivered">已送達</option>
           </select>
         </div>
-        <button type="button" class="btn btn-primary btn-sm" id="saveShipmentBtn">更新出貨狀態</button>
+        <button type="button" class="btn btn-primary btn-sm" id="saveShipmentBtn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          更新出貨狀態
+        </button>
         <div class="msg" id="shipmentMsg" role="alert" hidden></div>
       </div>
 
       <div style="margin-top:18px;border-top:1px solid var(--border);padding-top:16px;">
-        <h2>內部備註</h2>
+        <h2>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+          內部備註
+        </h2>
         <div class="field-row">
           <textarea id="dNotes" placeholder="記錄價格調整、換貨、缺貨、出貨安排等…"></textarea>
         </div>
-        <button type="button" class="btn btn-primary btn-sm" id="saveNotesBtn">儲存備註</button>
+        <button type="button" class="btn btn-primary btn-sm" id="saveNotesBtn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+          儲存備註
+        </button>
         <div class="msg" id="notesMsg" role="alert" hidden></div>
       </div>
 
@@ -237,18 +313,27 @@
     </div>
 
     <div class="card">
-      <h2>客戶資料</h2>
+      <h2>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        客戶資料
+      </h2>
       <dl class="kv" id="dCustomer"></dl>
       <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;" id="dContact"></div>
     </div>
 
     <div class="card">
-      <h2>訂購貨品</h2>
+      <h2>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        訂購貨品
+      </h2>
       <table class="items"><tbody id="dItems"></tbody></table>
     </div>
 
     <div class="card">
-      <h2>處理紀錄</h2>
+      <h2>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+        處理紀錄
+      </h2>
       <ul class="events" id="dEvents"></ul>
     </div>
   </section>
@@ -256,11 +341,20 @@
   <!-- ============================== settings -->
   <section id="vSettings" hidden>
     <div class="card">
-      <h1>管理員設定</h1>
+      <h1>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84a.484.484 0 0 0-.48.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.488.488 0 0 0-.59.22L2.74 8.87a.49.49 0 0 0 .12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.27.41.48.41h3.84c.24 0 .44-.17.48-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1 1 15.6 12 3.6 3.6 0 0 1 12 15.6z"/></svg>
+        管理員設定
+      </h1>
       <p class="muted">只有以下電郵地址可以登入訂單管理後台。更改後請即時儲存。</p>
       <div class="email-list" id="emailList"></div>
-      <button type="button" class="btn btn-ghost btn-sm" id="addEmailBtn" style="margin-top:10px;">＋ 新增電郵</button>
-      <button type="button" class="btn btn-primary btn-block" id="saveSettingsBtn">儲存管理員名單</button>
+      <button type="button" class="btn btn-ghost btn-sm" id="addEmailBtn" style="margin-top:10px;">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+        新增電郵
+      </button>
+      <button type="button" class="btn btn-primary btn-block" id="saveSettingsBtn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+        儲存管理員名單
+      </button>
       <div class="msg" id="settingsMsg" role="alert" hidden></div>
     </div>
   </section>
@@ -280,6 +374,17 @@
   var API = 'https://uxoacipysaczewlkjmsr.supabase.co/functions/v1/shop-admin';
   var ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4b2FjaXB5c2FjemV3bGtqbXNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2MzcwNTAsImV4cCI6MjEwNTIxMzA1MH0.8VJHU9iuBsNrRAKUD-DTfV5UBeHEZCxPagQVj_2DQcc';
   var TOKEN_KEY = 'pcshop_admin_session';
+
+  var ICONS = {
+    proof: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.35 10.04A7.49 7.49 0 0 0 12 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 0 0 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>',
+    pending: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>',
+    paid: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>',
+    cancelled: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/></svg>',
+    all: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>',
+    box: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 18H4V6h16v12zM2 4v16h20V4H2zM6 16h12v-2H6v2z"/></svg>',
+    warn: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>',
+    event: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>'
+  };
 
   var STATUS = {
     proof_submitted: '已上傳付款證明',
@@ -318,6 +423,13 @@
   function when(iso) {
     return iso ? new Date(iso).toLocaleString('zh-HK', { timeZone: 'Asia/Macau', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) : '—';
   }
+  function todayMacau() {
+    return new Date().toLocaleDateString('zh-HK', { timeZone: 'Asia/Macau', year: 'numeric', month: '2-digit', day: '2-digit' });
+  }
+  function isToday(iso) {
+    if (!iso) return false;
+    return new Date(iso).toLocaleDateString('zh-HK', { timeZone: 'Asia/Macau', year: 'numeric', month: '2-digit', day: '2-digit' }) === todayMacau();
+  }
   function token() { try { return localStorage.getItem(TOKEN_KEY) || ''; } catch (e) { return ''; } }
   function setToken(t) { try { t ? localStorage.setItem(TOKEN_KEY, t) : localStorage.removeItem(TOKEN_KEY); } catch (e) {} }
 
@@ -328,8 +440,16 @@
     if (view !== 'vDetail') state.current = null;
     window.scrollTo(0, 0);
   }
-  function showErr(id, code) { $(id).textContent = ERR[code] || ERR.server_error; $(id).className = 'msg err'; $(id).hidden = false; }
-  function showOk(id, text) { $(id).textContent = text; $(id).className = 'msg ok'; $(id).hidden = false; }
+  function showErr(id, code) {
+    var el = $(id);
+    el.innerHTML = (ICONS.warn || '') + '<span>' + esc(ERR[code] || ERR.server_error) + '</span>';
+    el.className = 'msg err'; el.hidden = false;
+  }
+  function showOk(id, text) {
+    var el = $(id);
+    el.innerHTML = (ICONS.paid || '') + '<span>' + esc(text) + '</span>';
+    el.className = 'msg ok'; el.hidden = false;
+  }
   function hideMsg(id) { $(id).hidden = true; }
 
   function call(method, path, body) {
@@ -367,7 +487,7 @@
   $('sendCodeBtn').addEventListener('click', function () {
     hideMsg('loginErr');
     var email = $('emailInput').value.trim().toLowerCase();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { $('loginErr').textContent = '請輸入有效的電郵地址。'; $('loginErr').className = 'msg err'; $('loginErr').hidden = false; return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { $('loginErr').innerHTML = '<span>請輸入有效的電郵地址。</span>'; $('loginErr').className = 'msg err'; $('loginErr').hidden = false; return; }
     var btn = this; btn.disabled = true; btn.textContent = '正在發送…';
     call('POST', '/request-code', { email: email })
       .then(function () {
@@ -377,7 +497,7 @@
         $('codeInput').value = ''; $('codeInput').focus();
       })
       .catch(function (e) { if (e.code !== 'unauthorized') showErr('loginErr', e.code); })
-      .then(function () { btn.disabled = false; btn.textContent = '發送驗證碼'; });
+      .then(function () { btn.disabled = false; btn.innerHTML = ICONS.proof + '發送驗證碼'; });
   });
 
   $('codeInput').addEventListener('input', function () {
@@ -439,9 +559,32 @@
 
   function itemSummary(o) {
     var items = Array.isArray(o.items) ? o.items : [];
-    var names = items.slice(0, 2).map(function (i) { return i.name + '×' + i.qty; }).join('、');
+    var names = items.slice(0, 2).map(function (i) { return i.name + ' × ' + i.qty; }).join('、');
     if (items.length > 2) names += ' 等 ' + items.length + ' 項';
     return names || '—';
+  }
+
+  function statusIcon(status) {
+    if (status === 'paid') return ICONS.paid;
+    if (status === 'cancelled') return ICONS.cancelled;
+    if (status === 'proof_submitted') return ICONS.proof;
+    return ICONS.pending;
+  }
+
+  function renderSummary(counts) {
+    var list = state.orders;
+    var total = list.reduce(function (s, o) { return s + (Number(o.total_mop) || 0); }, 0);
+    var today = list.filter(function (o) { return isToday(o.created_at); }).length;
+    var pending = (counts && counts.pending_payment || 0) + (counts && counts.proof_submitted || 0);
+    var boxes = [
+      { num: counts && counts.all != null ? counts.all : list.length, lbl: '全部訂單', primary: true },
+      { num: pending, lbl: '待處理' },
+      { num: today, lbl: '本日新單' },
+      { num: 'MOP ' + fmt(total), lbl: '選項金額' }
+    ];
+    $('summary').innerHTML = boxes.map(function (b) {
+      return '<div class="box' + (b.primary ? ' primary' : '') + '"><div class="num">' + esc(b.num) + '</div><div class="lbl">' + esc(b.lbl) + '</div></div>';
+    }).join('');
   }
 
   function renderList() {
@@ -451,15 +594,20 @@
     filtered = sortOrders(filtered, sortMode);
 
     $('listInfo').textContent = '共 ' + filtered.length + ' 張訂單（更新於 ' + when(new Date().toISOString()) + '）';
-    if (!filtered.length) { $('orders').innerHTML = '<div class="empty">沒有符合條件的訂單</div>'; return; }
+    if (!filtered.length) {
+      $('orders').innerHTML = '<div class="empty">' + ICONS.box + '<div>沒有符合條件的訂單</div></div>';
+      return;
+    }
 
     $('orders').innerHTML = filtered.map(function (o) {
       var method = METHOD[o.payment_method] || (o.payment_method ? o.payment_method : '—');
+      var ship = o.shipment_status && o.shipment_status !== 'pending' ? '<span class="badge ship-' + esc(o.shipment_status) + '">' + esc(SHIPMENT[o.shipment_status]) + '</span>' : '';
       return '<button type="button" class="order" data-id="' + esc(o.id) + '">' +
         '<div class="top"><span class="no">' + esc(o.order_no) + '</span><span class="amt">MOP ' + fmt(o.total_mop) + '</span></div>' +
-        '<div class="mid"><span>' + esc(o.customer_name) + '　' + esc(o.phone) + '</span><span class="badge s-' + esc(o.status) + '">' + esc(STATUS[o.status] || o.status) + '</span></div>' +
+        '<div class="mid"><span>' + esc(o.customer_name) + '　' + esc(o.phone) + '</span><span class="badge s-' + esc(o.status) + '">' + statusIcon(o.status) + esc(STATUS[o.status] || o.status) + '</span></div>' +
         '<div class="summary">' + esc(itemSummary(o)) + '　・　' + esc(method) + '</div>' +
-        '<div class="when">下單 ' + when(o.created_at) + (o.proofs ? '　・　付款證明 ' + o.proofs + ' 張' : '') + (o.lang === 'en' ? '　・　英文網站' : '') + '</div>' +
+        '<div class="when">' + ICONS.pending + ' 下單 ' + when(o.created_at) + (o.proofs ? '　・　付款證明 ' + o.proofs + ' 張' : '') + (o.lang === 'en' ? '　・　英文網站' : '') + '</div>' +
+        '<div class="meta">' + ship + '</div>' +
         '</button>';
     }).join('');
   }
@@ -467,23 +615,29 @@
   function loadList() {
     hideMsg('listErr');
     show('vList');
-    $('orders').innerHTML = '<div class="empty">正在載入…</div>';
+    $('orders').innerHTML = '<div class="empty"><div class="spinner"></div><div style="margin-top:10px;">正在載入…</div></div>';
     var q = state.tab === 'all' ? '' : '?status=' + state.tab;
     return call('GET', '/orders' + q)
       .then(function (r) {
         state.orders = r.orders || [];
         state.lastCounts = r.counts || {};
         renderTabs(r.counts);
+        renderSummary(r.counts);
         renderList();
       })
-      .catch(function (e) { if (e.code !== 'unauthorized') { $('orders').innerHTML = ''; showErr('listErr', e.code); } });
+      .catch(function (e) {
+        if (e.code !== 'unauthorized') {
+          $('orders').innerHTML = '<div class="empty">' + ICONS.warn + '<div>載入失敗，請按「重新整理」再試</div></div>';
+          showErr('listErr', e.code);
+        }
+      });
   }
 
   function renderTabs(counts) {
     $('tabs').innerHTML = TAB_ORDER.map(function (k) {
       var label = k === 'all' ? '全部' : STATUS[k];
       return '<button type="button" class="tab" role="tab" data-tab="' + k + '" aria-selected="' + (state.tab === k) + '">' +
-        label + '<span class="n">' + (counts && counts[k] != null ? counts[k] : 0) + '</span></button>';
+        statusIcon(k === 'all' ? 'all' : k) + label + '<span class="n">' + (counts && counts[k] != null ? counts[k] : 0) + '</span></button>';
     }).join('');
   }
 
@@ -518,7 +672,7 @@
     var o = r.order;
     $('dNo').textContent = o.order_no;
     $('dStatus').className = 'badge s-' + o.status;
-    $('dStatus').textContent = STATUS[o.status] || o.status;
+    $('dStatus').innerHTML = statusIcon(o.status) + esc(STATUS[o.status] || o.status);
     $('dShipment').className = 'badge ship-' + (o.shipment_status || 'pending');
     $('dShipment').textContent = SHIPMENT[o.shipment_status] || SHIPMENT.pending;
     $('dMop').textContent = 'MOP ' + fmt(o.total_mop);
@@ -534,7 +688,7 @@
 
     // proofs
     if (!r.proofs.length) {
-      $('dProofs').innerHTML = '<p class="muted">客戶尚未上傳付款證明。</p>';
+      $('dProofs').innerHTML = '<div class="empty">' + ICONS.proof + '<div>客戶尚未上傳付款證明</div></div>';
     } else {
       $('dProofs').innerHTML = '<div class="proofs">' + r.proofs.map(function (p) {
         var notify = p.notified_at ? '已電郵通知' : (p.notify_error ? '<span style="color:var(--danger)">電郵通知失敗</span>' : '通知處理中');
@@ -549,8 +703,8 @@
     // actions
     var btns = [];
     if (o.status === 'pending_payment' || o.status === 'proof_submitted') {
-      btns.push('<button type="button" class="btn btn-ok" data-to="paid">標記已收款</button>');
-      btns.push('<button type="button" class="btn btn-danger" data-to="cancelled">取消訂單</button>');
+      btns.push('<button type="button" class="btn btn-ok" data-to="paid"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>標記已收款</button>');
+      btns.push('<button type="button" class="btn btn-danger" data-to="cancelled"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/></svg>取消訂單</button>');
     } else if (o.status === 'paid') {
       btns.push('<p class="muted">此訂單已標記為已收款。如標記有誤，可改回：</p>');
       btns.push('<button type="button" class="btn btn-ghost" data-to="' + (r.proofs.length ? 'proof_submitted' : 'pending_payment') + '">撤銷「已收款」</button>');
@@ -565,9 +719,9 @@
     $('dCustomer').innerHTML = rows.map(function (x) { return '<dt>' + x[0] + '</dt><dd>' + esc(x[1] || '—') + '</dd>'; }).join('');
     var wa = waNumber(o.phone);
     var contact = [];
-    if (wa) contact.push('<a class="btn btn-primary btn-sm" href="https://wa.me/' + wa + '" target="_blank" rel="noopener noreferrer">WhatsApp 客戶</a>');
-    if (o.phone) contact.push('<a class="btn btn-ghost btn-sm" href="tel:' + esc(String(o.phone).replace(/[^\d+]/g, '')) + '">致電</a>');
-    if (o.email) contact.push('<a class="btn btn-ghost btn-sm" href="mailto:' + esc(o.email) + '">電郵</a>');
+    if (wa) contact.push('<a class="btn btn-primary btn-sm" href="https://wa.me/' + wa + '" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>WhatsApp 客戶</a>');
+    if (o.phone) contact.push('<a class="btn btn-ghost btn-sm" href="tel:' + esc(String(o.phone).replace(/[^\d+]/g, '')) + '"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>致電</a>');
+    if (o.email) contact.push('<a class="btn btn-ghost btn-sm" href="mailto:' + esc(o.email) + '"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:14px;height:14px;fill:currentColor;"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/></svg>電郵</a>');
     $('dContact').innerHTML = contact.join('');
 
     // items
@@ -580,10 +734,10 @@
     $('dItems').innerHTML = items.join('');
 
     // history
-    var ev = ['<li>' + esc(when(o.created_at)) + '　客戶提交訂單</li>'];
-    r.proofs.forEach(function (p) { ev.push({ t: p.created_at, html: '<li>' + esc(when(p.created_at)) + '　客戶上傳付款證明</li>' }); });
+    var ev = ['<li>' + ICONS.event + esc(when(o.created_at)) + '　客戶提交訂單</li>'];
+    r.proofs.forEach(function (p) { ev.push({ t: p.created_at, html: '<li>' + ICONS.event + esc(when(p.created_at)) + '　客戶上傳付款證明</li>' }); });
     r.events.forEach(function (e) {
-      ev.push({ t: e.created_at, html: '<li>' + esc(when(e.created_at)) + '　' + esc(e.actor) + '：' +
+      ev.push({ t: e.created_at, html: '<li>' + ICONS.event + esc(when(e.created_at)) + '　' + esc(e.actor) + '：' +
         esc(STATUS[e.from_status] || e.from_status) + ' → <b>' + esc(STATUS[e.to_status] || e.to_status) + '</b></li>' });
     });
     var first = ev.shift();
@@ -674,28 +828,38 @@
   function loadSettings() {
     hideMsg('settingsMsg');
     show('vSettings');
-    $('emailList').innerHTML = '<div class="empty">正在載入…</div>';
+    $('emailList').innerHTML = '<div class="empty"><div class="spinner"></div><div style="margin-top:10px;">正在載入…</div></div>';
     call('GET', '/settings')
       .then(function (r) {
         settingsEmails = (r.admin_emails || []).slice();
         renderEmailList();
       })
-      .catch(function (e) { $('emailList').innerHTML = '<div class="empty">載入失敗</div>'; });
+      .catch(function (e) {
+        $('emailList').innerHTML = '<div class="empty">' + ICONS.warn + '<div>載入失敗</div><button type="button" class="link" id="retrySettings">重新載入</button></div>';
+        $('retrySettings').addEventListener('click', loadSettings);
+      });
+  }
+
+  function validateEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v || '').trim().toLowerCase());
   }
 
   function renderEmailList() {
-    if (!settingsEmails.length) { $('emailList').innerHTML = '<div class="empty">暫無管理員</div>'; return; }
+    if (!settingsEmails.length) { $('emailList').innerHTML = '<div class="empty">' + ICONS.warn + '<div>暫無管理員</div></div>'; return; }
     $('emailList').innerHTML = settingsEmails.map(function (e, i) {
-      return '<div class="email-row"><input type="email" value="' + esc(e) + '" data-idx="' + i + '"><button type="button" data-del="' + i + '">移除</button></div>';
+      var ok = validateEmail(e);
+      return '<div class="email-row"><input type="email" value="' + esc(e) + '" data-idx="' + i + '" class="' + (ok ? '' : 'invalid') + '"><button type="button" data-del="' + i + '">' + ICONS.cancelled + '移除</button></div>';
     }).join('');
   }
 
   $('emailList').addEventListener('input', function (e) {
     var inp = e.target.closest('input[data-idx]'); if (!inp) return;
     settingsEmails[Number(inp.dataset.idx)] = inp.value.trim().toLowerCase();
+    inp.classList.toggle('invalid', !validateEmail(inp.value));
   });
   $('emailList').addEventListener('click', function (e) {
     var btn = e.target.closest('button[data-del]'); if (!btn) return;
+    if (settingsEmails.length <= 1) { showErr('settingsMsg', 'bad_emails'); return; }
     settingsEmails.splice(Number(btn.dataset.del), 1);
     renderEmailList();
   });
@@ -708,7 +872,13 @@
   $('saveSettingsBtn').addEventListener('click', function () {
     var btn = this; btn.disabled = true;
     hideMsg('settingsMsg');
-    call('POST', '/settings', { admin_emails: settingsEmails })
+    var emails = [];
+    for (var i = 0; i < settingsEmails.length; i++) {
+      var e = settingsEmails[i].trim().toLowerCase();
+      if (validateEmail(e) && emails.indexOf(e) === -1) emails.push(e);
+    }
+    if (emails.length === 0) { showErr('settingsMsg', 'bad_emails'); btn.disabled = false; return; }
+    call('POST', '/settings', { admin_emails: emails })
       .then(function (r) {
         settingsEmails = r.admin_emails.slice();
         renderEmailList();

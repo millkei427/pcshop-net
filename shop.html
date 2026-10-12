@@ -3155,17 +3155,55 @@ const defaultProducts = [
 ];
 
 // Load products, merging any new defaults not yet in localStorage
-(function() {
+function loadProductsFromFallback() {
   const saved = JSON.parse(localStorage.getItem('ws_products') || 'null');
   if (saved) {
     const savedIds = new Set(saved.map(p => p.id));
     const newOnes = defaultProducts.filter(p => !savedIds.has(p.id));
-    window._products = newOnes.length ? [...saved, ...newOnes] : saved;
-  } else {
-    window._products = defaultProducts.map(p => ({...p}));
+    return newOnes.length ? [...saved, ...newOnes] : saved;
   }
-})();
-let products = window._products;
+  return defaultProducts.map(p => ({...p}));
+}
+
+function normalizeProduct(p) {
+  return {
+    id: p.id,
+    brand: p.brand,
+    brandName: p.brand_name || p.brandName,
+    cat: p.cat,
+    catName: p.cat_name || p.catName,
+    name: p.name,
+    desc: p.desc,
+    price: typeof p.price === 'number' ? p.price : parseFloat(p.price) || 0,
+    oldPrice: p.old_price != null ? p.old_price : (p.oldPrice != null ? p.oldPrice : null),
+    img: p.img,
+    badge: p.badge,
+    rating: p.rating,
+    reviews: p.reviews,
+    emoji: p.emoji
+  };
+}
+
+async function loadProducts() {
+  try {
+    const res = await fetch(SHOP_PRODUCTS_API, {
+      headers: { Authorization: 'Bearer ' + SHOP_PRODUCTS_ANON, apikey: SHOP_PRODUCTS_ANON },
+      cache: 'no-store'
+    });
+    if (!res.ok) throw new Error('status ' + res.status);
+    const data = await res.json();
+    const list = Array.isArray(data.products) ? data.products : [];
+    products = list.map(normalizeProduct);
+    saveProducts();
+  } catch (e) {
+    console.warn('Shop products API failed, using fallback', e);
+    products = loadProductsFromFallback();
+  }
+  renderProducts();
+  injectProductSchema();
+}
+
+let products = loadProductsFromFallback();
 function saveProducts() { localStorage.setItem('ws_products', JSON.stringify(products)); }
 
 // ============================
@@ -3177,6 +3215,8 @@ const WA_ORDER_NUMBER = '85363928613';
 // to it, and the function validates everything it receives.
 const ORDER_API = 'https://uxoacipysaczewlkjmsr.supabase.co/functions/v1/shop-orders';
 const ORDER_API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4b2FjaXB5c2FjemV3bGtqbXNyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2MzcwNTAsImV4cCI6MjEwNTIxMzA1MH0.8VJHU9iuBsNrRAKUD-DTfV5UBeHEZCxPagQVj_2DQcc';
+const SHOP_PRODUCTS_API = 'https://uxoacipysaczewlkjmsr.supabase.co/functions/v1/shop-products';
+const SHOP_PRODUCTS_ANON = ORDER_API_KEY;
 let cart = [];
 let currentParentCat = 'all';
 let currentSubCat = 'all';
@@ -3432,6 +3472,12 @@ document.addEventListener('DOMContentLoaded', () => {
   applyDeepLink();
   renderProducts();
   injectProductSchema();
+  loadProducts().then(() => {
+    applyDeepLink();
+    renderProducts();
+    renderAdminStats();
+    renderAdminTable();
+  });
 });
 function applySort() {
   sortMode = document.getElementById('sortSelect').value;
@@ -3767,20 +3813,76 @@ function openEditProduct(id) {
   document.getElementById('prodModalTitle').textContent = '✏️ 編輯產品';
   document.getElementById('editProdId').value = id;
   document.getElementById('fName').value = p.name;
-  document.getElementById('fEmoji').value = p.emoji;
+  document.getElementById('fEmoji').value = p.emoji || '';
   document.getElementById('fDesc').value = p.desc;
   document.getElementById('fCat').value = p.cat;
   document.getElementById('fBadge').value = p.badge || '';
   document.getElementById('fPrice').value = p.price;
   document.getElementById('fOldPrice').value = p.oldPrice || '';
-  document.getElementById('fRating').value = p.rating;
-  document.getElementById('fReviews').value = p.reviews;
+  document.getElementById('fRating').value = p.rating || '4.5';
+  document.getElementById('fReviews').value = p.reviews || '0';
   document.getElementById('prodModalOverlay').classList.add('open');
 }
 function closeProdModal() {
   document.getElementById('prodModalOverlay').classList.remove('open');
 }
-function saveProd() {
+
+function getAdminToken() {
+  try { return localStorage.getItem('pcshop_admin_session') || ''; } catch (e) { return ''; }
+}
+
+function shopProductsHeaders(withJson) {
+  const h = {
+    Authorization: 'Bearer ' + SHOP_PRODUCTS_ANON,
+    apikey: SHOP_PRODUCTS_ANON,
+    'x-admin-token': getAdminToken()
+  };
+  if (withJson) h['Content-Type'] = 'application/json';
+  return h;
+}
+
+async function shopProductsCall(method, id, body) {
+  const url = SHOP_PRODUCTS_API + (id != null ? '?id=' + encodeURIComponent(id) : '');
+  const res = await fetch(url, {
+    method: method,
+    headers: shopProductsHeaders(!!body),
+    body: body ? JSON.stringify(body) : undefined,
+    cache: 'no-store'
+  });
+  const data = await res.json().catch(function () { return {}; });
+  if (!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
+  return data;
+}
+
+function adminProductDefaults(formCat) {
+  return {
+    brand: 'other',
+    brandName: '其他',
+    cat: formCat,
+    catName: catLabel(formCat) || formCat,
+    img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1" height="1"%3E%3C/svg%3E'
+  };
+}
+
+var _deleteId = null;
+function confirmDelete(id) {
+  _deleteId = id;
+  document.getElementById('confirmOverlay').classList.add('open');
+}
+function closeConfirm() {
+  _deleteId = null;
+  document.getElementById('confirmOverlay').classList.remove('open');
+}
+async function doDelete() {
+  if (_deleteId == null) return;
+  const id = _deleteId;
+  closeConfirm();
+  await deleteProd(id);
+}
+
+async function saveProd() {
+  const token = getAdminToken();
+  if (!token) { showToast('⚠️ 請先登入訂單管理後台'); return; }
   const name = document.getElementById('fName').value.trim();
   const emoji = document.getElementById('fEmoji').value.trim();
   const desc = document.getElementById('fDesc').value.trim();
@@ -3789,39 +3891,57 @@ function saveProd() {
     showToast('⚠️ 請填寫所有必填欄位'); return;
   }
   const oldPriceVal = parseFloat(document.getElementById('fOldPrice').value);
-  const prod = {
-    name, emoji, desc,
-    cat: document.getElementById('fCat').value,
-    badge: document.getElementById('fBadge').value || null,
-    price,
-    oldPrice: isNaN(oldPriceVal) || oldPriceVal <= 0 ? null : oldPriceVal,
-    rating: parseFloat(document.getElementById('fRating').value) || 4.5,
-    reviews: parseInt(document.getElementById('fReviews').value) || 0,
-  };
+  const formCat = document.getElementById('fCat').value;
   const editId = parseInt(document.getElementById('editProdId').value);
-  if (editId) {
-    const idx = products.findIndex(x=>x.id===editId);
-    products[idx] = { ...products[idx], ...prod };
-    showToast('✅ 產品已更新！');
-  } else {
-    prod.id = Date.now();
-    products.push(prod);
+  const existing = editId ? products.find(function (x) { return x.id === editId; }) : null;
+  const defaults = adminProductDefaults(formCat);
+  const prod = {
+    name: name,
+    emoji: emoji,
+    desc: desc,
+    cat: formCat,
+    catName: catLabel(formCat) || formCat,
+    brand: existing ? existing.brand : defaults.brand,
+    brandName: existing ? existing.brandName : defaults.brandName,
+    badge: document.getElementById('fBadge').value || null,
+    price: price,
+    oldPrice: isNaN(oldPriceVal) || oldPriceVal <= 0 ? null : oldPriceVal,
+    img: existing && existing.img ? existing.img : defaults.img,
+    rating: parseFloat(document.getElementById('fRating').value) || 4.5,
+    reviews: parseInt(document.getElementById('fReviews').value) || 0
+  };
+  try {
+    if (editId) {
+      prod.id = editId;
+      await shopProductsCall('PUT', editId, prod);
+      showToast('✅ 產品已更新');
+    } else {
+      prod.id = Date.now();
+      await shopProductsCall('POST', null, prod);
+      showToast('✅ 產品已新增');
+    }
+    closeProdModal();
+    await loadProducts();
+    renderAdminStats();
+    renderAdminTable();
+  } catch (e) {
+    showToast('❌ 儲存失敗：' + e.message);
   }
-  saveProducts();
-  renderProducts();
-  renderAdminTable();
-  renderAdminStats();
-  closeProdModal();
-  showToast('✅ 產品已儲存！');
 }
-function deleteProd(id) {
-  if (!confirm('確定要刪除此產品？')) return;
-  products = products.filter(p => p.id !== id);
-  saveProducts();
-  renderProducts();
-  renderAdminTable();
-  renderAdminStats();
-  showToast('🗑️ 產品已刪除');
+async function deleteProd(id) {
+  const token = getAdminToken();
+  if (!token) { showToast('⚠️ 請先登入訂單管理後台'); return; }
+  try {
+    await shopProductsCall('DELETE', id);
+    products = products.filter(function (p) { return p.id !== id; });
+    saveProducts();
+    showToast('🗑️ 產品已刪除');
+    await loadProducts();
+    renderAdminStats();
+    renderAdminTable();
+  } catch (e) {
+    showToast('❌ 刪除失敗：' + e.message);
+  }
 }
 </script>
 </body>
