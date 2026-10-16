@@ -86,7 +86,11 @@
   .hero { display:flex; align-items:center; justify-content:center; gap:40px; text-align:left; flex-wrap:wrap; }
   .hero-text { flex:1 1 360px; max-width:620px; }
   .hero-text h1 { text-align:left; }
-  .hero-text p { margin:0; }
+  .hero-text p { margin:0 0 18px; }
+  .hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:30px;
+              text-decoration:none; font-weight:700; background:#fff; color:var(--primary-dark); font-size:.95rem; }
+  .hero-btn.alt { background:rgba(255,255,255,.12); color:#fff; border:2px solid rgba(255,255,255,.5); }
   .hero-visual { flex:0 1 360px; max-width:400px; filter:drop-shadow(0 20px 40px rgba(0,0,0,0.18)); }
   .hero-visual svg { width:100%; height:auto; display:block; }
   @media (max-width:800px){
@@ -114,6 +118,10 @@
   <div class="hero-text">
     <h1>澳門網店及電商平台</h1>
     <p>線上訂購、付款、庫存同步、會員中心、優惠碼管理。串接 POS、CRM、ERP，打造 24 小時不打烊的銷售管道。</p>
+    <div class="hero-btns">
+      <a class="hero-btn" href="https://wa.me/85363928613">WhatsApp 免費諮詢</a>
+      <a class="hero-btn alt" href="tel:28403503">致電 2840 3503</a>
+    </div>
   </div>
   <div class="hero-visual">
     <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -204,6 +212,28 @@
     <summary>開發一個網店需要多久？</summary>
     <p>視功能規模而定，一般 4–10 週可上線。標準版網店（產品、購物車、付款、會員）約 4–6 週；需要串接多個後台系統或客製物流則約 8–12 週。</p>
   </details>
+</section>
+
+<section>
+  <h2>為什麼選擇 PC Shop？</h2>
+  <div class="feature-grid">
+    <div class="feature-box">
+      <h4>🛒 線上線下庫存同步</h4>
+      <p>網店、門市 POS 與倉庫庫存即時連動，避免 Oversold。</p>
+    </div>
+    <div class="feature-box">
+      <h4>💳 多元付款整合</h4>
+      <p>支援 MPay、信用卡、微信支付、支付寶等澳門常用管道。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🎫 會員優惠靈活設定</h4>
+      <p>優惠碼、積分、會員專享等促銷規則自由配置。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🚚 物流與自取兼備</h4>
+      <p>全澳門配送、指定地點自取及訂單追蹤一站式處理。</p>
+    </div>
+  </div>
 </section>
 
 <section>
