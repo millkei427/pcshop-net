@@ -86,7 +86,11 @@
   .hero { display:flex; align-items:center; justify-content:center; gap:40px; text-align:left; flex-wrap:wrap; }
   .hero-text { flex:1 1 360px; max-width:620px; }
   .hero-text h1 { text-align:left; }
-  .hero-text p { margin:0; }
+  .hero-text p { margin:0 0 18px; }
+  .hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:30px;
+              text-decoration:none; font-weight:700; background:#fff; color:var(--primary-dark); font-size:.95rem; }
+  .hero-btn.alt { background:rgba(255,255,255,.12); color:#fff; border:2px solid rgba(255,255,255,.5); }
   .hero-visual { flex:0 1 360px; max-width:400px; filter:drop-shadow(0 20px 40px rgba(0,0,0,0.18)); }
   .hero-visual svg { width:100%; height:auto; display:block; }
   @media (max-width:800px){
@@ -114,6 +118,10 @@
   <div class="hero-text">
     <h1>澳門 HR 考勤薪酬系統</h1>
     <p>排班、打卡、假期、發薪、外地僱員藍卡到期提醒。配合澳門勞動法，專為本地中小企業設計。</p>
+    <div class="hero-btns">
+      <a class="hero-btn" href="https://wa.me/85363928613">WhatsApp 免費諮詢</a>
+      <a class="hero-btn alt" href="tel:28403503">致電 2840 3503</a>
+    </div>
   </div>
   <div class="hero-visual">
     <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -212,6 +220,28 @@
     <summary>多少員工才值得使用 HR 系統？</summary>
     <p>一般而言，15 人以上或每月計薪工時超過 20 小時就值得考慮。輪班多、流動率高、同時有本地及外地僱員的公司，效益尤其明顯。</p>
   </details>
+</section>
+
+<section>
+  <h2>為什麼選擇 PC Shop？</h2>
+  <div class="feature-grid">
+    <div class="feature-box">
+      <h4>⚖️ 澳門法規內建</h4>
+      <p>假期、週假、強制性假日、加班補償等規則符合澳門《勞動關係法》。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🛂 藍卡到期自動提醒</h4>
+      <p>外地僱員證件與合約到期前自動通知，避免人力斷層。</p>
+    </div>
+    <div class="feature-box">
+      <h4>📊 發薪報表一鍵輸出</h4>
+      <p>出勤、薪資、社保及職業稅資料快速整理，減少月底加班。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🤝 本地上門支援</h4>
+      <p>澳門團隊提供導入、培訓與持續技術支援，問題可快速處理。</p>
+    </div>
+  </div>
 </section>
 
 <section>
