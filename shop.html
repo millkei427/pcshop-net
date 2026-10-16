@@ -410,6 +410,60 @@
   }
   .add-cart-btn:hover { background: var(--primary-dark); box-shadow: 0 4px 12px rgba(74,173,168,0.35); }
   .add-cart-btn.added { background: #34a853; }
+  .product-actions { display: flex; gap: 8px; margin-top: 12px; }
+  .product-actions .add-cart-btn { flex: 1; margin-top: 0; }
+  .wa-btn {
+    flex: 1;
+    background: #25D366;
+    color: white;
+    border: none;
+    padding: 11px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 700;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    letter-spacing: 0.2px;
+  }
+  .wa-btn:hover { background: #1ebe57; box-shadow: 0 4px 12px rgba(37,211,102,0.35); }
+  .trust-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .trust-badges span {
+    font-size: 0.68rem;
+    color: #5a6e6d;
+    background: #f0f8f7;
+    border: 1px solid #d6ecea;
+    padding: 3px 8px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* ===== FLOATING WHATSAPP ===== */
+  .wa-float {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    background: #25D366;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(37,211,102,0.45);
+    z-index: 1500;
+    cursor: pointer;
+    transition: transform 0.2s;
+    text-decoration: none;
+  }
+  .wa-float:hover { transform: scale(1.08); }
+  .wa-float svg { width: 30px; height: 30px; fill: currentColor; }
 
   /* ===== EMPTY STATE ===== */
   .empty-state {
@@ -533,6 +587,24 @@
     gap: 8px;
   }
   .checkout-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255,107,0,0.4); }
+  .cart-wa-btn {
+    width: 100%;
+    margin-top: 10px;
+    background: #fff;
+    color: #25D366;
+    border: 1.5px solid #25D366;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .cart-wa-btn:hover { background: #25D366; color: #fff; }
 
   /* ===== CHECKOUT MODAL ===== */
   .modal-overlay {
@@ -608,7 +680,51 @@
   .place-order-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,102,255,0.4); }
   .place-order-btn:disabled { opacity: .6; cursor: wait; transform: none; box-shadow: none; }
   .pay-next-note { font-size: 0.82rem; color: #6B7A79; text-align: center; margin-top: 10px; line-height: 1.5; }
-
+  .trust-strip {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 18px 0;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: #4a5a59;
+    background: #f6fbfb;
+    border: 1px solid #e0eeec;
+    padding: 10px 12px;
+    border-radius: 10px;
+  }
+  .trust-item svg { width: 20px; height: 20px; flex-shrink: 0; fill: var(--primary); }
+  .wa-order-btn {
+    width: 100%;
+    background: #25D366;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 10px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .wa-order-btn:hover { background: #1ebe57; box-shadow: 0 4px 15px rgba(37,211,102,0.35); }
+  .checkout-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 0 10px;
+    color: #999;
+    font-size: 0.78rem;
+  }
+  .checkout-divider::before, .checkout-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
   /* ===== TOAST ===== */
   .toast {
@@ -1615,6 +1731,10 @@
       <div class="cart-row cart-total"><span>合計</span><span id="totalVal">HK$0</span></div>
     </div>
     <button class="checkout-btn" onclick="openCheckout()">💳 前往結帳</button>
+    <button class="cart-wa-btn" onclick="whatsappCart()">
+      <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+      WhatsApp 查詢購物車
+    </button>
   </div>
 </div>
 
@@ -1674,8 +1794,33 @@
         <div class="order-summary-box" id="orderSummaryBox"></div>
       </div>
 
+      <div class="trust-strip">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+          <span>安全付款<br><b>MPay / 微信 / 支付寶 / 中銀</b></span>
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9 1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+          <span>全澳送貨<br><b>順豐 / 門市自取 / 指定時段</b></span>
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <span>正品保證<br><b>澳門門市原廠保養</b></span>
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+          <span>快速回覆<br><b>WhatsApp 即日查詢</b></span>
+        </div>
+      </div>
+
       <button class="place-order-btn" id="placeOrderBtn" onclick="placeOrder()">✅ 確認下單</button>
       <p class="pay-next-note">確認後將前往付款頁面，可使用 MPay、微信支付、支付寶或中國銀行轉帳付款。</p>
+
+      <div class="checkout-divider">或者</div>
+      <button class="wa-order-btn" onclick="whatsappCheckout()">
+        <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:currentColor;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        以 WhatsApp 直接落單
+      </button>
     </div>
   </div>
 </div>
@@ -1820,6 +1965,10 @@
 </div>
 
 
+
+<a class="wa-float" href="https://wa.me/85363928613" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp 查詢" onclick="if(typeof gtag==='function')gtag('event','whatsapp_click',{method:'whatsapp',location:'floating_button'});">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+</a>
 
 <footer>
   <strong>⚡ WonderShop 科技商城</strong> &copy; 2025 · 澳門正版電子產品專門店
@@ -3329,10 +3478,22 @@ function renderProducts() {
           <div class="product-desc">${escHtml(p.desc)}</div>
           <div class="product-price-row">
             <span class="product-price">HK\$${p.price.toLocaleString()}</span>
+            ${p.oldPrice ? `<span class="product-old-price">HK\$${p.oldPrice.toLocaleString()}</span>` : ''}
           </div>
-          <button class="add-cart-btn" id="btn-${p.id}" onclick="event.stopPropagation(); addToCart(${p.id})">
-            🛒 加入購物車
-          </button>
+          <div class="trust-badges">
+            <span>✅ 澳門門市</span>
+            <span>🛡️ 原廠保養</span>
+            <span>🚚 全澳送貨</span>
+          </div>
+          <div class="product-actions">
+            <button class="add-cart-btn" id="btn-${p.id}" onclick="event.stopPropagation(); addToCart(${p.id})">
+              🛒 加入購物車
+            </button>
+            <button class="wa-btn" onclick="event.stopPropagation(); whatsappProduct(${p.id})">
+              <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+              查詢
+            </button>
+          </div>
         </div>
       </div>`;
   }).join('');
@@ -3348,6 +3509,21 @@ function openProduct(id) {
   const p = products.find(x=>x.id===id);
   if (typeof gtag==='function' && p) gtag('event','view_item',{ currency:'HKD', value:p.price, items:[gaItem(p,1)] });
   showToast(`✅ 已查看：${p.name}`);
+}
+function whatsappProduct(id) {
+  const p = products.find(x=>x.id===id);
+  if (!p) return;
+  const text = `你好，我想查詢以下產品：\n\n${p.name}\nHK$${p.price.toLocaleString()}\nhttps://pcshop-net.com/shop.html?p=${p.id}`;
+  if (typeof gtag==='function') gtag('event','whatsapp_click',{ method:'whatsapp', location:'product_card', product_id:p.id, product_name:p.name });
+  window.open('https://wa.me/' + WA_ORDER_NUMBER + '?text=' + encodeURIComponent(text), '_blank');
+}
+function whatsappCart() {
+  if (cart.length === 0) return;
+  const sub = getSubtotal();
+  const lines = cart.map(i => `· ${i.name} × ${i.qty} = HK$${(i.price * i.qty).toLocaleString()}`);
+  const text = '你好，我想查詢以下購物車內容：\n\n' + lines.join('\n') + '\n\n小計：HK$' + sub.toLocaleString() + '\n\n請問現貨同送貨安排如何？';
+  if (typeof gtag==='function') gtag('event','whatsapp_click',{ method:'whatsapp', location:'cart_sidebar' });
+  window.open('https://wa.me/' + WA_ORDER_NUMBER + '?text=' + encodeURIComponent(text), '_blank');
 }
 
 // ============================
@@ -3637,6 +3813,18 @@ function orderWhatsAppText(c) {
     '地區：' + c.district,
     '地址：' + c.address,
   ].join('\n');
+}
+function whatsappCheckout() {
+  const c = {
+    name: document.getElementById('fullName').value.trim() || '（未填寫）',
+    phone: document.getElementById('phone').value.trim() || '（未填寫）',
+    email: document.getElementById('email').value.trim() || '（未填寫）',
+    district: document.getElementById('district').value || '（未選擇）',
+    address: document.getElementById('address').value.trim() || '（未填寫）',
+  };
+  if (cart.length === 0) { showToast('購物車是空的！'); return; }
+  if (typeof gtag==='function') gtag('event','whatsapp_click',{ method:'whatsapp', location:'checkout_modal' });
+  window.open('https://wa.me/' + WA_ORDER_NUMBER + '?text=' + encodeURIComponent(orderWhatsAppText(c)), '_blank');
 }
 
 async function placeOrder() {
