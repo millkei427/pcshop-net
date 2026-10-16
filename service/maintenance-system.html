@@ -86,7 +86,11 @@
   .hero { display:flex; align-items:center; justify-content:center; gap:40px; text-align:left; flex-wrap:wrap; }
   .hero-text { flex:1 1 360px; max-width:620px; }
   .hero-text h1 { text-align:left; }
-  .hero-text p { margin:0; }
+  .hero-text p { margin:0 0 18px; }
+  .hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:30px;
+              text-decoration:none; font-weight:700; background:#fff; color:var(--primary-dark); font-size:.95rem; }
+  .hero-btn.alt { background:rgba(255,255,255,.12); color:#fff; border:2px solid rgba(255,255,255,.5); }
   .hero-visual { flex:0 1 360px; max-width:400px; filter:drop-shadow(0 20px 40px rgba(0,0,0,0.18)); }
   .hero-visual svg { width:100%; height:auto; display:block; }
   @media (max-width:800px){
@@ -114,6 +118,10 @@
   <div class="hero-text">
     <h1>澳門設備保養管理系統</h1>
     <p>器材巡檢、保養排程、維修紀錄、到期提醒與報表。確保每台設備準時保養，不錯過續期。</p>
+    <div class="hero-btns">
+      <a class="hero-btn" href="https://wa.me/85363928613">WhatsApp 免費諮詢</a>
+      <a class="hero-btn alt" href="tel:28403503">致電 2840 3503</a>
+    </div>
   </div>
   <div class="hero-visual">
     <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -204,6 +212,28 @@
     <summary>維修可以外包給 PC Shop 跟進嗎？</summary>
     <p>可以。PC Shop 本身提供電腦、網路、電子白板、閉路電視等設備維修及保養服務，系統可直接生成維修工單交由我們處理。</p>
   </details>
+</section>
+
+<section>
+  <h2>為什麼選擇 PC Shop？</h2>
+  <div class="feature-grid">
+    <div class="feature-box">
+      <h4>📱 QR Code / NFC 巡檢</h4>
+      <p>用手機掃描即可完成巡查記錄、拍照上傳，確保到位。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🔧 保養維修一條龍</h4>
+      <p>從資產登記、工單派發到維修驗收全程追蹤。</p>
+    </div>
+    <div class="feature-box">
+      <h4>⚠️ 到期提醒不漏接</h4>
+      <p>保養、檢查、證件續期前自動通知負責人員。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🛠️ 軟硬體結合</h4>
+      <p>PC Shop 同時提供設備維修與保養服務，系統與服務無縫銜接。</p>
+    </div>
+  </div>
 </section>
 
 <section>
