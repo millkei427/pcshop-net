@@ -170,3 +170,66 @@ D:\ClaudeAI\WonderShop\
 **雜項**
 - `DCL file/`、`data/`、`docs/*.docx`、`scripts/send-skechers.ts` 未入 git
 - WonderShop 散檔：`GA4_KEY_EVENTS_SPEC.md`、`images/mpay-qr.jpg`
+
+---
+
+## 2026-10-16 Session — 推廣轉化優化 + 服務頁視覺升級
+
+### ✅ 已完成
+
+**1. shop.html 轉化優化**
+- 產品卡加入 WhatsApp「查詢」掣、信任標籤（澳門門市、原廠保養、全澳送貨）、原價劃線
+- 購物車側欄加入「WhatsApp 查詢購物車」掣
+- 結帳彈窗加入信任條（安全付款、送貨、正品保證、快速回覆）及「以 WhatsApp 直接落單」掣
+- 右下角加入浮動 WhatsApp 按鈕
+- 新增 JS：`whatsappProduct()`、`whatsappCart()`、`whatsappCheckout()`，並帶 GA4 `whatsapp_click` 事件
+
+**2. 服務頁面全面升級**
+- `service/index.html` 重新設計：Hero + 卡片式服務總覽（商業系統 / IT 支援）+ 為什麼選擇 PC Shop + FAQ + CTA
+- 所有服務分頁用語改為標準中文（例如「到府」→「上門」）
+- POS、ERP、CRM 重點分頁豐富化：痛點、核心功能 grid、服務流程、FAQ、為什麼選擇 PC Shop
+- 其餘 7 個系統分頁加入 Hero CTA 按鈕及「為什麼選擇 PC Shop」section：
+  - appointment-system.html、hr-system.html、subscription-system.html、maintenance-system.html、smart-school-system.html、mobile-app-system.html、ecommerce-system.html
+- `service/index.html` 加入 FAQ 內容及 FAQPage schema，強化 AI 搜尋可見性
+
+**3. 再行銷追蹤 placeholder**
+- 新增 `tracking.js`：Meta Pixel + Google Ads Remarketing 載入器（placeholder ID）
+- 在 `index.html`、`shop.html`、`service/index.html` 引入
+- 用戶只需將 `REPLACE_META_PIXEL_ID` 及 `REPLACE_GOOGLE_ADS_ID` 替換為實際 ID 即可啟用
+
+**4. Google Business Profile 內容策略**
+- 新增 `docs/gbp-content-strategy.md`：
+  - 每週 GBP Post 發佈計劃（產品優惠 / 服務案例 / 知識分享 / 客戶評價）
+  - 評論引導話術（WhatsApp / 電郵 / 門市櫃檯）
+  - 關鍵字與 hashtag 建議
+  - 圖片/影片內容建議
+  - 追蹤指標與執行檢查清單
+- `review.html` 用語標準化：「推薦畀朋友」→「推薦給朋友」
+
+### 📌 建議新增 SKILL（供下次參考）
+
+1. **`pcshop-service-page-template`**  
+   快速生成新的 `/service/<system>.html` 分頁，自動帶入：
+   - 標準 head（GA4、SEO meta、canonical、alternate、og、schema）
+   - Hero + SVG 視覺 + CTA 按鈕
+   - 痛點、核心功能 grid、適用行業、服務流程、FAQ、為什麼選擇 PC Shop、CTA、相關服務
+   - 標準中文用語檢查
+
+2. **`standard-chinese-lint`**  
+   掃描 HTML / Markdown 內容，標記並建議修正廣東話口語字（唔、嘅、喺、睇、揀、俾、攞、搵、冇、啲、咁、呢、嗰、喎、咋、嘛、囉、落單、有冇、幾多、幾時、點解、點樣、邊個、係咪、而家、到府等）。
+
+### ⏳ 待辦 / 等你決定
+
+**高優先**
+1. **Meta Pixel / Google Ads ID**：請提供實際 ID，替換 `tracking.js` 及三個頁面的 `REPLACE_META_PIXEL_ID` / `REPLACE_GOOGLE_ADS_ID`。
+2. **GBP 執行**：按 `docs/gbp-content-strategy.md` 每週發 Post，並在服務完成後 24 小時內發送評論邀請。
+3. **shop.html 實測**：GitHub Pages 更新後開 `https://pcshop-net.com/shop.html?nocache=1` 確認新 CTA 顯示正常。
+
+**中優先**
+4. 其餘維修支援分頁可加強視覺（repair、onsite、data-recovery、network、printer、cctv、store）。
+5. 為所有服務分頁建立統一連結至 `review.html`，強化評論轉化。
+6. 考慮將熱門系統分頁加入首頁「軟件解決方案」區域的「了解更多」連結。
+
+**雜項**
+- `tracking.js` 目前為 placeholder，啟用前請勿忘記替換 ID。
+- `service/index.html` 的視覺 redesign 需等待 GitHub Pages build 後線上驗證。
