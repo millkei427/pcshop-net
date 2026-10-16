@@ -86,7 +86,11 @@
   .hero { display:flex; align-items:center; justify-content:center; gap:40px; text-align:left; flex-wrap:wrap; }
   .hero-text { flex:1 1 360px; max-width:620px; }
   .hero-text h1 { text-align:left; }
-  .hero-text p { margin:0; }
+  .hero-text p { margin:0 0 18px; }
+  .hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:30px;
+              text-decoration:none; font-weight:700; background:#fff; color:var(--primary-dark); font-size:.95rem; }
+  .hero-btn.alt { background:rgba(255,255,255,.12); color:#fff; border:2px solid rgba(255,255,255,.5); }
   .hero-visual { flex:0 1 360px; max-width:400px; filter:drop-shadow(0 20px 40px rgba(0,0,0,0.18)); }
   .hero-visual svg { width:100%; height:auto; display:block; }
   @media (max-width:800px){
@@ -114,6 +118,10 @@
   <div class="hero-text">
     <h1>澳門訂閱及套票系統</h1>
     <p>月費會籍、課程套票、自動續期、週期性發票。減少人工催收，留住長期客戶。</p>
+    <div class="hero-btns">
+      <a class="hero-btn" href="https://wa.me/85363928613">WhatsApp 免費諮詢</a>
+      <a class="hero-btn alt" href="tel:28403503">致電 2840 3503</a>
+    </div>
   </div>
   <div class="hero-visual">
     <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -203,6 +211,28 @@
     <summary>收款可以支援哪些付款方式？</summary>
     <p>可串接 MPay、信用卡、銀行轉帳、微信支付、支付寶等澳門常用管道，依您的客戶習慣設定。</p>
   </details>
+</section>
+
+<section>
+  <h2>為什麼選擇 PC Shop？</h2>
+  <div class="feature-grid">
+    <div class="feature-box">
+      <h4>🔄 訂閱與套票雙軌並行</h4>
+      <p>月費會籍與計次套票可在同一平台管理，滿足不同銷售模式。</p>
+    </div>
+    <div class="feature-box">
+      <h4>⏰ 自動續期與到期提醒</h4>
+      <p>減少人工催收與漏收，提升續約率與客戶體驗。</p>
+    </div>
+    <div class="feature-box">
+      <h4>💳 多元付款串接</h4>
+      <p>支援 MPay、信用卡、微信支付、支付寶等澳門常用管道。</p>
+    </div>
+    <div class="feature-box">
+      <h4>📈 營運數據透明</h4>
+      <p>續約率、流失率、熱門套票等報表助你持續優化方案。</p>
+    </div>
+  </div>
 </section>
 
 <section>
