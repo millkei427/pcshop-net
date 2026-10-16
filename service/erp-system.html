@@ -86,7 +86,11 @@
   .hero { display:flex; align-items:center; justify-content:center; gap:40px; text-align:left; flex-wrap:wrap; }
   .hero-text { flex:1 1 360px; max-width:620px; }
   .hero-text h1 { text-align:left; }
-  .hero-text p { margin:0; }
+  .hero-text p { margin:0 0 18px; }
+  .hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:30px;
+              text-decoration:none; font-weight:700; background:#fff; color:var(--primary-dark); font-size:.95rem; }
+  .hero-btn.alt { background:rgba(255,255,255,.12); color:#fff; border:2px solid rgba(255,255,255,.5); }
   .hero-visual { flex:0 1 360px; max-width:400px; filter:drop-shadow(0 20px 40px rgba(0,0,0,0.18)); }
   .hero-visual svg { width:100%; height:auto; display:block; }
   @media (max-width:800px){
@@ -114,6 +118,10 @@
   <div class="hero-text">
     <h1>澳門 ERP 企業資源管理系統</h1>
     <p>採購、庫存、財務、銷售、報表一體化。將散落於 Excel 與紙張的數據整合到同一平台，減少重複輸入與人工對帳。</p>
+    <div class="hero-btns">
+      <a class="hero-btn" href="https://wa.me/85363928613">WhatsApp 免費諮詢</a>
+      <a class="hero-btn alt" href="tel:28403503">致電 2840 3503</a>
+    </div>
   </div>
   <div class="hero-visual">
     <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -204,6 +212,28 @@
     <summary>可以與我現有的會計軟體對接嗎？</summary>
     <p>可以。我們會依你現有系統設計 API 或報表對接方案，例如將 ERP 數據匯出到會計軟體，或雙向同步客戶、供應商資料。</p>
   </details>
+</section>
+
+<section>
+  <h2>為什麼選擇 PC Shop？</h2>
+  <div class="feature-grid">
+    <div class="feature-box">
+      <h4>🛠️ 軟硬體一站式</h4>
+      <p>電腦、網路、POS、伺服器與 ERP 系統由同一家公司規劃、供應及維護。</p>
+    </div>
+    <div class="feature-box">
+      <h4>📊 數據整合經驗</h4>
+      <p>熟悉澳門零售、批發、餐飲流程，協助將 Excel 與舊系統資料順利遷移。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🚀 模組化上線</h4>
+      <p>先從最痛的環節切入，分階段導入，降低對日常營運的影響。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🤝 本地售後支援</h4>
+      <p>澳門門市團隊提供上門支援與培訓，系統問題可快速處理。</p>
+    </div>
+  </div>
 </section>
 
 <section>
