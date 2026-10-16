@@ -52,18 +52,27 @@
   .lang-switch a { color:rgba(255,255,255,.78); font-size:.8rem; font-weight:700;
     padding:5px 10px; border-radius:16px; line-height:1; white-space:nowrap; }
   .lang-switch a.lang-on { background:#fff; color:#2D5F5D; }
-  .hero { background:var(--dark); color:#fff; padding:44px 20px 38px; text-align:center; }
-  .hero h1 { font-size:2rem; margin-bottom:12px; line-height:1.35; }
-  .hero p { max-width:680px; margin:0 auto; opacity:.92; }
-  .crumb { max-width:1000px; margin:0 auto; padding:12px 20px 0; font-size:.85rem; color:#6B7B7A; }
+  .hero { background:linear-gradient(135deg,var(--dark) 0%,#1E4745 100%); color:#fff;
+          padding:52px 20px 48px; }
+  .hero-inner { max-width:1000px; margin:0 auto; display:flex; align-items:center; gap:40px; flex-wrap:wrap; }
+  .hero-text { flex:1 1 420px; }
+  .hero-text h1 { font-size:2.15rem; line-height:1.3; margin-bottom:12px; }
+  .hero-text p { opacity:.92; margin-bottom:20px; }
+  .hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-btn { display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:30px;
+              text-decoration:none; font-weight:700; background:#fff; color:var(--primary-dark); }
+  .hero-btn.alt { background:rgba(255,255,255,.12); color:#fff; border:2px solid rgba(255,255,255,.5); }
+  .hero-visual { flex:0 1 320px; max-width:360px; filter:drop-shadow(0 20px 40px rgba(0,0,0,0.2)); }
+  .hero-visual svg { width:100%; height:auto; display:block; }
+  .crumb { max-width:1000px; margin:0 auto; padding:14px 20px 0; font-size:.85rem; color:#6B7B7A; }
   .crumb a { color:#6B7B7A; }
   main { max-width:1000px; margin:0 auto; padding:8px 20px 48px; }
-  section { background:#fff; border:1px solid var(--border); border-radius:14px;
-            padding:26px 24px; margin:20px 0; }
-  h2 { color:var(--dark); font-size:1.4rem; margin-bottom:14px; }
+  section { background:#fff; border:1px solid var(--border); border-radius:16px;
+            padding:28px 26px; margin:20px 0; }
+  h2 { color:var(--dark); font-size:1.45rem; margin-bottom:14px; }
   h3 { color:var(--primary-dark); font-size:1.08rem; margin:18px 0 8px; }
   ul { margin-left:20px; }
-  li { margin:6px 0; }
+  li { margin:7px 0; }
   .tbl-wrap { overflow-x:auto; margin:12px 0 6px; }
   table { width:100%; border-collapse:collapse; min-width:420px; }
   th, td { padding:11px 14px; text-align:left; border-bottom:1px solid var(--border); }
@@ -79,6 +88,15 @@
   details { border:1px solid var(--border); border-radius:10px; padding:12px 16px; margin:10px 0; background:#fff; }
   details summary { font-weight:700; color:var(--dark); cursor:pointer; }
   details p { margin-top:10px; }
+  .feature-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:18px; margin-top:16px; }
+  .feature-box { background:#f8fbff; border:1px solid var(--border); border-radius:12px; padding:18px; }
+  .feature-box h4 { color:var(--dark); font-size:1rem; margin-bottom:6px; }
+  .feature-box p { font-size:.88rem; color:#5a6a6a; line-height:1.55; margin:0; }
+  .why-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-top:16px; }
+  .why-box { background:#f8fbff; border:1px solid var(--border); border-radius:12px; padding:18px; text-align:center; }
+  .why-box .wicon { font-size:2rem; margin-bottom:8px; }
+  .why-box h4 { color:var(--dark); font-size:1rem; margin-bottom:6px; }
+  .why-box p { font-size:.87rem; color:#5a6a6a; line-height:1.5; }
   .cta { background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);
          color:#fff; text-align:center; border:0; }
   .cta h2 { color:#fff; }
@@ -92,22 +110,11 @@
   footer { background:var(--dark); color:rgba(255,255,255,.85); padding:30px 20px; text-align:center; font-size:.9rem; }
   footer a { color:rgba(255,255,255,.85); }
   footer .nap { margin-bottom:10px; }
-  @media (max-width:640px){ .hero h1 { font-size:1.5rem; } section { padding:20px 16px; } }
-
-  .hero { display:flex; align-items:center; justify-content:center; gap:40px; text-align:left; flex-wrap:wrap; }
-  .hero-text { flex:1 1 360px; max-width:620px; }
-  .hero-text h1 { text-align:left; }
-  .hero-text p { margin:0; }
-  .hero-visual { flex:0 1 360px; max-width:400px; filter:drop-shadow(0 20px 40px rgba(0,0,0,0.18)); }
-  .hero-visual svg { width:100%; height:auto; display:block; }
   @media (max-width:800px){
-    .hero { text-align:center; }
-    .hero-text h1 { text-align:center; }
-    .hero-text p { margin:0 auto; }
-    .hero-visual { flex-basis:280px; }
+    .hero-text h1 { font-size:1.75rem; }
+    .hero-visual { flex-basis:260px; }
   }
-  @media (max-width:640px){ .hero-visual { max-width:260px; } }
-
+  @media (max-width:640px){ .hero-text h1 { font-size:1.5rem; } section { padding:22px 18px; } .feature-grid { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -121,34 +128,88 @@
     <nav class="lang-switch" aria-label="Language"><a href="#" class="lang-on" hreflang="zh-Hant" lang="zh-Hant">繁體</a><a href="https://pcshop-net.com/en/service/pos.html" hreflang="en" lang="en">EN</a></nav>
   </nav>
 </header>
+
 <div class="hero">
-  <div class="hero-text">
-    <h1>澳門 POS 收銀系統</h1>
-    <p>軟體、硬體、安裝、培訓、售後皆由同一家負責。餐飲、零售、美容及服務業皆適用。</p>
-  </div>
-  <div class="hero-visual">
-    <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <defs>
-    <radialGradient id="heroGrad" cx="50%" cy="50%" r="55%">
-      <stop offset="0%" stop-color="#4AADA8" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="#2D5F5D" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
-  <circle cx="200" cy="150" r="145" fill="url(#heroGrad)"/>
-  <circle cx="200" cy="150" r="92" fill="#fff" fill-opacity="0.95" stroke="#4AADA8" stroke-width="3"/>
-  <text x="200" y="188" font-size="118" text-anchor="middle">🏪</text>
-  <g><circle cx="306.9443188703247" cy="199.86895488540253" r="30" fill="#fff" fill-opacity="0.95" stroke="#4AADA8" stroke-width="2"/><text x="306.9443188703247" y="209.86895488540253" font-size="28" text-anchor="middle">🧾</text></g>
-  <g><circle cx="159.64162308757108" cy="260.8837292527372" r="30" fill="#fff" fill-opacity="0.95" stroke="#4AADA8" stroke-width="2"/><text x="159.64162308757108" y="270.8837292527372" font-size="28" text-anchor="middle">💳</text></g>
-  <g><circle cx="93.05568112967529" cy="100.13104511459748" r="30" fill="#fff" fill-opacity="0.95" stroke="#4AADA8" stroke-width="2"/><text x="93.05568112967529" y="110.13104511459748" font-size="28" text-anchor="middle">🛒</text></g>
-  <g><circle cx="249.86895488540256" cy="43.05568112967532" r="30" fill="#fff" fill-opacity="0.95" stroke="#4AADA8" stroke-width="2"/><text x="249.86895488540256" y="53.05568112967532" font-size="28" text-anchor="middle">📊</text></g>
-</svg>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>澳門 POS 收銀系統</h1>
+      <p>軟體、硬體、安裝、培訓、售後皆由同一家負責。餐飲、零售、美容及服務業皆適用，協助您加速結帳、減少錯單、掌握暢銷商品。</p>
+      <div class="hero-btns">
+        <a class="hero-btn" href="https://wa.me/85363928613">WhatsApp 免費諮詢</a>
+        <a class="hero-btn alt" href="tel:28403503">致電 2840 3503</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="heroGrad" cx="50%" cy="50%" r="55%">
+            <stop offset="0%" stop-color="#4AADA8" stop-opacity="0.28"/>
+            <stop offset="100%" stop-color="#2D5F5D" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="200" cy="150" r="145" fill="url(#heroGrad)"/>
+        <rect x="105" y="75" width="190" height="140" rx="16" fill="#fff" fill-opacity="0.95" stroke="#4AADA8" stroke-width="3"/>
+        <rect x="125" y="105" width="90" height="10" rx="5" fill="#D6ECEA"/>
+        <rect x="125" y="125" width="150" height="8" rx="4" fill="#E8F4F3"/>
+        <rect x="125" y="141" width="120" height="8" rx="4" fill="#E8F4F3"/>
+        <rect x="125" y="157" width="70" height="8" rx="4" fill="#E8F4F3"/>
+        <circle cx="255" cy="110" r="16" fill="#4AADA8" fill-opacity="0.2"/>
+        <text x="200" y="245" font-size="90" text-anchor="middle">🏪</text>
+        <g><circle cx="310" cy="205" r="28" fill="#fff" fill-opacity="0.95" stroke="#4AADA8" stroke-width="2"/><text x="310" y="215" font-size="26" text-anchor="middle">🧾</text></g>
+        <g><circle cx="90" cy="115" r="28" fill="#fff" fill-opacity="0.95" stroke="#4AADA8" stroke-width="2"/><text x="90" y="125" font-size="26" text-anchor="middle">💳</text></g>
+        <g><circle cx="95" cy="220" r="28" fill="#fff" fill-opacity="0.95" stroke="#4AADA8" stroke-width="2"/><text x="95" y="230" font-size="26" text-anchor="middle">🛒</text></g>
+        <g><circle cx="315" cy="95" r="28" fill="#fff" fill-opacity="0.95" stroke="#4AADA8" stroke-width="2"/><text x="315" y="105" font-size="26" text-anchor="middle">📊</text></g>
+      </svg>
+    </div>
   </div>
 </div>
+
 <div class="crumb"><a href="/">首頁</a> › <a href="/service/">服務</a> › 澳門 POS 收銀系統</div>
+
 <main>
 <section>
-  <h2>服務範圍</h2>
-  <h3>一站式服務包括</h3>
+  <h2>哪些店鋪需要 POS 收銀系統？</h2>
+  <ul>
+    <li>每日以現金及電子支付收款，月結時需要花大量時間對帳</li>
+    <li>商品種類多，難以掌握暢銷品與庫存狀況</li>
+    <li>餐廳需要區分內用、外帶、外賣平台訂單，容易出錯單</li>
+    <li>美容、健身、課程中心需要結合預約、會員與套票管理</li>
+    <li>希望以會員積分、優惠碼、折扣活動提升回購率</li>
+  </ul>
+</section>
+
+<section>
+  <h2>核心功能</h2>
+  <div class="feature-grid">
+    <div class="feature-box">
+      <h4>🧾 快速結帳</h4>
+      <p>支援現金、信用卡、電子支付及會員餘額，縮短排隊時間，減少人工找續錯誤。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🛒 商品與庫存</h4>
+      <p>產品分類、規格、條碼、庫存數量即時同步，低庫存自動提醒。</p>
+    </div>
+    <div class="feature-box">
+      <h4>👥 會員管理</h4>
+      <p>會員資料、積分、儲值、生日優惠、標籤分群，協助精準行銷。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🍽️ 餐飲專用流程</h4>
+      <p>桌位管理、點餐、廚房出單機（KDS）、分單、外賣平台整合。</p>
+    </div>
+    <div class="feature-box">
+      <h4>📊 營業報表</h4>
+      <p>銷售總額、商品排行、時段分析、收款方式佔比，隨時掌握店鋪狀況。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🔐 權限與對帳</h4>
+      <p>按職位設定操作權限，交易紀錄清晰，交接班對帳更輕鬆。</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>一站式服務內容</h2>
   <ul>
     <li>POS 收銀軟體設定（產品、價格、折扣、會員）</li>
     <li>硬體供應：收銀機、錢箱、單據印表機、條碼掃描器、客戶顯示器</li>
@@ -196,6 +257,32 @@
 </section>
 
 <section>
+  <h2>為什麼選擇 PC Shop？</h2>
+  <div class="why-grid">
+    <div class="why-box">
+      <div class="wicon">🛠️</div>
+      <h4>軟硬體一站式</h4>
+      <p>收銀機、印表機、掃描器與系統由同一家公司供應及維護。</p>
+    </div>
+    <div class="why-box">
+      <div class="wicon">🚀</div>
+      <h4>快速上線</h4>
+      <p>標準化設定流程，一般店鋪數天內即可開始使用。</p>
+    </div>
+    <div class="why-box">
+      <div class="wicon">🤝</div>
+      <h4>本地培訓支援</h4>
+      <p>提供員工操作培訓，售後可上門處理疑問與故障。</p>
+    </div>
+    <div class="why-box">
+      <div class="wicon">📈</div>
+      <h4>可擴展整合</h4>
+      <p>可串接 ERP、CRM、網店及會員系統，隨業務成長。</p>
+    </div>
+  </div>
+</section>
+
+<section>
   <h2>常見問題</h2>
   <details><summary>小店使用 POS 系統值得嗎？</summary><p>這取決於您目前花多少時間對帳與盤點。大部分小店導入系統後，最明顯的改變是不必再以人工清點現金、月結不必熬夜，也能清楚掌握哪些商品暢銷。我們可以先上門了解您的流程再提供建議，評估免費。</p></details>
   <details><summary>目前使用其他系統，可以轉換嗎？</summary><p>可以。我們會協助將現有的產品資料、會員資料匯入新系統，並安排並行試運行，確保不會影響日常營運。</p></details>
@@ -204,8 +291,8 @@
 </section>
 
 <section class="cta">
-  <h2>需要POS 收銀系統？</h2>
-  <p>免費檢測及報價，確認後才施工。WhatsApp 傳送型號或照片給我們，即可初步判斷。</p>
+  <h2>需要 POS 收銀系統？</h2>
+  <p>免費上門評估及報價，確認後才施工。WhatsApp 傳送店鋪類型與需求，即可初步判斷適合方案。</p>
   <div class="btns">
     <a class="btn" href="https://wa.me/85363928613">WhatsApp 6392 8613</a>
     <a class="btn alt" href="tel:28403503">致電 2840 3503</a>
@@ -215,16 +302,17 @@
 <section>
   <h2>其他服務</h2>
   <div class="rel">
-    <a href="/service/onsite.html">澳門上門電腦維修及 IT 支援</a>
-    <a href="/service/network.html">澳門網路工程及 Wi-Fi 安裝</a>
-    <a href="/service/repair.html">澳門電腦維修服務</a>
+    <a href="/service/erp-system.html">ERP 企業資源管理</a>
+    <a href="/service/membership-crm.html">會員 CRM 系統</a>
+    <a href="/service/appointment-system.html">預約排程系統</a>
   </div>
 </section>
 </main>
+
 <footer>
   <div class="nap"><strong>PC Shop 專業電腦店</strong> · 澳門雅廉訪大馬路幸運閣商場 BG 舖</div>
   <div class="nap">電話 <a href="tel:28403503">2840 3503</a> · WhatsApp <a href="https://wa.me/85363928613">6392 8613</a> · <a href="mailto:info@pcshop-net.com">info@pcshop-net.com</a></div>
-  <div class="nap">星期一至六 10:30 – 19:30（星期日及公眾假期休息）</div>
+  <div class="nap">星期一至六 10:30 – 19:30（星期日及國定假日休息）</div>
   <div style="margin-top:12px;opacity:.6;">© PC Shop 專業電腦店 · 深耕澳門逾十年</div>
 </footer>
 </body>
