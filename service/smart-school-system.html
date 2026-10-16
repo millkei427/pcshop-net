@@ -86,7 +86,11 @@
   .hero { display:flex; align-items:center; justify-content:center; gap:40px; text-align:left; flex-wrap:wrap; }
   .hero-text { flex:1 1 360px; max-width:620px; }
   .hero-text h1 { text-align:left; }
-  .hero-text p { margin:0; }
+  .hero-text p { margin:0 0 18px; }
+  .hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:30px;
+              text-decoration:none; font-weight:700; background:#fff; color:var(--primary-dark); font-size:.95rem; }
+  .hero-btn.alt { background:rgba(255,255,255,.12); color:#fff; border:2px solid rgba(255,255,255,.5); }
   .hero-visual { flex:0 1 360px; max-width:400px; filter:drop-shadow(0 20px 40px rgba(0,0,0,0.18)); }
   .hero-visual svg { width:100%; height:auto; display:block; }
   @media (max-width:800px){
@@ -114,6 +118,10 @@
   <div class="hero-text">
     <h1>澳門智慧教學及校園系統</h1>
     <p>電子白板、電腦教室管理、出勤作業、教學平台、AI 教育工具。為澳門學校打造數位化校園。</p>
+    <div class="hero-btns">
+      <a class="hero-btn" href="https://wa.me/85363928613">WhatsApp 免費諮詢</a>
+      <a class="hero-btn alt" href="tel:28403503">致電 2840 3503</a>
+    </div>
   </div>
   <div class="hero-visual">
     <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -204,6 +212,28 @@
     <summary>AI 教育工具能提供哪些協助？</summary>
     <p>AI 可以協助生成練習題、自動批改客觀題、分析學生學習進度、製作教學簡報，減輕教師行政負擔。</p>
   </details>
+</section>
+
+<section>
+  <h2>為什麼選擇 PC Shop？</h2>
+  <div class="feature-grid">
+    <div class="feature-box">
+      <h4>🏫 軟硬體一條龍</h4>
+      <p>電子白板、電腦教室、校園 Wi-Fi、打卡機與教學平台一次規劃。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🤖 AI 教學工具導入</h4>
+      <p>協助學校運用 AI 自動出題、批改與分析學習進度。</p>
+    </div>
+    <div class="feature-box">
+      <h4>📝 配合澳門學校流程</h4>
+      <p>依課節編排、評分標準與行政需求量身調整。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🛠️ 本地技術支援</h4>
+      <p>澳門團隊提供到校安裝、培訓與後續維護，減少溝通成本。</p>
+    </div>
+  </div>
 </section>
 
 <section>
