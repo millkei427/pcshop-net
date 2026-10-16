@@ -206,17 +206,17 @@ D:\ClaudeAI\WonderShop\
   - 追蹤指標與執行檢查清單
 - `review.html` 用語標準化：「推薦畀朋友」→「推薦給朋友」
 
-### 📌 建議新增 SKILL（供下次參考）
+### ✅ 已新增 SKILL
+
+已於用戶 scope 創建以下兩個 SKILL，下次相關工作會自動載入：
 
 1. **`pcshop-service-page-template`**  
-   快速生成新的 `/service/<system>.html` 分頁，自動帶入：
-   - 標準 head（GA4、SEO meta、canonical、alternate、og、schema）
-   - Hero + SVG 視覺 + CTA 按鈕
-   - 痛點、核心功能 grid、適用行業、服務流程、FAQ、為什麼選擇 PC Shop、CTA、相關服務
-   - 標準中文用語檢查
+   路徑：`C:\Users\PC\.agents\skills\pcshop-service-page-template\SKILL.md`  
+   用途：快速生成新的 `/service/<system>.html` 分頁，帶入標準 head、Hero + CTA、功能 grid、FAQ、why-choose、CTA、相關服務等結構。
 
 2. **`standard-chinese-lint`**  
-   掃描 HTML / Markdown 內容，標記並建議修正廣東話口語字（唔、嘅、喺、睇、揀、俾、攞、搵、冇、啲、咁、呢、嗰、喎、咋、嘛、囉、落單、有冇、幾多、幾時、點解、點樣、邊個、係咪、而家、到府等）。
+   路徑：`C:\Users\PC\.agents\skills\standard-chinese-lint\SKILL.md`  
+   用途：掃描 HTML / Markdown 中嘅廣東話口語字（唔、嘅、喺、睇、揀、俾、攞、搵、冇、啲、咁、呢、嗰、喎、咋、嘛、囉、落單、有冇、幾多、幾時、點解、點樣、邊個、係咪、而家、到府等），並提供標準中文對照表同批量修正命令。
 
 ### ⏳ 待辦 / 等你決定
 
