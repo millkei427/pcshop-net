@@ -86,7 +86,11 @@
   .hero { display:flex; align-items:center; justify-content:center; gap:40px; text-align:left; flex-wrap:wrap; }
   .hero-text { flex:1 1 360px; max-width:620px; }
   .hero-text h1 { text-align:left; }
-  .hero-text p { margin:0; }
+  .hero-text p { margin:0 0 18px; }
+  .hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:30px;
+              text-decoration:none; font-weight:700; background:#fff; color:var(--primary-dark); font-size:.95rem; }
+  .hero-btn.alt { background:rgba(255,255,255,.12); color:#fff; border:2px solid rgba(255,255,255,.5); }
   .hero-visual { flex:0 1 360px; max-width:400px; filter:drop-shadow(0 20px 40px rgba(0,0,0,0.18)); }
   .hero-visual svg { width:100%; height:auto; display:block; }
   @media (max-width:800px){
@@ -114,6 +118,10 @@
   <div class="hero-text">
     <h1>澳門手機 App 及小程序開發</h1>
     <p>iOS / Android 原生或跨平台開發，微信 / 支付寶小程序。對接後台系統、推送通知、線上付款。</p>
+    <div class="hero-btns">
+      <a class="hero-btn" href="https://wa.me/85363928613">WhatsApp 免費諮詢</a>
+      <a class="hero-btn alt" href="tel:28403503">致電 2840 3503</a>
+    </div>
   </div>
   <div class="hero-visual">
     <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -204,6 +212,28 @@
     <summary>上線後可以協助維護嗎？</summary>
     <p>可以。我們提供上線後技術支援、功能更新、伺服器維護及商店審核協助，確保程式穩定運行。</p>
   </details>
+</section>
+
+<section>
+  <h2>為什麼選擇 PC Shop？</h2>
+  <div class="feature-grid">
+    <div class="feature-box">
+      <h4>📱 原生與小程序並重</h4>
+      <p>iOS / Android App、微信 / 支付寶小程序依需求選擇最適平台。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🔗 後台系統無縫對接</h4>
+      <p>與 POS、CRM、ERP、預約系統即時同步，避免資料孤島。</p>
+    </div>
+    <div class="feature-box">
+      <h4>💳 線上付款與推送</h4>
+      <p>支援多種付款方式與即時通知，提升使用者黏著度。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🚀 上線後持續維護</h4>
+      <p>提供程式更新、伺服器維護及商店審核協助，確保穩定運行。</p>
+    </div>
+  </div>
 </section>
 
 <section>
