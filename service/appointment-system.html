@@ -86,7 +86,11 @@
   .hero { display:flex; align-items:center; justify-content:center; gap:40px; text-align:left; flex-wrap:wrap; }
   .hero-text { flex:1 1 360px; max-width:620px; }
   .hero-text h1 { text-align:left; }
-  .hero-text p { margin:0; }
+  .hero-text p { margin:0 0 18px; }
+  .hero-btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .hero-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:30px;
+              text-decoration:none; font-weight:700; background:#fff; color:var(--primary-dark); font-size:.95rem; }
+  .hero-btn.alt { background:rgba(255,255,255,.12); color:#fff; border:2px solid rgba(255,255,255,.5); }
   .hero-visual { flex:0 1 360px; max-width:400px; filter:drop-shadow(0 20px 40px rgba(0,0,0,0.18)); }
   .hero-visual svg { width:100%; height:auto; display:block; }
   @media (max-width:800px){
@@ -114,6 +118,10 @@
   <div class="hero-text">
     <h1>澳門預約排程系統</h1>
     <p>線上預約、員工/房間/設備排程、自動提醒、訂金政策。適合美容、健身、醫療、教育課程中心。</p>
+    <div class="hero-btns">
+      <a class="hero-btn" href="https://wa.me/85363928613">WhatsApp 免費諮詢</a>
+      <a class="hero-btn alt" href="tel:28403503">致電 2840 3503</a>
+    </div>
   </div>
   <div class="hero-visual">
     <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -178,16 +186,6 @@
 </section>
 
 <section>
-  <h2>為什麼選擇 PC Shop？</h2>
-  <ul>
-    <li><strong>澳門本地團隊：</strong>由需求分析、系統設計到上線培訓，全程粵語/普通話溝通</li>
-    <li><strong>務實開發：</strong>依照你的實際流程設計，不會勉強加入用不到的功能</li>
-    <li><strong>軟硬體一站式服務：</strong>需要平板、收銀機、叫號機、QR Code 印表機，我們都能供應</li>
-    <li><strong>後續支援：</strong>上線後持續跟進，功能可按業務增長逐步擴展</li>
-  </ul>
-</section>
-
-<section>
   <h2>常見問題</h2>
   <details>
     <summary>預約系統適合哪些類型的公司？</summary>
@@ -205,6 +203,28 @@
     <summary>是否會與我現有的 POS 或會員系統衝突？</summary>
     <p>不會。我們會依照你現有的系統設計整合方案，例如將預約資料同步到 POS 結帳、會員 CRM 或 Google Calendar，確保流程順暢。</p>
   </details>
+</section>
+
+<section>
+  <h2>為什麼選擇 PC Shop？</h2>
+  <div class="feature-grid">
+    <div class="feature-box">
+      <h4>🗓️ 預約流程量身設計</h4>
+      <p>依照美容、健身、醫療等行業特性設定時段、資源與取消規則。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🔔 自動提醒減少空檔</h4>
+      <p>透過 WhatsApp / SMS / Email 發送預約與到期提醒，降低臨時未到。</p>
+    </div>
+    <div class="feature-box">
+      <h4>💳 訂金與付款整合</h4>
+      <p>支援 MPay、信用卡等澳門常用付款方式，減少人工對帳。</p>
+    </div>
+    <div class="feature-box">
+      <h4>🛠️ 軟硬體一站式</h4>
+      <p>由預約網頁、後台到平板、QR Code 印表機一併供應與維護。</p>
+    </div>
+  </div>
 </section>
 
 <section>
