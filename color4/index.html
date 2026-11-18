@@ -190,13 +190,19 @@
   .pf-label { display: block; font-size: 15px; font-weight: 800; margin: 18px 0 8px; }
   .pf-label:first-of-type { margin-top: 0; }
   .pf-opt { color: #9AA1B5; font-weight: 500; font-size: 13px; }
+  .pf-star { color: var(--red); font-weight: 900; }
   .pf-input {
     width: 100%; padding: 14px 18px; font: inherit; font-size: 16px; color: var(--ink);
     background: #F8F9FD; border: 2px solid var(--line); border-radius: 16px; outline: none;
     transition: border-color .15s, background .15s, box-shadow .15s;
   }
+  .pf-input + .pf-input { margin-top: 10px; }
   .pf-input:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 4px rgba(108,92,231,.12); }
   .pf-input::placeholder { color: #AEB4C6; }
+  .pf-input.err { border-color: var(--red); background: #FFF6F6; animation: shake .4s ease; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+  .pf-error { display: none; color: var(--red); font-size: 13.5px; font-weight: 700; margin-top: 10px; }
+  .pf-error.show { display: block; animation: rise .25s ease both; }
   .pf-chips { display: flex; flex-wrap: wrap; gap: 10px; }
   .chip { position: relative; cursor: pointer; }
   .chip input { position: absolute; opacity: 0; pointer-events: none; }
@@ -555,13 +561,15 @@
           <label class="chip"><input type="radio" name="age" value="50 或以上"><span>50 或以上</span></label>
         </div>
 
-        <label class="pf-label" for="pf-phone">電話<span class="pf-opt">（想我哋聯絡你先填）</span></label>
-        <input class="pf-input" id="pf-phone" type="tel" inputmode="tel" placeholder="例如：9123 4567" maxlength="20" autocomplete="off">
+        <label class="pf-label" for="pf-phone">電話 或 Email<span class="pf-star"> *</span><span class="pf-opt">（二填其一就可以開始）</span></label>
+        <input class="pf-input" id="pf-phone" type="tel" inputmode="tel" placeholder="電話：9123 4567" maxlength="20" autocomplete="off">
+        <input class="pf-input" id="pf-email" type="email" inputmode="email" placeholder="Email：you@example.com" maxlength="60" autocomplete="off">
+        <p class="pf-error" id="pf-error">兩格都空咗喎～請至少填電話或者 Email 其中一樣</p>
 
         <div class="center" style="margin-top:28px">
           <button type="submit" class="btn btn-primary" id="btn-profile-go">開始測試 →</button>
         </div>
-        <p class="pf-privacy">資料只用於今次活動記錄，唔會公開。</p>
+        <p class="pf-privacy">稱呼／性別／年紀可以留空；電話或 Email 只用於今次活動記錄同聯絡，唔會公開。</p>
       </form>
     </div>
   </section>
@@ -1115,12 +1123,13 @@ const ENTRY = {
   gender: "",        // 性別
   age: "",           // 大約年紀
   phone: "",         // 電話
+  email: "",         // Email
   result: "",        // 測試結果
   time: ""           // 時間
 };
 
-/* 玩家簡單資料（全部可留空） */
-const profile = { name: "", gender: "", age: "", phone: "" };
+/* 玩家簡單資料（電話／Email 必須二填其一，其餘可留空） */
+const profile = { name: "", gender: "", age: "", phone: "", email: "" };
 
 const $ = (id) => document.getElementById(id);
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1238,13 +1247,24 @@ $("btn-prev").addEventListener("click", () => {
 $("btn-quick").addEventListener("click", () => { setMode("quick"); showScreen("profile"); });
 $("btn-full").addEventListener("click", () => { setMode("full"); showScreen("profile"); });
 
-/* 資料頁：全部可留空，直接開始都得 */
+/* 資料頁：稱呼／性別／年紀可留空；電話＋Email 必須二填其一 */
 $("pf-form").addEventListener("submit", (e) => {
   e.preventDefault();
   profile.name = $("pf-name").value.trim();
   profile.gender = (document.querySelector('input[name="gender"]:checked') || {}).value || "";
   profile.age = (document.querySelector('input[name="age"]:checked') || {}).value || "";
   profile.phone = $("pf-phone").value.trim();
+  profile.email = $("pf-email").value.trim();
+
+  const phoneEl = $("pf-phone"), emailEl = $("pf-email");
+  phoneEl.classList.remove("err"); emailEl.classList.remove("err");
+  if (!profile.phone && !profile.email) {
+    phoneEl.classList.add("err"); emailEl.classList.add("err");
+    $("pf-error").classList.add("show");
+    setTimeout(() => { phoneEl.classList.remove("err"); emailEl.classList.remove("err"); }, 1500);
+    return;
+  }
+  $("pf-error").classList.remove("show");
   current = 0;
   answers = new Array(TOTAL).fill(null);
   showScreen("quiz");
@@ -1382,7 +1402,8 @@ function showResult() {
 
   /* 記錄（本機 + 可選 Google Form） */
   submitRecord({
-    name: profile.name, gender: profile.gender, age: profile.age, phone: profile.phone,
+    name: profile.name, gender: profile.gender, age: profile.age,
+    phone: profile.phone, email: profile.email,
     result: `${info.name}（${mode === "full" ? "完整版30題" : "快速版10題"}）`, type: judged.type,
     scores: COLOR_KEYS.map(k => `${COLOR_INFO[k].name}${counts[k]}`).join("・"),
     time: new Date().toLocaleString("zh-HK", { hour12: false })
@@ -1412,6 +1433,7 @@ function submitRecord(rec) {
   put("gender", rec.gender || "（冇填）");
   put("age", rec.age || "（冇填）");
   put("phone", rec.phone || "（冇填）");
+  put("email", rec.email || "（冇填）");
   put("result", `${rec.result}｜${rec.scores}`);
   put("time", rec.time);
   fetch(`https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`, {
