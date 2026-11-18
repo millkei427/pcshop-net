@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>四色人格測試</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='30' cy='30' r='26' fill='%23FF4D4D'/><circle cx='70' cy='30' r='26' fill='%23FFB300'/><circle cx='30' cy='70' r='26' fill='%232E9BFF'/><circle cx='70' cy='70' r='26' fill='%2337C871'/></svg>">
+<style>
+  :root {
+    --red: #FF4D4D;
+    --yellow: #FFB300;
+    --blue: #2E9BFF;
+    --green: #37C871;
+    --ink: #23283B;
+    --ink-soft: #666E84;
+    --line: #E8EAF2;
+    --accent: #6C5CE7;
+    --accent2: #A66CFF;
+    --accent-soft: #F0EDFF;
+    --card-radius: 26px;
+    --shadow: 0 14px 44px rgba(35, 40, 59, .12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", "Heiti TC", sans-serif;
+    color: var(--ink);
+    background: #F7F8FE;
+    min-height: 100vh;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+  .bg-blobs { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+  .bg-blobs span {
+    position: absolute; width: 46vmax; height: 46vmax; border-radius: 50%;
+    filter: blur(80px); opacity: .2; transition: background 1s ease;
+    animation: drift 18s ease-in-out infinite;
+  }
+  .bg-blobs span:nth-child(1) { background: var(--red); top: -18vmax; left: -12vmax; }
+  .bg-blobs span:nth-child(2) { background: var(--yellow); top: -14vmax; right: -14vmax; animation-delay: -4s; animation-duration: 22s; }
+  .bg-blobs span:nth-child(3) { background: var(--blue); bottom: -18vmax; left: -10vmax; animation-delay: -8s; animation-duration: 20s; }
+  .bg-blobs span:nth-child(4) { background: var(--green); bottom: -16vmax; right: -12vmax; animation-delay: -12s; animation-duration: 24s; }
+  .bg-blobs span.dim { opacity: .1; }
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(36px, -26px) scale(1.06); }
+    66% { transform: translate(-24px, 20px) scale(.97); }
+  }
+
+  .wrap { max-width: 780px; margin: 0 auto; padding: 32px 20px 72px; }
+
+  /* ---------- screens ---------- */
+  .screen { display: none; }
+  .screen.active { display: block; animation: rise .45s ease both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+  /* ---------- intro ---------- */
+  .hero { text-align: center; padding: 52px 0 34px; }
+  .hero .dots { display: flex; justify-content: center; gap: 14px; margin-bottom: 28px; }
+  .hero .dots i {
+    width: 46px; height: 46px; display: block;
+    animation: bounce 2.4s ease-in-out infinite;
+    box-shadow: inset -6px -8px 0 rgba(0,0,0,.12), 0 10px 20px rgba(35,40,59,.15);
+  }
+  .hero .dots i:nth-child(1) { background: var(--red); border-radius: 58% 42% 55% 45% / 48% 56% 44% 52%; }
+  .hero .dots i:nth-child(2) { background: var(--yellow); border-radius: 45% 55% 48% 52% / 55% 45% 58% 42%; animation-delay: .15s; }
+  .hero .dots i:nth-child(3) { background: var(--blue); border-radius: 52% 48% 42% 58% / 45% 52% 48% 55%; animation-delay: .3s; }
+  .hero .dots i:nth-child(4) { background: var(--green); border-radius: 48% 52% 58% 42% / 52% 44% 56% 48%; animation-delay: .45s; }
+  @keyframes bounce { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-12px) rotate(6deg); } }
+  .hero h1 {
+    font-size: clamp(34px, 7vw, 50px); font-weight: 900; letter-spacing: .06em; line-height: 1.25;
+    background: linear-gradient(115deg, var(--red) 5%, var(--yellow) 35%, var(--blue) 65%, var(--green) 95%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero .sub { color: var(--ink-soft); margin-top: 12px; font-size: 17px; font-weight: 500; }
+
+  .card {
+    background: #fff; border-radius: var(--card-radius);
+    box-shadow: var(--shadow); padding: 34px clamp(20px, 5vw, 44px);
+  }
+  .legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 28px 0; }
+  .legend .item {
+    display: flex; gap: 12px; align-items: flex-start;
+    border: 2px solid var(--line); border-radius: 18px; padding: 16px 16px 14px;
+    background: #FDFDFF; transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s;
+  }
+  .legend .item:nth-child(1) { transform: rotate(-.5deg); }
+  .legend .item:nth-child(2) { transform: rotate(.5deg); }
+  .legend .item:nth-child(3) { transform: rotate(.4deg); }
+  .legend .item:nth-child(4) { transform: rotate(-.4deg); }
+  .legend .item:hover { transform: rotate(0) translateY(-4px) scale(1.02); box-shadow: 0 12px 26px rgba(35,40,59,.12); }
+  .legend .dot { flex: none; width: 20px; height: 20px; border-radius: 46% 54% 52% 48% / 50% 46% 54% 50%; margin-top: 6px; box-shadow: inset -3px -4px 0 rgba(0,0,0,.12); }
+  .legend h3 { font-size: 16.5px; }
+  .legend h3 small { color: var(--ink-soft); font-weight: 500; margin-left: 4px; font-size: 13px; }
+  .legend p { font-size: 14px; color: var(--ink-soft); }
+  .rules { text-align: center; color: var(--ink-soft); font-size: 14.5px; margin-bottom: 28px; }
+  .rules b { color: var(--ink); }
+
+  /* 模式選擇 */
+  .mode-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .mode-btn {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
+    padding: 20px 20px 16px; font: inherit; text-align: left; cursor: pointer;
+    background: #F8F9FD; border: 2.5px solid var(--line); border-radius: 20px;
+    transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s, border-color .18s;
+  }
+  .mode-btn:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 14px 30px rgba(108,92,231,.16); }
+  .mode-btn .m-icon {
+    width: 40px; height: 40px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(120deg, var(--accent), var(--accent2)); color: #fff;
+    box-shadow: 0 6px 14px rgba(108,92,231,.3);
+  }
+  .mode-btn.full .m-icon { background: linear-gradient(120deg, var(--yellow), #FF8A3D); box-shadow: 0 6px 14px rgba(255,160,40,.3); }
+  .mode-btn .m-name { font-size: 19px; font-weight: 900; display: flex; align-items: baseline; gap: 8px; }
+  .mode-btn .m-name small { font-size: 13.5px; font-weight: 700; color: var(--ink-soft); }
+  .mode-btn .m-sub { font-size: 13.5px; color: var(--ink-soft); font-weight: 600; }
+  @media (max-width: 520px) {
+    .mode-btns { grid-template-columns: 1fr; }
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    border: none; cursor: pointer; font: inherit; font-weight: 800;
+    border-radius: 999px; padding: 15px 40px; font-size: 18px; letter-spacing: .04em;
+    transition: transform .16s cubic-bezier(.34,1.56,.64,1), box-shadow .16s, opacity .16s;
+  }
+  .btn:active { transform: scale(.95); }
+  .btn-primary {
+    background: linear-gradient(120deg, var(--accent), var(--accent2)); color: #fff;
+    box-shadow: 0 10px 24px rgba(108,92,231,.4);
+  }
+  .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 16px 32px rgba(108,92,231,.48); }
+  .btn-ghost { background: #fff; color: var(--ink); border: 2px solid var(--line); }
+  .btn-ghost:hover { background: #F4F5FB; transform: translateY(-2px); }
+  .center { text-align: center; }
+
+  /* ---------- quiz ---------- */
+  .quiz-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; font-size: 14px; }
+  .quiz-head .pill {
+    background: var(--accent-soft); color: var(--accent); font-weight: 800;
+    padding: 5px 16px; border-radius: 999px; font-size: 14px;
+  }
+  .quiz-head .pill b { font-size: 16px; }
+  #q-progress-text { font-weight: 800; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+  .progress { height: 12px; background: #EBEDF5; border-radius: 999px; overflow: hidden; margin-bottom: 28px; }
+  .progress i {
+    display: block; height: 100%; width: 0; position: relative; overflow: hidden;
+    background: linear-gradient(90deg, var(--red), var(--yellow), var(--blue), var(--green));
+    border-radius: 999px; transition: width .45s cubic-bezier(.34,1.3,.64,1);
+  }
+  .progress i::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.55) 50%, transparent 80%);
+    animation: shimmer 1.8s linear infinite;
+  }
+  @keyframes shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+  .q-text { font-size: clamp(20px, 3.6vw, 25px); font-weight: 800; line-height: 1.6; margin-bottom: 24px; }
+  .opts { display: flex; flex-direction: column; gap: 12px; }
+  .opt {
+    display: flex; align-items: center; gap: 14px; text-align: left;
+    width: 100%; padding: 15px 18px; font: inherit; font-size: 16px; color: var(--ink);
+    background: #F8F9FD; border: 2px solid transparent; border-radius: 18px; cursor: pointer;
+    transition: border-color .15s, background .15s, transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s;
+  }
+  .opt:hover { background: var(--accent-soft); transform: translateX(5px) rotate(-.3deg); }
+  .opt .badge {
+    flex: none; width: 32px; height: 32px; border-radius: 12px;
+    background: #fff; border: 2px solid var(--line); color: var(--ink-soft);
+    display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px;
+    transition: inherit; transform: rotate(-4deg);
+  }
+  .opt:hover .badge { transform: rotate(4deg) scale(1.08); border-color: var(--accent); color: var(--accent); }
+  .opt.selected { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 8px 20px rgba(108,92,231,.2); animation: pop .32s cubic-bezier(.34,1.56,.64,1); }
+  .opt.selected .badge { background: linear-gradient(120deg, var(--accent), var(--accent2)); border-color: transparent; color: #fff; transform: rotate(0) scale(1.05); }
+  @keyframes pop { 0% { transform: scale(1); } 45% { transform: scale(1.025); } 100% { transform: scale(1); } }
+  .opt.locked { pointer-events: none; }
+  .quiz-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; min-height: 48px; }
+  .quiz-foot .hint { font-size: 13px; color: #9AA1B5; }
+  .link-btn { background: none; border: none; font: inherit; color: var(--ink-soft); cursor: pointer; font-size: 15px; font-weight: 600; padding: 8px 14px; border-radius: 10px; }
+  .link-btn:hover:not(:disabled) { color: var(--accent); background: var(--accent-soft); }
+  .link-btn:disabled { opacity: .35; cursor: default; }
+
+  /* ---------- profile：簡單資料（可留空） ---------- */
+  .pf-eyebrow {
+    display: inline-block; color: var(--accent); font-size: 13px; font-weight: 800;
+    letter-spacing: .12em; background: var(--accent-soft); padding: 5px 16px; border-radius: 999px; margin-bottom: 14px;
+  }
+  .pf-title { font-size: clamp(24px, 4.6vw, 30px); font-weight: 900; letter-spacing: .03em; margin-bottom: 8px; }
+  .pf-note { color: var(--ink-soft); font-size: 15px; margin-bottom: 24px; }
+  .pf-label { display: block; font-size: 15px; font-weight: 800; margin: 18px 0 8px; }
+  .pf-label:first-of-type { margin-top: 0; }
+  .pf-opt { color: #9AA1B5; font-weight: 500; font-size: 13px; }
+  .pf-input {
+    width: 100%; padding: 14px 18px; font: inherit; font-size: 16px; color: var(--ink);
+    background: #F8F9FD; border: 2px solid var(--line); border-radius: 16px; outline: none;
+    transition: border-color .15s, background .15s, box-shadow .15s;
+  }
+  .pf-input:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 4px rgba(108,92,231,.12); }
+  .pf-input::placeholder { color: #AEB4C6; }
+  .pf-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { position: relative; cursor: pointer; }
+  .chip input { position: absolute; opacity: 0; pointer-events: none; }
+  .chip span {
+    display: inline-block; padding: 9px 22px; font-size: 15px; font-weight: 700; color: var(--ink-soft);
+    background: #F8F9FD; border: 2px solid var(--line); border-radius: 999px;
+    transition: transform .15s cubic-bezier(.34,1.56,.64,1), border-color .15s, background .15s, color .15s;
+  }
+  .chip:hover span { transform: translateY(-2px); border-color: #C9CFE0; }
+  .chip input:checked + span {
+    background: linear-gradient(120deg, var(--accent), var(--accent2)); border-color: transparent;
+    color: #fff; box-shadow: 0 6px 16px rgba(108,92,231,.3);
+  }
+  .chip input:focus-visible + span { outline: 3px solid rgba(108,92,231,.35); outline-offset: 2px; }
+  .pf-privacy { text-align: center; color: #9AA1B5; font-size: 12.5px; margin-top: 16px; }
+
+  /* ---------- result：story 故事卡 ---------- */
+  #screen-result { --rc1: var(--accent); --rc2: var(--accent2); }
+  .story-stage {
+    position: relative; background: #fff; border-radius: var(--card-radius);
+    box-shadow: var(--shadow); overflow: hidden;
+    height: min(720px, calc(100vh - 130px)); min-height: 520px;
+    display: flex; flex-direction: column;
+  }
+  .story-segs { display: flex; gap: 6px; padding: 14px 16px 10px; }
+  .seg {
+    flex: 1; height: 6px; border-radius: 999px; background: #E9EBF3;
+    cursor: pointer; overflow: hidden; border: none; padding: 0;
+  }
+  .seg i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--rc1), var(--rc2)); border-radius: 999px; transition: width .3s ease; }
+  .seg.done i { width: 100%; }
+  .seg.now i { animation: segfill .5s ease both; }
+  @keyframes segfill { from { width: 0; } to { width: 100%; } }
+
+  .story-viewport { flex: 1; overflow: hidden; position: relative; }
+  .story-track { display: flex; height: 100%; transition: transform .55s cubic-bezier(.34,1.2,.5,1); }
+  .story-card {
+    flex: none; width: 100%; height: 100%; overflow-y: auto; padding: 10px 30px 30px;
+    display: flex; flex-direction: column;
+  }
+  .story-card::-webkit-scrollbar { width: 6px; }
+  .story-card::-webkit-scrollbar-thumb { background: #D9DCE8; border-radius: 999px; }
+
+  .s-eyebrow {
+    display: inline-block; align-self: flex-start; color: #fff; font-size: 13px; font-weight: 800;
+    letter-spacing: .12em; background: linear-gradient(120deg, var(--rc1), var(--rc2));
+    padding: 5px 16px; border-radius: 999px; margin-bottom: 16px;
+    box-shadow: 0 6px 14px color-mix(in srgb, var(--rc1) 35%, transparent);
+  }
+  .s-title { font-size: clamp(24px, 4.6vw, 30px); font-weight: 900; letter-spacing: .03em; margin-bottom: 18px; }
+  .s-body { font-size: 16.5px; }
+
+  .card-in > * { animation: cardRise .5s cubic-bezier(.34,1.3,.64,1) both; }
+  .card-in > *:nth-child(2) { animation-delay: .07s; }
+  .card-in > *:nth-child(3) { animation-delay: .14s; }
+  .card-in > *:nth-child(4) { animation-delay: .21s; }
+  .card-in > *:nth-child(5) { animation-delay: .28s; }
+  .card-in > *:nth-child(6) { animation-delay: .35s; }
+  @keyframes cardRise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+  /* 卡 1：封面 */
+  .cover { align-items: center; text-align: center; justify-content: center; }
+  .cover .eyebrow2 {
+    display: inline-block; color: var(--accent); font-size: 13.5px; font-weight: 800;
+    letter-spacing: .18em; background: var(--accent-soft); padding: 6px 18px; border-radius: 999px;
+    animation: bob 2.4s ease-in-out infinite;
+  }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  .cover .big-color {
+    margin: 18px auto 10px; width: 126px; height: 126px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; position: relative;
+    box-shadow: inset -10px -14px 0 rgba(0,0,0,.10), 0 16px 34px rgba(35,40,59,.2);
+    animation: heroPop .7s cubic-bezier(.34,1.56,.64,1) both, glow 2.6s ease-in-out infinite .8s;
+  }
+  @keyframes heroPop { 0% { transform: scale(0) rotate(-30deg); } 100% { transform: scale(1) rotate(0); } }
+  @keyframes glow {
+    0%, 100% { box-shadow: inset -10px -14px 0 rgba(0,0,0,.10), 0 16px 34px rgba(35,40,59,.2), 0 0 0 0 var(--glow, rgba(108,92,231,.35)); }
+    50% { box-shadow: inset -10px -14px 0 rgba(0,0,0,.10), 0 16px 34px rgba(35,40,59,.2), 0 0 0 20px transparent; }
+  }
+  .cover .big-color::after {
+    content: ""; position: absolute; inset: -12px; border-radius: 50%;
+    border: 3px dashed rgba(120, 120, 150, .35);
+    animation: spin 14s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .cover .big-color span { color: #fff; font-size: 46px; font-weight: 900; text-shadow: 0 2px 8px rgba(0,0,0,.22); line-height: 1.15; }
+  .cover .big-color span.duo { font-size: 32px; }
+  .cover h2 {
+    font-size: clamp(34px, 7vw, 46px); font-weight: 900; letter-spacing: .04em;
+    background: linear-gradient(120deg, var(--rc1), var(--rc2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .cover h2.rainbow {
+    background: linear-gradient(115deg, var(--red), var(--yellow), var(--blue), var(--green));
+    -webkit-background-clip: text; background-clip: text;
+  }
+  .cover .title { color: var(--ink-soft); font-size: 16.5px; margin-top: 6px; font-weight: 600; }
+  .cover .mini-bars { width: 100%; max-width: 430px; margin-top: 26px; display: grid; gap: 10px; }
+  .mini-bars .mb-row { display: grid; grid-template-columns: 52px 1fr 44px; align-items: center; gap: 10px; font-size: 14px; }
+  .mini-bars .lbl { display: flex; align-items: center; gap: 7px; font-weight: 700; }
+  .mini-bars .lbl i { width: 11px; height: 11px; border-radius: 4px; display: block; box-shadow: inset -2px -2px 0 rgba(0,0,0,.12); }
+  .mini-bars .track { height: 14px; background: #EDEFF6; border-radius: 999px; overflow: hidden; }
+  .mini-bars .fill { height: 100%; width: 0; border-radius: 999px; transition: width 1s cubic-bezier(.34,1.3,.64,1); }
+  .mini-bars .num { text-align: right; color: var(--ink-soft); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .cover .swipe-hint { margin-top: 24px; color: #9AA1B5; font-size: 13.5px; font-weight: 600; animation: bob 2s ease-in-out infinite; }
+
+  /* 卡 2：個性 */
+  .persona-quote { position: relative; padding: 22px 24px; background: #F8F9FD; border-radius: 22px; border: 2px solid var(--line); }
+  .persona-quote::before {
+    content: "“"; position: absolute; top: -26px; left: 10px; font-size: 80px; font-weight: 900;
+    color: var(--rc1); opacity: .35; font-family: Georgia, serif;
+  }
+  .persona-quote p { font-size: 17px; line-height: 2; }
+
+  /* 卡 3：人生提問（對話泡泡） */
+  .bubbles { display: grid; gap: 14px; }
+  .bubble {
+    position: relative; max-width: 92%; padding: 14px 20px; font-size: 16px; font-weight: 500;
+    background: #fff; border: 2px solid var(--line); border-radius: 22px 22px 22px 6px;
+    box-shadow: 0 6px 16px rgba(35,40,59,.06);
+  }
+  .bubble:nth-child(odd) { transform: rotate(-.4deg); }
+  .bubble:nth-child(even) { margin-left: auto; border-radius: 22px 22px 6px 22px; transform: rotate(.4deg); background: linear-gradient(135deg, #F6F3FF, #EFF6FF); }
+  .bubble .who {
+    display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px;
+    border-radius: 10px; margin-right: 10px; color: #fff; font-weight: 900; font-size: 14px;
+    background: linear-gradient(120deg, var(--rc1), var(--rc2));
+    box-shadow: 0 4px 10px rgba(35,40,59,.15);
+  }
+
+  /* 卡 4：工作 + hashtag */
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  .chips span {
+    font-size: 14.5px; font-weight: 800; color: var(--rc1);
+    background: color-mix(in srgb, var(--rc1) 9%, #fff);
+    border: 2px solid color-mix(in srgb, var(--rc1) 30%, #fff);
+    padding: 6px 16px; border-radius: 999px;
+  }
+
+  /* 卡 5：保險 */
+  .insurance-box {
+    position: relative; border-radius: 20px; padding: 20px 22px;
+    background: linear-gradient(135deg, #FFFBF2, #F2F8FF);
+    border: 2.5px solid transparent; background-clip: padding-box;
+  }
+  .insurance-box::before {
+    content: ""; position: absolute; inset: -2.5px; border-radius: 22px; padding: 2.5px; z-index: -1;
+    background: linear-gradient(135deg, var(--yellow), var(--rc1), var(--rc2));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+  }
+  .insurance-box .tag {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: linear-gradient(120deg, var(--yellow), #FF8A3D); color: #fff;
+    font-size: 13.5px; font-weight: 800; padding: 5px 16px; border-radius: 999px; margin-bottom: 12px;
+    box-shadow: 0 6px 14px rgba(255, 160, 40, .35);
+  }
+  .insurance-box .tag svg { width: 15px; height: 15px; }
+  .insurance-box p { font-size: 16px; }
+
+  /* 卡 6：尾卡 */
+  .endcard { align-items: center; text-align: center; justify-content: center; }
+  .endcard .end-sparks { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .endcard .end-sparks svg { animation: twinkle 2s ease-in-out infinite; }
+  .endcard .end-sparks svg:nth-child(2) { animation-delay: .3s; }
+  .endcard .end-sparks svg:nth-child(3) { animation-delay: .6s; }
+  @keyframes twinkle { 0%,100% { transform: scale(.85) rotate(0); opacity: .7; } 50% { transform: scale(1.12) rotate(18deg); opacity: 1; } }
+  .endcard h2 { font-size: clamp(26px, 5.4vw, 34px); font-weight: 900; margin-bottom: 10px; }
+  .endcard h2 em {
+    font-style: normal;
+    background: linear-gradient(120deg, var(--rc1), var(--rc2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .endcard p { color: var(--ink-soft); font-size: 16px; margin-bottom: 26px; }
+  .endcard .actions { display: grid; gap: 14px; width: 100%; max-width: 340px; }
+  .endcard .disclaimer { margin-top: 22px; }
+
+  /* 左右箭頭 */
+  .s-nav {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+    width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer;
+    background: rgba(255,255,255,.92); box-shadow: 0 6px 18px rgba(35,40,59,.18);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .15s, opacity .2s, background .15s;
+  }
+  .s-nav:hover { background: #fff; transform: translateY(-50%) scale(1.1); }
+  .s-nav.off { opacity: 0; pointer-events: none; }
+  .s-nav svg { width: 20px; height: 20px; }
+  #s-prev { left: 12px; }
+  #s-next { right: 12px; }
+
+  /* 分享圖卡 modal */
+  .modal {
+    position: fixed; inset: 0; z-index: 50; display: none;
+    background: rgba(25, 28, 45, .62); backdrop-filter: blur(6px);
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal.open { display: flex; animation: rise .25s ease both; }
+  .modal-panel {
+    background: #fff; border-radius: 24px; padding: 22px; max-width: 420px; width: 100%;
+    max-height: 92vh; overflow-y: auto; text-align: center;
+  }
+  .modal-panel h3 { font-size: 20px; font-weight: 900; margin-bottom: 4px; }
+  .modal-panel .tip { color: var(--ink-soft); font-size: 13.5px; margin-bottom: 14px; }
+  .modal-panel img { width: 100%; border-radius: 16px; box-shadow: 0 10px 30px rgba(35,40,59,.2); }
+  .modal-actions { display: grid; gap: 10px; margin-top: 16px; }
+  .modal-actions .btn { padding: 13px 20px; font-size: 16px; width: 100%; }
+
+  @media (max-width: 520px) {
+    .wrap { padding: 20px 14px 52px; }
+    .card { padding: 26px 18px; }
+    .story-card { padding: 8px 20px 26px; }
+    #s-prev { left: 6px; }
+    #s-next { right: 6px; }
+    .s-nav { width: 38px; height: 38px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01s !important; animation-iteration-count: 1 !important; transition-duration: .01s !important; }
+  }
+</style>
+</head>
+<body>
+<div class="bg-blobs"><span></span><span></span><span></span><span></span></div>
+
+<main class="wrap">
+
+  <!-- ============ 開始畫面 ============ -->
+  <section id="screen-intro" class="screen active">
+    <div class="hero">
+      <div class="dots"><i></i><i></i><i></i><i></i></div>
+      <h1>四色人格測試</h1>
+      <p class="sub">紅・黃・藍・綠——揀個版本，搵出你嘅專屬顏色</p>
+    </div>
+
+    <div class="card">
+      <div class="legend">
+        <div class="item">
+          <span class="dot" style="background:var(--red)"></span>
+          <div><h3>紅色<small>開心果</small></h3><p>行動派、感染力強，有佢喺度就有歡笑。</p></div>
+        </div>
+        <div class="item">
+          <span class="dot" style="background:var(--yellow)"></span>
+          <div><h3>黃色<small>領袖范</small></h3><p>有目標、有魅力，天生就係帶頭嘅人。</p></div>
+        </div>
+        <div class="item">
+          <span class="dot" style="background:var(--blue)"></span>
+          <div><h3>藍色<small>軍師型</small></h3><p>冷靜細心、規劃型，諗清楚先會行動。</p></div>
+        </div>
+        <div class="item">
+          <span class="dot" style="background:var(--green)"></span>
+          <div><h3>綠色<small>和事佬</small></h3><p>溫和包容、識聽人講嘢，最好嘅聆聽者。</p></div>
+        </div>
+      </div>
+
+      <p class="rules">
+        共 <b>10</b> 條問題・約需 <b>2</b> 分鐘<br>
+        請凭直覺作答，揀「最似平時嘅你」嘅選項，冇對錯之分
+      </p>
+
+      <div class="mode-btns">
+        <button class="mode-btn" id="btn-quick">
+          <span class="m-icon"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" fill="currentColor"/></svg></span>
+          <span class="m-name">快速版<small>10 條問題</small></span>
+          <span class="m-sub">約 2 分鐘</span>
+        </button>
+        <button class="mode-btn full" id="btn-full">
+          <span class="m-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.4"/><circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2.4"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg></span>
+          <span class="m-name">完整版<small>30 條問題</small></span>
+          <span class="m-sub">約 5 分鐘・更深入</span>
+        </button>
+      </div>
+      <p class="rules" style="margin-top:18px; margin-bottom:0">兩個版本嘅結果故事卡同分享圖卡都通用</p>
+    </div>
+  </section>
+
+  <!-- ============ 簡單資料（全部可留空） ============ -->
+  <section id="screen-profile" class="screen">
+    <div class="card">
+      <span class="pf-eyebrow">voluntary・全部可留空</span>
+      <h2 class="pf-title">開始前，簡單認識你</h2>
+      <p class="pf-note">唔想填可以直接開始。填咗嘅話，我哋會記低你嘅結果，有機會話你知更多適合你嘅方向。</p>
+      <form id="pf-form" novalidate>
+        <label class="pf-label" for="pf-name">點稱呼你？</label>
+        <input class="pf-input" id="pf-name" type="text" placeholder="例如：阿欣" maxlength="20" autocomplete="off">
+
+        <label class="pf-label">性別</label>
+        <div class="pf-chips">
+          <label class="chip"><input type="radio" name="gender" value="男"><span>男</span></label>
+          <label class="chip"><input type="radio" name="gender" value="女"><span>女</span></label>
+          <label class="chip"><input type="radio" name="gender" value="其他"><span>其他</span></label>
+        </div>
+
+        <label class="pf-label">大約年紀</label>
+        <div class="pf-chips">
+          <label class="chip"><input type="radio" name="age" value="20 以下"><span>20 以下</span></label>
+          <label class="chip"><input type="radio" name="age" value="20–29"><span>20–29</span></label>
+          <label class="chip"><input type="radio" name="age" value="30–39"><span>30–39</span></label>
+          <label class="chip"><input type="radio" name="age" value="40–49"><span>40–49</span></label>
+          <label class="chip"><input type="radio" name="age" value="50 或以上"><span>50 或以上</span></label>
+        </div>
+
+        <label class="pf-label" for="pf-phone">電話<span class="pf-opt">（想我哋聯絡你先填）</span></label>
+        <input class="pf-input" id="pf-phone" type="tel" inputmode="tel" placeholder="例如：9123 4567" maxlength="20" autocomplete="off">
+
+        <div class="center" style="margin-top:28px">
+          <button type="submit" class="btn btn-primary" id="btn-profile-go">開始測試 →</button>
+        </div>
+        <p class="pf-privacy">資料只用於今次活動記錄，唔會公開。</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ 測驗畫面 ============ -->
+  <section id="screen-quiz" class="screen">
+    <div class="card">
+      <div class="quiz-head">
+        <span class="pill">第 <b id="q-num">1</b> 題 / 共 <span id="q-total">10</span> 題</span>
+        <span id="q-progress-text">0%</span>
+      </div>
+      <div class="progress"><i id="q-progress-bar"></i></div>
+
+      <h2 class="q-text" id="q-text"></h2>
+      <div class="opts" id="q-opts"></div>
+
+      <div class="quiz-foot">
+        <button class="link-btn" id="btn-prev" disabled>← 上一題</button>
+        <span class="hint">都可以撳鍵盤 1 – 4 作答</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 結果畫面：story 故事卡 ============ -->
+  <section id="screen-result" class="screen">
+    <div class="story-stage">
+      <div class="story-segs" id="story-segs"></div>
+
+      <div class="story-viewport" id="story-viewport">
+        <div class="story-track" id="story-track">
+
+          <!-- 卡 1：封面 -->
+          <div class="story-card cover" data-card="0">
+            <span class="eyebrow2">你嘅主導顏色係</span>
+            <div class="big-color" id="r-big"><span id="r-big-char">紅</span></div>
+            <h2 id="r-name">大紅色</h2>
+            <p class="title" id="r-title"></p>
+            <div class="mini-bars" id="r-minibars"></div>
+            <p class="swipe-hint">撳兩邊箭嘴・或者左右掃 →</p>
+          </div>
+
+          <!-- 卡 2：個性 -->
+          <div class="story-card" data-card="1">
+            <span class="s-eyebrow">第 2 卡・ personality</span>
+            <h3 class="s-title">個性大致係</h3>
+            <div class="persona-quote"><p id="r-persona"></p></div>
+          </div>
+
+          <!-- 卡 3：人生提問 -->
+          <div class="story-card" data-card="2">
+            <span class="s-eyebrow">第 3 卡・ check yourself</span>
+            <h3 class="s-title">人生中會否遇過⋯</h3>
+            <div class="bubbles" id="r-life"></div>
+          </div>
+
+          <!-- 卡 4：工作 -->
+          <div class="story-card" data-card="3">
+            <span class="s-eyebrow">第 4 卡・ career</span>
+            <h3 class="s-title">工作上適合⋯</h3>
+            <p class="s-body" id="r-work"></p>
+            <div class="chips" id="r-chips"></div>
+          </div>
+
+          <!-- 卡 5：保險 -->
+          <div class="story-card" data-card="4">
+            <span class="s-eyebrow">第 5 卡・ bonus</span>
+            <h3 class="s-title">保險業作為其中一個選項</h3>
+            <div class="insurance-box">
+              <span class="tag"><svg viewBox="0 0 24 24" fill="none"><path d="M3 10h18v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9z" fill="currentColor" opacity=".9"/><path d="M8 10V7a4 4 0 1 1 8 0v3" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>加料分析</span>
+              <p id="r-insurance"></p>
+            </div>
+          </div>
+
+          <!-- 卡 6：尾卡 -->
+          <div class="story-card endcard" data-card="5">
+            <div class="end-sparks" aria-hidden="true">
+              <svg width="34" height="34" viewBox="0 0 24 24"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" fill="var(--rc1)"/></svg>
+              <svg width="52" height="52" viewBox="0 0 24 24"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" fill="var(--yellow)"/></svg>
+              <svg width="30" height="30" viewBox="0 0 24 24"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" fill="var(--rc2)"/></svg>
+            </div>
+            <h2>原來你係<em id="r-end-name">大紅色</em>！</h2>
+            <p>快啲分享俾朋友，睇吓佢哋咩色<br>夾唔夾你～</p>
+            <div class="actions">
+              <button class="btn btn-primary" id="btn-share-img"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="3" fill="currentColor"/><circle cx="12" cy="13.5" r="4" fill="#fff"/><rect x="8" y="3" width="8" height="4" rx="1.5" fill="currentColor"/></svg>儲存分享圖卡</button>
+              <button class="btn btn-ghost" id="btn-copy"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><rect x="6" y="4" width="12" height="17" rx="2.5" stroke="currentColor" stroke-width="2.2"/><path d="M9 4V3a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2.2"/><path d="M9.5 12h5M9.5 16h5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>複製我嘅結果</button>
+              <button class="btn btn-ghost" id="btn-restart">↻ 再測一次</button>
+            </div>
+            <p class="disclaimer">呢個係簡化版娛樂測驗，結果只供參考。</p>
+          </div>
+
+        </div>
+      </div>
+
+      <button class="s-nav off" id="s-prev" aria-label="上一卡">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="#23283B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="s-nav" id="s-next" aria-label="下一卡">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="#23283B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+</main>
+
+<!-- 分享圖卡 modal -->
+<div class="modal" id="share-modal">
+  <div class="modal-panel">
+    <h3>你嘅分享圖卡</h3>
+    <p class="tip">手機可以長按圖片儲存，或者直接下載</p>
+    <img id="share-img" alt="分享圖卡">
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="btn-download"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-5-5m5 5l5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 19h16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>下載圖片</button>
+      <button class="btn btn-ghost" id="btn-close-modal">關閉</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+ * 四色人格測試（10 題簡化版・story 故事卡版）
+ *
+ * 計分：每題四選一，選中顏色 +1 分，總分 10 分。
+ * 判定順序（依次）：
+ *  1. 四色全部 ≤3 分 → 四色平均型
+ *  2. 某色 ≥5 分 → 該色單色型（若有兩色同時 ≥5，視為該雙色混合）
+ *  3. 最高分 =4 且第二名 ≤2 → 該色單色型（例：4,2,2,2）
+ *  4. 最高兩色合計 ≥7 → 該雙色混合型（例：4,3,2,1）
+ *  5. fallback：取最高兩色為雙色混合型
+ * 雙色命名：分數高者排前；同分按固定次序（紅>黃>藍>綠）。
+ * ====================================================== */
+
+const COLOR_INFO = {
+  R: { name: "紅色", char: "紅", hex: "#FF4D4D" },
+  Y: { name: "黃色", char: "黃", hex: "#FFB300" },
+  B: { name: "藍色", char: "藍", hex: "#2E9BFF" },
+  G: { name: "綠色", char: "綠", hex: "#37C871" }
+};
+const COLOR_KEYS = ["R", "Y", "B", "G"];
+/* 同分時嘅固定優先次序：紅 > 黃 > 藍 > 綠 */
+const TIE_PRIORITY = ["R", "Y", "B", "G"];
+
+/* 10 條問題。opts[A,B,C,D] 依次對應 COLOR_MAP 中的顏色。 */
+const QUESTIONS = [
+  { q: "朋友通常會點形容你？", opts: [
+    "開心果，有你在就有歡笑",
+    "有領袖魅力，好有目標",
+    "冷靜細心，諗嘢好周密",
+    "溫和好相處，好識聽人講嘢"] },
+  { q: "放假去旅行，你通常會：", opts: [
+    "冇計劃，沖咗出去先算，邊行邊諗",
+    "行程表詳細到每個鐘，預早訂晒所有嘢",
+    "跟大隊就得，點安排都冇所謂",
+    "目標清晰，要去邊、做乜、買咩，一早諗好"] },
+  { q: "遇到唔開心嘅事，你通常會：", opts: [
+    "發洩出嚟，第二日就冇事",
+    "唔畀時間自己低落，繼續追目標",
+    "扮冇事，唔想麻煩人，過咗就算",
+    "自己慢慢諗，諗通先算"] },
+  { q: "團隊入面，你最常扮演嘅角色係：", opts: [
+    "潤滑劑，聽大家意見，維持和氣",
+    "帶頭做決定嗰個",
+    "搞氣氛嗰個，帶大家開心",
+    "分析同把關嗰個，專搵漏洞"] },
+  { q: "要做一個重要決定嗰陣，你會：", opts: [
+    "收集晒資料，反覆比較先敢決定",
+    "問吓身邊人點睇，傾咗先決定",
+    "跟感覺行，想咗就做",
+    "好快決定，邊個最有利就揀邊個"] },
+  { q: "你點樣睇「規矩」？", opts: [
+    "大家舒服就得，冇乜所謂",
+    "規矩係用嚟打破嘅，靈活先好玩",
+    "有用嘅規矩我會帶頭跟，但最緊要有結果",
+    "規矩係安全網，跟足先安心"] },
+  { q: "同朋友傾心事嗰陣，你通常會：", opts: [
+    "幫佢分析原因，條理分明",
+    "靜靜哋聽，陪住佢就得",
+    "講兩句就講返自己嘅事",
+    "直接俾解決方案，唔使拖"] },
+  { q: "你嘅工作節奏偏向：", opts: [
+    "快、準、狠，目標為本",
+    "舒服自在，唔想太大壓力",
+    "一時衝勁十足，一時想休息，節奏好跳",
+    "穩定細緻，一步一腳印"] },
+  { q: "如果有人同你意見不合，你會：", opts: [
+    "講出嚟先，講完就算，唔會記仇",
+    "唔想衝突，但會堅持自己嘅標準",
+    "據理力爭，直至對方接受",
+    "退一步，唔想傷和氣"] },
+  { q: "以下邊組座右銘最啱你心水？", opts: [
+    "唔贏就唔好返嚟／目標決定高度",
+    "知足常樂／以和為貴",
+    "活在當下／開心就係贏",
+    "細節決定成敗／諗清楚先行"] }
+];
+
+/* 每題 A,B,C,D 對應嘅顏色（R/Y/B/G），每題四色各一 */
+const COLOR_MAP = [
+  ["R", "Y", "B", "G"],
+  ["R", "B", "G", "Y"],
+  ["R", "Y", "G", "B"],
+  ["G", "Y", "R", "B"],
+  ["B", "G", "R", "Y"],
+  ["G", "R", "Y", "B"],
+  ["B", "G", "R", "Y"],
+  ["Y", "G", "R", "B"],
+  ["R", "B", "Y", "G"],
+  ["Y", "G", "R", "B"]
+];
+
+/* =========================================================
+ * 完整版：30 條問題（原創廣東話題目）
+ * 判定規則（舊規則 30 題版）：
+ *   四色全部 ≤8 → 平均型；某色 ≥14 → 單色（兩色同時 ≥14 視為雙色）；
+ *   最高兩色合計 ≥21（即超過 20）→ 雙色混合；fallback 取最高兩色。
+ * ====================================================== */
+const QUESTIONS_30 = [
+  { q: "平日放假，你多數會點安排？", opts: [
+    "約朋友出街，愈熱鬧愈好",
+    "安排好要完成嘅目標，唔浪費時間",
+    "預早計劃好行程，跟足流程",
+    "冇特別安排，休息吓、隨心就好"] },
+  { q: "買嘢之前，你通常會：", opts: [
+    "做晒比較同 research 先決定",
+    "用得就 OK，唔會諗太多",
+    "見到鍾意就買，開心最緊要",
+    "睇價值同回報，值得先買"] },
+  { q: "收到老闆／老師讚賞，你會：", opts: [
+    "開心但會諗：我係咪真係做得好？",
+    "好開心，即刻同身邊人分享",
+    "多謝，然後繼續做自己嘢",
+    "覺得係應得嘅，繼續下一個目標"] },
+  { q: "你嘅房間／檯面通常：", opts: [
+    "舒服就得，就咁喇",
+    "有啲亂，但自己知嘢放晒邊",
+    "好有系統，分門別類",
+    "整齊，因為提高效率"] },
+  { q: "朋友臨時約你今晚出街，你會：", opts: [
+    "跟大隊，冇嘢做就去啦",
+    "好呀！即刻出發",
+    "睇吓對我有冇著先",
+    "問清楚去邊、幾點、做咩先決定"] },
+  { q: "你覺得自己最叻係：", opts: [
+    "達標、解決難題",
+    "分析、諗清楚細節",
+    "聽人講嘢、安慰人",
+    "搞氣氛、帶動人"] },
+  { q: "遇到壓力大嘅時候，你會：", opts: [
+    "搵人傾訴／唱 K／運動發洩",
+    "自己靜靜哋諗清楚點解",
+    "拖一拖先，遲啲再算",
+    "頂硬上，搞掂佢先講"] },
+  { q: "你點樣睇時間？", opts: [
+    "時間就係金錢，分秒必爭",
+    "時間要有計劃先唔會浪費",
+    "時間係用嚟享受嘅",
+    "趕切就得，唔使迫自己"] },
+  { q: "一班人討論嗰陣，你通常係：", opts: [
+    "問問題、指出漏洞嗰個",
+    "帶方向、做總結嗰個",
+    "聽多講少嗰個",
+    "講最多嗰個"] },
+  { q: "如果俾你帶一個團隊，你會：", opts: [
+    "聽大家意見，調和唔同聲音",
+    "定目標、分工、監督進度",
+    "用熱情感染大家一齊衝",
+    "制定流程同標準，確保質素"] },
+  { q: "你最驚咩？", opts: [
+    "出錯、俾人發現自己唔夠好",
+    "衝突、同人鬧交",
+    "輸、達唔到目標",
+    "悶、冇新鮮感"] },
+  { q: "對於「計劃趕唔上變化」，你會：", opts: [
+    "變就變啦，隨機應變先好玩",
+    "順其自然，唔強求",
+    "盡量預計晒所有變數",
+    "變都要變到贏"] },
+  { q: "朋友犯錯，你會點同佢講？", opts: [
+    "諗清楚先開口，講得準啲",
+    "直接講，唔會兜圈",
+    "講事實同後果，對事唔對人",
+    "盡量婉轉，唔想佢難受"] },
+  { q: "你嘅手機相簿通常係：", opts: [
+    "大量合照同開心時刻",
+    "冇執過，乜都有啲",
+    "截圖——資料、目標、靈感",
+    "分類相簿，一目了然"] },
+  { q: "學新嘢嘅時候，你會：", opts: [
+    "慢慢學，唔急",
+    "學就要學到最精",
+    "試咗先講，錯咗再算",
+    "由基礎開始，睇晒先實踐"] },
+  { q: "你點處理人情往來（生日、飲宴）？", opts: [
+    "俾錢最直接，講求實際",
+    "最鍾意搞驚喜、氹人開心",
+    "跟大隊，大家點我就點",
+    "會記低日子，提早準備"] },
+  { q: "對於社交媒體，你係：", opts: [
+    "成日 po story，分享生活",
+    "潛水多，發文前諗清楚",
+    "經營緊個人品牌，有策略",
+    "齋睇唔出聲"] },
+  { q: "如果有人插你隊，你會：", opts: [
+    "算啦，唔想搞到唔開心",
+    "叫佢排隊，語氣好硬",
+    "即刻鬧佢",
+    "指出規矩，講道理"] },
+  { q: "你嘅理想週末係：", opts: [
+    "進修或者搞副業，提升自己",
+    "同朋友去冒險、試新嘢",
+    "按計劃完成 to-do list",
+    "宅喺屋企，充電"] },
+  { q: "講嘢嘅風格係：", opts: [
+    "詳細、有條理、有根據",
+    "溫和、少講、多聽",
+    "誇張、生動、加戲",
+    "精準、簡短、重點"] },
+  { q: "你對「輸贏」嘅睇法：", opts: [
+    "輸贏背後嘅原因先重要",
+    "唔贏即係輸",
+    "最緊要玩得開心",
+    "冇必要分輸贏"] },
+  { q: "做 project 最緊要係：", opts: [
+    "好玩、有火花",
+    "準確、冇錯漏",
+    "達標、有成果",
+    "大家開心、和氣"] },
+  { q: "被人誤會嘅時候：", opts: [
+    "即刻解釋，好激動",
+    "遲啲先講，等大家冷靜",
+    "寫低重點，有條理咁澄清",
+    "擺事實出嚟，必要時追究"] },
+  { q: "你嘅儲錢習慣：", opts: [
+    "有預算表，每分錢有紀錄",
+    "使錢爽快，冇咩儲蓄概念",
+    "目標為本，儲到錢先講享受",
+    "儲到少少算少少，唔強求"] },
+  { q: "對於新事物（新餐廳／新科技）：", opts: [
+    "做晒 research，睇清評價",
+    "第一時間試，好興奮",
+    "等佢成熟先考慮，風險要控",
+    "睇吓身邊人點，再決定"] },
+  { q: "如果你係老師／主管，你會著重：", opts: [
+    "成績／業績達唔達標",
+    "學生／下屬開唔開心",
+    "班入面和唔和氣",
+    "係咪跟足規矩同標準"] },
+  { q: "你最唔想俾人話你：", opts: [
+    "冇癮、悶",
+    "唔可靠、亂",
+    "冇用、弱",
+    "麻煩、難相處"] },
+  { q: "遲到咗你會：", opts: [
+    "好少遲到，覺得係原則問題",
+    "不好意思，但講完就算",
+    "提早到係基本",
+    "遲少少係正常啦"] },
+  { q: "你覺得人生最重要係：", opts: [
+    "平安、和諧",
+    "開心、精彩",
+    "成就、贏",
+    "安全、正確"] },
+  { q: "揀一句最代表你：", opts: [
+    "凡事三思而後行",
+    "人生得意須盡歡",
+    "要做就做到最好",
+    "退一步海闊天空"] }
+];
+
+/* 完整版每題 A,B,C,D 對應嘅顏色 */
+const COLOR_MAP_30 = [
+  ["R","Y","B","G"], ["B","G","R","Y"], ["B","R","G","Y"], ["G","R","B","Y"],
+  ["G","R","Y","B"], ["Y","B","G","R"], ["R","B","G","Y"], ["Y","B","R","G"],
+  ["B","Y","G","R"], ["G","Y","R","B"], ["B","G","Y","R"], ["R","G","B","Y"],
+  ["B","R","Y","G"], ["R","G","Y","B"], ["G","Y","R","B"], ["Y","R","G","B"],
+  ["R","B","Y","G"], ["G","Y","R","B"], ["Y","R","B","G"], ["B","G","R","Y"],
+  ["B","Y","R","G"], ["R","B","Y","G"], ["R","G","B","Y"], ["B","R","Y","G"],
+  ["B","R","Y","G"], ["Y","R","G","B"], ["R","B","Y","G"], ["Y","R","B","G"],
+  ["G","R","Y","B"], ["B","R","Y","G"]
+];
+
+/* 兩個版本嘅判定規則 */
+const RULES = {
+  quick: { avgMax: 3, singleMin: 5, singleTop: 4, singleTopSecond: 2, dualSum: 7 },
+  full:  { avgMax: 8, singleMin: 14, dualSum: 21 }
+};
+
+/* 11 種結果類型 */
+const RESULT_TYPES = {
+  G: {
+    name: "大綠色",
+    persona: "和平、唔喜歡爭鬥、聆聽能力強，由細到大都係別人嘅樹洞；鍾意穩定，所以搵工時會覺得自己唔適合銷售。但實際上文職更唔適合——因為接受唔到辦公室政治，亦需要同人溝通。綠色人通常比較懶惰，成長過程中好多朋友家人會令你放棄自己嘅選擇，人生好多遺憾都係因為冇動力突破自己，選擇多數係別人俾嘅，因為唔想傷害周圍嘅人。",
+    life: [
+      "有冇試過明明有想法，但因為唔想衝突而跟咗別人嘅選擇？",
+      "有冇因為懶得突破，錯過咗一啲本來可以試嘅機會？",
+      "係咪成日做朋友嘅樹洞，但自己嘅人生方向反而唔敢揀？"
+    ],
+    work: "一般適合需要聆聽、建立長期信任、少辦公室政治嘅工作，例如客戶關係、客服、HR、社工、輔導、護理、教育、NGO、社區工作。",
+    insurance: "可以考慮，但未必係最前線硬銷型。你嘅優勢係肯聽、有耐心、售後跟進穩定，適合做客戶關懷、保單跟進、理賠支援或社區型客戶開發；弱點係需要清晰方向同團隊帶領，否則容易因懶得突破而停滯。客觀講，如果你揀到一個有系統、肯教人嘅團隊，保險業可以係發揮聆聽同信任建立嘅工種；但如果要你單打獨鬥、日日追數，就未必最適合。"
+  },
+  R: {
+    name: "大紅色",
+    persona: "開心果、積極、樂觀、衝動、情緒化、行動力強；唔開心第二日就冇事。去旅行通常係「沖沖沖沖沖沖」，冇計劃，通常會做帶領者，但要小心情緒同冇規劃嘅習慣。通常唔係好好嘅聊心事對象，因為講到一半就會講返自己嘅事。",
+    life: [
+      "有冇試過因為衝動報名、轉科、旅行、表白，反而得到意外收穫？",
+      "有冇因為情緒嚟得快，講錯嘢或者做錯決定？",
+      "係咪成日做朋友嘅開心果，但自己低落時又唔想俾人知？"
+    ],
+    work: "一般適合快節奏、多互動、有舞台、有快速回饋嘅工作，例如銷售、市場推廣、活動策劃、公關、前線客服、創業、直播／內容創作、演藝。",
+    insurance: "前線銷售可以考慮，因為你夠膽開口、破冰快、被拒絕後恢復快，呢點對保險銷售有幫助；但要留意你容易衝動、冇規劃，保單跟進同客戶紀錄需要系統配合，唔好淨靠感覺。客觀講，如果你肯用簡單系統管理客戶，並有拍檔或主管幫你提細節，保險業可以係發揮行動力嘅選項；如果完全冇紀律，就容易爛尾。"
+  },
+  B: {
+    name: "大藍色",
+    persona: "冷靜、規劃型；同你去旅行，你會規劃每一個行程，而且十分細緻。生活上好多事都要有完整方法、一步一步先敢做。同你談心事會比紅色更糟糕，因為你會直接俾理性答案，而唔係聆聽同關心。成長過程中容易過度思考而停滯不前，想多過做。",
+    life: [
+      "有冇因為想太多而錯過機會？",
+      "有冇試過計劃好晒先敢行動，但最後因為想得太耐而冇做到？",
+      "係咪成日被人話「冷靜、難接近」，但其實你只係怕出錯？"
+    ],
+    work: "一般適合有清晰標準、可以專注分析、需要專業信任嘅工作，例如數據分析、IT、金融、會計、法律、研究、工程、質量管理、審計、規劃、產品分析。",
+    insurance: "可以考慮專業顧問路線，例如保障分析、理財規劃、保單比較、理賠跟進，因為你細心同有規劃力，客戶會覺得你可靠；但要留意你容易想太多而唔敢開口，亦可能太理性而忽略客戶情緒。客觀講，保險業需要你嘅冷靜分析，但都要你行前一步同人建立關係；如果你肯練習先聆聽後分析，呢行可以係選項之一。"
+  },
+  Y: {
+    name: "大黃色",
+    persona: "領袖魅力、專注力強、目標清晰，但容易不近人情；注重外表同形象，偶像包袱重。好多時候出現在藝術家同運動員身上，因為喺澳門冇熱情好難堅持落去。你對生活有追求、有清晰目標，團隊中好多領袖都有黃色。但要小心喺追求目標過程中傷害到周圍嘅人。",
+    life: [
+      "有冇試過為咗做好一件事，太專注目標而忽略身邊人感受？",
+      "有冇因為偶像包袱重，唔敢俾人見到自己脆弱一面？",
+      "係咪經常被人覺得「好有領袖魅力、好有距離感」？"
+    ],
+    work: "一般適合有舞台、有目標、要企出嚟帶領人嘅工作，例如銷售管理、品牌管理、市場推廣、公關、演藝／直播、創業、培訓、客戶開發、項目領導、管理崗位。",
+    insurance: "可以考慮銷售管理、團隊招募、培訓、品牌形象或客戶開發，因為你有目標感同領袖魅力，容易令客戶同下屬願意跟你；但要小心太聚焦目標時不近人情，忽略隊友同客戶感受。客觀講，保險業係人嘅行業，如果你學識關心人同團隊情緒，唔好只交數字，呢行可以係發揮領袖特質嘅選項；如果只顧達標，就容易傷關係。"
+  },
+  BG: {
+    name: "藍綠色",
+    persona: "澳門大部份人都是這種顏色，通常係兩個顏色嘅負面：綠色嘅懶惰、藍色嘅想太多，導致大部份人生情況都停滯不前；容易受別人影響而更加想太多，人生全部選擇困在別人世界中，會覺得自己一世只適合普通工種或文職，冇辦法成為心目中想成為嘅人。但實際上可以變成有藍色嘅細心，也有綠色嘅聆聽，會係很好嘅保險從業員，也適合很多工種。",
+    life: [
+      "有冇覺得自己明明唔止咁樣，但一直冇行動？",
+      "有冇因為想太多同懶得突破，困喺「普通工種」嘅框架入面？",
+      "係咪容易受家人朋友影響，最後揀咗別人認為穩定嘅路？"
+    ],
+    work: "一般適合需要細心＋聆聽嘅工作，例如客戶關係、客服、HR、行政協調、輔導、護理、教育、NGO、項目協調。",
+    insurance: "可以考慮，因為你有藍色嘅細心同綠色嘅聆聽，適合做客戶需要分析、保單解釋、理賠跟進同長期關係維護；弱點係容易想太多＋懶得行動，需要清晰方向同主管帶領。客觀講，如果你入到一個有系統、肯陪跑嘅團隊，保險業可以幫你突破「只適合文職」嘅框架；但如果冇人帶、要你自己摸，就較容易停滯。"
+  },
+  GY: {
+    name: "綠黃色",
+    persona: "團隊中大部份成功領袖嘅特質：有黃色嘅目標感同人格魅力，同時有綠色嘅聆聽，不會過度冷漠；喺追求目標嘅路上也可以顧及周圍嘅人，有大部份成功特質，這種個性適合做領袖。",
+    life: [
+      "有冇試過喺團隊入面，既做到目標又照顧到大家感受？",
+      "有冇因為唔想掃興而收埋自己真正目標？",
+      "係咪經常做團隊嘅潤滑劑，但其實你都有領袖慾同目標想達成？"
+    ],
+    work: "一般適合團隊領袖、管理、銷售主管、培訓、客戶關係、HR、活動協調、教育、公關、NGO、服務管理。",
+    insurance: "可以考慮團隊管理、招募、培訓新人或客戶關係，因為你有目標感得嚟又有綠色聆聽，唔會為咗數字完全忽略人；但要留意你有時為和諧而收埋要求。客觀講，保險業嘅領袖崗位需要溫和但清晰講要求同界線，如果你做得到，呢行可以係發揮「有人情味領袖」嘅選項；如果太遷就人，團隊目標就會模糊。"
+  },
+  GR: {
+    name: "綠紅色",
+    persona: "正面情況係綠色嘅聆聽＋紅色嘅正面，所以好適合做社工：可以聆聽別人嘅負面情緒，同時消化別人嘅負面情緒而給予正面回饋。但如果處理不當，會擁有紅色嘅情緒化＋綠色嘅懶惰，會成為一個一直內耗、停滯不前嘅人。這種人需要帶領，需要給予黃色嘅方向感，因為你哋很難擁有屬於自己嘅目標，大部份情況都是為了別人，重視周圍嘅人，有利有弊。",
+    life: [
+      "有冇因為幫人而耽誤自己？",
+      "有冇做和事佬但最後兩邊不討好？",
+      "係咪既係朋友嘅開心果，又係朋友嘅樹洞，但自己嘅目標反而唔清晰？"
+    ],
+    work: "一般適合需要聆聽、帶正能量、與人長期接觸嘅工作，例如社工、輔導、教育、HR、客戶關係、護理、NGO、社區工作、活動帶領、培訓、客服主管。",
+    insurance: "可以考慮客戶關懷、售後服務、理賠支援、社群經營，因為你識聆聽、能消化負面情緒再正面回饋；但要留意你容易為別人而活，亦可能情緒化＋懶惰而內耗，需要清晰目標同主管帶領。客觀講，保險業可以係發揮同理心嘅選項，但如果你冇自己目標、只為別人，就容易做得好攰同停滯。"
+  },
+  RY: {
+    name: "黃紅色",
+    persona: "我們團隊最高領袖嘅顏色：強烈嘅領袖魅力同行動力，想到就去做，會帶領團隊贏。但同一時間，黃色同紅色都極度自我，聆聽不到別人，也關心不到細節，需要提醒；否則過程中更容易傷害周圍嘅人或讓人不舒服。但這特質係頂級銷售員嘅特質，不過需要訓練。",
+    life: [
+      "有冇試過因為太想贏、太想達成目標，講嘢太直接而傷到朋友或隊友？",
+      "有冇靠你嘅魅力同衝勁帶領一班人完成任務？",
+      "係咪人前好有型好有信心，但其實唔想俾人見到你失手？"
+    ],
+    work: "一般適合頂級銷售、銷售管理、團隊領導、市場推廣、創業型工作、品牌推廣、培訓。",
+    insurance: "可以考慮前線銷售、團隊領導、招募同培訓，因為你夠膽開口、有魅力、想到就去做，能快速開發客戶同帶動團隊；但要留意你兩個顏色都極度自我，容易聽唔到客戶同隊友，亦關心不到細節。客觀講，保險業係長期信任生意，如果你肯訓練自己停低聽、問問題、跟細節，呢行可以係發揮頂級銷售特質嘅選項；如果唔訓練，就容易為贏而傷關係。"
+  },
+  BY: {
+    name: "黃藍色",
+    persona: "細心又有領袖特質，會將目標細化、量化，複製成功，也可以幫別人將目標拆細，按部就班完成目標。但同時要小心，沒有綠色會令你留意不到別人嘅情況同情緒，會比較冷漠。",
+    life: [
+      "有冇試過因為要求太高，令身邊人覺得你難接近？",
+      "有冇試過理性分析完，其實壓抑咗自己情緒？",
+      "係咪經常做幕後軍師，但其實都有領袖魅力，只係唔想隨便企出嚟？"
+    ],
+    work: "一般適合策略管理、項目管理、金融、諮詢、產品經理、市場策略、品牌管理、數據分析、工程管理、團隊培訓、目標管理。",
+    insurance: "可以考慮團隊主管、培訓導師、策略型銷售、業績目標管理，因為你識將目標拆細、量化、複製成功；但要留意你沒有綠色，容易忽略別人情緒，顯得冷漠。客觀講，保險業需要目標管理同人才培訓，你嘅分析力有發揮空間；但如果你唔練習關心客戶同同事感受，只交數字同計劃，團隊關係會較弱。"
+  },
+  BR: {
+    name: "紅藍色",
+    persona: "特質上係矛盾嘅，因為同時擁有衝動同細心規劃嘅個性。過去人生中應該係常常矛盾、奇妙，人生差咗點方向；係一個很特別嘅人，但容易胡思亂想，又好容易情緒化。要控制好自己嘅特質，才可以更表達自己。",
+    life: [
+      "有冇試過一時衝動做決定，之後又用理性說服自己？",
+      "有冇覺得自己內心經常「兩個人在打架」？",
+      "係咪成日被人覺得特別，但自己又覺得人生差咗啲方向？"
+    ],
+    work: "一般適合有目標、有策略、要同時管人同事嘅工作，例如項目管理、金融、銷售分析、創業、法律、諮詢、工程管理、市場策略、產品經理。",
+    insurance: "可以考慮銷售分析、客戶規劃、項目管理、團隊主管，因為你可以用紅色衝動去開口約客，用藍色規劃去分析保障同跟進；但要留意你容易一時衝動、一時又想太多，情緒同節奏唔穩定。客觀講，保險業需要穩定跟進，如果你控制到節奏、唔好衝動答應客戶又唔好諗太多唔敢開口，呢行可以係整合你矛盾特質嘅選項。"
+  },
+  MIX: {
+    name: "四色平均",
+    persona: "有些人成長過程中會打磨自己嘅本質，俗稱「世界仔」，對任何人都會表表面面，佢哋都忘記了自己本來是什麼樣的人。人生平平無奇，可能會係一個做什麼事都可以嘅人，但不一定快樂，需要一個重新認識自己嘅機會。",
+    life: [
+      "有冇因為太識配合人，而唔知自己真正想點？",
+      "有冇試過喺唔同圈子好似唔同人？",
+      "係咪經常做唔同人之間嘅橋樑，但自己嘅快樂反而排到最後？"
+    ],
+    work: "一般適合整合資源、協調人事、跨部門合作嘅工作，例如項目管理、HR、諮詢、客戶成功、跨部門協調、運營、公關、教育、NGO。",
+    insurance: "可以考慮客戶關係、團隊協調、招募、培訓支援，因為你要面對唔同類型客戶，又要同公司、核保、理賠、團隊溝通，你嘅彈性會令你適應得快；但要留意你太習慣配合人，容易忘記自己真正想要乜，做乜都得但唔一定快樂。客觀講，保險業可以係選項之一，但你要為自己定主線同目標，唔好淨係做「世界仔」，否則好難長遠投入。"
+  }
+};
+
+/* 模式：'quick'（10 題）/ 'full'（30 題） */
+let mode = "quick";
+let questions = QUESTIONS;
+let colorMap = COLOR_MAP;
+let TOTAL = QUESTIONS.length;
+const LETTERS = ["A", "B", "C", "D"];
+const CARD_TOTAL = 6;
+let current = 0;
+let answers = new Array(TOTAL).fill(null);
+let lastResult = null;
+let sIdx = 0;
+
+function setMode(m) {
+  mode = m;
+  questions = (m === "full") ? QUESTIONS_30 : QUESTIONS;
+  colorMap = (m === "full") ? COLOR_MAP_30 : COLOR_MAP;
+  TOTAL = questions.length;
+  current = 0;
+  answers = new Array(TOTAL).fill(null);
+}
+
+/* =========================================================
+ * 記錄設定（可選）
+ *
+ * 預設：結果會匿名儲存喺用戶自己部機（localStorage），唔使設定。
+ * 想要收集所有人嘅結果：開個 Google Form（問題用「簡答」），
+ * 預填取得 entry ID，然後喺下面貼上 FORM_ID 同各 ENTRY：
+ *   FORM_ID 喺表單網址：docs.google.com/forms/d/e/【FORM_ID】/viewform
+ *   entry ID 用「預填連結」填一次假資料取得，格式 entry.1234567890
+ * 填好之後，每位玩家出結果嗰陣會自動 POST 去 Google Form，
+ * 喺 Google 試算表就可以睇晒所有人嘅記錄。
+ * ====================================================== */
+const FORM_ID = "";   // 例如 "1FAIpQLSfxxxxxxxxxxxx"
+const ENTRY = {
+  name: "",          // 稱呼
+  gender: "",        // 性別
+  age: "",           // 大約年紀
+  phone: "",         // 電話
+  result: "",        // 測試結果
+  time: ""           // 時間
+};
+
+/* 玩家簡單資料（全部可留空） */
+const profile = { name: "", gender: "", age: "", phone: "" };
+
+const $ = (id) => document.getElementById(id);
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function showScreen(name) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  $("screen-" + name).classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* ---------- 計分與判定 ---------- */
+function computeCounts() {
+  const counts = { R: 0, Y: 0, B: 0, G: 0 };
+  answers.forEach((opt, qi) => { counts[colorMap[qi][opt]]++; });
+  return counts;
+}
+
+/* 判定順序：平均型 → 單色(≥singleMin) → 單色(4,2,2,2 型・只限快速版) → 雙色(≥dualSum) → fallback 雙色 */
+function judge(counts, rules) {
+  const arr = COLOR_KEYS.map(k => ({ k, v: counts[k] }));
+  const max = Math.max(...arr.map(o => o.v));
+  const sorted = [...arr].sort((a, b) => b.v - a.v);
+
+  if (max <= rules.avgMax) return { type: "MIX", winners: [] };
+
+  const top = arr.filter(o => o.v >= rules.singleMin).map(o => o.k);
+  if (top.length === 1) return { type: top[0], winners: [top[0]] };
+  if (top.length >= 2) {
+    const p = orderedPair(top[0], top[1], counts);
+    return { type: p.key, winners: p.order };
+  }
+
+  if (rules.singleTop && sorted[0].v === rules.singleTop && sorted[1].v <= rules.singleTopSecond) {
+    return { type: sorted[0].k, winners: [sorted[0].k] };
+  }
+
+  if (sorted[0].v + sorted[1].v >= rules.dualSum) {
+    const p = orderedPair(sorted[0].k, sorted[1].k, counts);
+    return { type: p.key, winners: p.order };
+  }
+
+  const p = orderedPair(sorted[0].k, sorted[1].k, counts);
+  return { type: p.key, winners: p.order };
+}
+
+/* 雙色組合：key 為字母序（對應 RESULT_TYPES 嘅固定顯示名）；
+   order 為分數高者排前（同分按固定優先次序 紅>黃>藍>綠），用嚟顯示 */
+function orderedPair(k1, k2, counts) {
+  let first;
+  if (counts[k1] !== counts[k2]) {
+    first = counts[k1] > counts[k2] ? k1 : k2;
+  } else {
+    const p = (k) => TIE_PRIORITY.indexOf(k);
+    first = p(k1) < p(k2) ? k1 : k2;
+  }
+  const second = first === k1 ? k2 : k1;
+  return { key: [k1, k2].sort().join(""), order: [first, second] };
+}
+
+/* ---------- 測驗流程 ---------- */
+function renderQuestion() {
+  const item = questions[current];
+  $("q-num").textContent = current + 1;
+  $("q-total").textContent = TOTAL;
+  $("q-text").textContent = `${current + 1}. ${item.q}`;
+
+  const box = $("q-opts");
+  box.innerHTML = "";
+  item.opts.forEach((text, i) => {
+    const btn = document.createElement("button");
+    btn.className = "opt" + (answers[current] === i ? " selected" : "");
+    btn.dataset.color = colorMap[current][i];
+    btn.innerHTML = `<span class="badge">${LETTERS[i]}</span><span>${text}</span>`;
+    btn.addEventListener("click", () => selectOption(i));
+    box.appendChild(btn);
+  });
+
+  updateProgress();
+  $("btn-prev").disabled = current === 0;
+}
+
+function updateProgress() {
+  const done = answers.filter(a => a !== null).length;
+  const pct = Math.round((done / TOTAL) * 100);
+  $("q-progress-bar").style.width = pct + "%";
+  $("q-progress-text").textContent = pct + "%";
+}
+
+function selectOption(i) {
+  const qi = current;
+  answers[qi] = i;
+  const opts = $("q-opts").children;
+  [...opts].forEach((el, idx) => {
+    el.classList.toggle("selected", idx === i);
+    el.classList.add("locked");
+  });
+  updateProgress();
+
+  setTimeout(() => {
+    if (current !== qi) return;
+    if (current < TOTAL - 1) {
+      current++;
+      renderQuestion();
+    } else {
+      showResult();
+    }
+  }, 380);
+}
+
+$("btn-prev").addEventListener("click", () => {
+  if (current > 0) { current--; renderQuestion(); }
+});
+
+/* 模式按鈕：揀快速版或完整版，然後去資料頁 */
+$("btn-quick").addEventListener("click", () => { setMode("quick"); showScreen("profile"); });
+$("btn-full").addEventListener("click", () => { setMode("full"); showScreen("profile"); });
+
+/* 資料頁：全部可留空，直接開始都得 */
+$("pf-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  profile.name = $("pf-name").value.trim();
+  profile.gender = (document.querySelector('input[name="gender"]:checked') || {}).value || "";
+  profile.age = (document.querySelector('input[name="age"]:checked') || {}).value || "";
+  profile.phone = $("pf-phone").value.trim();
+  current = 0;
+  answers = new Array(TOTAL).fill(null);
+  showScreen("quiz");
+  renderQuestion();
+});
+
+document.addEventListener("keydown", (e) => {
+  if ($("screen-quiz").classList.contains("active")) {
+    const n = parseInt(e.key, 10);
+    if (n >= 1 && n <= 4) {
+      const btn = $("q-opts").children[n - 1];
+      if (btn && !btn.classList.contains("locked")) btn.click();
+    }
+  } else if ($("screen-result").classList.contains("active") && !$("share-modal").classList.contains("open")) {
+    if (e.key === "ArrowRight") goCard(sIdx + 1);
+    if (e.key === "ArrowLeft") goCard(sIdx - 1);
+  }
+});
+
+/* ---------- 結果：story 故事卡 ---------- */
+function showResult() {
+  const counts = computeCounts();
+  const judged = judge(counts, RULES[mode]);
+  const info = RESULT_TYPES[judged.type];
+  lastResult = { counts, type: judged.type, name: info.name, judged };
+
+  /* 結果主題色 */
+  const scr = $("screen-result");
+  const nameEl = $("r-name");
+  nameEl.classList.remove("rainbow");
+  let themeColors;
+  if (judged.type === "MIX") {
+    scr.style.setProperty("--rc1", "#FF4D4D");
+    scr.style.setProperty("--rc2", "#2E9BFF");
+    nameEl.classList.add("rainbow");
+    themeColors = COLOR_KEYS.map(k => COLOR_INFO[k].hex);
+  } else if (judged.winners.length === 1) {
+    const hex = COLOR_INFO[judged.winners[0]].hex;
+    scr.style.setProperty("--rc1", hex);
+    scr.style.setProperty("--rc2", hex);
+    themeColors = [hex, "#FFD34D", "#FFFFFF"];
+  } else {
+    const [k1, k2] = judged.winners;
+    scr.style.setProperty("--rc1", COLOR_INFO[k1].hex);
+    scr.style.setProperty("--rc2", COLOR_INFO[k2].hex);
+    themeColors = [COLOR_INFO[k1].hex, COLOR_INFO[k2].hex, "#FFFFFF"];
+  }
+
+  /* 背景 blob 跟住結果色轉 */
+  const blobs = document.querySelectorAll(".bg-blobs span");
+  const winSet = new Set(judged.type === "MIX" ? COLOR_KEYS : judged.winners);
+  COLOR_KEYS.forEach((k, i) => {
+    blobs[i].classList.toggle("dim", judged.type !== "MIX" && !winSet.has(k));
+  });
+
+  /* 卡 1：封面 */
+  const big = $("r-big");
+  const w = judged.winners;
+  if (judged.type === "MIX") {
+    big.style.background = "conic-gradient(#FF4D4D, #FFB300, #37C871, #2E9BFF, #FF4D4D)";
+    $("r-big-char").textContent = "彩";
+    $("r-big-char").className = "";
+    nameEl.textContent = info.name;
+    $("r-title").textContent = `四色分數全部 ${RULES[mode].avgMax} 分或以下，冇明顯主導`;
+  } else if (w.length === 1) {
+    const c = COLOR_INFO[w[0]];
+    big.style.background = c.hex;
+    $("r-big-char").textContent = c.char;
+    $("r-big-char").className = "";
+    nameEl.textContent = info.name;
+    $("r-title").textContent = `${c.name}係你嘅主導顏色（${counts[w[0]]}/${TOTAL} 分）`;
+  } else {
+    const [k1, k2] = w;
+    const c1 = COLOR_INFO[k1], c2 = COLOR_INFO[k2];
+    big.style.background = `linear-gradient(135deg, ${c1.hex} 50%, ${c2.hex} 50%)`;
+    $("r-big-char").textContent = c1.char + "+" + c2.char;
+    $("r-big-char").className = "duo";
+    nameEl.textContent = info.name;
+    $("r-title").textContent = `${c1.name} + ${c2.name} 嘅雙色組合（${counts[k1]}・${counts[k2]} 分）`;
+  }
+
+  /* 卡 1：迷你計分條 */
+  const mb = $("r-minibars");
+  mb.innerHTML = "";
+  COLOR_KEYS.forEach(k => {
+    const c = COLOR_INFO[k];
+    const row = document.createElement("div");
+    row.className = "mb-row";
+    row.innerHTML = `
+      <span class="lbl"><i style="background:${c.hex}"></i>${c.name}</span>
+      <div class="track"><div class="fill" data-w="${(counts[k] / TOTAL * 100).toFixed(1)}" style="background:linear-gradient(120deg, ${c.hex}, ${c.hex}B8)"></div></div>
+      <span class="num">${counts[k]} 分</span>`;
+    mb.appendChild(row);
+  });
+
+  /* 卡 2：個性 */
+  $("r-persona").textContent = info.persona;
+
+  /* 卡 3：人生提問（對話泡泡） */
+  $("r-life").innerHTML = info.life.map((t, i) =>
+    `<div class="bubble"><span class="who">Q</span>${t}</div>`).join("");
+
+  /* 卡 4：工作 + hashtag chips（由「例如」後自動抽出） */
+  $("r-work").textContent = info.work;
+  $("r-chips").innerHTML = extractChips(info.work).map(t => `<span>#${t}</span>`).join("");
+
+  /* 卡 5：保險 */
+  $("r-insurance").textContent = info.insurance;
+
+  /* 卡 6：尾卡 */
+  $("r-end-name").textContent = info.name;
+
+  showScreen("result");
+
+  /* 迷你計分條動畫 */
+  setTimeout(() => {
+    mb.querySelectorAll(".fill").forEach((f, i) => {
+      f.style.transitionDelay = (0.3 + i * 0.12) + "s";
+      f.style.width = f.dataset.w + "%";
+    });
+  }, 100);
+
+  /* 分段 + 卡動畫 + 彩紙 */
+  renderSegs();
+  goCard(0, true);
+  launchConfetti(themeColors);
+
+  /* 記錄（本機 + 可選 Google Form） */
+  submitRecord({
+    name: profile.name, gender: profile.gender, age: profile.age, phone: profile.phone,
+    result: `${info.name}（${mode === "full" ? "完整版30題" : "快速版10題"}）`, type: judged.type,
+    scores: COLOR_KEYS.map(k => `${COLOR_INFO[k].name}${counts[k]}`).join("・"),
+    time: new Date().toLocaleString("zh-HK", { hour12: false })
+  });
+}
+
+/* ---------- 記錄：本機儲存 + 可選 Google Form ---------- */
+function submitRecord(rec) {
+  /* 本機備份（上限 300 條） */
+  try {
+    const arr = JSON.parse(localStorage.getItem("c4_records") || "[]");
+    arr.push(rec);
+    if (arr.length > 300) arr.shift();
+    localStorage.setItem("c4_records", JSON.stringify(arr));
+  } catch (e) { /* private mode 等情況下可能失敗，忽略 */ }
+
+  /* Google Form 未設定就到此為止 */
+  if (!FORM_ID) return;
+  const fd = new FormData();
+  const put = (key, val) => {
+    let id = ENTRY[key];
+    if (!id) return;
+    if (!id.startsWith("entry.")) id = "entry." + id;
+    fd.append(id, val);
+  };
+  put("name", rec.name || "（冇填）");
+  put("gender", rec.gender || "（冇填）");
+  put("age", rec.age || "（冇填）");
+  put("phone", rec.phone || "（冇填）");
+  put("result", `${rec.result}｜${rec.scores}`);
+  put("time", rec.time);
+  fetch(`https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`, {
+    method: "POST", mode: "no-cors", body: fd, keepalive: true
+  }).catch(() => { /* 網絡問題唔影響玩家體驗 */ });
+}
+
+/* 由工作描述抽出例子做 hashtag */
+function extractChips(workText) {
+  const m = workText.match(/例如(.+?)。/);
+  if (!m) return [];
+  return m[1].split(/[、，／\/]/).map(s => s.trim()).filter(s => s.length > 0 && s.length <= 8).slice(0, 10);
+}
+
+/* story 分段 */
+function renderSegs() {
+  const box = $("story-segs");
+  box.innerHTML = "";
+  for (let i = 0; i < CARD_TOTAL; i++) {
+    const seg = document.createElement("button");
+    seg.className = "seg";
+    seg.innerHTML = "<i></i>";
+    seg.setAttribute("aria-label", "第 " + (i + 1) + " 卡");
+    seg.addEventListener("click", () => goCard(i));
+    box.appendChild(seg);
+  }
+}
+
+/* story 導航 */
+function goCard(i, instant) {
+  sIdx = Math.max(0, Math.min(CARD_TOTAL - 1, i));
+  $("story-track").style.transform = `translateX(-${sIdx * 100}%)`;
+  [...$("story-segs").children].forEach((seg, idx) => {
+    seg.classList.toggle("done", idx < sIdx);
+    seg.classList.toggle("now", idx === sIdx);
+  });
+  $("s-prev").classList.toggle("off", sIdx === 0);
+  $("s-next").classList.toggle("off", sIdx === CARD_TOTAL - 1);
+  /* 卡內元素彈出動畫（重新觸發） */
+  const card = document.querySelector(`.story-card[data-card="${sIdx}"]`);
+  card.classList.remove("card-in");
+  void card.offsetWidth;
+  card.classList.add("card-in");
+  /* 換卡時捲返頂 */
+  card.scrollTop = 0;
+}
+
+$("s-prev").addEventListener("click", () => goCard(sIdx - 1));
+$("s-next").addEventListener("click", () => goCard(sIdx + 1));
+
+/* 手勢左右掃 */
+(function () {
+  let sx = null;
+  const vp = $("story-viewport");
+  vp.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; }, { passive: true });
+  vp.addEventListener("touchend", (e) => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 42) goCard(sIdx + (dx < 0 ? 1 : -1));
+    sx = null;
+  }, { passive: true });
+})();
+
+/* ---------- 分享圖卡 ---------- */
+function rr(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+function generateShareCanvas() {
+  const { counts, name, type, judged } = lastResult;
+  const W = 1080, H = 1350;
+  const cv = document.createElement("canvas");
+  cv.width = W; cv.height = H;
+  const x = cv.getContext("2d");
+
+  /* 背景漸變 */
+  const g = x.createLinearGradient(0, 0, W, H);
+  if (type === "MIX") {
+    g.addColorStop(0, "#FF4D4D"); g.addColorStop(.35, "#FFB300");
+    g.addColorStop(.65, "#37C871"); g.addColorStop(1, "#2E9BFF");
+  } else if (judged.winners.length === 1) {
+    const hex = COLOR_INFO[judged.winners[0]].hex;
+    g.addColorStop(0, hex); g.addColorStop(1, hex + "CC");
+  } else {
+    g.addColorStop(0, COLOR_INFO[judged.winners[0]].hex);
+    g.addColorStop(1, COLOR_INFO[judged.winners[1]].hex);
+  }
+  x.fillStyle = g; x.fillRect(0, 0, W, H);
+
+  /* 裝飾圓 */
+  x.globalAlpha = .14;
+  x.fillStyle = "#fff";
+  x.beginPath(); x.arc(90, 150, 130, 0, Math.PI * 2); x.fill();
+  x.beginPath(); x.arc(1030, 1220, 180, 0, Math.PI * 2); x.fill();
+  x.beginPath(); x.arc(980, 120, 60, 0, Math.PI * 2); x.fill();
+  x.globalAlpha = 1;
+
+  const cx = W / 2;
+  /* 頂部品牌 */
+  x.fillStyle = "rgba(255,255,255,.95)";
+  x.textAlign = "center";
+  x.font = '800 46px "Microsoft JhengHei", "PingFang TC", sans-serif';
+  x.fillText("四色人格測試", cx, 120);
+  /* 四色點 */
+  COLOR_KEYS.forEach((k, i) => {
+    x.fillStyle = COLOR_INFO[k].hex;
+    x.beginPath(); x.arc(cx - 66 + i * 44, 165, 12, 0, Math.PI * 2); x.fill();
+  });
+
+  /* 中央圓 */
+  const cy = 400, R = 148;
+  x.save();
+  x.shadowColor = "rgba(0,0,0,.25)"; x.shadowBlur = 40; x.shadowOffsetY = 12;
+  if (type === "MIX" && x.createConicGradient) {
+    const cg = x.createConicGradient(0, cx, cy);
+    cg.addColorStop(0, "#FF4D4D"); cg.addColorStop(.28, "#FFB300");
+    cg.addColorStop(.55, "#37C871"); cg.addColorStop(.8, "#2E9BFF"); cg.addColorStop(1, "#FF4D4D");
+    x.fillStyle = cg;
+  } else if (judged.winners.length === 2) {
+    x.fillStyle = COLOR_INFO[judged.winners[0]].hex;
+    x.beginPath(); x.arc(cx, cy, R, Math.PI / 2, Math.PI * 1.5); x.fill();
+    x.fillStyle = COLOR_INFO[judged.winners[1]].hex;
+    x.beginPath(); x.arc(cx, cy, R, -Math.PI / 2, Math.PI / 2); x.fill();
+    x.fillStyle = "#fff";
+  } else {
+    const hex = type === "MIX" ? "#FF4D4D" : COLOR_INFO[judged.winners[0]].hex;
+    x.fillStyle = hex;
+  }
+  x.beginPath(); x.arc(cx, cy, R, 0, Math.PI * 2); x.fill();
+  x.restore();
+
+  /* 圓內字 */
+  x.fillStyle = "#fff";
+  x.textAlign = "center"; x.textBaseline = "middle";
+  const chars = type === "MIX" ? "彩" : judged.winners.map(k => COLOR_INFO[k].char).join("+");
+  x.font = chars.length > 1 ? '900 92px "Microsoft JhengHei", sans-serif' : '900 150px "Microsoft JhengHei", sans-serif';
+  x.shadowColor = "rgba(0,0,0,.2)"; x.shadowBlur = 10; x.shadowOffsetY = 4;
+  x.fillText(chars, cx, cy + 6);
+  x.shadowColor = "transparent"; x.shadowBlur = 0; x.shadowOffsetY = 0;
+
+  /* 結果名 + 副標 */
+  x.textBaseline = "alphabetic";
+  x.fillStyle = "#fff";
+  x.font = '900 110px "Microsoft JhengHei", "PingFang TC", sans-serif';
+  x.shadowColor = "rgba(0,0,0,.18)"; x.shadowBlur = 14; x.shadowOffsetY = 5;
+  x.fillText(name, cx, 700);
+  x.shadowColor = "transparent"; x.shadowBlur = 0; x.shadowOffsetY = 0;
+  x.font = '600 40px "Microsoft JhengHei", sans-serif';
+  const sub = type === "MIX" ? "四色平均・冇明顯主導"
+    : judged.winners.length === 1 ? `${COLOR_INFO[judged.winners[0]].name}主導（${counts[judged.winners[0]]}/${TOTAL} 分）`
+    : `${COLOR_INFO[judged.winners[0]].name}+${COLOR_INFO[judged.winners[1]].name}組合（${counts[judged.winners[0]]}・${counts[judged.winners[1]]} 分）`;
+  x.fillStyle = "rgba(255,255,255,.95)";
+  x.fillText(sub, cx, 765);
+
+  /* 分數面板 */
+  const py = 850, ph = 290;
+  x.fillStyle = "rgba(255,255,255,.94)";
+  rr(x, 90, py, W - 180, ph, 44); x.fill();
+  COLOR_KEYS.forEach((k, i) => {
+    const c = COLOR_INFO[k];
+    const y0 = py + 62 + i * 60;
+    x.textAlign = "left";
+    x.fillStyle = "#23283B";
+    x.font = '800 34px "Microsoft JhengHei", sans-serif';
+    x.fillText(c.name, 140, y0 + 12);
+    x.fillStyle = "#EDEFF6";
+    rr(x, 290, y0 - 12, 560, 32, 16); x.fill();
+    x.fillStyle = c.hex;
+    if (counts[k] > 0) { rr(x, 290, y0 - 12, Math.max(32, 560 * counts[k] / TOTAL), 32, 16); x.fill(); }
+    x.textAlign = "right";
+    x.fillStyle = counts[k] >= Math.max(...COLOR_KEYS.map(q => counts[q])) ? "#23283B" : "#8A90A5";
+    x.font = '800 34px "Microsoft JhengHei", sans-serif';
+    x.fillText(counts[k] + " 分", 950, y0 + 12);
+    x.textAlign = "left";
+  });
+
+  /* 底部 CTA */
+  x.textAlign = "center";
+  x.fillStyle = "#fff";
+  x.font = '900 58px "Microsoft JhengHei", sans-serif';
+  x.fillText("你係邊種顏色？一齊玩！", cx, 1250);
+  x.font = '600 34px "Microsoft JhengHei", sans-serif';
+  x.fillStyle = "rgba(255,255,255,.92)";
+  x.fillText(mode === "full" ? "完整版 30 題・更深入・搵出你嘅專屬顏色" : "10 條問題・約 2 分鐘・搵出你嘅專屬顏色", cx, 1305);
+
+  return cv;
+}
+
+let shareUrl = null;
+$("btn-share-img").addEventListener("click", () => {
+  if (!lastResult) return;
+  const cv = generateShareCanvas();
+  cv.toBlob((blob) => {
+    if (!blob) return;
+    if (shareUrl) URL.revokeObjectURL(shareUrl);
+    shareUrl = URL.createObjectURL(blob);
+    $("share-img").src = shareUrl;
+    $("share-modal").classList.add("open");
+  }, "image/png");
+});
+
+$("btn-download").addEventListener("click", () => {
+  if (!shareUrl) return;
+  const a = document.createElement("a");
+  a.href = shareUrl;
+  a.download = `四色人格測試-${lastResult.name}.png`;
+  a.click();
+});
+
+$("btn-close-modal").addEventListener("click", () => {
+  $("share-modal").classList.remove("open");
+});
+
+$("share-modal").addEventListener("click", (e) => {
+  if (e.target === $("share-modal")) $("share-modal").classList.remove("open");
+});
+
+$("btn-restart").addEventListener("click", () => {
+  current = 0;
+  answers = new Array(TOTAL).fill(null);
+  sIdx = 0;
+  document.querySelectorAll(".bg-blobs span").forEach(b => b.classList.remove("dim"));
+  /* 返去資料頁：下一位玩家只係改個名就可以再玩（資料保留方便修改） */
+  showScreen("profile");
+});
+
+$("btn-copy").addEventListener("click", async (e) => {
+  if (!lastResult) return;
+  const { counts, name } = lastResult;
+  const scoreLine = COLOR_KEYS.map(k => `${COLOR_INFO[k].name} ${counts[k]} 分`).join("・");
+  const text = `【四色人格測試結果】\n我嘅結果：${name}\n四色得分：${scoreLine}\n呢個係簡化版娛樂測驗，結果只供參考～`;
+  const btn = e.currentTarget;
+  try {
+    await navigator.clipboard.writeText(text);
+    btn.textContent = "✓ 已複製";
+  } catch {
+    btn.textContent = "複製失敗，請手動截圖";
+  }
+  setTimeout(() => { btn.textContent = "複製我嘅結果"; }, 2000);
+});
+
+/* ---------- 彩紙（Canvas，無外部依賴） ---------- */
+function launchConfetti(colors) {
+  if (reduceMotion) return;
+  const cv = document.createElement("canvas");
+  cv.style.cssText = "position:fixed;inset:0;z-index:99;pointer-events:none;";
+  document.body.appendChild(cv);
+  const ctx = cv.getContext("2d");
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+  ctx.scale(dpr, dpr);
+
+  const cx = innerWidth / 2, cy = Math.min(innerHeight * 0.32, 300);
+  const pieces = [];
+  for (let i = 0; i < 130; i++) {
+    const ang = Math.random() * Math.PI * 2;
+    const spd = 4 + Math.random() * 8;
+    pieces.push({
+      x: cx, y: cy,
+      vx: Math.cos(ang) * spd,
+      vy: Math.sin(ang) * spd - 4,
+      w: 6 + Math.random() * 6,
+      h: 8 + Math.random() * 8,
+      color: colors[i % colors.length],
+      rot: Math.random() * Math.PI,
+      vr: (Math.random() - .5) * .3,
+      circle: Math.random() < .3,
+      life: 1
+    });
+  }
+  const start = performance.now();
+  (function tick(now) {
+    const t = (now - start) / 1000;
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    let alive = false;
+    for (const p of pieces) {
+      p.vy += 0.22; p.vx *= 0.99; p.vy *= 0.99;
+      p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+      p.life = Math.max(0, 1 - t / 2.4);
+      if (p.life <= 0 || p.y > innerHeight + 30) continue;
+      alive = true;
+      ctx.save();
+      ctx.globalAlpha = p.life;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+      if (p.circle) { ctx.beginPath(); ctx.arc(0, 0, p.w / 2, 0, Math.PI * 2); ctx.fill(); }
+      else { ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h * (0.4 + 0.6 * Math.abs(Math.sin(p.rot * 2)))); }
+      ctx.restore();
+    }
+    if (alive && t < 3) requestAnimationFrame(tick);
+    else cv.remove();
+  })(start);
+}
+</script>
+</body>
+</html>
