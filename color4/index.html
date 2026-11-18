@@ -389,6 +389,16 @@
   .endcard p { color: var(--ink-soft); font-size: 16px; margin-bottom: 26px; }
   .endcard .actions { display: grid; gap: 14px; width: 100%; max-width: 340px; }
   .endcard .disclaimer { margin-top: 22px; }
+  .btn-admin {
+    margin-top: 18px; padding: 10px 22px; font-size: 13.5px; font-weight: 700;
+    opacity: .55; border-style: dashed;
+  }
+  .btn-admin:hover { opacity: .9; }
+  #admin-text {
+    width: 100%; font: 13px/1.7 monospace; color: var(--ink);
+    background: #F8F9FD; border: 2px solid var(--line); border-radius: 12px;
+    padding: 12px 14px; resize: vertical; outline: none; white-space: pre;
+  }
 
   /* 左右箭頭 */
   .s-nav {
@@ -661,6 +671,7 @@
               <button class="btn btn-ghost" id="btn-restart">↻ 再測一次</button>
             </div>
             <div class="illo" id="illo-end"></div>
+            <button class="btn btn-ghost btn-admin" id="btn-admin">工作人員：導出本機記錄</button>
             <p class="disclaimer">呢個係簡化版娛樂測驗，結果只供參考。</p>
           </div>
 
@@ -687,6 +698,19 @@
     <div class="modal-actions">
       <button class="btn btn-primary" id="btn-download"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0l-5-5m5 5l5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 19h16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>下載圖片</button>
       <button class="btn btn-ghost" id="btn-close-modal">關閉</button>
+    </div>
+  </div>
+</div>
+
+<!-- 工作人員導出記錄 modal -->
+<div class="modal" id="admin-modal">
+  <div class="modal-panel">
+    <h3>本機記錄導出</h3>
+    <p class="tip">以下係呢部機玩過嘅所有記錄（每部機各自儲存），可以全選複製後貼落 Excel</p>
+    <textarea id="admin-text" readonly rows="12" spellcheck="false"></textarea>
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="btn-copy-admin">複製全部</button>
+      <button class="btn btn-ghost" id="btn-close-admin">關閉</button>
     </div>
   </div>
 </div>
@@ -1127,6 +1151,10 @@ const ENTRY = {
   result: "",        // 測試結果
   time: ""           // 時間
 };
+/* 臨時收集：每次結果寄一封記錄去呢個 email（冇 Google Form 都收到；
+   第一次寄之前你個 mailbox 會收到確認信，撳一次 Activate 就得。
+   接咗 Google Form 之後可以將呢行改成空字串。） */
+const CONTACT_EMAIL = "millkei427@gmail.com";
 
 /* 玩家簡單資料（電話／Email 必須二填其一，其餘可留空） */
 const profile = { name: "", gender: "", age: "", phone: "", email: "" };
@@ -1420,8 +1448,16 @@ function submitRecord(rec) {
     localStorage.setItem("c4_records", JSON.stringify(arr));
   } catch (e) { /* private mode 等情況下可能失敗，忽略 */ }
 
-  /* Google Form 未設定就到此為止 */
-  if (!FORM_ID) return;
+  /* Google Form 已設定 → 去 Form；未設定 → 寄去 CONTACT_EMAIL 做臨時收集 */
+  if (FORM_ID) {
+    sendToGoogleForm(rec);
+    return;
+  }
+  forwardRecord(rec);
+}
+
+/* Google Form 送出（no-cors，靜靜哋送出唔影響玩家） */
+function sendToGoogleForm(rec) {
   const fd = new FormData();
   const put = (key, val) => {
     let id = ENTRY[key];
@@ -1439,6 +1475,26 @@ function submitRecord(rec) {
   fetch(`https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`, {
     method: "POST", mode: "no-cors", body: fd, keepalive: true
   }).catch(() => { /* 網絡問題唔影響玩家體驗 */ });
+}
+
+/* 臨時收集：結果寄去 CONTACT_EMAIL（無需開 Form；首次使用要喺 mailbox 撳 Activate） */
+function forwardRecord(rec) {
+  if (!CONTACT_EMAIL) return;
+  fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+    body: JSON.stringify({
+      _subject: `四色人格測試｜${rec.result}｜${rec.name || "匿名"}`,
+      稱呼: rec.name || "（冇填）",
+      性別: rec.gender || "（冇填）",
+      大約年紀: rec.age || "（冇填）",
+      電話: rec.phone || "（冇填）",
+      Email: rec.email || "（冇填）",
+      測試結果: rec.result,
+      分數: rec.scores,
+      時間: rec.time
+    })
+  }).catch(() => { /* 失敗都唔影響玩家 */ });
 }
 
 /* 由工作描述抽出例子做 hashtag */
@@ -1659,6 +1715,37 @@ $("btn-download").addEventListener("click", () => {
 
 $("btn-close-modal").addEventListener("click", () => {
   $("share-modal").classList.remove("open");
+});
+
+/* 工作人員：導出呢部機嘅所有記錄（tab 分隔，可直接貼入 Excel） */
+$("btn-admin").addEventListener("click", () => {
+  let arr = [];
+  try { arr = JSON.parse(localStorage.getItem("c4_records") || "[]"); } catch (e) { }
+  const header = "時間\t稱呼\t性別\t大約年紀\t電話\tEmail\t測試結果\t分數";
+  const lines = arr.map(r =>
+    [r.time, r.name || "", r.gender || "", r.age || "", r.phone || "", r.email || "", r.result, r.scores].join("\t"));
+  $("admin-text").value = arr.length ? (header + "\n" + lines.join("\n")) : "（呢部機暫時未有記錄）";
+  $("admin-modal").classList.add("open");
+});
+
+$("btn-copy-admin").addEventListener("click", async (e) => {
+  const btn = e.currentTarget;
+  try {
+    await navigator.clipboard.writeText($("admin-text").value);
+    btn.textContent = "✓ 已複製";
+  } catch {
+    $("admin-text").select();
+    btn.textContent = "請用 Ctrl+C 複製";
+  }
+  setTimeout(() => { btn.textContent = "複製全部"; }, 2000);
+});
+
+$("btn-close-admin").addEventListener("click", () => {
+  $("admin-modal").classList.remove("open");
+});
+
+$("admin-modal").addEventListener("click", (e) => {
+  if (e.target === $("admin-modal")) $("admin-modal").classList.remove("open");
 });
 
 $("share-modal").addEventListener("click", (e) => {
